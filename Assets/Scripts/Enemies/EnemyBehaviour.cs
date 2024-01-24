@@ -4,16 +4,14 @@ namespace BaseEnemy
 {
     public class EnemyBehavior : MonoBehaviour
     {
-        public float wanderSpeed = 2f;
-        public float chaseSpeed = 5f;
-        public float visionRange = 10f;
-        public float wanderTime = 3f;
-        public float chaseTime = 5f;
+        public EnemySettings enemySettings;
 
         private Transform player;
         private float elapsedTime = 0f;
         private bool isChasing = false;
+
         private Vector3 wanderDirection;
+        private bool reverseDirection = false;
 
         void Start()
         {
@@ -25,68 +23,75 @@ namespace BaseEnemy
         {
             if (player != null)
             {
-                if (IsPlayerInVisionRange())
+                float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+                if (isChasing)
                 {
                     elapsedTime += Time.deltaTime;
 
-                    if (isChasing)
+                    if (elapsedTime >= enemySettings.chaseTime || distanceToPlayer > enemySettings.visionRange || distanceToPlayer > enemySettings.maxDistanceFromPlayer)
                     {
-                        ChasePlayer();
-
-                        if (elapsedTime >= chaseTime)
-                        {
-                            isChasing = false;
-                            elapsedTime = 0f;
-                        }
+                        isChasing = false;
+                        elapsedTime = 0f;
+                        SetRandomWanderDirection();
                     }
                     else
                     {
-                        isChasing = true;
-                        elapsedTime = 0f;
+                        ChasePlayer();
                     }
                 }
                 else
                 {
                     Wander();
+
+                    if (distanceToPlayer <= enemySettings.visionRange)
+                    {
+                        isChasing = true;
+                        elapsedTime = 0f;
+                    }
                 }
             }
-        }
-
-        bool IsPlayerInVisionRange()
-        {
-            if (player != null)
-            {
-                float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-                return distanceToPlayer <= visionRange;
-            }
-
-            return false;
         }
 
         void Wander()
         {
             elapsedTime += Time.deltaTime;
 
-            if (elapsedTime >= wanderTime)
+            if (elapsedTime >= enemySettings.wanderTime)
             {
-                SetRandomWanderDirection();
+                if (Vector3.Distance(transform.position, player.position) > enemySettings.maxDistanceFromPlayer)
+                {
+                    SetWanderDirectionTowardsPlayer();
+                }
+                else
+                {
+                    SetRandomWanderDirection();
+                }
+
                 elapsedTime = 0f;
             }
 
-            Vector3 horizontalMovement = new Vector3(wanderDirection.x, 0f, wanderDirection.y);
-            transform.Translate(horizontalMovement * wanderSpeed * Time.deltaTime);
+            float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
+            transform.Translate(wanderDirection * speed * Time.deltaTime);
         }
 
         void SetRandomWanderDirection()
         {
-            wanderDirection = Random.insideUnitCircle.normalized;
+            float randomAngleX = Random.Range(-180f, 180f);
+            float randomAngleY = Random.Range(-180f, 180f);
+
+            wanderDirection = Quaternion.Euler(randomAngleX, randomAngleY, 0f) * transform.forward;
+        }
+
+        void SetWanderDirectionTowardsPlayer()
+        {
+            wanderDirection = (player.position - transform.position).normalized;
         }
 
         void ChasePlayer()
         {
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
-            Vector3 horizontalDirectionToPlayer = new Vector3(directionToPlayer.x, 0f, directionToPlayer.y);
-            transform.Translate(horizontalDirectionToPlayer * chaseSpeed * Time.deltaTime);
+            transform.Translate(directionToPlayer * enemySettings.chaseSpeed * Time.deltaTime);
         }
     }
 }

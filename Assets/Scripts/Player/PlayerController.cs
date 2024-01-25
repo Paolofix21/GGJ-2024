@@ -75,7 +75,9 @@ namespace Code.Player
             if (controller.isGrounded)
             {
                 vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
-                Debug.Log(vel.y);
+
+                if(crouching)
+                    Crouch(ctx);
             }
         }
 

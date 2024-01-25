@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BaseEnemy
+namespace Code.EnemySystem
 {
     public class EnemyBehavior : MonoBehaviour
     {
@@ -93,5 +93,11 @@ namespace BaseEnemy
             Vector3 directionToPlayer = (player.position - transform.position).normalized;
             transform.Translate(directionToPlayer * enemySettings.chaseSpeed * Time.deltaTime);
         }
+
+        void AttackPlayer()
+        {
+
+        }
+
     }
 }

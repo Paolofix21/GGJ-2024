@@ -3,6 +3,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "EnemySettings", menuName = "ScriptableObjects/Enemy Settings", order = 1)]
 public class EnemySettings : ScriptableObject
 {
+    [Header("Statistics Settings")]
+    public float HP = 50f;
+    public float damage = 5f;
+
     [Header("Movement Settings")]
     public float wanderSpeed = 2f;
     public float chaseSpeed = 5f;
@@ -10,6 +14,7 @@ public class EnemySettings : ScriptableObject
 
     [Header("Detection Settings")]
     public float visionRange = 10f;
+    public float attackRange = 2f;
 
     [Header("Wander Settings")]
     public float wanderTime = 3f;

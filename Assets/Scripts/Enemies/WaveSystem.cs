@@ -1,43 +1,64 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace BaseEnemy
+namespace Code.EnemySystem
 {
     public class WaveSpawner : MonoBehaviour
     {
-        public WaveData waveData;
         public List<Transform> spawnPoints = new List<Transform>();
-        private int currentWaveIndex = 0;
+        public List<WaveData> waveData = new List<WaveData>();
+        private int currentInternalWaveIndex = 0;
         private float nextSpawnTime;
+
+        private int waveNumber;
 
         void Start()
         {
-            nextSpawnTime = Time.time + waveData.spawnRateInSecs;
+            nextSpawnTime = Time.time + waveData[waveNumber].spawnRateInSecs;
         }
 
         void Update()
         {
-            if (currentWaveIndex < waveData.waveEnemies.Count && Time.time >= nextSpawnTime)
+#if UNITY_EDITOR // only for internal test
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                waveNumber++;
+                currentInternalWaveIndex = 0;
+            }
+#endif
+
+            if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count && Time.time >= nextSpawnTime)
             {
                 SpawnWave();
-                currentWaveIndex++;
+                currentInternalWaveIndex++;
 
-                if (currentWaveIndex < waveData.waveEnemies.Count)
+                if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
                 {
-                    nextSpawnTime = Time.time + waveData.spawnRateInSecs;
+                    nextSpawnTime = Time.time + waveData[waveNumber].spawnRateInSecs;
                 }
                 else
                 {
-                    // Ondate completate
+                    // Ondata completata, possiamo chiamare funzione spawn boss
                 }
             }
         }
 
+        /// <summary>
+        /// Funzione da chiamare sconfitto il boss, spawnerà la prossima ondata
+        /// </summary>
+        public void SpawnNextWave()
+        {
+            waveNumber++;
+            currentInternalWaveIndex = 0;
+        }
+
+
+
         void SpawnWave()
         {
-            if (currentWaveIndex < waveData.waveEnemies.Count)
+            if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
             {
-                WaveData.WaveEnemy currentWave = waveData.waveEnemies[currentWaveIndex];
+                WaveData.WaveEnemy currentWave = waveData[waveNumber].waveEnemies[currentInternalWaveIndex];
 
                 foreach (GameObject enemyPrefab in currentWave.enemyPrefab)
                 {
@@ -62,6 +83,8 @@ namespace BaseEnemy
 
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, this.transform);
         }
+
+      
 
         Transform GetRandomSpawnPoint()
         {

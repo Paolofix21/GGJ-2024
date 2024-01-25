@@ -7,6 +7,7 @@ namespace Code.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        #region Movement Fields
         [SerializeField] private float speed, jumpForce;
 
         private const float grav = -9.8f;
@@ -18,6 +19,7 @@ namespace Code.Player
         private CharacterController controller;
         private PlayerView cameraLook;
         private InputManager input;
+        #endregion
 
         #region Animations
         private static readonly int isShooting = Animator.StringToHash("Is Shooting");
@@ -89,6 +91,11 @@ namespace Code.Player
         #endregion
 
         #region Animation Behaviours
+        private void SetWeaponType(int type)
+        {
+            anim.SetInteger(weaponType, type);
+        }
+
         private void PlayShoot(InputAction.CallbackContext ctx)
         {
             anim.SetTrigger(shootTrigger);

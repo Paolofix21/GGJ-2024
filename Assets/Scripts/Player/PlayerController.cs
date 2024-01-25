@@ -1,20 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Code.Player
 {
     public class PlayerController : MonoBehaviour
     {
         [SerializeField] private float speed, jumpForce;
+
         private const float grav = -9.8f;
+        private bool crouching = false;
 
-        private bool isOnGround;
+        private Vector3 vel;
 
+        [SerializeField] private Animator anim;
         private CharacterController controller;
         private PlayerView cameraLook;
         private InputManager input;
-        private Vector3 vel;
+
+        #region Animations
+        private static readonly int isShooting = Animator.StringToHash("Is Shooting");
+        private static readonly int shootTrigger = Animator.StringToHash("Shoot");
+        private static readonly int weaponType = Animator.StringToHash("Weapon Type Index");
+        #endregion
 
         private void Start()
         {
@@ -22,8 +31,16 @@ namespace Code.Player
             cameraLook = GetComponent<PlayerView>();
             input = GetComponent<InputManager>();
 
-            input.playerMap.PlayerActions.Jump.performed += ctx => Jump();
-            input.playerMap.PlayerActions.Crouch.performed += ctx => Crouch();
+            input.playerMap.PlayerActions.Jump.performed +=  Jump;
+            input.playerMap.PlayerActions.Crouch.performed += Crouch;
+            input.playerMap.PlayerActions.Shoot.performed += PlayShoot;
+        }
+
+        private void OnDestroy()
+        {
+            input.playerMap.PlayerActions.Jump.performed -= Jump;
+            input.playerMap.PlayerActions.Crouch.performed -= Crouch;
+            input.playerMap.PlayerActions.Shoot.performed -= PlayShoot;
         }
 
         private void Update()
@@ -32,22 +49,7 @@ namespace Code.Player
             cameraLook.GetMousePos(input.CameraLookAt());
         }
 
-        //private void OnCollisionStay(Collision collision)
-        //{
-        //    if (collision.gameObject.CompareTag("Ground") && !isOnGround)
-        //        isOnGround = true;
-
-        //    Debug.Log("colliding");
-        //}
-
-        //private void OnCollisionExit(Collision collision)
-        //{
-        //    if (collision.gameObject.CompareTag("Ground"))
-        //        isOnGround = false;
-
-        //    Debug.Log("exit");
-        //}
-
+        #region Movement Behaviours
         private void GetMovement()
         {
             Vector3 dir = Vector3.zero;
@@ -67,7 +69,7 @@ namespace Code.Player
             controller.Move(vel * Time.deltaTime);
         }
 
-        private void Jump()
+        private void Jump(InputAction.CallbackContext ctx)
         {
             Debug.Log(controller.isGrounded);
             if (controller.isGrounded)
@@ -75,15 +77,29 @@ namespace Code.Player
                 vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
                 Debug.Log(vel.y);
             }
-               
-                
         }
 
-        private void Crouch()
+        private void Crouch(InputAction.CallbackContext ctx)
         {
+            crouching = !crouching;
+            cameraLook.ChangeViewHeight(crouching);
+        }
+        #endregion
 
+        #region Animation Behaviours
+        private void PlayShoot(InputAction.CallbackContext ctx)
+        {
+            anim.SetTrigger(shootTrigger);
         }
 
+        private void PlayShootContinuous(bool _value)
+        {
+            if (_value)
+                anim.SetBool(isShooting, true);
+            else
+                anim.SetBool(isShooting, false);
+        }
+        #endregion
     }
 }
 

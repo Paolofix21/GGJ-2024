@@ -1,0 +1,111 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 922d648bbfce4d341acafa6cd483203b, type: 3}
+  m_Name: CharMap
+  m_EditorClassIdentifier: 
+  DialogueChars:
+  - Letter: 97
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: db57977c0cfd78640bf83f7ef1283056, type: 3}
+  - Letter: 98
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 0c41bdd572af02e49b2228f2a2c83109, type: 3}
+  - Letter: 99
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 9c9c9b67c2004114794b60aafb3ca037, type: 3}
+  - Letter: 100
+    Pitch: 1.1
+    CharClip: {fileID: 8300000, guid: 1b079d806029bb84bbef0b01dd71fa89, type: 3}
+  - Letter: 101
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 74606b62d8221ec418730ff9fec78f0d, type: 3}
+  - Letter: 102
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: acfa4516c5c449f4cb09866193a36bd4, type: 3}
+  - Letter: 103
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 35d87135f07047d4988d721f2c4014b4, type: 3}
+  - Letter: 104
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 324987bc27b4a064b91d5a510a845dfe, type: 3}
+  - Letter: 105
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 07741a29bd4b68c4ca11406080388054, type: 3}
+  - Letter: 106
+    Pitch: 1.1
+    CharClip: {fileID: 8300000, guid: aa3e20e3e28083e4fa55484193175d24, type: 3}
+  - Letter: 107
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 9c9c9b67c2004114794b60aafb3ca037, type: 3}
+  - Letter: 108
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 9d076e6bac9faae47afd09441e0b0457, type: 3}
+  - Letter: 109
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: f6e93b09e0cc9c541a23fee888d6162c, type: 3}
+  - Letter: 110
+    Pitch: 1.1
+    CharClip: {fileID: 8300000, guid: e74081b126ec07046b51381bd65bff08, type: 3}
+  - Letter: 111
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: e97023969cf52d84399b136e92966496, type: 3}
+  - Letter: 112
+    Pitch: 1.3
+    CharClip: {fileID: 8300000, guid: bc792268edc3ccf41b19dca922ae99da, type: 3}
+  - Letter: 113
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 4e03330e35b28c64bb5978e6cf35a67b, type: 3}
+  - Letter: 114
+    Pitch: 1.3
+    CharClip: {fileID: 8300000, guid: 3cdf8f93aef306144a6a1dd23322ed05, type: 3}
+  - Letter: 115
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: a7dfc49a649285743b6feb284afab751, type: 3}
+  - Letter: 116
+    Pitch: 1.5
+    CharClip: {fileID: 8300000, guid: f69969be2bd225e4181752360885a4ec, type: 3}
+  - Letter: 117
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 4234b601e6bd3fa4881242029a16e189, type: 3}
+  - Letter: 118
+    Pitch: 1.5
+    CharClip: {fileID: 8300000, guid: c4e9d2b488b26504fb47b1abcd8e406a, type: 3}
+  - Letter: 119
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: c4e9d2b488b26504fb47b1abcd8e406a, type: 3}
+  - Letter: 120
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 7ec36660410023e429833d5b72b3935c, type: 3}
+  - Letter: 121
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 49205a46769fb2244b34ff805066064c, type: 3}
+  - Letter: 122
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 229e27951c3c69f47a2f907ef5a83f68, type: 3}
+  - Letter: 224
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: 13513d9bfc62acf4ea9d834741dddf1d, type: 3}
+  - Letter: 232
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 0a297f5f94925214ab3125b31615df42, type: 3}
+  - Letter: 233
+    Pitch: 1.5
+    CharClip: {fileID: 8300000, guid: 0a297f5f94925214ab3125b31615df42, type: 3}
+  - Letter: 236
+    Pitch: 1.2
+    CharClip: {fileID: 8300000, guid: 49205a46769fb2244b34ff805066064c, type: 3}
+  - Letter: 242
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: d2606a2600816244bb5414bfe71cfb8c, type: 3}
+  - Letter: 249
+    Pitch: 1
+    CharClip: {fileID: 8300000, guid: bc90c8186ae20e249a1029cb317dbd97, type: 3}

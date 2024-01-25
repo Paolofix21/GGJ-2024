@@ -24,7 +24,10 @@ namespace Code.UI
         }
         private void Start()
         {
-            loadLevel.onClick.AddListener(delegate { SceneLoader.LoadScene("Hell", UnityEngine.SceneManagement.LoadSceneMode.Single); });
+            loadLevel.onClick.AddListener(delegate {
+                SceneLoader.LoadScene("Hell", UnityEngine.SceneManagement.LoadSceneMode.Single);
+                loadLevel.interactable = false;
+            });
         }
         #endregion
 

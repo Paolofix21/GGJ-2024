@@ -1,40 +1,55 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Advepa.SchoolMetaverse.Laboratori;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue", order = 1)]
 public class DialogueScriptableObject : ScriptableObject
 {
-	// Necessary?
-	public int dialogueID;
 	[Tooltip("Standard displays one line after the other. Randomize chooses one line at random from the list.")]
 	public DialogueType dialogueType;
-	[SerializeField, TextArea] private string[] dialogues;
+	[SerializeField] private Message[] lines;
+	[SerializeField] private Answer[] answers;
 
-	public string[] Dialogues => dialogues;
+	public List<Message> Lines => lines.ToList();
+	public List<Answer> Answers => answers.ToList();
+
 
 	
-	public string GetLine()
+	// Unused for now	
+	public Message GetLine()
 	{
-		if (dialogues.Length == 0)
-			return string.Empty;
-		
-		
-		switch (dialogueType)
+		if (lines.Length == 0)
+			return default;
+
+		return dialogueType switch
 		{
-			case DialogueType.Standard:
-				return dialogues[0];
-			
-			case DialogueType.Randomized:
-				return dialogues[Random.Range(0, dialogues.Length - 1)];
-			default:
-				return string.Empty;
-		}
+			DialogueType.InOrder => lines[0], // TODO give all lines in sequence?
+			DialogueType.Randomized => lines[Random.Range(0, lines.Length - 1)],
+			_ => default
+		};
 	}
+}
+
+[Serializable]
+public class Answer
+{
+	[SerializeField] public string Text;
+	[SerializeField] public bool IsCorrect;
 }
 
 
 public enum DialogueType
 {
-	Standard,
+	/// <summary>
+	/// Dialogues lines are displayed one after the other.
+	/// </summary>
+	InOrder,
+	/// <summary>
+	/// Chooses one random line from the list.
+	/// </summary>
 	Randomized
 }

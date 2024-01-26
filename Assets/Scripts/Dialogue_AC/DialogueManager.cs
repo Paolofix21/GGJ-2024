@@ -61,9 +61,19 @@ namespace Advepa.SchoolMetaverse.Laboratori
                     _audioSource.pitch = _map.DialogueChars[value].Pitch;
                     _audioSource.PlayOneShot(_map.mappedInfo[char.ToLower(current)]);
                 }
-                await new WaitForSeconds(textSpeed);
+                //await new WaitForSeconds(textSpeed);
+                try
+                {
+                    await Task.Delay((int)(textSpeed * 1000), _token);
+                }
+                // Dispose if the Task was cancelled 
+                catch (TaskCanceledException _)
+                {
+                    var dispose = _;
+                    _source.Dispose();
+                    return;
+                }
             }
         }
     }
 }
-

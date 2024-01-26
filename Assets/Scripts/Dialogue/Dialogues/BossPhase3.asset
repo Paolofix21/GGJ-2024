@@ -10,10 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6fbadb8e1d6921c46a1784a4e5af6848, type: 3}
-  m_Name: DialogueTEST
+  m_Name: BossPhase3
   m_EditorClassIdentifier: 
-  dialogueID: 0
   dialogueType: 0
-  dialogues:
-  - Here they come!
-  - line 2
+  lines: []
+  answers: []

@@ -128,7 +128,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 130473505}
-  - component: {fileID: 130473504}
+  - component: {fileID: 130473507}
   - component: {fileID: 130473503}
   - component: {fileID: 130473506}
   m_Layer: 0
@@ -151,24 +151,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalAmount: 0
---- !u!114 &130473504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 130473502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72376fcf160a26147b09c974ffbf893f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 3
-  ammunition:
-    damageType: 4
-    damageAmount: 0
-  cartridge: {fileID: 130473503}
-  firingLogic: {fileID: 130473506}
+  amountShotConsumed: 0
 --- !u!4 &130473505
 Transform:
   m_ObjectHideFlags: 0
@@ -199,6 +182,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 0
   cooldown: 0
+  radius: 0
+--- !u!114 &130473507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 130473502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66bab7bb4f424ab47915c548b4cdede7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  ammunition:
+    damageType: 0
+    damageAmount: 0
+  cartridge: {fileID: 0}
+  firingLogic: {fileID: 0}
 --- !u!1 &187033754
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +302,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 269882802}
-  - component: {fileID: 269882801}
+  - component: {fileID: 269882804}
   - component: {fileID: 269882800}
   - component: {fileID: 269882803}
   m_Layer: 0
@@ -323,24 +325,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalAmount: 0
---- !u!114 &269882801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269882799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72376fcf160a26147b09c974ffbf893f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 1
-  ammunition:
-    damageType: 1
-    damageAmount: 0
-  cartridge: {fileID: 269882800}
-  firingLogic: {fileID: 269882803}
+  amountShotConsumed: 3
 --- !u!4 &269882802
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +356,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 0
   cooldown: 0
+--- !u!114 &269882804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269882799}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86215deb66e49d44fa5177c7df0bc333, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  ammunition:
+    damageType: 0
+    damageAmount: 0
+  cartridge: {fileID: 0}
+  firingLogic: {fileID: 0}
 --- !u!1 &422802003
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,7 +383,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 422802004}
-  - component: {fileID: 422802007}
+  - component: {fileID: 422802009}
   - component: {fileID: 422802006}
   - component: {fileID: 422802008}
   m_Layer: 0
@@ -419,24 +422,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalAmount: 0
---- !u!114 &422802007
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 422802003}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72376fcf160a26147b09c974ffbf893f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 2
-  ammunition:
-    damageType: 2
-    damageAmount: 0
-  cartridge: {fileID: 422802006}
-  firingLogic: {fileID: 269882803}
+  amountShotConsumed: 0
 --- !u!114 &422802008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -451,6 +437,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 0
   cooldown: 0
+--- !u!114 &422802009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 422802003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 143e1006ec2ce6d4f9c3f9c849568ba1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  ammunition:
+    damageType: 0
+    damageAmount: 0
+  cartridge: {fileID: 0}
+  firingLogic: {fileID: 0}
 --- !u!1 &449598665
 GameObject:
   m_ObjectHideFlags: 0
@@ -813,10 +817,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 805429928}
-  - component: {fileID: 805429927}
+  - component: {fileID: 805429929}
   - component: {fileID: 805429926}
   m_Layer: 0
-  m_Name: Unknown
+  m_Name: Sword
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -835,24 +839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalAmount: 0
---- !u!114 &805429927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 805429925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72376fcf160a26147b09c974ffbf893f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 5
-  ammunition:
-    damageType: 8
-    damageAmount: 0
-  cartridge: {fileID: 805429926}
-  firingLogic: {fileID: 0}
+  amountShotConsumed: 0
 --- !u!4 &805429928
 Transform:
   m_ObjectHideFlags: 0
@@ -869,6 +856,24 @@ Transform:
   - {fileID: 769182037}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &805429929
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 805429925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3619eecd525230740bec8a1517c1a5a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  ammunition:
+    damageType: 0
+    damageAmount: 0
+  cartridge: {fileID: 0}
+  firingLogic: {fileID: 0}
 --- !u!1 &1299844530
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,8 +883,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1299844533}
-  - component: {fileID: 1299844532}
+  - component: {fileID: 1299844535}
   - component: {fileID: 1299844531}
+  - component: {fileID: 1299844534}
   m_Layer: 0
   m_Name: Whip
   m_TagString: Untagged
@@ -900,24 +906,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalAmount: 0
---- !u!114 &1299844532
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1299844530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72376fcf160a26147b09c974ffbf893f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponType: 4
-  ammunition:
-    damageType: -1
-    damageAmount: 0
-  cartridge: {fileID: 1299844531}
-  firingLogic: {fileID: 0}
+  amountShotConsumed: 0
 --- !u!4 &1299844533
 Transform:
   m_ObjectHideFlags: 0
@@ -934,6 +923,38 @@ Transform:
   - {fileID: 1511349015}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1299844534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299844530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0b8b6ff542edc4fa5ac5667b6b4bb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  range: 0
+  cooldown: 0
+--- !u!114 &1299844535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1299844530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 615a9af9f45ce2d42a4ab3aa874324e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  ammunition:
+    damageType: 0
+    damageAmount: 0
+  cartridge: {fileID: 0}
+  firingLogic: {fileID: 0}
 --- !u!1 &1491942078
 GameObject:
   m_ObjectHideFlags: 0

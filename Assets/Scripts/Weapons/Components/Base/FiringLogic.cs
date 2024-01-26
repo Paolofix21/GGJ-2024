@@ -1,7 +1,6 @@
-using Code.Weapons;
 using UnityEngine;
 
-namespace Code.Weapon {
+namespace Code.Weapons {
 
     public abstract class FiringLogic : MonoBehaviour {
         [Header("Settings")]

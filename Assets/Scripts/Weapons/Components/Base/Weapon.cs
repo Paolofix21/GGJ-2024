@@ -1,23 +1,19 @@
-using Code.Weapon;
 using UnityEngine;
 
 namespace Code.Weapons {
 
     [RequireComponent(typeof(Cartridge))]
-    public class Weapon : MonoBehaviour {
+    public abstract class Weapon : MonoBehaviour {
         [Header("Settings")]
-        [SerializeField] private WeaponType weaponType = default;
+        [SerializeField] protected WeaponType weaponType = default;
         [Space]
-        [SerializeField] private Ammunition ammunition = default;
+        [SerializeField] protected Ammunition ammunition = default;
 
         [Header("References")]
-        [SerializeField] private Cartridge cartridge = default;
-        [SerializeField] private FiringLogic firingLogic = default;
+        [SerializeField] protected Cartridge cartridge = default;
+        [SerializeField] protected FiringLogic firingLogic = default;
 
-        private void OnValidate() {
-            if(cartridge == null) 
-                cartridge = GetComponent<Cartridge>();
-        }
+        protected abstract void Shoot();
     }
 
 }

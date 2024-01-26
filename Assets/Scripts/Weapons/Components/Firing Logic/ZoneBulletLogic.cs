@@ -1,17 +1,19 @@
-using Code.Weapon;
 using UnityEngine;
 
 namespace Code.Weapons {
 
     public class ZoneBulletLogic : FiringLogic {
-        private Camera playerCamera = default;
+        [SerializeField] private float radius = default;
+
+        private Transform playerCamera = default;
 
         public override void Shoot(Ammunition ammunition) {
-            Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+            if (Physics.CapsuleCast(playerCamera.position, playerCamera.forward * range, radius, playerCamera.forward, out RaycastHit hitInfo)) {
 
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
                 if (hitInfo.collider == null)
                     return;
+
+                Physics.OverlapSphere(hitInfo.point, radius);
 
                 IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
 

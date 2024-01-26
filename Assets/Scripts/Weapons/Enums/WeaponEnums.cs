@@ -9,7 +9,7 @@ namespace Code.Weapons {
         AutoRifle = 2,
         Shotgun = 3,
         Whip = 4,
-        Unknown = 5
+        Sword = 5
     }
 
     [System.Serializable]

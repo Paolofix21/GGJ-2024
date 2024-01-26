@@ -114,6 +114,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 0
+    - _Rotation_Speed: 180
     - _Scale: 15
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0

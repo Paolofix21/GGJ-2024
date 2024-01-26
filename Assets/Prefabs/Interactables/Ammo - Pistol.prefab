@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 832759430451692508}
   - component: {fileID: 3362192215747651364}
   - component: {fileID: 5889530149695150463}
-  - component: {fileID: 8901720695128558173}
   m_Layer: 2
   m_Name: Ammo Pistol
   m_TagString: Untagged
@@ -86,19 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &8901720695128558173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4714008795741903482}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b10d14d475be4752b856e97a5cb5480a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_anglesPerSecond: 180
 --- !u!1 &8222593008195403669
 GameObject:
   m_ObjectHideFlags: 0

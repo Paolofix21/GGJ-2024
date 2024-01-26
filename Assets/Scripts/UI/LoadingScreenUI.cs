@@ -23,10 +23,6 @@ namespace Code.UI
         #region Behaviour Callbacks
         private void Awake()
         {
-#if UNITY_EDITOR
-            if (!UnityEditor.EditorApplication.isPlaying)
-                return;
-#endif
             if (Singleton && Singleton != this)
             {
                 Destroy(gameObject);

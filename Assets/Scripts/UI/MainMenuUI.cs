@@ -2,13 +2,15 @@ using Code.LevelSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 namespace Code.UI
 {
     public class MainMenuUI : MonoBehaviour
     {
         #region Public Variables
-        [SerializeField] private Button loadLevel;
+        [SerializeField] private Button m_loadLevel;
+        [SerializeField] private Button m_quitGame;
         #endregion
 
         #region Properties
@@ -20,18 +22,26 @@ namespace Code.UI
         #region Behaviour Callbacks
         private void Awake()
         {
-            loadLevel.onClick.RemoveAllListeners();
+            m_loadLevel.onClick.RemoveAllListeners();
+            m_quitGame.onClick.RemoveAllListeners();
         }
         private void Start()
         {
-            loadLevel.onClick.AddListener(delegate {
+            m_loadLevel.onClick.AddListener(delegate {
                 SceneLoader.LoadScene("Hell", UnityEngine.SceneManagement.LoadSceneMode.Single);
-                loadLevel.interactable = false;
+                m_loadLevel.interactable = false;
+            });
+            m_quitGame.onClick.AddListener(delegate {
+                UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame); 
             });
         }
         #endregion
 
         #region Public Methods
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
         #endregion
 
         #region Private Methods

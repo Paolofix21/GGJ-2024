@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,18 +8,35 @@ namespace Code.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        private bool isDead = false;
+
         #region Movement Fields
-        [SerializeField] private float speed, jumpForce;
+        [Header("Movement Fields")]
+        [SerializeField] private float speed = 6f; 
+        [SerializeField] private float jumpForce = 1.5f;
 
         private const float grav = -9.8f;
         private bool crouching = false;
-
+        
         private Vector3 vel;
 
         [SerializeField] private Animator anim;
+        private InputManager input;
+        #endregion
+
+        #region Player Components Fields
         private CharacterController controller;
         private PlayerView cameraLook;
-        private InputManager input;
+        private PlayerHealth health;
+        #endregion
+
+        #region Lava Fields
+        [Header("Lava Fields")]
+        [SerializeField] private float lavaSpeed;
+        [SerializeField] private int timeDelay;
+        [SerializeField] private int lavaDamage;
+
+        private bool isInsideLava = false;
         #endregion
 
         #region Animations
@@ -36,10 +55,12 @@ namespace Code.Player
         public event Action<int> OnWeaponChanged;
         #endregion
 
+        #region Unity Behaviours
         private void Start()
         {
             controller = GetComponent<CharacterController>();
             cameraLook = GetComponent<PlayerView>();
+            health = GetComponent<PlayerHealth>();
             input = GetComponent<InputManager>();
 
             input.playerMap.PlayerActions.Jump.performed +=  Jump;
@@ -53,6 +74,29 @@ namespace Code.Player
             input.playerMap.PlayerActions.Weapon03.performed += _ =>  SetWeaponType(2, Rifle);
             input.playerMap.PlayerActions.Weapon04.performed += _ =>  SetWeaponType(3,Frustino);
             input.playerMap.PlayerActions.Weapon05.performed += _ =>  SetWeaponType(4, Sword);
+
+            health.OnPlayerDeath += PlayerDeath;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.CompareTag("Lava"))
+                StartCoroutine(WalkInLava());
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.CompareTag("Lava"))
+                ExitLava();
+        }
+
+        private void Update()
+        {
+            if (isDead)
+                return;
+
+            GetMovement();
+            cameraLook.GetMousePos(input.CameraLookAt());
         }
 
         private void OnDestroy()
@@ -60,13 +104,10 @@ namespace Code.Player
             input.playerMap.PlayerActions.Jump.performed -= Jump;
             input.playerMap.PlayerActions.Crouch.performed -= Crouch;
             input.playerMap.PlayerActions.Shoot.performed -= PlayShoot;
-        }
 
-        private void Update()
-        {
-            GetMovement();
-            cameraLook.GetMousePos(input.CameraLookAt());
+            health.OnPlayerDeath -= PlayerDeath;
         }
+        #endregion
 
         #region Movement Behaviours
         private void GetMovement()
@@ -102,8 +143,29 @@ namespace Code.Player
 
         private void Crouch(InputAction.CallbackContext ctx)
         {
+            if (isInsideLava)
+                return;
+
             crouching = !crouching;
             cameraLook.ChangeViewHeight(crouching);
+        }
+
+        private IEnumerator WalkInLava()
+        {
+            isInsideLava = true;
+            speed = lavaSpeed;
+            while (isInsideLava)
+            {
+                health.GetDamage(lavaDamage);
+                yield return new WaitForSeconds(timeDelay);
+            }
+        }
+
+        private void ExitLava()
+        {
+            StopCoroutine("WalkInLava");
+            isInsideLava = false;
+            speed = 6f;
         }
         #endregion
 
@@ -126,6 +188,17 @@ namespace Code.Player
                 anim.SetBool(isShooting, true);
             else if(!_value && anim.GetBool(isShooting))
                 anim.SetBool(isShooting, false);
+        }
+        #endregion
+
+        #region Death Behaviours
+        private void PlayerDeath()
+        {
+            isDead = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            if (isInsideLava)
+                ExitLava();
         }
         #endregion
     }

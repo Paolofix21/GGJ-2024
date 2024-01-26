@@ -699,19 +699,19 @@ AnimatorController:
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Shoot
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   - m_Name: Is Shooting
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
-    m_Controller: {fileID: 9100000}
+    m_Controller: {fileID: 0}
   m_AnimatorLayers:
   - serializedVersion: 5
     m_Name: Base Layer
@@ -933,22 +933,6 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
-  - first: {fileID: 9098925538752165966}
-    second:
-    - {fileID: -5391501108631134838}
-    - {fileID: 7882271310370835579}
-    - {fileID: 778200780295938857}
-  - first: {fileID: 3422552941562319472}
-    second:
-    - {fileID: -8981691842944159075}
-    - {fileID: 9036403846788823123}
-    - {fileID: 6811673602259183266}
-  - first: {fileID: 213926033294445641}
-    second:
-    - {fileID: 2781270545390826344}
-    - {fileID: 3088583290300442465}
-    - {fileID: 8622219005955606017}
-    - {fileID: 7318617910598574096}
   - first: {fileID: -4705543368499628072}
     second:
     - {fileID: -7096599339839690053}
@@ -959,6 +943,22 @@ AnimatorStateMachine:
     - {fileID: 8534727989747045897}
     - {fileID: 1723317129438042929}
     - {fileID: -5996295201130312267}
+  - first: {fileID: 213926033294445641}
+    second:
+    - {fileID: 2781270545390826344}
+    - {fileID: 3088583290300442465}
+    - {fileID: 8622219005955606017}
+    - {fileID: 7318617910598574096}
+  - first: {fileID: 3422552941562319472}
+    second:
+    - {fileID: -8981691842944159075}
+    - {fileID: 9036403846788823123}
+    - {fileID: 6811673602259183266}
+  - first: {fileID: 9098925538752165966}
+    second:
+    - {fileID: -5391501108631134838}
+    - {fileID: 7882271310370835579}
+    - {fileID: 778200780295938857}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 50, y: 470, z: 0}
   m_EntryPosition: {x: 50, y: 120, z: 0}

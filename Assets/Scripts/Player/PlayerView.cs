@@ -26,6 +26,7 @@ namespace Code.Player
 
         private void Start()
         {
+            Cursor.lockState = CursorLockMode.Locked;
             vcam = cam.GetComponent<CinemachineVirtualCamera>();
         }
 

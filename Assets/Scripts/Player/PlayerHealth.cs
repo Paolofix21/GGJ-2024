@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,18 +12,14 @@ namespace Code.Player
 
         [SerializeField] private Slider healthBar;
 
+        public event Action<float> OnDamageTaken;
+        public event Action<float> OnHeal;
+        public event Action OnPlayerDeath;
+
         private void Start()
         {
             currentHealth = maxHealth;
             healthBar.value = currentHealth / maxHealth;
-        }
-
-        private void Update()
-        {
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //    GetDamage(30);
-            //if (Input.GetKeyDown(KeyCode.E))
-            //    Heal(30);
         }
 
         private IEnumerator UpdateHealthBar()
@@ -43,24 +40,29 @@ namespace Code.Player
             healthBar.value = currentHealth / maxHealth;
         }
 
-        private void GetDamage(float _amount)
+        public void GetDamage(float _amount)
         {
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-            StopAllCoroutines();
-            StartCoroutine(UpdateHealthBar());
+            OnDamageTaken?.Invoke(_amount);
+
+            //StopAllCoroutines();
+            //StartCoroutine(UpdateHealthBar());
 
             if (currentHealth <= 0)
-                Debug.Log("Game Over");
+                OnPlayerDeath?.Invoke();
         }
 
-        private void Heal(float _amount)
+        public void Heal(float _amount)
         {
             currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-            StopAllCoroutines();
-            StartCoroutine(UpdateHealthBar());
+
+            OnHeal?.Invoke(_amount);
+
+            //StopAllCoroutines();
+            //StartCoroutine(UpdateHealthBar());
         }
     }
 }

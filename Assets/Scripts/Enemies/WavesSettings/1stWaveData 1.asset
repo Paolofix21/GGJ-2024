@@ -9,17 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: edf1970bb5cb54043b3946c1caa4b479, type: 3}
-  m_Name: GreenWakakaSettings
+  m_Script: {fileID: 11500000, guid: d6e223f0a008e074fac63d078e64dd75, type: 3}
+  m_Name: 1stWaveData 1
   m_EditorClassIdentifier: 
-  HP: 20
-  damage: 0.1
-  DamageType: 4
-  wanderSpeed: 2
-  chaseSpeed: 5
-  maxDistanceFromPlayer: 20
-  rotationSpeed: 1000
-  visionRange: 10
-  attackRange: 1
-  wanderTime: 3
-  chaseTime: 5
+  spawnRateInSecs: 1
+  waveEnemies:
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}

@@ -14,6 +14,7 @@ namespace Code.Weapons {
         [SerializeField] private PlayerController playerController = default;
 
         private Weapon equippedWeapon = default;
+        public Weapon EquippedWeapon { get { return equippedWeapon; } }
 
         private void Awake() {
             if (playerController != null) {

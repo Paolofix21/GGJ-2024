@@ -18,7 +18,8 @@ namespace Code.Player
         [SerializeField] private Slider healthBar;
 
         //in ordine: HP rimossi, HP attuali, HP max
-        public event Action<float, float, float> OnDamageTaken;
+        //public event Action<float, float, float> OnDamageTaken;
+        public event Action<float, float> OnDamageTaken;
         public event Action<float, float, float> OnHeal;
         public event Action OnPlayerDeath;
 
@@ -60,7 +61,8 @@ namespace Code.Player
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-            OnDamageTaken?.Invoke(_amount, currentHealth, maxHealth);
+            //OnDamageTaken?.Invoke(_amount, currentHealth, maxHealth);
+            OnDamageTaken?.Invoke(currentHealth, maxHealth);
 
             if (currentHealth <= 0)
             {

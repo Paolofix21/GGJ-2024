@@ -1,25 +1,31 @@
 using Code.Player;
 using System.Collections;
 using UnityEngine;
+using Code.Weapons;
 
 namespace Code.EnemySystem
 {
-    public class EnemyBehavior : MonoBehaviour
+    public class EnemyBehavior : MonoBehaviour, IDamageable
     {
         public EnemySettings enemySettings;
 
         private Transform playerPos;
         private PlayerHealth playerHealth;
-        private float elapsedTime = 0f;
-        private bool isChasing = false;
-
         private Vector3 wanderDirection;
+
+        private float elapsedTime = 0f;
+        private float remHP;
+
         private bool reverseDirection = false;
+        private bool isChasing = false;
+        
+        
 
         void Start()
         {
             playerPos = GameObject.FindGameObjectWithTag("Player").transform;
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+            remHP = enemySettings.HP;
             SetRandomWanderDirection();
         }
 
@@ -109,5 +115,22 @@ namespace Code.EnemySystem
             Debug.Log("HAHAHHA");
         }
 
+        private void Dead()
+        {
+           // remHP <= 0 allora ciaone
+        }
+
+        public bool GetDamage(DamageType damageType)
+        {
+            Debug.Log("getDamage");
+            throw new System.NotImplementedException();
+        }
+
+        public void ApplyDamage(float amount)
+        {
+            Debug.Log("ApplyDamage");
+            throw new System.NotImplementedException();
+        }
     }
+
 }

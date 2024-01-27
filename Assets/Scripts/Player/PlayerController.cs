@@ -1,9 +1,11 @@
+using FMODUnity;
 using Code.Graphics;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using FMOD.Studio;
 
 namespace Code.Player
 {
@@ -20,7 +22,9 @@ namespace Code.Player
 
         private const float grav = -9.8f;
         private bool crouching = false;
-        
+
+        private EventInstance footsteps_instance;
+
         private Vector3 vel;
 
         [SerializeField] private Animator anim;
@@ -29,6 +33,7 @@ namespace Code.Player
 
         #region Player Components Fields
         private CharacterController controller;
+        private Rigidbody rigidbody;
         private PlayerView cameraLook;
         private PlayerHealth health;
         private VisualSetter visualSetter;
@@ -61,6 +66,12 @@ namespace Code.Player
         #endregion
 
         #region Unity Behaviours
+
+        private void Awake()
+        {
+            rigidbody = GetComponent<Rigidbody>();
+        }
+
         private void Start()
         {
             controller = GetComponent<CharacterController>();
@@ -86,6 +97,8 @@ namespace Code.Player
             input.playerMap.PlayerActions.Weapon05.performed += _ =>  SetWeaponType(4, Sword);
 
             health.OnPlayerDeath += PlayerDeath;
+
+            InitializeAudio();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -106,6 +119,7 @@ namespace Code.Player
                 return;
 
             GetMovement();
+            UpdateSound();
             cameraLook.GetMousePos(input.CameraLookAt());
         }
 
@@ -145,19 +159,36 @@ namespace Code.Player
             if (controller.isGrounded)
             {
                 vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
+                
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
 
-                if(crouching)
-                    Crouch(ctx);
+                if (crouching)
+                    Crouch(ctx, false);
             }
         }
 
         private void Crouch(InputAction.CallbackContext ctx)
+        {
+            Crouch(ctx, true);
+        }
+
+        private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true)
         {
             if (isInsideLava)
                 return;
 
             crouching = !crouching;
             cameraLook.ChangeViewHeight(crouching);
+
+            if (shouldReproSFX)
+            {
+                PlayCrouchSound();
+            }
+        }
+
+        private void PlayCrouchSound()
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
         }
 
         private IEnumerator WalkInLava()
@@ -227,6 +258,30 @@ namespace Code.Player
 
             if (isInsideLava)
                 ExitLava();
+        }
+        #endregion
+
+        #region Audio
+        private void InitializeAudio()
+        {
+            footsteps_instance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
+        }
+
+        private void UpdateSound()
+        {
+            if(controller.isGrounded && controller.velocity != Vector3.zero)
+            {
+                PLAYBACK_STATE playbackState;
+                footsteps_instance.getPlaybackState(out playbackState);
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+                {
+                    footsteps_instance.start();
+                }
+            }
+            else
+            {
+                footsteps_instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
         }
         #endregion
     }

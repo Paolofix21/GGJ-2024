@@ -14,6 +14,9 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference playerHealEvent { get; private set; }
     [field: SerializeField] public EventReference playerTakeDamageEvent { get; private set; }
     [field: SerializeField] public EventReference playerDeathEvent { get; private set; }
+    
+    [field: Header("Enemy SFX")]
+    [field: SerializeField] public EventReference spawnEvent { get; private set; }
 
 
     public static FMODEvents instance { get; private set; }

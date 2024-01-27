@@ -2,6 +2,7 @@ using Code.Player;
 using System.Collections;
 using UnityEngine;
 using Code.Weapons;
+using Code.Graphics;
 
 namespace Code.EnemySystem
 {
@@ -12,20 +13,39 @@ namespace Code.EnemySystem
         private Transform playerPos;
         private PlayerHealth playerHealth;
         private Vector3 wanderDirection;
+        private MaskAnimator maskAnimator;
 
         private float elapsedTime = 0f;
         private float remHP;
 
         private bool reverseDirection = false;
         private bool isChasing = false;
-        
-        
 
         void Start()
         {
             playerPos = GameObject.FindGameObjectWithTag("Player").transform;
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+            maskAnimator = GetComponent<MaskAnimator>();
+
             remHP = enemySettings.HP;
+            switch (enemySettings.DamageType)
+            {
+                case DamageType.Red:
+                    maskAnimator.SetColorType(0);
+                    break;
+
+                case DamageType.Green:
+                    maskAnimator.SetColorType(1);
+                    break;
+
+                case DamageType.Blue:
+                    maskAnimator.SetColorType(2);
+                    break;
+
+                case DamageType.Gold:
+                    maskAnimator.SetColorType(3);
+                    break;
+            }
             SetRandomWanderDirection();
         }
 
@@ -82,8 +102,20 @@ namespace Code.EnemySystem
             }
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
-            transform.Translate(wanderDirection * speed * Time.deltaTime);
+
+            // Calcola la rotazione solo sull'asse Y
+            if (wanderDirection != Vector3.zero)
+            {
+                float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
+                Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
+            }
+
+            // Applica il movimento avanti
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
+
+
 
         void SetRandomWanderDirection()
         {
@@ -108,29 +140,30 @@ namespace Code.EnemySystem
             }
         }
 
-
-        private void AttackPlayer() // valutare se fare un delay
+        private void AttackPlayer()
         {
+            maskAnimator.AnimateLaughter();
             playerHealth.GetDamage(enemySettings.damage);
-            Debug.Log("HAHAHHA");
         }
 
         private void Dead()
         {
-           // remHP <= 0 allora ciaone
+            Destroy(gameObject);
         }
 
         public bool GetDamage(DamageType damageType)
         {
-            Debug.Log("getDamage");
-            throw new System.NotImplementedException();
+            return damageType.HasFlag(enemySettings.DamageType);
         }
 
         public void ApplyDamage(float amount)
         {
-            Debug.Log("ApplyDamage");
-            throw new System.NotImplementedException();
+            remHP -= amount;
+
+            if (remHP <= 0)
+            {
+                Dead();
+            }
         }
     }
-
 }

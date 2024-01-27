@@ -75,6 +75,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 61f941115d7f025499275de332589b4d,
         type: 2}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Path
+      value: event:/Enemies/Enemy_Laugh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data1
+      value: -1973858072
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data2
+      value: 1272088479
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data3
+      value: 397929147
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data4
+      value: -110624120
+      objectReference: {fileID: 0}
     - target: {fileID: 7535972675841793500, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
       propertyPath: m_Mesh

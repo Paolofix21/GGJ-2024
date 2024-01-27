@@ -61,7 +61,7 @@ PrefabInstance:
     - target: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
       propertyPath: m_Name
-      value: Wakaka Variant
+      value: BlueWakaka
       objectReference: {fileID: 0}
     - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
@@ -69,6 +69,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: adf453f78be000147806fc628b3afdd5,
         type: 2}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Path
+      value: event:/Enemies/Enemy_Laugh
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data1
+      value: -425258364
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data2
+      value: 1217552244
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data3
+      value: -850133102
+      objectReference: {fileID: 0}
+    - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_laughterClipEvent.Guid.Data4
+      value: 826070098
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -150,3 +150,10 @@ MonoBehaviour:
       Data3: -474066242
       Data4: -1093460384
     Path: event:/Player/Death_Lament
+  <spawnEvent>k__BackingField:
+    Guid:
+      Data1: 1850307114
+      Data2: 1271757233
+      Data3: 1396001716
+      Data4: 942182131
+    Path: event:/Enemies/Spawn

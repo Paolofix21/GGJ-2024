@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{084f6c4d-6a23-452a-b76f-e46d6a139b38}">
+		<property name="assetPath">
+			<value>Pistol_Pew_06.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>0.22208616780045351</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c6ca15b6-bb30-4948-b2f1-4104766060fe}</destination>
+		</relationship>
+	</object>
+</objects>

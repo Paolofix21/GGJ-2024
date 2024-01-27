@@ -2,6 +2,7 @@ using Code.Player;
 using System.Collections;
 using UnityEngine;
 using Code.Weapons;
+using Code.Graphics;
 
 namespace Code.EnemySystem
 {
@@ -12,6 +13,7 @@ namespace Code.EnemySystem
         private Transform playerPos;
         private PlayerHealth playerHealth;
         private Vector3 wanderDirection;
+        private MaskAnimator maskAnimator;
 
         private float elapsedTime = 0f;
         private float remHP;
@@ -25,7 +27,27 @@ namespace Code.EnemySystem
         {
             playerPos = GameObject.FindGameObjectWithTag("Player").transform;
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+            maskAnimator = GetComponent<MaskAnimator>();
+
             remHP = enemySettings.HP;
+            switch (enemySettings.DamageType)
+            {
+                case DamageType.Red:
+                    maskAnimator.SetColorType(0);
+                    break;
+
+                case DamageType.Green:
+                    maskAnimator.SetColorType(1);
+                    break;
+
+                case DamageType.Blue:
+                    maskAnimator.SetColorType(2);
+                    break;
+
+                case DamageType.Gold:
+                    maskAnimator.SetColorType(3);
+                    break;
+            }
             SetRandomWanderDirection();
         }
 
@@ -111,25 +133,29 @@ namespace Code.EnemySystem
 
         private void AttackPlayer() // valutare se fare un delay
         {
+            maskAnimator.AnimateLaughter();
             playerHealth.GetDamage(enemySettings.damage);
-            Debug.Log("HAHAHHA");
         }
 
         private void Dead()
         {
-           // remHP <= 0 allora ciaone
+            //valutare se aspettare un po e mettere anim
+           Destroy(gameObject);
         }
 
         public bool GetDamage(DamageType damageType)
         {
-            Debug.Log("getDamage");
-            throw new System.NotImplementedException();
+            return damageType.HasFlag(enemySettings.DamageType);
         }
 
         public void ApplyDamage(float amount)
         {
-            Debug.Log("ApplyDamage");
-            throw new System.NotImplementedException();
+            remHP -= amount;
+
+            if (remHP <= 0)
+            {
+                Dead();
+            }
         }
     }
 

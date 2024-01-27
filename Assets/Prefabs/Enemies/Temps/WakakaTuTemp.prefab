@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4050638114994608728}
   - component: {fileID: 4873139123107241341}
   - component: {fileID: 3128394087059615095}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: TempEnemyMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 32eab9e689034e54b8c2b9e2987deb2d, type: 2}
+  - {fileID: 2100000, guid: 85079f5622194ed459f06dfc400d6f3b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -118,9 +118,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7743662660570746901}
-  - component: {fileID: -6786998511454129080}
-  m_Layer: 0
-  m_Name: WakakaTuPureTemp
+  - component: {fileID: 5157740656235030471}
+  m_Layer: 11
+  m_Name: WakakaTuTemp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ Transform:
   - {fileID: 7554185055016892543}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-6786998511454129080
+--- !u!114 &5157740656235030471
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -155,4 +155,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemySettings: {fileID: 11400000, guid: d9f7beadfba5e8f408fe4d8fab4a823b, type: 2}
-  wanderAngleRange: 45

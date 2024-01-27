@@ -7,24 +7,24 @@ namespace Code.Dialogue
 {
 	public class AnswersUI : MonoBehaviour
 	{
-		private static AnswersUI Instance;
+		/// <summary>
+		/// Invoked when an answer is selected. The bool is whether it was correct or not.
+		/// </summary>
 		public static event Action<bool> OnAnswerSelected;
+		private static AnswersUI instance;
 		
 		[SerializeField] private TextMeshProUGUI[] options;
 
 		private bool isActive;
 		private List<Answer> answers = new();
 
-		private enum Option
-		{
-			A,B,C
-		}
+		private enum Option { A, B, C }
 		
 		
 		// Singleton
 		private void Awake()
 		{
-			Instance = this;
+			instance = this;
 		}
 
 		private void Update()
@@ -46,32 +46,32 @@ namespace Code.Dialogue
 			}
 		}
 
-		private void Select(Option _option)
+		private void Select(Option option)
 		{
-			var optionUI = options[(int)_option];
-			// TODO Update option UI
+			var optionUI = options[(int)option];
+			// TODO Visually update optionUI
 			
-			OnAnswerSelected?.Invoke(answers[(int)_option].IsCorrect);
+			OnAnswerSelected?.Invoke(answers[(int)option].IsCorrect);
 		}
 
-		public static void Enable() => Instance.isActive = true;
+		public static void Enable() => instance.isActive = true;
 		public static void Disable()
 		{
-			Instance.isActive = false;
+			instance.isActive = false;
 			
-			// Also clear answers
-			for (int i = 0; i < Instance.answers.Count; i++)
+			// Also clear answer texts
+			for (int i = 0; i < instance.answers.Count; i++)
 			{
-				Instance.options[i].text = "";
+				instance.options[i].text = "";
 			}
 		}
 
-		public static void SetAnswers(List<Answer> _answers)
+		public static void SetAnswers(List<Answer> answers)
 		{
-			Instance.answers = _answers;
-			for (int i = 0; i < Instance.answers.Count; i++)
+			instance.answers = answers;
+			for (int i = 0; i < instance.answers.Count; i++)
 			{
-				Instance.options[i].text = Instance.answers[i].Text;
+				instance.options[i].text = instance.answers[i].Text;
 			}
 		}
 	}

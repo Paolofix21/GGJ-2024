@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Advepa.SchoolMetaverse.Laboratori;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue", order = 1)]
-public class DialogueScriptableObject : ScriptableObject
+public class DialogueScriptableObject : ScriptableObject // TODO rename?
 {
 	[Tooltip("Standard displays one line after the other. Randomize chooses one line at random from the list.")]
 	public DialogueType dialogueType;

@@ -4,7 +4,6 @@ using System.Threading.Tasks;
 using Advepa.SchoolMetaverse.Laboratori;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -40,17 +39,23 @@ namespace Code.Dialogue
 		private Task displayTask;
 
 		
+		private void Awake()
+		{
+			AnswersUI.OnAnswerSelected += CheckAnswer;
+			DialogueTimer.OnTimeout += WrongAnswer;
+		}
+
 		/// <summary>
 		/// Starts playing the passed dialogue.
 		/// </summary>
-		public async void Play(Dialogue _dialogue)
+		public async void Play(Dialogue dialogue)
 		{
 			// Cancel prev task if it was active
 			if (displayTask is { IsCompleted: false })
 				cancellationTokenSource.Cancel();
 
-			DialogueScriptableObject dialogue = GetDialogue(_dialogue);
-			currentDialogue = dialogue.Lines;
+			DialogueScriptableObject dialogueData = GetDialogue(dialogue);
+			currentDialogue = dialogueData.Lines;
 			dialogueLength = currentDialogue.Count;
 			currentDialogueLine = 0;
 			
@@ -59,10 +64,10 @@ namespace Code.Dialogue
 				await NextLine();
 				currentDialogueLine++;
 			}
-
-			AnswersUI.OnAnswerSelected += CheckAnswer;
-			AnswersUI.SetAnswers(dialogue.Answers);
+			
+			AnswersUI.SetAnswers(dialogueData.Answers);
 			AnswersUI.Enable();
+			DialogueTimer.StartTimer();
 		}
 
 		private async Task NextLine()
@@ -80,22 +85,22 @@ namespace Code.Dialogue
 			await displayTask;
 		}
 
-		public void CheckAnswer(bool _isCorrect)
+		private void WrongAnswer() => CheckAnswer(false);
+		private void CheckAnswer(bool isCorrect)
 		{
-			// TODO what happens if the answer is correct?
-			
-			
+			DialogueTimer.StopTimer();
 			AnswersUI.Disable();
 			label.text = "";
+			
+			// TODO what happens if the answer is correct? OnCorrectAnswer event?
 		}
-		
 
 		/// <summary>
 		/// Returns the correct <see cref="DialogueScriptableObject"/> based on the passed <see cref="Dialogue"/>.
 		/// </summary>
-		private DialogueScriptableObject GetDialogue(Dialogue _dialogue)
+		private DialogueScriptableObject GetDialogue(Dialogue dialogue)
 		{
-			return _dialogue switch
+			return dialogue switch
 			{
 				Dialogue.Tutorial => tutorialDialogue,
 				Dialogue.Boss1 => bossDialogue1,

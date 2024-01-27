@@ -1,15 +1,16 @@
-using System.Threading.Tasks;
+using System.Collections;
+using UnityEngine;
 
 namespace Code.EnemySystem.Boss
 {
 	public class BossAttackSpheresOdd : BossAttackSpheres
 	{
-		public override async Task Shoot()
+		public override IEnumerator Shoot()
 		{
 			for (int i = 0; i < fireballsPerShot; i++)
 			{
 				ShootSingle();
-				await Task.Delay((int)(timeBetweenShots * 1000));
+				yield return new WaitForSeconds(timeBetweenShots);
 			}
 		}
 

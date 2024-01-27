@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +14,7 @@ namespace Code.EnemySystem.Boss
 		[SerializeField, Min(0.00001f)] protected float timeBetweenShots = 1f;
 
 		
-		public abstract Task Shoot();
+		public abstract IEnumerator Shoot();
 		protected void SpawnFireball(Transform spawnPoint)
 		{
 			Instantiate(fireballPrefab, spawnPoint.position, spawnPoint.rotation);

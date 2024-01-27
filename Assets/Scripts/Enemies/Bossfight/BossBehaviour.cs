@@ -23,7 +23,7 @@ namespace Code.EnemySystem.Boss
 #if UNITY_EDITOR
 		private void Update()
 		{
-			//TEST
+			// TEST
 			if (Input.GetKeyDown(KeyCode.F1))
 				StartPhase();
 		}

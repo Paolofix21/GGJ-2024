@@ -1,6 +1,5 @@
-using System;
+using System.Collections;
 using System.Threading;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss
@@ -28,67 +27,50 @@ namespace Code.EnemySystem.Boss
 		private CancellationTokenSource tokenSource;
 		
 		
-		public override async void StartPhase()
+		public override void StartPhase()
 		{
 			evenSpheresAttack = GetComponent<BossAttackSpheresEven>();
 			oddSpheresAttack = GetComponent<BossAttackSpheresOdd>();
 
-			// TODO Force-turn player towards boss?
-			
-			// dialogueResult should be an enum with 4 types of answers
-			// TODO
-			//var dialogueResult = await DialogueSystem.Dialogue();
-			//boss.ApplyMalusOrBonus(dialogueResult);
-
-			tokenSource = new CancellationTokenSource();
-			Task attackTask = AttackLoop(tokenSource.Token);
-
-			await attackTask;
-			print("attack has ended");
-			// When HP drops below 65%, attacks stop and enemy waves are spawned
-
-			Task waveTask = WaveLoop(tokenSource.Token);
-			await waveTask;
-			print("wave has ended");
+			StartCoroutine(AttackLoop());
 		}
 
-		/// <summary>
-		/// Starts shooting a series of bullet-hell spheres. Returns when the boss HP reaches <see cref="spawnWaveBelowHealth"/>.
-		/// </summary>
-		private async Task AttackLoop(CancellationToken token)
+		private IEnumerator AttackLoop()
 		{
-			while (!token.IsCancellationRequested && boss.HeathAsPercentage >= spawnWaveBelowHealth)
+			WaitForSeconds attackDelay = new WaitForSeconds(secondsBetweenAttacks);
+
+			// Volevo farlo con le task ma alla fine è piu comodo con le Coroutine
+			while (boss.HeathAsPercentage >= spawnWaveBelowHealth)
 			{
-				await evenSpheresAttack.Shoot();
+				yield return evenSpheresAttack.Shoot();
+				yield return attackDelay;
 
-				if (token.IsCancellationRequested || boss.HeathAsPercentage < spawnWaveBelowHealth)
-					return;
+				if (boss.HeathAsPercentage < spawnWaveBelowHealth)
+					break;
 
-				await Task.Delay((int)(secondsBetweenAttacks * 1000), token);
-
-				if (token.IsCancellationRequested || boss.HeathAsPercentage < spawnWaveBelowHealth)
-					return;
-
-				
-				await oddSpheresAttack.Shoot();
-
-				if (token.IsCancellationRequested || boss.HeathAsPercentage < spawnWaveBelowHealth)
-					return;
-
-				await Task.Delay((int)(secondsBetweenAttacks * 1000), token);
+				yield return oddSpheresAttack.Shoot();
+				yield return attackDelay;
 			}
+
+			print("attack has ended");
+			StartCoroutine(WaveLoop());
 		}
-		
-		private async Task WaveLoop(CancellationToken token)
+
+		private IEnumerator WaveLoop()
 		{
 			// Spawn enemy wave
 			// When the wave ends, go to Phase 2
-		}
 
+			yield return null; // Placeholder for spawning enemy wave
+
+			print("wave has ended");
+
+			// Go to Phase 2 or perform other actions as needed
+		}
 
 		private void OnDestroy()
 		{
-			tokenSource.Cancel();
+			StopAllCoroutines();
 		}
 	}
 }

@@ -119,7 +119,7 @@ MonoBehaviour:
   fireballPrefab: {fileID: 8907917542864964187, guid: 822f7c23ffc96774b93bbef0adf37664,
     type: 3}
   fireballsPerShot: 6
-  timeBetweenShots: 0.75
+  timeBetweenShots: 0.25
 --- !u!114 &1720109890054335489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,7 +144,7 @@ MonoBehaviour:
   fireballPrefab: {fileID: 8907917542864964187, guid: 822f7c23ffc96774b93bbef0adf37664,
     type: 3}
   fireballsPerShot: 6
-  timeBetweenShots: 0.75
+  timeBetweenShots: 0.25
 --- !u!1 &2102047411867675966
 GameObject:
   m_ObjectHideFlags: 0

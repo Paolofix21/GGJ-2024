@@ -43,6 +43,7 @@ namespace Code.Player
 
         public void GetDamage(float _amount)
         {
+            Debug.Log("AHIAHIA");
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 

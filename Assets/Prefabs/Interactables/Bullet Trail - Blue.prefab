@@ -1,0 +1,115 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &6964933558653096569
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 412404122277915469, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 412404122277915469, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.33595228
+      objectReference: {fileID: 0}
+    - target: {fileID: 412404122277915469, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139512727896446130, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139512727896446130, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.31307483
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139512727896446130, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139512727896446130, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.9905014
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139512727896446130, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4139512727896446130, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4895102795690216075, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9195606276634683472, guid: 41a39b493634ea840a2cd867a86c1a51,
+        type: 3}
+      propertyPath: m_Name
+      value: Bullet Trail - Blue
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 41a39b493634ea840a2cd867a86c1a51, type: 3}

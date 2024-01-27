@@ -55,8 +55,6 @@ namespace Code.Player
             Vector3 valueToReach;
             Vector3 transposerPos = transposer.m_FollowOffset;
 
-            Debug.Log(_value);
-
             if (_value)
                 valueToReach = crouchedView;
             else

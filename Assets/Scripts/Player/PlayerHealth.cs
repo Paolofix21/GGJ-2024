@@ -11,6 +11,10 @@ namespace Code.Player
         private float maxHealth = 100f;
         private float currentHealth;
 
+        [SerializeField] private int healthToAdd;
+        [SerializeField] private int TimeBeforeStartHealing;
+        private int currentTime;
+
         [SerializeField] private Slider healthBar;
 
         //in ordine: HP rimossi, HP attuali, HP max
@@ -18,10 +22,19 @@ namespace Code.Player
         public event Action<float, float, float> OnHeal;
         public event Action OnPlayerDeath;
 
+        private void OnEnable()
+        {
+            InvokeRepeating(nameof(CheckHealth), 1, 1);
+        }
+
+        private void OnDisable()
+        {
+            CancelInvoke(nameof(CheckHealth));
+        }
+
         private void Start()
         {
             currentHealth = maxHealth;
-            healthBar.value = currentHealth / maxHealth;
         }
 
         private IEnumerator UpdateHealthBar()
@@ -44,13 +57,10 @@ namespace Code.Player
 
         public void GetDamage(float _amount)
         {
-            Debug.Log("AHIAHIA");
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
             OnDamageTaken?.Invoke(_amount, currentHealth, maxHealth);
-
-            
 
             if (currentHealth <= 0)
             {
@@ -60,6 +70,24 @@ namespace Code.Player
             else
             {
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerTakeDamageEvent, this.transform.position);
+                currentTime = TimeBeforeStartHealing;
+            }
+        }
+
+        private void CheckHealth() 
+        { 
+            if(currentTime > 0)
+            {
+                currentTime--;
+                if (currentTime == 0)
+                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
+                else
+                    return;
+            }
+
+            if(currentHealth < maxHealth)
+            {
+                Heal(healthToAdd);
             }
         }
 
@@ -68,7 +96,7 @@ namespace Code.Player
             currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
+            //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
 
             OnHeal?.Invoke(_amount, currentHealth, maxHealth);
         }

@@ -33,7 +33,6 @@ namespace Code.Player
 
         #region Player Components Fields
         private CharacterController controller;
-        private Rigidbody rigidbody;
         private PlayerView cameraLook;
         private PlayerHealth health;
         private VisualSetter visualSetter;
@@ -62,14 +61,13 @@ namespace Code.Player
 
         #region Events
         public event Action<int> OnWeaponChanged;
-        public event Func<bool> OnShootRequest; 
+        public event Func<bool> OnShootRequest;
         #endregion
 
         #region Unity Behaviours
-
-        private void Awake()
+        private void OnGUI()
         {
-            rigidbody = GetComponent<Rigidbody>();
+            GUILayout.Label(controller?.velocity.ToString());
         }
 
         private void Start()
@@ -137,8 +135,8 @@ namespace Code.Player
         private void GetMovement()
         {
             Vector3 dir = Vector3.zero;
-            dir.x = input.GetMovement().x;
-            dir.z = input.GetMovement().y;
+            vel.x = input.GetMovement().x;
+            vel.z = input.GetMovement().y;
 
             if (controller.isGrounded && vel.y < 0)
             {
@@ -149,8 +147,8 @@ namespace Code.Player
                 vel.y += grav * Time.deltaTime;
             }
 
-            controller.Move(transform.TransformDirection(dir) * speed * Time.deltaTime);
-            controller.Move(vel * Time.deltaTime);
+            controller.Move(transform.TransformDirection(vel) * speed * Time.deltaTime);
+            //controller.Move(vel * Time.deltaTime);
         }
 
         private void Jump(InputAction.CallbackContext ctx)
@@ -269,7 +267,7 @@ namespace Code.Player
 
         private void UpdateSound()
         {
-            if(controller.isGrounded && controller.velocity != Vector3.zero)
+            if(controller.isGrounded && controller.velocity.sqrMagnitude > 0.0001f)
             {
                 PLAYBACK_STATE playbackState;
                 footsteps_instance.getPlaybackState(out playbackState);

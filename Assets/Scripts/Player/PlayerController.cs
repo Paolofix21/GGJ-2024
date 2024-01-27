@@ -74,9 +74,13 @@ namespace Code.Player
             health = GetComponent<PlayerHealth>();
             input = GetComponent<InputManager>();
 
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+
             input.playerMap.PlayerActions.Jump.performed +=  Jump;
             input.playerMap.PlayerActions.Crouch.performed += Crouch;
             input.playerMap.PlayerActions.Shoot.performed += PlayShoot;
+
             input.playerMap.PlayerActions.ContinuousShoot.performed += _ => PlayShootContinuous(true);
             input.playerMap.PlayerActions.ContinuousShoot.canceled += _ => PlayShootContinuous(false);
 

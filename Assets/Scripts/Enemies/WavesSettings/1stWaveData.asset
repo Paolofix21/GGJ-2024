@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6e223f0a008e074fac63d078e64dd75, type: 3}
+  m_Name: 1stWaveData
+  m_EditorClassIdentifier: 
+  spawnRateInSecs: 5
+  waveEnemies:
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 1618509248972921145, guid: 0bcf501a1abbf9f46aa190bbc09d7dad, type: 3}
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 1618509248972921145, guid: 0bcf501a1abbf9f46aa190bbc09d7dad, type: 3}
+    - {fileID: 1797600499526160805, guid: e693576a110ee1149b1ba87af6128682, type: 3}
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 1797600499526160805, guid: e693576a110ee1149b1ba87af6128682, type: 3}
+    - {fileID: 1797600499526160805, guid: e693576a110ee1149b1ba87af6128682, type: 3}
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+    - {fileID: 1618509248972921145, guid: 0bcf501a1abbf9f46aa190bbc09d7dad, type: 3}
+    - {fileID: 1618509248972921145, guid: 0bcf501a1abbf9f46aa190bbc09d7dad, type: 3}

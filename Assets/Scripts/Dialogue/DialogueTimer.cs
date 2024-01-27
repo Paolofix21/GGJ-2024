@@ -25,6 +25,9 @@ namespace Code.Dialogue
 
 		private void Awake() => instance = this;
 
+		/// <summary>
+		/// Starts the dialogue timer. If it runs out, <see cref="OnTimeout"/> is called.
+		/// </summary>
 		public static void StartTimer()
 		{
 			instance.StartCoroutine(instance.TimerCoroutine());

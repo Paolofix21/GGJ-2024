@@ -1,3 +1,4 @@
+using Code.Graphics;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace Code.Player
     public class PlayerController : MonoBehaviour
     {
         private bool isDead = false;
+
+        [SerializeField] private ColorSetSO[] hueValue;
 
         #region Movement Fields
         [Header("Movement Fields")]
@@ -28,6 +31,7 @@ namespace Code.Player
         private CharacterController controller;
         private PlayerView cameraLook;
         private PlayerHealth health;
+        private VisualSetter visualSetter;
         #endregion
 
         #region Lava Fields
@@ -53,6 +57,7 @@ namespace Code.Player
 
         #region Events
         public event Action<int> OnWeaponChanged;
+        public event Func<bool> OnShootRequest; 
         #endregion
 
         #region Unity Behaviours
@@ -61,6 +66,7 @@ namespace Code.Player
             controller = GetComponent<CharacterController>();
             cameraLook = GetComponent<PlayerView>();
             health = GetComponent<PlayerHealth>();
+            visualSetter = GetComponentInChildren<VisualSetter>();
             input = GetComponent<InputManager>();
 
             Cursor.lockState = CursorLockMode.Locked;
@@ -158,6 +164,13 @@ namespace Code.Player
         {
             isInsideLava = true;
             speed = lavaSpeed;
+
+            if (crouching)
+            {
+                crouching = !crouching;
+                cameraLook.ChangeViewHeight(crouching);
+            }
+                
             while (isInsideLava)
             {
                 health.GetDamage(lavaDamage);
@@ -176,6 +189,13 @@ namespace Code.Player
         #region Animation Behaviours
         private void SetWeaponType(int type, int clip)
         {
+            anim.ResetTrigger(shootTrigger);
+            anim.SetBool(isShooting, false);
+            visualSetter.SetHueDeg(hueValue[type].ObjectHue);
+
+            if (anim.GetInteger(weaponType) == type)
+                return;
+
             OnWeaponChanged?.Invoke(type);
             anim.SetInteger(weaponType, type);
             anim.Play(clip);
@@ -183,11 +203,15 @@ namespace Code.Player
 
         private void PlayShoot(InputAction.CallbackContext ctx)
         {
-            anim.SetTrigger(shootTrigger);
+            if(OnShootRequest != null && OnShootRequest.Invoke())
+                anim.SetTrigger(shootTrigger);
         }
 
         private void PlayShootContinuous(bool _value)
         {
+            if (OnShootRequest == null || !OnShootRequest.Invoke())
+                return;
+
             if (_value && !anim.GetBool(isShooting))
                 anim.SetBool(isShooting, true);
             else if(!_value && anim.GetBool(isShooting))

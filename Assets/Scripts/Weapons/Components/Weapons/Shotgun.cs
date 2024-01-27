@@ -5,8 +5,6 @@ using UnityEngine;
 namespace Code.Weapons {
 
     public class Shotgun : Weapon {
-        protected override void Shoot() {
-        }
     }
 
 }

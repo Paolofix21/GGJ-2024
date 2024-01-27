@@ -6,6 +6,7 @@ namespace Code.Weapons {
 
     public class Sword : Weapon {
         protected override void Shoot() {
+
         }
     }
 

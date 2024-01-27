@@ -6,6 +6,9 @@ namespace Code.Weapons {
         private Transform playerCamera = default;
 
         public override void Shoot(Ammunition ammunition) {
+            OnShotFired?.Invoke();
+            Cooldown(true);
+
             Ray ray = new Ray(playerCamera.position, playerCamera.forward);
 
             if(Physics.Raycast(ray, out RaycastHit hitInfo, range)) {

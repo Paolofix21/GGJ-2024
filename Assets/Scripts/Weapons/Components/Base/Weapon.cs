@@ -13,7 +13,16 @@ namespace Code.Weapons {
         [SerializeField] protected Cartridge cartridge = default;
         [SerializeField] protected FiringLogic firingLogic = default;
 
-        protected abstract void Shoot();
+        protected virtual void Shoot() {
+            if (!firingLogic.CanShoot())
+                return;
+
+            if (!cartridge.HasAmmo())
+                return;
+
+            cartridge.Consume();
+            firingLogic.Shoot(ammunition);
+        }
     }
 
 }

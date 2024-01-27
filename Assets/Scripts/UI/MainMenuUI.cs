@@ -1,4 +1,5 @@
 using Code.LevelSystem;
+using FMOD.Studio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,9 +28,13 @@ namespace Code.UI
         }
         private void Start()
         {
+            AudioManager.instance.PlayMainMenuMusic();
+
             m_loadLevel.onClick.AddListener(delegate {
                 SceneLoader.LoadScene("Hell", UnityEngine.SceneManagement.LoadSceneMode.Single);
                 m_loadLevel.interactable = false;
+                AudioManager.instance.ChangeGlobalMusicAmbienceParameter(1);
+                AudioManager.instance.PlayExplorationMusic();
             });
             m_quitGame.onClick.AddListener(delegate {
                 UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame); 

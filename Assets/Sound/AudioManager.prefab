@@ -108,6 +108,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0eee60532aa0994aa751100ccb3844b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <ambienceEvent>k__BackingField:
+    Guid:
+      Data1: 1854476357
+      Data2: 1304384193
+      Data3: -2087415416
+      Data4: -1958302945
+    Path: event:/Ambience/Ambience
+  <musicEvent>k__BackingField:
+    Guid:
+      Data1: -1012435774
+      Data2: 1319176824
+      Data3: -217754994
+      Data4: -1022567241
+    Path: event:/Music/Music
   <playerFootstepsEvent>k__BackingField:
     Guid:
       Data1: 1788899959

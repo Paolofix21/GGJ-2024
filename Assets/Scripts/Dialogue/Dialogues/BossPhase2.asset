@@ -13,5 +13,17 @@ MonoBehaviour:
   m_Name: BossPhase2
   m_EditorClassIdentifier: 
   dialogueType: 0
-  lines: []
-  answers: []
+  lines:
+  - messageType: 0
+    message: Tell me a funny joke now!
+  answers:
+  - Text: LOL
+    IsCorrect: 0
+  - Text: LMAO
+    IsCorrect: 1
+  bonus:
+    messageType: 0
+    message: N-no! I wasn't laughing!
+  malus:
+    messageType: 0
+    message: Are you ok?

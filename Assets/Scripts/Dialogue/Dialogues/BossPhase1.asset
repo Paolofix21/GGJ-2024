@@ -15,11 +15,7 @@ MonoBehaviour:
   dialogueType: 0
   lines:
   - messageType: 0
-    message: Mwuahaha
-  - messageType: 0
-    message: You sorry excuse of a comedian
-  - messageType: 0
-    message: Let's see if you can make me laugh
+    message: Tell me a joke
   answers:
   - Text: ur mom
     IsCorrect: 1
@@ -27,3 +23,9 @@ MonoBehaviour:
     IsCorrect: 0
   - Text: ur uncle
     IsCorrect: 0
+  bonus:
+    messageType: 0
+    message: Hehehe, that was kinda funny.
+  malus:
+    messageType: 0
+    message: Not funny. Didn't laugh.

@@ -6,15 +6,19 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 [CreateAssetMenu(fileName = "Dialogue", menuName = "Dialogue", order = 1)]
-public class DialogueScriptableObject : ScriptableObject // TODO rename?
+public class DialogueData : ScriptableObject
 {
 	[Tooltip("Standard displays one line after the other. Randomize chooses one line at random from the list.")]
 	public DialogueType dialogueType;
 	[SerializeField] private Message[] lines;
 	[SerializeField] private Answer[] answers;
+	[SerializeField] private Message bonus;
+	[SerializeField] private Message malus;
 
 	public List<Message> Lines => lines.ToList();
 	public List<Answer> Answers => answers.ToList();
+	public Message Bonus => bonus;
+	public Message Malus => malus;
 
 
 	

@@ -169,7 +169,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9372549}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -206,6 +206,7 @@ GameObject:
   - component: {fileID: 152426642}
   - component: {fileID: 152426641}
   - component: {fileID: 152426644}
+  - component: {fileID: 152426645}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -331,6 +332,19 @@ MonoBehaviour:
     mipBias: 0
     varianceClampScale: 0.9
     contrastAdaptiveSharpening: 0
+--- !u!114 &152426645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152426640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &285480653
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,8 +887,8 @@ RectTransform:
   m_Children:
   - {fileID: 105800652}
   - {fileID: 1884970901}
-  - {fileID: 1094776737}
   - {fileID: 603422038}
+  - {fileID: 1094776737}
   m_Father: {fileID: 705302678}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -895,9 +909,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorialDialogue: {fileID: 11400000, guid: 3ee4acabdeec99841aaf390b5669e1b3, type: 2}
-  bossDialogue1: {fileID: 11400000, guid: 53868c2cf5e8ffb4fa45f985919abec7, type: 2}
-  bossDialogue2: {fileID: 11400000, guid: 53868c2cf5e8ffb4fa45f985919abec7, type: 2}
-  bossDialogue3: {fileID: 11400000, guid: 53868c2cf5e8ffb4fa45f985919abec7, type: 2}
+  bossDialogue1: {fileID: 11400000, guid: d916ec3b0d10b964a8ee8d7b9ac185f8, type: 2}
+  bossDialogue2: {fileID: 11400000, guid: 7d3dd0536a27a004ba56e7a3174e8033, type: 2}
+  bossDialogue3: {fileID: 11400000, guid: ae894d5669f72fd43800329cceaa6dd3, type: 2}
   audioSource: {fileID: 447897206}
   charMap: {fileID: 11400000, guid: 548398d220bc4cb4d9367b69a77e00a0, type: 2}
   label: {fileID: 1884970902}
@@ -1314,8 +1328,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1094776737}
-  - component: {fileID: 1094776738}
   - component: {fileID: 1094776739}
+  - component: {fileID: 1094776738}
   m_Layer: 5
   m_Name: Answers
   m_TagString: Untagged

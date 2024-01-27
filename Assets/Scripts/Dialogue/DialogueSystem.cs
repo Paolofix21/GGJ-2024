@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,18 +22,26 @@ namespace Code.Dialogue
 			Boss1,Boss2,Boss3
 		}
 
-		[SerializeField] private DialogueScriptableObject tutorialDialogue;
-		[SerializeField] private DialogueScriptableObject bossDialogue1;
-		[SerializeField] private DialogueScriptableObject bossDialogue2;
-		[SerializeField] private DialogueScriptableObject bossDialogue3;
+		/// <summary>
+		/// Invoked when a correct dialogue answer is chosen.
+		/// </summary>
+		public static event Action OnCorrectAnswer;
+		/// <summary>
+		/// Invoked when a wrong dialogue answer is chosen.
+		/// </summary>
+		public static event Action OnWrongAnswer;
+		
+		[SerializeField] private DialogueData tutorialDialogue;
+		[SerializeField] private DialogueData bossDialogue1;
+		[SerializeField] private DialogueData bossDialogue2;
+		[SerializeField] private DialogueData bossDialogue3;
 		[Space]
 		[SerializeField] private AudioSource audioSource;
 		[SerializeField] private CharMap charMap;
 		[SerializeField] private TextMeshProUGUI label;
 		[SerializeField, Min(0)] private float delayBetweenLines = 1f;
 
-		private int dialogueLength;
-		private List<Message> currentDialogue;
+		private DialogueData currentDialogueData;
 		private int currentDialogueLine;
 		private CancellationTokenSource cancellationTokenSource;
 		private CancellationToken cancellationToken;
@@ -54,20 +63,22 @@ namespace Code.Dialogue
 			if (displayTask is { IsCompleted: false })
 				cancellationTokenSource.Cancel();
 
-			DialogueScriptableObject dialogueData = GetDialogue(dialogue);
-			currentDialogue = dialogueData.Lines;
-			dialogueLength = currentDialogue.Count;
+			currentDialogueData = GetDialogue(dialogue);
 			currentDialogueLine = 0;
 			
-			for (int i = 0; i < dialogueLength; i++)
+			for (int i = 0; i < currentDialogueData.Lines.Count; i++)
 			{
 				await NextLine();
 				currentDialogueLine++;
 			}
-			
-			AnswersUI.SetAnswers(dialogueData.Answers);
-			AnswersUI.Enable();
-			DialogueTimer.StartTimer();
+
+			// If the dialogue has answers, show them
+			if (currentDialogueData.Answers.Count > 0)
+			{
+				AnswersUI.SetAnswers(currentDialogueData.Answers);
+				AnswersUI.Enable();
+				DialogueTimer.StartTimer();
+			}
 		}
 
 		private async Task NextLine()
@@ -79,26 +90,45 @@ namespace Code.Dialogue
 			cancellationTokenSource = new CancellationTokenSource();
 			cancellationToken = cancellationTokenSource.Token;
 
-			displayTask = DialogueManager.DisplayText(currentDialogue, currentDialogueLine, label, audioSource, charMap,
-				cancellationTokenSource, cancellationToken);
+			await DisplayLine(currentDialogueData.Lines);
+		}
 
+		private async Task DisplayLine(List<Message> lines)
+		{
+			displayTask = DialogueManager.DisplayText(lines, currentDialogueLine, label, audioSource, charMap, cancellationTokenSource, cancellationToken);
 			await displayTask;
 		}
 
 		private void WrongAnswer() => CheckAnswer(false);
-		private void CheckAnswer(bool isCorrect)
+		private async void CheckAnswer(bool isCorrect)
 		{
 			DialogueTimer.StopTimer();
 			AnswersUI.Disable();
 			label.text = "";
 			
-			// TODO what happens if the answer is correct? OnCorrectAnswer event?
+			// Display the final line based on the answer result
+			var finalLine = new List<Message>{ isCorrect ? currentDialogueData.Bonus : currentDialogueData.Malus };
+			displayTask = DialogueManager.DisplayText(finalLine, 0, label, audioSource, charMap, cancellationTokenSource, cancellationToken);
+			await displayTask;
+
+			label.text = "";
+
+			// TODO close the dialogue? Or does another system take care of that?
+			
+			if (isCorrect)
+			{
+				OnCorrectAnswer?.Invoke();;
+			}
+			else
+			{
+				OnWrongAnswer?.Invoke();
+			}
 		}
 
 		/// <summary>
-		/// Returns the correct <see cref="DialogueScriptableObject"/> based on the passed <see cref="Dialogue"/>.
+		/// Returns the correct <see cref="DialogueData"/> based on the passed <see cref="Dialogue"/>.
 		/// </summary>
-		private DialogueScriptableObject GetDialogue(Dialogue dialogue)
+		private DialogueData GetDialogue(Dialogue dialogue)
 		{
 			return dialogue switch
 			{
@@ -143,11 +173,21 @@ namespace Code.Dialogue
 		public override void OnInspectorGUI()
 		{
 			base.OnInspectorGUI();
-
-			if (GUILayout.Button("Tutorial"))
+			
+			if (!Application.isPlaying)
+				return;
+			
+			if (GUILayout.Button("Boss Phase 1"))
 			{
-				var dialogueSystem = (DialogueSystem)target;
-				dialogueSystem.Play(DialogueSystem.Dialogue.Boss1);
+				((DialogueSystem)target).Play(DialogueSystem.Dialogue.Boss1);
+			}
+			else if (GUILayout.Button("Boss Phase 2"))
+			{
+				((DialogueSystem)target).Play(DialogueSystem.Dialogue.Boss2);
+			}
+			else if (GUILayout.Button("Boss Phase 3"))
+			{
+				((DialogueSystem)target).Play(DialogueSystem.Dialogue.Boss3);
 			}
 		}
 	}

@@ -23,6 +23,7 @@ namespace Code.Graphics {
         private bool _animatingLaughter;
 
         private static readonly int MatProp_Hue = Shader.PropertyToID("_Hue");
+        private static readonly int MatProp_Saturation = Shader.PropertyToID("_Saturation");
         private static readonly int MatProp_MainColor = Shader.PropertyToID("_BaseColor");
         private static readonly int MatProp_EmissionColor = Shader.PropertyToID("_EmissionColor");
         #endregion
@@ -37,6 +38,7 @@ namespace Code.Graphics {
 
             _block = new MaterialPropertyBlock();
             _block.SetFloat(MatProp_Hue, m_colorSets[0].ObjectHue);
+            _block.SetFloat(MatProp_Saturation, m_colorSets[0].ObjectSaturation);
 
             _trailBlock = new MaterialPropertyBlock();
             _trailBlock.SetColor(MatProp_MainColor, m_colorSets[0].TrailColor);
@@ -52,10 +54,12 @@ namespace Code.Graphics {
         private void SetColorOne() => SetColorType(1);
         [ContextMenu("Set Color/2")]
         private void SetColorTwo() => SetColorType(2);
+        [ContextMenu("Set Color/3")]
+        private void SetColorThree() => SetColorType(3);
 
         public void SetColorType(int id) {
             var colorSet = m_colorSets[id];
-            SetHueDeg(colorSet.ObjectHue);
+            SetHueDeg(colorSet.ObjectHue, colorSet.ObjectSaturation);
             SetTrailColor(colorSet.TrailColor);
         }
         #endregion
@@ -76,9 +80,10 @@ namespace Code.Graphics {
         #endregion
 
         #region Private Methods
-        private void SetHueDeg(float degrees) {
+        private void SetHueDeg(float degrees, float saturation) {
             _meshRenderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_Hue, degrees);
+            _block.SetFloat(MatProp_Saturation, saturation);
             _meshRenderer.SetPropertyBlock(_block);
         }
 

@@ -32,6 +32,7 @@ namespace Code.EnemySystem
             waveSpawner = GameObject.FindFirstObjectByType<WaveSpawner>();
             maskAnimator = GetComponent<MaskAnimator>();
 
+
             remHP = enemySettings.HP;
             switch (enemySettings.DamageType)
             {
@@ -89,6 +90,7 @@ namespace Code.EnemySystem
             }
         }
 
+
         void Wander()
         {
             float distanceToDestination = Vector3.Distance(transform.position, transform.position + wanderDirection);
@@ -101,11 +103,10 @@ namespace Code.EnemySystem
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
 
-            // Calcola la rotazione solo sull'asse Y
+            
             if (wanderDirection != Vector3.zero)
             {
-                float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
-                Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+                Quaternion targetRotation = Quaternion.LookRotation(wanderDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
             }
 
@@ -151,12 +152,12 @@ namespace Code.EnemySystem
                 else
                 {
                     AttackPlayer();
-                    currentCooldown = attackCooldown; // Avvia il cooldown dopo un attacco
+                    currentCooldown = attackCooldown; 
                 }
             }
             else
             {
-                currentCooldown -= Time.deltaTime; // Riduci il cooldown
+                currentCooldown -= Time.deltaTime; 
             }
         }
 
@@ -164,15 +165,14 @@ namespace Code.EnemySystem
         {
             while (true)
             {
-                yield return new WaitForSeconds(5f); // Attendi 5 secondi
+                yield return new WaitForSeconds(5f);
 
-                // Calcola la distanza dal punto (0, 0, 0)
                 float distanceToOrigin = Vector3.Distance(transform.position, Vector3.zero);
 
-                // Se la distanza è maggiore di 20 metri, imposta una nuova direzione casuale
                 if (distanceToOrigin > 20f)
                 {
-                    SetRandomWanderDirection();
+                    Vector3 targetPosition = playerPos.position;
+                    transform.Translate((targetPosition - transform.position).normalized * enemySettings.wanderSpeed * Time.deltaTime);
                 }
             }
         }

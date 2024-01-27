@@ -20,8 +20,6 @@ namespace Code.EnemySystem
 
         private bool reverseDirection = false;
         private bool isChasing = false;
-        
-        
 
         void Start()
         {
@@ -104,8 +102,20 @@ namespace Code.EnemySystem
             }
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
-            transform.Translate(wanderDirection * speed * Time.deltaTime);
+
+            // Calcola la rotazione solo sull'asse Y
+            if (wanderDirection != Vector3.zero)
+            {
+                float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
+                Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
+            }
+
+            // Applica il movimento avanti
+            transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
+
+
 
         void SetRandomWanderDirection()
         {
@@ -130,8 +140,7 @@ namespace Code.EnemySystem
             }
         }
 
-
-        private void AttackPlayer() // valutare se fare un delay
+        private void AttackPlayer()
         {
             maskAnimator.AnimateLaughter();
             playerHealth.GetDamage(enemySettings.damage);
@@ -139,8 +148,7 @@ namespace Code.EnemySystem
 
         private void Dead()
         {
-            //valutare se aspettare un po e mettere anim
-           Destroy(gameObject);
+            Destroy(gameObject);
         }
 
         public bool GetDamage(DamageType damageType)
@@ -158,5 +166,4 @@ namespace Code.EnemySystem
             }
         }
     }
-
 }

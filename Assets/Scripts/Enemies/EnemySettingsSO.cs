@@ -13,6 +13,7 @@ public class EnemySettings : ScriptableObject
     public float wanderSpeed = 2f;
     public float chaseSpeed = 5f;
     public float maxDistanceFromPlayer = 20f;
+    public float rotationSpeed = 1.0f;
 
     [Header("Detection Settings")]
     public float visionRange = 10f;

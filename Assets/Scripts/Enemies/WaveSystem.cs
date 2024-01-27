@@ -82,6 +82,8 @@ namespace Code.EnemySystem
             Vector3 spawnPosition = spawnPoint.position;
 
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, this.transform);
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.spawnEvent, spawnPosition);
         }
 
       

@@ -39,6 +39,7 @@ namespace Code.EnemySystem
                 else
                 {
                     // Ondata completata, possiamo chiamare funzione spawn boss
+                    Debug.Log("Ondata completata");
                 }
             }
         }

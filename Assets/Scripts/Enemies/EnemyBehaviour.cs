@@ -136,11 +136,13 @@ namespace Code.EnemySystem
         {
             wanderDirection = (playerPos.position - transform.position).normalized;
 
-            float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
+            /*float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);*/
 
             float horizontalDistance = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(playerPos.position.x, 0f, playerPos.position.z));
+
+            transform.rotation = Quaternion.LookRotation(wanderDirection);
 
             if (currentCooldown <= 0f)
             {
@@ -192,11 +194,13 @@ namespace Code.EnemySystem
 
         public bool GetDamage(DamageType damageType)
         {
+            Debug.Log($"Asking if can be damaged...\nType: {damageType}\n", this);
             return damageType.HasFlag(enemySettings.DamageType);
         }
 
         public void ApplyDamage(float amount)
         {
+            Debug.Log($"Applying {amount} damage...\n", this);
             remHP -= amount;
 
             if (remHP <= 0)

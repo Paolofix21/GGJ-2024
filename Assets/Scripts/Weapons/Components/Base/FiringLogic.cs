@@ -36,7 +36,7 @@ namespace Code.Weapons {
             cooldownActive = state;
             OnCooldownStateChanged?.Invoke(state);
 
-            Debug.Log($"{gameObject.name} - {nameof(Cooldown)} - Current cooldown {cooldownActive}");
+            // Debug.Log($"{gameObject.name} - {nameof(Cooldown)} - Current cooldown {cooldownActive}");
         }
 
         public abstract void Shoot(Ammunition ammunition);

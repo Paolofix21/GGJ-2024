@@ -1,6 +1,9 @@
 using Code.Player;
 using Code.Weapons;
 using UnityEngine;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 namespace Code.EnemySystem.Boss
 {
@@ -13,7 +16,7 @@ namespace Code.EnemySystem.Boss
 
 		private Transform playerPos;
 		private PlayerHealth playerHealth;
-		private Vector3 wanderDirection;
+		private BossPhase[] phases;
 
 		private float remHP;
 		private bool isInvulnerable;
@@ -22,9 +25,15 @@ namespace Code.EnemySystem.Boss
 
 		private void Start()
 		{
-			playerPos = GameObject.FindGameObjectWithTag("Player").transform;
-			playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
+			playerPos = GameObject.FindGameObjectWithTag("Player")?.transform;
+			playerHealth = GameObject.FindGameObjectWithTag("Player")?.GetComponent<PlayerHealth>();
+			phases = GetComponents<BossPhase>();
 			remHP = enemySettings.HP;
+		}
+
+		public void StartPhase()
+		{
+			phases[0].StartPhase();
 		}
 		
 		private void Dead()
@@ -40,11 +49,30 @@ namespace Code.EnemySystem.Boss
 		public void ApplyDamage(float amount)
 		{
 			remHP -= amount;
-
+			print($"boss now has {remHP} hp");
 			if (remHP <= 0)
 			{
 				Dead();
 			}
 		}
 	}
+	
+#if UNITY_EDITOR // TEMP to test
+	[CustomEditor(typeof(BossBehaviour))]
+	public class BossBehaviourCustomEditor : Editor
+	{
+		public override void OnInspectorGUI()
+		{
+			base.OnInspectorGUI();
+			
+			if (!Application.isPlaying)
+				return;
+			
+			if (GUILayout.Button("Boss Phase 1"))
+			{
+				((BossBehaviour)target).StartPhase();
+			}
+		}
+	}
+#endif
 }

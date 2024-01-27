@@ -1,10 +1,10 @@
 ﻿using UnityEngine;
 
 namespace Code.Graphics {
-    [RequireComponent(typeof(MeshRenderer))]
+    [RequireComponent(typeof(SkinnedMeshRenderer))]
     public class VisualSetter : MonoBehaviour {
         #region Private Variables
-        private MeshRenderer _renderer;
+        private SkinnedMeshRenderer _renderer;
         private MaterialPropertyBlock _block;
 
         private static readonly int MatProp_Hue = Shader.PropertyToID("_Hue");
@@ -12,7 +12,7 @@ namespace Code.Graphics {
 
         #region Behaviour Callbacks
         private void Awake() {
-            _renderer = GetComponent<MeshRenderer>();
+            _renderer = GetComponent<SkinnedMeshRenderer>();
 
             _block = new MaterialPropertyBlock();
             _block.SetFloat(MatProp_Hue, 0f);

@@ -4,9 +4,12 @@ using UnityEngine;
 namespace Code.Weapons {
 
     public abstract class FiringLogic : MonoBehaviour {
-        [Header("Settings")]
+        [Header("Base")]
         [SerializeField] protected float range = default;
         [SerializeField] protected float cooldown = default;
+
+        [Header("References")]
+        [SerializeField] protected Transform playerCamera = default;
 
         protected float elapsedTime = default;
         protected bool cooldownActive = default;

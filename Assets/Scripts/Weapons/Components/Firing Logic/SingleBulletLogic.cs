@@ -3,7 +3,36 @@ using UnityEngine;
 namespace Code.Weapons {
 
     public class SingleBulletLogic : FiringLogic {
-        private Transform playerCamera = default;
+        [Header("Gizmos")]
+        [SerializeField] private bool gizmosEnabled = default;
+
+        private void OnDrawGizmos() {
+            if (!gizmosEnabled)
+                return;
+
+            Gizmos.DrawLine(playerCamera.position, playerCamera.position + playerCamera.forward * range);
+            Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+
+            string log = Physics.Raycast(ray, out RaycastHit hitInfo, range) ? "Raycast fired with hit" : "Raycast fired without hit";
+
+            Debug.Log(log);
+
+            if (hitInfo.collider == null) {
+                Gizmos.color = Color.red;
+                Debug.Log("No collider detected");
+                return;
+            }
+
+            Gizmos.color = Color.blue;
+            Debug.Log("Collider detected");
+
+            IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
+
+            if (damageable != null) {
+                Gizmos.color = Color.green;
+                Debug.Log("Damageable detected");
+            }
+        }
 
         public override void Shoot(Ammunition ammunition) {
             OnShotFired?.Invoke();
@@ -11,7 +40,7 @@ namespace Code.Weapons {
 
             Ray ray = new Ray(playerCamera.position, playerCamera.forward);
 
-            if(Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
                 if (hitInfo.collider == null)
                     return;
 

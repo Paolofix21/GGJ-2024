@@ -45,6 +45,7 @@ namespace Code.EnemySystem.Boss
 			if (other.TryGetComponent<PlayerHealth>(out var player))
 				return;
 			
+			print("dealing dmg to player");
 			player.GetDamage(damage);
 			Destroy(gameObject);
 		}

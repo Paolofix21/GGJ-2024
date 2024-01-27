@@ -1,9 +1,6 @@
 using Code.Player;
 using Code.Weapons;
 using UnityEngine;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 
 namespace Code.EnemySystem.Boss
 {
@@ -22,6 +19,15 @@ namespace Code.EnemySystem.Boss
 		private bool isInvulnerable;
 		public float HeathAsPercentage => remHP / enemySettings.HP * 100;
 
+
+#if UNITY_EDITOR
+		private void Update()
+		{
+			//TEST
+			if (Input.GetKeyDown(KeyCode.F1))
+				StartPhase();
+		}
+#endif
 
 		private void Start()
 		{
@@ -56,23 +62,4 @@ namespace Code.EnemySystem.Boss
 			}
 		}
 	}
-	
-#if UNITY_EDITOR // TEMP to test
-	[CustomEditor(typeof(BossBehaviour))]
-	public class BossBehaviourCustomEditor : Editor
-	{
-		public override void OnInspectorGUI()
-		{
-			base.OnInspectorGUI();
-			
-			if (!Application.isPlaying)
-				return;
-			
-			if (GUILayout.Button("Boss Phase 1"))
-			{
-				((BossBehaviour)target).StartPhase();
-			}
-		}
-	}
-#endif
 }

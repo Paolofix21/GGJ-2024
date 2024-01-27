@@ -1,3 +1,4 @@
+using FMODUnity;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -48,14 +49,25 @@ namespace Code.Player
 
             OnDamageTaken?.Invoke(_amount, currentHealth, maxHealth);
 
+            
+
             if (currentHealth <= 0)
+            {
                 OnPlayerDeath?.Invoke();
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeathEvent, this.transform.position);
+            }
+            else
+            {
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerTakeDamageEvent, this.transform.position);
+            }
         }
 
         public void Heal(float _amount)
         {
             currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
 
             OnHeal?.Invoke(_amount, currentHealth, maxHealth);
         }

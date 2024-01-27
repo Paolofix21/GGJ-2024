@@ -19,6 +19,9 @@ namespace Code.EnemySystem
         private float elapsedTime = 0f;
         private float remHP;
 
+        private float attackCooldown = 2f; // Tempo di attesa tra gli attacchi
+        private float currentCooldown = 0f;
+
         private bool reverseDirection = false;
         private bool isChasing = false;
 
@@ -49,6 +52,7 @@ namespace Code.EnemySystem
                     break;
             }
             SetRandomWanderDirection();
+            StartCoroutine(CheckDistanceToOriginRoutine());
         }
 
         void Update()
@@ -89,16 +93,10 @@ namespace Code.EnemySystem
         {
             float distanceToDestination = Vector3.Distance(transform.position, transform.position + wanderDirection);
 
-            if (distanceToDestination < 0.5f)
+            // Se sei abbastanza vicino al punto di destinazione, calcola una nuova direzione casuale
+            if (distanceToDestination < 1f)
             {
-                if (Vector3.Distance(transform.position, playerPos.position) > enemySettings.maxDistanceFromPlayer)
-                {
-                    SetWanderDirectionTowardsPlayer();
-                }
-                else
-                {
-                    SetRandomWanderDirection();
-                }
+                SetRandomWanderDirection();
             }
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
@@ -117,6 +115,7 @@ namespace Code.EnemySystem
 
 
 
+
         void SetRandomWanderDirection()
         {
             if (waveSpawner.spawnPoints.Count > 0)
@@ -131,41 +130,52 @@ namespace Code.EnemySystem
             }
         }
 
-        void SetWanderDirectionTowardsPlayer()
-        {
-            wanderDirection = (playerPos.position - transform.position).normalized;
-        }
 
         void ChasePlayer(float _distanceToPlayer)
         {
-     
             wanderDirection = (playerPos.position - transform.position).normalized;
 
             float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
-
-
             Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
-
-
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
-
 
             float horizontalDistance = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(playerPos.position.x, 0f, playerPos.position.z));
 
-
-            if (horizontalDistance > enemySettings.attackRange)
+            if (currentCooldown <= 0f)
             {
-                float speed = enemySettings.chaseSpeed;
-                transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                if (horizontalDistance > enemySettings.attackRange)
+                {
+                    float speed = enemySettings.chaseSpeed;
+                    transform.Translate(Vector3.forward * speed * Time.deltaTime);
+                }
+                else
+                {
+                    AttackPlayer();
+                    currentCooldown = attackCooldown; // Avvia il cooldown dopo un attacco
+                }
             }
             else
             {
-                AttackPlayer();
+                currentCooldown -= Time.deltaTime; // Riduci il cooldown
             }
         }
 
+        IEnumerator CheckDistanceToOriginRoutine()
+        {
+            while (true)
+            {
+                yield return new WaitForSeconds(5f); // Attendi 5 secondi
 
+                // Calcola la distanza dal punto (0, 0, 0)
+                float distanceToOrigin = Vector3.Distance(transform.position, Vector3.zero);
 
+                // Se la distanza è maggiore di 20 metri, imposta una nuova direzione casuale
+                if (distanceToOrigin > 20f)
+                {
+                    SetRandomWanderDirection();
+                }
+            }
+        }
 
 
         private void AttackPlayer()

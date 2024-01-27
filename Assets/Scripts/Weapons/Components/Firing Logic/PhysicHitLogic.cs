@@ -1,4 +1,3 @@
-using Unity.Mathematics;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -20,24 +19,23 @@ namespace Code.Weapons {
             Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
 
             string log = hitColliders.Length > 0 ? "Raycast fired with hit" : "Raycast fired without hit";
-            Debug.Log(log);
+            Debug.Log($"{gameObject.name} - {log}");
 
             foreach (Collider collider in hitColliders) {
                 IDamageable damageable = collider.GetComponent<IDamageable>();
 
                 if (damageable != null) {
                     Gizmos.color = Color.green;
-                    Debug.Log("Damageable detected");
+                    Debug.Log($"{gameObject.name} - Damageable detected");
                     continue;
                 }
 
                 Gizmos.color = Color.blue;
-                Debug.Log($"Collider detected : {collider.name}");
+                Debug.Log($"{gameObject.name} - Collider detected : {collider.name}");
             }
         }
 
         public override void Shoot(Ammunition ammunition) {
-            OnShotFired?.Invoke();
             Cooldown(true);
 
             Vector3 halfReachablePoint = (weaponCamera.forward * range) / 2.0f;

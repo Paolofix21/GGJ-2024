@@ -24,8 +24,8 @@ namespace Code.Weapons {
             if (!cartridge.HasAmmo())
                 return false;
 
-            cartridge.Consume();
             firingLogic.Shoot(ammunition);
+            cartridge.Consume();
             return true;
         }
 

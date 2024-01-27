@@ -1,4 +1,5 @@
 using Code.Player;
+using JetBrains.Annotations;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -18,7 +19,7 @@ namespace Code.Weapons {
         private void Awake() {
             if (playerController != null) {
                 playerController.OnWeaponChanged += EquipWeapon;
-                playerController.OnShootRequest += ShotRequest;
+                playerController.OnShootRequest += CanShoot;
             }
         }
         private void Start() {
@@ -27,7 +28,7 @@ namespace Code.Weapons {
         private void OnDestroy() {
             if (playerController != null) {
                 playerController.OnWeaponChanged -= EquipWeapon;
-                playerController.OnShootRequest -= ShotRequest;
+                playerController.OnShootRequest -= CanShoot;
             }
         }
         private void OnTriggerEnter(Collider other) {
@@ -46,8 +47,13 @@ namespace Code.Weapons {
             equippedWeapon = weapons.First(weapon => weapon.WeaponType == type);
         }
 
-        private bool ShotRequest() {
-            return equippedWeapon.Shoot();
+        private bool CanShoot() {
+            return equippedWeapon.CanShoot();
+        }
+
+        [UsedImplicitly]
+        private void Shoot() {
+            equippedWeapon.Shoot();
         }
 
         private void InteractWithRecharger(IRecharger recharger) {

@@ -17,16 +17,13 @@ namespace Code.Weapons {
         public Cartridge Cartridge { get { return cartridge; } }
         public FiringLogic Logic { get { return firingLogic; } }
 
-        public virtual bool Shoot() {
-            if (!firingLogic.CanShoot())
-                return false;
+        public virtual bool CanShoot() {
+            return firingLogic.CanShoot() && cartridge.HasAmmo();
+        }
 
-            if (!cartridge.HasAmmo())
-                return false;
-
+        public virtual void Shoot() {
             firingLogic.Shoot(ammunition);
             cartridge.Consume();
-            return true;
         }
 
         public virtual void Recharge(int ammount) {

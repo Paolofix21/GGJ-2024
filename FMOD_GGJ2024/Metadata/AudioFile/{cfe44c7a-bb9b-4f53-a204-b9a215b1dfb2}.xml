@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{cfe44c7a-bb9b-4f53-a204-b9a215b1dfb2}">
+		<property name="assetPath">
+			<value>Wacaca_Verse_03.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.6316099773242629</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{c6ca15b6-bb30-4948-b2f1-4104766060fe}</destination>
+		</relationship>
+	</object>
+</objects>

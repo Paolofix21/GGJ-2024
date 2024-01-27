@@ -14,7 +14,7 @@ namespace Code.Weapons {
             if (!gizmosEnabled)
                 return;
 
-            Vector3 halfReachablePoint = playerCamera.position + playerCamera.forward * range;
+            Vector3 halfReachablePoint = weaponCamera.position + weaponCamera.forward * range;
 
             Gizmos.DrawSphere(halfReachablePoint, radius);
             Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
@@ -40,7 +40,7 @@ namespace Code.Weapons {
             OnShotFired?.Invoke();
             Cooldown(true);
 
-            Vector3 halfReachablePoint = (playerCamera.forward * range) / 2.0f;
+            Vector3 halfReachablePoint = (weaponCamera.forward * range) / 2.0f;
 
             Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
 

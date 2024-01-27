@@ -9,7 +9,7 @@ namespace Code.Weapons {
         [SerializeField] protected float cooldown = default;
 
         [Header("References")]
-        [SerializeField] protected Transform playerCamera = default;
+        [SerializeField] protected Transform weaponCamera = default;
 
         protected float elapsedTime = default;
         protected bool cooldownActive = default;

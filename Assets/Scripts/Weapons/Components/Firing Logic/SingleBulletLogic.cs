@@ -10,8 +10,8 @@ namespace Code.Weapons {
             if (!gizmosEnabled)
                 return;
 
-            Gizmos.DrawLine(playerCamera.position, playerCamera.position + playerCamera.forward * range);
-            Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+            Gizmos.DrawLine(weaponCamera.position, weaponCamera.position + weaponCamera.forward * range);
+            Ray ray = new Ray(weaponCamera.position, weaponCamera.forward);
 
             string log = Physics.Raycast(ray, out RaycastHit hitInfo, range) ? "Raycast fired with hit" : "Raycast fired without hit";
 
@@ -38,7 +38,7 @@ namespace Code.Weapons {
             OnShotFired?.Invoke();
             Cooldown(true);
 
-            Ray ray = new Ray(playerCamera.position, playerCamera.forward);
+            Ray ray = new Ray(weaponCamera.position, weaponCamera.forward);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
                 if (hitInfo.collider == null)

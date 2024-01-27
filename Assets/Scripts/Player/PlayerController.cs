@@ -4,20 +4,18 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Code.Player
-{
-    public class PlayerController : MonoBehaviour
-    {
+namespace Code.Player {
+    public class PlayerController : MonoBehaviour {
         private bool isDead = false;
 
         #region Movement Fields
         [Header("Movement Fields")]
-        [SerializeField] private float speed = 6f; 
+        [SerializeField] private float speed = 6f;
         [SerializeField] private float jumpForce = 1.5f;
 
         private const float grav = -9.8f;
         private bool crouching = false;
-        
+
         private Vector3 vel;
 
         [SerializeField] private Animator anim;
@@ -53,11 +51,11 @@ namespace Code.Player
 
         #region Events
         public event Action<int> OnWeaponChanged;
+        public event Func<bool> OnShootRequest;
         #endregion
 
         #region Unity Behaviours
-        private void Start()
-        {
+        private void Start() {
             controller = GetComponent<CharacterController>();
             cameraLook = GetComponent<PlayerView>();
             health = GetComponent<PlayerHealth>();
@@ -66,36 +64,33 @@ namespace Code.Player
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            input.playerMap.PlayerActions.Jump.performed +=  Jump;
+            input.playerMap.PlayerActions.Jump.performed += Jump;
             input.playerMap.PlayerActions.Crouch.performed += Crouch;
             input.playerMap.PlayerActions.Shoot.performed += PlayShoot;
 
             input.playerMap.PlayerActions.ContinuousShoot.performed += _ => PlayShootContinuous(true);
             input.playerMap.PlayerActions.ContinuousShoot.canceled += _ => PlayShootContinuous(false);
 
-            input.playerMap.PlayerActions.Weapon01.performed += _ =>  SetWeaponType(0, Pistol);
-            input.playerMap.PlayerActions.Weapon02.performed += _ =>  SetWeaponType(1, Shotgun);
-            input.playerMap.PlayerActions.Weapon03.performed += _ =>  SetWeaponType(2, Rifle);
-            input.playerMap.PlayerActions.Weapon04.performed += _ =>  SetWeaponType(3,Frustino);
-            input.playerMap.PlayerActions.Weapon05.performed += _ =>  SetWeaponType(4, Sword);
+            input.playerMap.PlayerActions.Weapon01.performed += _ => SetWeaponType(0, Pistol);
+            input.playerMap.PlayerActions.Weapon02.performed += _ => SetWeaponType(1, Shotgun);
+            input.playerMap.PlayerActions.Weapon03.performed += _ => SetWeaponType(2, Rifle);
+            input.playerMap.PlayerActions.Weapon04.performed += _ => SetWeaponType(3, Frustino);
+            input.playerMap.PlayerActions.Weapon05.performed += _ => SetWeaponType(4, Sword);
 
             health.OnPlayerDeath += PlayerDeath;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
+        private void OnTriggerEnter(Collider other) {
             if (other.gameObject.CompareTag("Lava"))
                 StartCoroutine(WalkInLava());
         }
 
-        private void OnTriggerExit(Collider other)
-        {
+        private void OnTriggerExit(Collider other) {
             if (other.gameObject.CompareTag("Lava"))
                 ExitLava();
         }
 
-        private void Update()
-        {
+        private void Update() {
             if (isDead)
                 return;
 
@@ -103,8 +98,7 @@ namespace Code.Player
             cameraLook.GetMousePos(input.CameraLookAt());
         }
 
-        private void OnDestroy()
-        {
+        private void OnDestroy() {
             input.playerMap.PlayerActions.Jump.performed -= Jump;
             input.playerMap.PlayerActions.Crouch.performed -= Crouch;
             input.playerMap.PlayerActions.Shoot.performed -= PlayShoot;
@@ -114,18 +108,15 @@ namespace Code.Player
         #endregion
 
         #region Movement Behaviours
-        private void GetMovement()
-        {
+        private void GetMovement() {
             Vector3 dir = Vector3.zero;
             dir.x = input.GetMovement().x;
             dir.z = input.GetMovement().y;
 
-            if (controller.isGrounded && vel.y < 0)
-            {
+            if (controller.isGrounded && vel.y < 0) {
                 vel.y = -2;
             }
-            else
-            {
+            else {
                 vel.y += grav * Time.deltaTime;
             }
 
@@ -133,20 +124,17 @@ namespace Code.Player
             controller.Move(vel * Time.deltaTime);
         }
 
-        private void Jump(InputAction.CallbackContext ctx)
-        {
+        private void Jump(InputAction.CallbackContext ctx) {
             Debug.Log(controller.isGrounded);
-            if (controller.isGrounded)
-            {
+            if (controller.isGrounded) {
                 vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
 
-                if(crouching)
+                if (crouching)
                     Crouch(ctx);
             }
         }
 
-        private void Crouch(InputAction.CallbackContext ctx)
-        {
+        private void Crouch(InputAction.CallbackContext ctx) {
             if (isInsideLava)
                 return;
 
@@ -154,19 +142,16 @@ namespace Code.Player
             cameraLook.ChangeViewHeight(crouching);
         }
 
-        private IEnumerator WalkInLava()
-        {
+        private IEnumerator WalkInLava() {
             isInsideLava = true;
             speed = lavaSpeed;
-            while (isInsideLava)
-            {
+            while (isInsideLava) {
                 health.GetDamage(lavaDamage);
                 yield return new WaitForSeconds(timeDelay);
             }
         }
 
-        private void ExitLava()
-        {
+        private void ExitLava() {
             StopCoroutine("WalkInLava");
             isInsideLava = false;
             speed = 6f;
@@ -174,30 +159,27 @@ namespace Code.Player
         #endregion
 
         #region Animation Behaviours
-        private void SetWeaponType(int type, int clip)
-        {
+        private void SetWeaponType(int type, int clip) {
             OnWeaponChanged?.Invoke(type);
             anim.SetInteger(weaponType, type);
             anim.Play(clip);
         }
 
-        private void PlayShoot(InputAction.CallbackContext ctx)
-        {
-            anim.SetTrigger(shootTrigger);
+        private void PlayShoot(InputAction.CallbackContext ctx) {
+            if (OnShootRequest != null && OnShootRequest.Invoke())
+                anim.SetTrigger(shootTrigger);
         }
 
-        private void PlayShootContinuous(bool _value)
-        {
+        private void PlayShootContinuous(bool _value) {
             if (_value && !anim.GetBool(isShooting))
                 anim.SetBool(isShooting, true);
-            else if(!_value && anim.GetBool(isShooting))
+            else if (!_value && anim.GetBool(isShooting))
                 anim.SetBool(isShooting, false);
         }
         #endregion
 
         #region Death Behaviours
-        private void PlayerDeath()
-        {
+        private void PlayerDeath() {
             isDead = true;
             Cursor.lockState = CursorLockMode.None;
 

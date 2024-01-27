@@ -14,7 +14,7 @@ namespace Code.Weapons {
             if (!gizmosEnabled)
                 return;
 
-            Vector3 lastReachablePoint = playerCamera.forward * range;
+            Vector3 lastReachablePoint = weaponCamera.forward * range;
 
             for (int i = 0; i < interestedPoints; i++) {
                 float randomX = Random.Range(lastReachablePoint.x - radius, lastReachablePoint.x + radius);
@@ -22,9 +22,9 @@ namespace Code.Weapons {
                 Vector3 planeVector = new Vector3(randomX, randomY, 0).normalized;
                 Vector3 randomReachablePoint = lastReachablePoint + planeVector;
 
-                Gizmos.DrawLine(playerCamera.position, playerCamera.position + randomReachablePoint);
+                Gizmos.DrawLine(weaponCamera.position, weaponCamera.position + randomReachablePoint);
 
-                string log = Physics.Linecast(playerCamera.position, randomReachablePoint, out RaycastHit hitInfo) ? "Raycast fired with hit" : "Raycast fired without hit";
+                string log = Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo) ? "Raycast fired with hit" : "Raycast fired without hit";
 
                 Debug.Log(log);
 
@@ -51,7 +51,7 @@ namespace Code.Weapons {
             OnShotFired?.Invoke();
             Cooldown(true);
 
-            Vector3 lastReachablePoint = playerCamera.forward * range;
+            Vector3 lastReachablePoint = weaponCamera.forward * range;
 
             for (int i = 0; i < interestedPoints; i++) {
                 float randomX = Random.Range(lastReachablePoint.x - radius, lastReachablePoint.x + radius);
@@ -59,7 +59,7 @@ namespace Code.Weapons {
                 Vector3 planeVector = new Vector3(randomX, randomY, 0).normalized;
                 Vector3 randomReachablePoint = lastReachablePoint + planeVector;
 
-                if (Physics.Linecast(playerCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
+                if (Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
                     if (hitInfo.collider == null)
                         return;
 

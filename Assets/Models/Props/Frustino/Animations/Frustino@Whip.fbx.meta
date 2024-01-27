@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 25c68f52eaf5e20408f4b050a1e78a4c
+guid: 59a02a58fe84c2c478d7471be966151c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -29,43 +29,7 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations:
-    - serializedVersion: 16
-      name: Pistol Shoot
-      takeName: Pistol Shoot
-      internalID: 3180586076825799470
-      firstFrame: 0
-      lastFrame: 9
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events:
-      - time: 0.17333333
-        functionName: Shoot
-        data: 
-        objectReferenceParameter: {instanceID: 0}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
+    clipAnimations: []
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -129,7 +93,7 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 0
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: 86c8f8b1a7db2134292e415656992149,
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: c5f44bc5b832bf340b8a7492e9606f2f,
     type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2

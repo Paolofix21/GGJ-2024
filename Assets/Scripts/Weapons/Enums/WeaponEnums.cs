@@ -4,12 +4,11 @@ namespace Code.Weapons {
 
     [System.Serializable]
     public enum WeaponType {
-        None = 0,
-        Pistol = 1,
-        AutoRifle = 2,
-        Shotgun = 3,
-        Whip = 4,
-        Sword = 5
+        Pistol = 0,
+        AutoRifle = 1,
+        Shotgun = 2,
+        Whip = 3,
+        Sword = 4
     }
 
     [System.Serializable]

@@ -17,6 +17,8 @@ namespace Code.Weapons {
         private Weapon equippedWeapon = default;
         public Weapon EquippedWeapon { get { return equippedWeapon; } }
 
+        public event System.Action<Weapon> OnUpdateWeaponInfo;
+
         private void Awake() {
             if (playerController != null) {
                 playerController.OnWeaponChanged += EquipWeapon;
@@ -44,9 +46,17 @@ namespace Code.Weapons {
             equippedWeapon = weapons.First(weapon => weapon.WeaponType == weaponType);
         }
         private void EquipWeapon(int weaponType) {
-            WeaponType type = (WeaponType)weaponType;
-            equippedWeapon = weapons.First(weapon => weapon.WeaponType == type);
+            if (equippedWeapon)
+                equippedWeapon.Cartridge.OnAmmoAmountChanged -= CheckAmmo;
+
+            equippedWeapon = weapons.First(weapon => weapon.WeaponType == (WeaponType)weaponType);
+            OnUpdateWeaponInfo?.Invoke(equippedWeapon);
+
+            if (equippedWeapon)
+                equippedWeapon.Cartridge.OnAmmoAmountChanged += CheckAmmo;
         }
+
+        private void CheckAmmo(int ammoCount) => OnUpdateWeaponInfo?.Invoke(equippedWeapon);
 
         private bool CanShoot() {
             return equippedWeapon.CanShoot();

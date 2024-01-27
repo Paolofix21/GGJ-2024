@@ -43,8 +43,9 @@ namespace Code.Player
             healthBar.value = currentHealth / maxHealth;
         }
 
-        private void GetDamage(float _amount)
+        public void GetDamage(float _amount)
         {
+            Debug.Log("AHIAHIA");
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 

@@ -1,3 +1,5 @@
+using Code.Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Code.EnemySystem
@@ -6,7 +8,8 @@ namespace Code.EnemySystem
     {
         public EnemySettings enemySettings;
 
-        private Transform player;
+        private Transform playerPos;
+        private PlayerHealth playerHealth;
         private float elapsedTime = 0f;
         private bool isChasing = false;
 
@@ -15,15 +18,16 @@ namespace Code.EnemySystem
 
         void Start()
         {
-            player = GameObject.FindGameObjectWithTag("Player").transform;
+            playerPos = GameObject.FindGameObjectWithTag("Player").transform;
+            playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
             SetRandomWanderDirection();
         }
 
         void Update()
         {
-            if (player != null)
+            if (playerPos != null)
             {
-                float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+                float distanceToPlayer = Vector3.Distance(transform.position, playerPos.position);
 
                 if (isChasing)
                 {
@@ -37,7 +41,7 @@ namespace Code.EnemySystem
                     }
                     else
                     {
-                        ChasePlayer();
+                        ChasePlayer(distanceToPlayer);
                     }
                 }
                 else
@@ -59,7 +63,7 @@ namespace Code.EnemySystem
 
             if (elapsedTime >= enemySettings.wanderTime)
             {
-                if (Vector3.Distance(transform.position, player.position) > enemySettings.maxDistanceFromPlayer)
+                if (Vector3.Distance(transform.position, playerPos.position) > enemySettings.maxDistanceFromPlayer)
                 {
                     SetWanderDirectionTowardsPlayer();
                 }
@@ -85,18 +89,24 @@ namespace Code.EnemySystem
 
         void SetWanderDirectionTowardsPlayer()
         {
-            wanderDirection = (player.position - transform.position).normalized;
+            wanderDirection = (playerPos.position - transform.position).normalized;
         }
 
-        void ChasePlayer()
+        void ChasePlayer(float _distanceToPlayer)
         {
-            Vector3 directionToPlayer = (player.position - transform.position).normalized;
+            Vector3 directionToPlayer = (playerPos.position - transform.position).normalized;
             transform.Translate(directionToPlayer * enemySettings.chaseSpeed * Time.deltaTime);
+            if (_distanceToPlayer <= enemySettings.attackRange)
+            {
+                AttackPlayer();
+            }
         }
 
-        void AttackPlayer()
-        {
 
+        private void AttackPlayer() // valutare se fare un delay
+        {
+            playerHealth.GetDamage(enemySettings.damage);
+            Debug.Log("HAHAHHA");
         }
 
     }

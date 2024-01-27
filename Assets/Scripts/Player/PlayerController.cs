@@ -36,6 +36,9 @@ namespace Code.Player
             input.playerMap.PlayerActions.Jump.performed +=  Jump;
             input.playerMap.PlayerActions.Crouch.performed += Crouch;
             input.playerMap.PlayerActions.Shoot.performed += PlayShoot;
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
         }
 
         private void OnDestroy()

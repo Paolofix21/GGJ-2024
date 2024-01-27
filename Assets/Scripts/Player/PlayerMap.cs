@@ -286,7 +286,7 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""c9f41657-0fb8-4692-ac9a-696ba85e0186"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ContinuousShoot"",

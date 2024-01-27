@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 151ea4436e434c5fa87f5a48e1596f8f, type: 3}
+  m_Name: Blue - Player
+  m_EditorClassIdentifier: 
+  <ObjectHue>k__BackingField: 180
+  <ObjectSaturation>k__BackingField: 2
+  <TrailColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}

@@ -4,15 +4,17 @@ using UnityEngine;
 namespace Code.Weapons {
 
     public abstract class FiringLogic : MonoBehaviour {
-        [Header("Settings")]
+        [Header("Base")]
         [SerializeField] protected float range = default;
         [SerializeField] protected float cooldown = default;
+
+        [Header("References")]
+        [SerializeField] protected Transform weaponCamera = default;
 
         protected float elapsedTime = default;
         protected bool cooldownActive = default;
 
         public Action<bool> OnCooldownStateChanged = default;
-        public Action OnShotFired = default;
 
         protected virtual void Update() {
             if (!cooldownActive)
@@ -33,6 +35,8 @@ namespace Code.Weapons {
         protected virtual void Cooldown(bool state) {
             cooldownActive = state;
             OnCooldownStateChanged?.Invoke(state);
+
+            Debug.Log($"{gameObject.name} - {nameof(Cooldown)} - Current cooldown {cooldownActive}");
         }
 
         public abstract void Shoot(Ammunition ammunition);

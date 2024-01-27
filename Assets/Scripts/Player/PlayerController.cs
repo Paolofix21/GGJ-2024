@@ -1,14 +1,19 @@
+using FMODUnity;
+using Code.Graphics;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using FMOD.Studio;
 
 namespace Code.Player
 {
     public class PlayerController : MonoBehaviour
     {
         private bool isDead = false;
+
+        [SerializeField] private ColorSetSO[] hueValue;
 
         #region Movement Fields
         [Header("Movement Fields")]
@@ -17,7 +22,9 @@ namespace Code.Player
 
         private const float grav = -9.8f;
         private bool crouching = false;
-        
+
+        private EventInstance footsteps_instance;
+
         private Vector3 vel;
 
         [SerializeField] private Animator anim;
@@ -28,6 +35,7 @@ namespace Code.Player
         private CharacterController controller;
         private PlayerView cameraLook;
         private PlayerHealth health;
+        private VisualSetter visualSetter;
         #endregion
 
         #region Lava Fields
@@ -53,6 +61,7 @@ namespace Code.Player
 
         #region Events
         public event Action<int> OnWeaponChanged;
+        public event Func<bool> OnShootRequest;
         #endregion
 
         #region Unity Behaviours
@@ -61,6 +70,7 @@ namespace Code.Player
             controller = GetComponent<CharacterController>();
             cameraLook = GetComponent<PlayerView>();
             health = GetComponent<PlayerHealth>();
+            visualSetter = GetComponentInChildren<VisualSetter>();
             input = GetComponent<InputManager>();
 
             Cursor.lockState = CursorLockMode.Locked;
@@ -80,6 +90,8 @@ namespace Code.Player
             input.playerMap.PlayerActions.Weapon05.performed += _ =>  SetWeaponType(4, Sword);
 
             health.OnPlayerDeath += PlayerDeath;
+
+            InitializeAudio();
         }
 
         private void OnTriggerEnter(Collider other)
@@ -100,6 +112,7 @@ namespace Code.Player
                 return;
 
             GetMovement();
+            UpdateSound();
             cameraLook.GetMousePos(input.CameraLookAt());
         }
 
@@ -117,8 +130,8 @@ namespace Code.Player
         private void GetMovement()
         {
             Vector3 dir = Vector3.zero;
-            dir.x = input.GetMovement().x;
-            dir.z = input.GetMovement().y;
+            vel.x = input.GetMovement().x;
+            vel.z = input.GetMovement().y;
 
             if (controller.isGrounded && vel.y < 0)
             {
@@ -129,8 +142,8 @@ namespace Code.Player
                 vel.y += grav * Time.deltaTime;
             }
 
-            controller.Move(transform.TransformDirection(dir) * speed * Time.deltaTime);
-            controller.Move(vel * Time.deltaTime);
+            controller.Move(transform.TransformDirection(vel) * speed * Time.deltaTime);
+            //controller.Move(vel * Time.deltaTime);
         }
 
         private void Jump(InputAction.CallbackContext ctx)
@@ -139,25 +152,49 @@ namespace Code.Player
             if (controller.isGrounded)
             {
                 vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
+                
+                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
 
-                if(crouching)
-                    Crouch(ctx);
+                if (crouching)
+                    Crouch(ctx, false);
             }
         }
 
         private void Crouch(InputAction.CallbackContext ctx)
+        {
+            Crouch(ctx, true);
+        }
+
+        private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true)
         {
             if (isInsideLava)
                 return;
 
             crouching = !crouching;
             cameraLook.ChangeViewHeight(crouching);
+
+            if (shouldReproSFX)
+            {
+                PlayCrouchSound();
+            }
+        }
+
+        private void PlayCrouchSound()
+        {
+            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
         }
 
         private IEnumerator WalkInLava()
         {
             isInsideLava = true;
             speed = lavaSpeed;
+
+            if (crouching)
+            {
+                crouching = !crouching;
+                cameraLook.ChangeViewHeight(crouching);
+            }
+                
             while (isInsideLava)
             {
                 health.GetDamage(lavaDamage);
@@ -176,6 +213,13 @@ namespace Code.Player
         #region Animation Behaviours
         private void SetWeaponType(int type, int clip)
         {
+            anim.ResetTrigger(shootTrigger);
+            anim.SetBool(isShooting, false);
+            visualSetter.SetHueDeg(hueValue[type].ObjectHue);
+
+            if (anim.GetInteger(weaponType) == type)
+                return;
+
             OnWeaponChanged?.Invoke(type);
             anim.SetInteger(weaponType, type);
             anim.Play(clip);
@@ -183,11 +227,15 @@ namespace Code.Player
 
         private void PlayShoot(InputAction.CallbackContext ctx)
         {
-            anim.SetTrigger(shootTrigger);
+            if(OnShootRequest != null && OnShootRequest.Invoke())
+                anim.SetTrigger(shootTrigger);
         }
 
         private void PlayShootContinuous(bool _value)
         {
+            if (OnShootRequest == null || !OnShootRequest.Invoke())
+                return;
+
             if (_value && !anim.GetBool(isShooting))
                 anim.SetBool(isShooting, true);
             else if(!_value && anim.GetBool(isShooting))
@@ -203,6 +251,30 @@ namespace Code.Player
 
             if (isInsideLava)
                 ExitLava();
+        }
+        #endregion
+
+        #region Audio
+        private void InitializeAudio()
+        {
+            footsteps_instance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
+        }
+
+        private void UpdateSound()
+        {
+            if(controller.isGrounded && controller.velocity.sqrMagnitude > 0.0001f)
+            {
+                PLAYBACK_STATE playbackState;
+                footsteps_instance.getPlaybackState(out playbackState);
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
+                {
+                    footsteps_instance.start();
+                }
+            }
+            else
+            {
+                footsteps_instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
         }
         #endregion
     }

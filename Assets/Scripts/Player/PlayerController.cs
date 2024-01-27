@@ -65,11 +65,6 @@ namespace Code.Player
         #endregion
 
         #region Unity Behaviours
-        private void OnGUI()
-        {
-            GUILayout.Label(controller?.velocity.ToString());
-        }
-
         private void Start()
         {
             controller = GetComponent<CharacterController>();

@@ -10,7 +10,8 @@ namespace Code.Weapons {
         [SerializeField] private int amountShotConsumed = default;
 
         private int currentAmount = default;
-
+        public int TotalAmount { get { return totalAmount; } }
+        public int CurrentAmount { get { return currentAmount; } }
         public event Action<int> OnAmmoAmountChanged = default;
 
         private void Start() {

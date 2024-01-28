@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -45,10 +46,11 @@ namespace Code.UI
         #endregion
 
         #region Private Methods
-        private void PlayAndDestroy()
+        private async void PlayAndDestroy()
         {
             m_Animator.SetTrigger("go");
-            Destroy(gameObject, 1.0f);
+            await Task.Delay(1000);
+            Destroy(gameObject);
         }
         #endregion
 

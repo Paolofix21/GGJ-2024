@@ -79,6 +79,10 @@ namespace Code.Weapons {
             BulletTrail bulletTrail = Instantiate(bullet, origin, Quaternion.identity);
             bulletTrail.SetDestination(lastPosition);
         }
+
+        public override void Boost() {
+            range *= 3;
+        }
     }
 
 }

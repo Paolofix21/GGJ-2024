@@ -15,6 +15,7 @@ namespace Code.EnemySystem.Boss
 	{
 		public static event Action OnDeath;
 
+		[SerializeField] private EndGameUI endgameUI;
 		[SerializeField] private ParticleSystem deathParticle = default;
 		[SerializeField] private EventReference deathSound = default;
 		public EnemySettings enemySettings;
@@ -48,12 +49,16 @@ namespace Code.EnemySystem.Boss
 		{
 			phases[0].StartPhase();
 		}
-		
+
+		private EndGameUI endgame;
 		private void Dead()
 		{
-			// TODO enable the You Win UI
-			//var youWin = GameObject.Find("Win");
-			//youWin.SetActive(true);
+			if (endgame == null)
+			{
+				endgame = Instantiate(endgameUI);
+				endgame.CallEndgame(EndGameUI.EndgameState.Victory);
+			}
+			
 			var position = transform.position;
 			for (int i = 0; i < 4; i++)
 			{

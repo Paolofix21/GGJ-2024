@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueWakakaTuSettings
   m_EditorClassIdentifier: 
   HP: 30
-  damage: 2
+  damage: 5
   DamageType: 2
   wanderSpeed: 2
   chaseSpeed: 5

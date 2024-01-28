@@ -16,9 +16,10 @@ namespace Code.EnemySystem
 
         private Transform playerPos;
         private PlayerHealth playerHealth;
-        private Vector3 wanderDirection;
         private MaskAnimator maskAnimator;
         private WaveSpawner waveSpawner;
+
+        private Vector3 wanderPosition;
 
         private float elapsedTime = 0f;
         private float remHP;
@@ -108,7 +109,7 @@ namespace Code.EnemySystem
 
         void Wander()
         {
-            float distanceToDestination = Vector3.Distance(transform.position, transform.position + wanderDirection);
+            float distanceToDestination = Vector3.Distance(transform.position, wanderPosition);
 
             if (distanceToDestination < 1f)
             {
@@ -117,37 +118,33 @@ namespace Code.EnemySystem
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
 
-            if (wanderDirection != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(wanderDirection);
-                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
-            }
+            Quaternion targetRotation = Quaternion.LookRotation(wanderPosition - transform.position);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
 
-            transform.Translate(Vector3.forward * speed * Time.deltaTime);
+            transform.Translate(speed * Time.deltaTime * Vector3.forward);
         }
 
         void SetRandomWanderDirection()
         {
             if (waveSpawner.spawnPoints.Count > 0)
             {
-                Transform randomSpawnPoint = waveSpawner.spawnPoints[Random.Range(0, waveSpawner.spawnPoints.Count)];
-                wanderDirection = (randomSpawnPoint.position - transform.position).normalized;
+                wanderPosition = waveSpawner.spawnPoints[Random.Range(0, waveSpawner.spawnPoints.Count)].position;
             }
             else
             {
                 Debug.LogWarning("No spawn points assigned to the enemy.");
-                wanderDirection = Vector3.zero; 
+                wanderPosition = Random.insideUnitSphere * 40;
             }
         }
 
         void ChasePlayer(float _distanceToPlayer)
         {
-            wanderDirection = (playerPos.position - transform.position).normalized;
+            var direction = (playerPos.position - transform.position).normalized;
 
 
             float horizontalDistance = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(playerPos.position.x, 0f, playerPos.position.z));
 
-            transform.rotation = Quaternion.LookRotation(wanderDirection);
+            transform.rotation = Quaternion.LookRotation(direction);
 
             if (currentCooldown <= 0f)
             {

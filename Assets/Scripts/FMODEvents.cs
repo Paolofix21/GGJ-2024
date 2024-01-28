@@ -68,8 +68,14 @@ public class FMODEvents : MonoBehaviour
     {
         if (instance != null)
         {
-            Debug.LogError("Found more than one FMOD Events script in the scene.");
+            //Debug.LogError("Found more than one FMOD Events script in the scene.");
+            return;
         }
         instance = this;
+    }
+    private void OnDestroy() {
+        if (instance == this) {
+            instance = null;
+        }
     }
 }

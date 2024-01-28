@@ -13,6 +13,7 @@ namespace Code.Player {
         private bool isDead = false;
 
         [SerializeField] private ColorSetSO[] hueValue;
+        [SerializeField] private EndGameUI endgameUI;
 
         #region Properties
         public static PlayerController Singleton { get; set; }
@@ -251,11 +252,17 @@ namespace Code.Player {
             anim.SetBool(isShooting, true);
         }
         #endregion
-
+        EndGameUI endgame;
         #region Death Behaviours
         private void PlayerDeath() {
             isDead = true;
             Cursor.lockState = CursorLockMode.None;
+
+            if (endgame == null)
+            {
+                endgame = Instantiate(endgameUI);
+                endgame.CallEndgame(EndGameUI.EndgameState.GameOver);
+            }
 
             if (isInsideLava)
                 ExitLava();
@@ -301,4 +308,3 @@ namespace Code.Player {
         #endregion
     }
 }
-

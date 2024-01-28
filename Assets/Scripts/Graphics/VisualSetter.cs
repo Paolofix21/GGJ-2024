@@ -8,6 +8,7 @@ namespace Code.Graphics {
         private MaterialPropertyBlock _block;
 
         private static readonly int MatProp_Hue = Shader.PropertyToID("_Hue");
+        private static readonly int MatProp_EmissivePower = Shader.PropertyToID("_Emissive_Power");
         #endregion
 
         #region Behaviour Callbacks
@@ -16,6 +17,7 @@ namespace Code.Graphics {
 
             _block = new MaterialPropertyBlock();
             _block.SetFloat(MatProp_Hue, 0f);
+            _block.SetFloat(MatProp_EmissivePower, 1f);
 
             _renderer.SetPropertyBlock(_block);
         }
@@ -39,6 +41,12 @@ namespace Code.Graphics {
         public void SetHueDeg(float degrees) {
             _renderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_Hue, degrees);
+            _renderer.SetPropertyBlock(_block);
+        }
+
+        public void SetEmissivePower(float power) {
+            _renderer.GetPropertyBlock(_block);
+            _block.SetFloat(MatProp_EmissivePower, power);
             _renderer.SetPropertyBlock(_block);
         }
         #endregion

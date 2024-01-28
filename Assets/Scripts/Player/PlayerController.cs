@@ -37,7 +37,7 @@ namespace Code.Player {
         private CharacterController controller;
         private PlayerView cameraLook;
         [HideInInspector] public PlayerHealth Health;
-        private VisualSetter visualSetter;
+        public VisualSetter visualSetter { get; private set; }
         #endregion
 
         #region Lava Fields

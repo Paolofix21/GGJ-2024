@@ -54,9 +54,8 @@ namespace Code.Weapons {
             InteractWithRecharger(recharger);
         }
 
-        private void EquipWeapon(WeaponType weaponType) {
-            equippedWeapon = weapons.First(weapon => weapon.WeaponType == weaponType);
-        }
+        private void EquipWeapon(WeaponType weaponType) => EquipWeapon((int)weaponType);
+
         private void EquipWeapon(int weaponType) {
             if (equippedWeapon)
                 equippedWeapon.Cartridge.OnAmmoAmountChanged -= CheckAmmo;
@@ -66,9 +65,14 @@ namespace Code.Weapons {
 
             if (equippedWeapon)
                 equippedWeapon.Cartridge.OnAmmoAmountChanged += CheckAmmo;
+
+            playerController.visualSetter.SetEmissivePower(equippedWeapon.Cartridge.GetAmmoRate());
         }
 
-        private void CheckAmmo(int ammoCount) => OnUpdateWeaponInfo?.Invoke(equippedWeapon);
+        private void CheckAmmo(int ammoCount) {
+            OnUpdateWeaponInfo?.Invoke(equippedWeapon);
+            playerController.visualSetter.SetEmissivePower(equippedWeapon.Cartridge.GetAmmoRate());
+        }
 
         private bool CanShoot() {
             return equippedWeapon.CanShoot();

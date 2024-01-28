@@ -37,6 +37,8 @@ namespace Code.Weapons {
         public void Consume() {
             if (HasAmmo()) RemoveAmmo(amountShotConsumed);
         }
+
+        public float GetAmmoRate() => (float)currentAmount / totalAmount;
     }
 
 }

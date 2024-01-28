@@ -1591,17 +1591,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5484565650131765975, guid: 359d8fe581768dd408449a6edff0ee05,
+    - target: {fileID: 2949121897407043165, guid: 359d8fe581768dd408449a6edff0ee05,
         type: 3}
-      propertyPath: sensitivityX
+      propertyPath: range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7216198786156155607, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: range
       value: 15
       objectReference: {fileID: 0}
-    - target: {fileID: 5043030336000894745, guid: 359d8fe581768dd408449a6edff0ee05,
-        type: 3}
-      propertyPath: endgameUI
-      value: 
-      objectReference: {fileID: 4687527868275134080, guid: 8aa0155581af3f841b47e7e9288d9588,
-        type: 3}
     - target: {fileID: 8357597750909187213, guid: 359d8fe581768dd408449a6edff0ee05,
         type: 3}
       propertyPath: m_Name

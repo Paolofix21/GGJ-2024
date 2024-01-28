@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GreenWakakaSettings
   m_EditorClassIdentifier: 
   HP: 1
-  damage: 10
+  damage: 2
   DamageType: 4
   wanderSpeed: 2
   chaseSpeed: 5

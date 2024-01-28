@@ -31,6 +31,7 @@ namespace Miscellaneous {
         #endregion
 
         public static CutsceneIntroController singleton { get; private set; }
+        public event System.Action<bool> OnIntroStartStop;
 
         #region Behaviour Callbacks
         private void Awake() {
@@ -66,6 +67,8 @@ namespace Miscellaneous {
             if (_director.state == PlayState.Playing)
                 return;
 
+            OnIntroStartStop?.Invoke(true);
+
             m_splineAnimate.Restart(true);
             for (var i = 0; i < m_creatures.Count; i++)
                 m_creatures[i].creature.gameObject.SetActive(i == creatureIndex);
@@ -84,6 +87,7 @@ namespace Miscellaneous {
         private void EndCutscene(PlayableDirector director) {
             _onCutsceneEnded?.Invoke();
             _onCutsceneEnded = null;
+            OnIntroStartStop?.Invoke(false);
             gameObject.SetActive(false);
         }
         #endregion

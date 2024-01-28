@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8298543441407173834}
   - component: {fileID: 6588080958963127207}
   - component: {fileID: 4142365451768660104}
+  - component: {fileID: 6254102105171674631}
   m_Layer: 5
   m_Name: Button - Simple
   m_TagString: Untagged
@@ -135,7 +136,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 41a0eb525647d354197febaca8451190, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -145,6 +146,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6254102105171674631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3324892089162370608}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4ca0fc713d2d4c9996fd75d28795c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4558479775160685730
 GameObject:
   m_ObjectHideFlags: 0

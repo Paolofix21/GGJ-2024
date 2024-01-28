@@ -1,3 +1,4 @@
+using Code.EnemySystem.Boss;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Code.EnemySystem
     public class WaveSpawner : MonoBehaviour
     {
         public List<Transform> spawnPoints = new List<Transform>();
+        public GameObject Boss;
         public List<WaveData> waveData = new List<WaveData>();
         [HideInInspector] public float enemyToKill = 0;
         [SerializeField] private float waveInterval = 1f;
@@ -63,6 +65,7 @@ namespace Code.EnemySystem
                 return;
 
             Debug.Log("All waves completed\n", this);
+            Boss.GetComponent<BossBehaviour>().StartPhase();
             enabled = false;
             // TODO - go to boss
         }

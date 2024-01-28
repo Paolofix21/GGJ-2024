@@ -1,3 +1,4 @@
+using System;
 using Code.Dialogue;
 using Code.Player;
 using Code.Weapons;
@@ -10,13 +11,13 @@ namespace Code.EnemySystem.Boss
 	/// </summary>
 	public class BossBehaviour : MonoBehaviour, IDamageable
 	{
+		public static event Action OnDeath;
+
 		public EnemySettings enemySettings;
 
 		private Transform playerPos;
 		private PlayerHealth playerHealth;
 		private BossPhase[] phases;
-
-
 		private float remHP;
 		private bool isInvulnerable;
 		public float HeathAsPercentage => remHP / enemySettings.HP * 100;
@@ -46,6 +47,9 @@ namespace Code.EnemySystem.Boss
 		
 		private void Dead()
 		{
+			// TODO enable the You Win UI
+			//GameObject.Find("Win");
+			OnDeath?.Invoke();
 			Destroy(gameObject);
 		}
 		
@@ -57,7 +61,6 @@ namespace Code.EnemySystem.Boss
 		public void ApplyDamage(float amount)
 		{
 			remHP -= amount;
-			print($"boss now has {remHP} hp");
 			if (remHP <= 0)
 			{
 				Dead();

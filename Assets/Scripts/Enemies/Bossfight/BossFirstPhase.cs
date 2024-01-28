@@ -18,7 +18,7 @@ namespace Code.EnemySystem.Boss
 		a fine wave, la fase è finita
 		*/
 
-		[SerializeField, Tooltip("Spawns enemy waves when the boss HP drops below this percentage value.")] 
+		[SerializeField, Tooltip("(Obsolete perche non facciamo in tempo) Spawns enemy waves when the boss HP drops below this percentage value.")] 
 		[Range(0, 100)] private float spawnWaveBelowHealth = 65;
 		[SerializeField] private float secondsBetweenAttacks = 5f;
 

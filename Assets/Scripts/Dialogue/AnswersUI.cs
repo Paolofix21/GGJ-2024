@@ -20,7 +20,7 @@ namespace Code.Dialogue
 		private List<Answer> answers = new();
 		public Answer GetRandomAnswer() => answers[Random.Range(0, answers.Count - 1)];
 
-		private enum Option { A, B, C }
+		private enum Option { A, B, C, D }
 		
 		
 		// Singleton
@@ -34,17 +34,22 @@ namespace Code.Dialogue
 			if (!isActive)
 				return;
 			
-			if (Input.GetKeyDown(KeyCode.A))
+			// WASD -> ABCD
+			if (Input.GetKeyDown(KeyCode.W))
 			{
 				Select(Option.A);
 			}
-			else if (Input.GetKeyDown(KeyCode.D))
+			else if (Input.GetKeyDown(KeyCode.A))
 			{
 				Select(Option.B);
 			}
 			else if (Input.GetKeyDown(KeyCode.S))
 			{
 				Select(Option.C);
+			}
+			else if (Input.GetKeyDown(KeyCode.D))
+			{
+				Select(Option.D);
 			}
 		}
 

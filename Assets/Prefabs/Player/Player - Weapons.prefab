@@ -165,6 +165,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4928699488713793825, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}
+      propertyPath: range
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928699488713793825, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928699488713793825, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
       propertyPath: effectOrigin
       value: 
       objectReference: {fileID: 6040912742376778091}
@@ -222,6 +232,11 @@ PrefabInstance:
         type: 3}
       propertyPath: soundEventReference.Guid.Data4
       value: -1128658301
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877018968497345420, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: ammunition.damageType
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 6510461128044869446, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}

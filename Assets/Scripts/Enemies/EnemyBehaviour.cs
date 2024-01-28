@@ -4,13 +4,15 @@ using UnityEngine;
 using Code.Weapons;
 using Code.Graphics;
 using JetBrains.Annotations;
+using FMODUnity;
 
 namespace Code.EnemySystem
 {
     public class EnemyBehavior : MonoBehaviour, IDamageable
     {
         public EnemySettings enemySettings;
-        [SerializeField] private ParticleSystem particle = default;
+        [SerializeField] private ParticleSystem deathParticle = default;
+        [SerializeField] private EventReference deathSound = default;
 
         private Transform playerPos;
         private PlayerHealth playerHealth;
@@ -195,7 +197,8 @@ namespace Code.EnemySystem
 
         private void Dead()
         {
-            Instantiate(particle, transform.position, Quaternion.identity);
+            Instantiate(deathParticle, transform.position, Quaternion.identity);
+            AudioManager.instance.PlayOneShot(deathSound, transform.position);
             waveSpawner.enemyToKill--;
             Debug.Log("Nemici rimanenti: " + waveSpawner.enemyToKill);
             Destroy(gameObject);

@@ -39,7 +39,7 @@ namespace Code.Weapons {
             Cooldown(true);
 
             Vector3 halfReachablePoint = weaponCamera.position + weaponCamera.forward * range;
-            Effect(halfReachablePoint);
+            Effect(effectOrigin.position, halfReachablePoint);
 
             Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
 
@@ -59,8 +59,8 @@ namespace Code.Weapons {
             }
         }
 
-        protected override void Effect(Vector3 position) {
-            AudioManager.instance.PlayOneShot(soundEventReference, effectOrigin.position);
+        protected override void Effect(Vector3 origin, Vector3 lastPosition) {
+            AudioManager.instance.PlayOneShot(soundEventReference, origin);
         }
     }
 

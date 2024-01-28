@@ -107,6 +107,8 @@ namespace Code.Dialogue
 			label.text = "";
 
 			// TODO close the dialogue? Or does another system take care of that?
+
+			await Task.Delay(500, cancellationToken);
 			
 			OnAnswerChosen?.Invoke(answer.Modifier);
 		}
@@ -146,7 +148,15 @@ namespace Code.Dialogue
 		{
 			for (int i = 0; i < charMap.DialogueChars.Count; i++)
 			{
-				charMap.mappedInfo.Add(charMap.DialogueChars[i].Letter, charMap.DialogueChars[i].CharClip);
+				try
+				{
+					charMap.mappedInfo.Add(charMap.DialogueChars[i].Letter, charMap.DialogueChars[i].CharClip);
+				}
+				catch (Exception e)
+				{
+					// Se non ci riesce pazienza
+					Debug.Log("Error when adding chars to the charMap");
+				}
 			}
 		}
 

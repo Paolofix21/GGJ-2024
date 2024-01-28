@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Threading;
 using Code.Dialogue;
 using UnityEngine;
 
@@ -18,7 +17,7 @@ namespace Code.EnemySystem.Boss
 		a fine wave, la fase è finita
 		*/
 
-		[SerializeField, Tooltip("Spawns enemy waves when the boss HP drops below this percentage value.")] 
+		[SerializeField, Tooltip("(Obsolete perche non facciamo in tempo) Spawns enemy waves when the boss HP drops below this percentage value.")] 
 		[Range(0, 100)] private float spawnWaveBelowHealth = 65;
 		[SerializeField] private float secondsBetweenAttacks = 5f;
 
@@ -27,7 +26,7 @@ namespace Code.EnemySystem.Boss
 			// Main sections of the boss phase
 			yield return DialogueLoop();
 			yield return AttackLoop();
-			yield return WaveLoop();
+			//yield return WaveLoop();
 			EndPhase();
 		}
 
@@ -57,19 +56,19 @@ namespace Code.EnemySystem.Boss
 			}
 		}
 
-
 		private IEnumerator AttackLoop()
 		{
 			WaitForSeconds attackDelay = new WaitForSeconds(secondsBetweenAttacks);
 
 			// Volevo farlo con le task ma alla fine è piu comodo con le Coroutine
-			while (boss.HeathAsPercentage >= spawnWaveBelowHealth)
+			//while (boss.HeathAsPercentage >= spawnWaveBelowHealth)
+			while (true)
 			{
 				yield return evenSpheresAttack.Shoot();
 				yield return attackDelay;
 
-				if (boss.HeathAsPercentage < spawnWaveBelowHealth)
-					break;
+				//if (boss.HeathAsPercentage < spawnWaveBelowHealth)
+				//	break;
 
 				yield return oddSpheresAttack.Shoot();
 				yield return attackDelay;
@@ -78,11 +77,7 @@ namespace Code.EnemySystem.Boss
 
 		private IEnumerator WaveLoop()
 		{
-			// The WaveSpawner has a Start() that automatically starts the first wave
 			waveSpawner.gameObject.SetActive(true);
-			//yield return new WaitUntil(() => waveSpawner.AllEnemiesAreDead); // TODO
-			
-
 			yield return null;
 		}
 

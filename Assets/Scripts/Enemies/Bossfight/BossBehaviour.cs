@@ -1,7 +1,10 @@
+using System;
 using Code.Dialogue;
 using Code.Player;
 using Code.Weapons;
+using FMODUnity;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.EnemySystem.Boss
 {
@@ -10,13 +13,15 @@ namespace Code.EnemySystem.Boss
 	/// </summary>
 	public class BossBehaviour : MonoBehaviour, IDamageable
 	{
+		public static event Action OnDeath;
+
+		[SerializeField] private ParticleSystem deathParticle = default;
+		[SerializeField] private EventReference deathSound = default;
 		public EnemySettings enemySettings;
 
 		private Transform playerPos;
 		private PlayerHealth playerHealth;
 		private BossPhase[] phases;
-
-
 		private float remHP;
 		private bool isInvulnerable;
 		public float HeathAsPercentage => remHP / enemySettings.HP * 100;
@@ -46,18 +51,28 @@ namespace Code.EnemySystem.Boss
 		
 		private void Dead()
 		{
+			// TODO enable the You Win UI
+			//var youWin = GameObject.Find("Win");
+			//youWin.SetActive(true);
+			var position = transform.position;
+			for (int i = 0; i < 4; i++)
+			{
+				Instantiate(deathParticle, position + Random.insideUnitSphere, Quaternion.identity);
+			}
+			AudioManager.instance.PlayOneShot(deathSound, position);
+			OnDeath?.Invoke();
 			Destroy(gameObject);
 		}
 		
 		public bool GetDamage(DamageType damageType)
 		{
+			return true; // Su SO è impostato che accetta qualunque damageType, ma non funziona il check quindi ritorno sempre true
 			return !isInvulnerable && damageType.HasFlag(enemySettings.DamageType);
 		}
 
 		public void ApplyDamage(float amount)
 		{
 			remHP -= amount;
-			print($"boss now has {remHP} hp");
 			if (remHP <= 0)
 			{
 				Dead();

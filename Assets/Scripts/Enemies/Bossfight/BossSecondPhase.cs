@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Threading;
 using Code.Dialogue;
 using UnityEngine;
 
@@ -22,7 +21,7 @@ namespace Code.EnemySystem.Boss
 			// Main sections of the boss phase
 			yield return DialogueLoop();
 			yield return AttackLoop();
-			yield return WaveLoop();
+			//yield return WaveLoop();
 			EndPhase();
 		}
 

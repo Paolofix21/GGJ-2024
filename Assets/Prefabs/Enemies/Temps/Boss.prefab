@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 1720109890054335489}
   - component: {fileID: 654950362728918304}
   - component: {fileID: 3754800221102847688}
+  - component: {fileID: 2946931560166498079}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -84,6 +85,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20956c42de8b88645a771297bff710e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticle: {fileID: 710859151671168106, guid: c4149a3d8a41dd542929c4deb5af5563,
+    type: 3}
+  deathSound:
+    Guid:
+      Data1: -796849634
+      Data2: 1115884673
+      Data3: 1923244688
+      Data4: 1902112352
+    Path: event:/Enemies/Death_Cough
   enemySettings: {fileID: 11400000, guid: 31a458a0bfab6844fa398e4b6d69e432, type: 2}
 --- !u!114 &1879805870884393038
 MonoBehaviour:
@@ -98,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnWaveBelowHealth: 65
-  secondsBetweenAttacks: 3
+  secondsBetweenAttacks: 4
 --- !u!114 &7868844231554231746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,7 +132,7 @@ MonoBehaviour:
   - {fileID: 3745962128258127490}
   fireballPrefab: {fileID: 8907917542864964187, guid: 822f7c23ffc96774b93bbef0adf37664,
     type: 3}
-  fireballsPerShot: 6
+  fireballsPerShot: 10
   timeBetweenShots: 0.25
 --- !u!114 &1720109890054335489
 MonoBehaviour:
@@ -147,7 +157,7 @@ MonoBehaviour:
   - {fileID: 3745962128258127490}
   fireballPrefab: {fileID: 8907917542864964187, guid: 822f7c23ffc96774b93bbef0adf37664,
     type: 3}
-  fireballsPerShot: 6
+  fireballsPerShot: 10
   timeBetweenShots: 0.25
 --- !u!114 &654950362728918304
 MonoBehaviour:
@@ -178,6 +188,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41e1ab642b3a09b40a1bd52613f27d9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!65 &2946931560166498079
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554208695488847356}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 14.006584, y: 5.974457, z: 2.0202851}
+  m_Center: {x: -2.341282, y: 2.2045422, z: 2.2347698}
 --- !u!1 &2102047411867675966
 GameObject:
   m_ObjectHideFlags: 0

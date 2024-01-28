@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 06460e19c2ab08947b24c20a53196cfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: dfd62dd222afd784c83f2ea8b5b40816, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1217,8 +1217,8 @@ MonoBehaviour:
   m_text: "Lorem ipsum e beccati sto trapezio perfavore entraaa non penso beccati
     sto cigno non pu\xF3 entrare entra?"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: a4a601e7993efdc439b94753882621ec, type: 2}
-  m_sharedMaterial: {fileID: -5045977642400978827, guid: a4a601e7993efdc439b94753882621ec,
+  m_fontAsset: {fileID: 11400000, guid: 41ce539bcee204240ae9feedb5772bfd, type: 2}
+  m_sharedMaterial: {fileID: -5045977642400978827, guid: 41ce539bcee204240ae9feedb5772bfd,
     type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1243,8 +1243,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 32
+  m_fontSizeBase: 32
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1484,7 +1484,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3565031003688041957}
   m_Enabled: 1
-  m_Alpha: 0
+  m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
@@ -1943,14 +1943,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.13333334, g: 0.09411766, b: 0.12941177, a: 0.98039216}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: ac7ee8f127e33a543bceb25ed296521c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

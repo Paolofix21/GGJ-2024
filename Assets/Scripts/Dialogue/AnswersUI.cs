@@ -52,6 +52,7 @@ namespace Code.Dialogue
 		{
 			var optionUI = options[(int)option];
 			// TODO Visually update optionUI
+			//optionUI.GetComponent<Image>();
 			
 			OnAnswerSelected?.Invoke(answers[(int)option]);
 		}

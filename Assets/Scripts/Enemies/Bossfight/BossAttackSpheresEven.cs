@@ -7,9 +7,11 @@ namespace Code.EnemySystem.Boss
 	{
 		public override IEnumerator Shoot()
 		{
+			bossAnimator.AnimateAttack(0);
 			for (int i = 0; i < fireballsPerShot; i++)
 			{
-				ShootSingle();
+				bossAnimator.Shoot();
+				//ShootSingle();
 				yield return new WaitForSeconds(timeBetweenShots);
 			}
 		}

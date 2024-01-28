@@ -1,4 +1,3 @@
-using System;
 using Code.Dialogue;
 using Code.Player;
 using Code.Weapons;
@@ -16,6 +15,7 @@ namespace Code.EnemySystem.Boss
 		private Transform playerPos;
 		private PlayerHealth playerHealth;
 		private BossPhase[] phases;
+
 
 		private float remHP;
 		private bool isInvulnerable;

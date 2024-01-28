@@ -169,7 +169,7 @@ namespace Code.EnemySystem
                 // Calcola la distanza dal punto (0, 0, 0)
                 float distanceToOrigin = Vector3.Distance(transform.position, Vector3.zero);
 
-                // Se la distanza è maggiore di 20 metri, imposta una nuova direzione casuale
+                // Se la distanza Ã¨ maggiore di 20 metri, imposta una nuova direzione casuale
                 if (distanceToOrigin > 20f)
                 {
                     SetRandomWanderDirection();

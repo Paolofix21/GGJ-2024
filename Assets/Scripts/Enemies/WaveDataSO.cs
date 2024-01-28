@@ -12,6 +12,8 @@ public class WaveData : ScriptableObject
     [Header("Enemies 4 Wave")]
     public List<WaveEnemy> waveEnemies = new List<WaveEnemy>();
 
+    public int SubWavesCount => waveEnemies.Count;
+
     [Serializable]
     public class WaveEnemy
     {

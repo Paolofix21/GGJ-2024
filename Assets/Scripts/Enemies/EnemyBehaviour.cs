@@ -26,15 +26,14 @@ namespace Code.EnemySystem
         private bool reverseDirection = false;
         private bool isChasing = false;
 
+        public event System.Action<EnemyBehavior> OnDeath;
+
         void Start()
         {
             playerPos = GameObject.FindGameObjectWithTag("Player").transform;
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
             waveSpawner = GameObject.FindFirstObjectByType<WaveSpawner>();
             maskAnimator = GetComponent<MaskAnimator>();
-
-        
-
 
             remHP = enemySettings.HP;
             switch (enemySettings.DamageType)
@@ -93,6 +92,7 @@ namespace Code.EnemySystem
             }
         }
 
+        private void OnDestroy() => OnDeath?.Invoke(this);
 
         void Wander()
         {
@@ -115,9 +115,6 @@ namespace Code.EnemySystem
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
-
-
-
         void SetRandomWanderDirection()
         {
             if (waveSpawner.spawnPoints.Count > 0)
@@ -131,7 +128,6 @@ namespace Code.EnemySystem
                 wanderDirection = Vector3.zero; 
             }
         }
-
 
         void ChasePlayer(float _distanceToPlayer)
         {

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Code.EnemySystem
@@ -8,8 +9,17 @@ namespace Code.EnemySystem
         public List<Transform> spawnPoints = new List<Transform>();
         public List<WaveData> waveData = new List<WaveData>();
         [HideInInspector] public float enemyToKill = 0;
+        [SerializeField] private float waveInterval = 1f;
+
         private int currentInternalWaveIndex = 0;
-        private int waveNumber;
+        private int waveNumber = 0;
+
+        public static event System.Action<int> OnMacroWaveIndexChanged;
+
+        private List<EnemyBehavior> _currentEnemies = new();
+        private float _nextWaveTime;
+
+        private void Start() => OnMacroWaveIndexChanged?.Invoke(waveNumber);
 
         void Update()
         {
@@ -20,21 +30,23 @@ namespace Code.EnemySystem
             }
 #endif
 
-            if (waveNumber < waveData.Count && enemyToKill <= 0 && currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
+            /*if (waveNumber < waveData.Count // se ci sono ancora ondate macro
+                && _currentEnemies.Count <= 0 // sono finiti i nemici dell'ondata corrente
+                && currentInternalWaveIndex < waveData[waveNumber].SubWavesCount) // ci sono altre sotto ondate
             {
                 SpawnWave();
-            }
+            }*/
 
+            if (_currentEnemies.Any())
+                return;
 
-            if (waveNumber > waveData[waveNumber].waveEnemies.Count)
+            if (currentInternalWaveIndex < waveData[waveNumber].SubWavesCount) // ci sono altre sotto ondate?
+                SpawnSubWave();
+            else if (_currentEnemies.Count <= 0) // ci sono altre macro ondate?
             {
-                if (waveNumber >= waveData.Count - 1)
-                {
-                    Debug.Log("All waves completed");
-
-                }
+                if (Time.time >= _nextWaveTime)
+                    SpawnNextWave();
             }
-
         }
 
         /// <summary>
@@ -44,9 +56,18 @@ namespace Code.EnemySystem
         {
             waveNumber++;
             currentInternalWaveIndex = 0;
+            Debug.Log("Macro Ondata completata\n", this);
+            OnMacroWaveIndexChanged?.Invoke(waveNumber);
+
+            if (waveNumber < waveData.Count)
+                return;
+
+            Debug.Log("All waves completed\n", this);
+            enabled = false;
+            // TODO - go to boss
         }
 
-        void SpawnWave()
+        void SpawnSubWave()
         {
             if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
             {
@@ -74,7 +95,7 @@ namespace Code.EnemySystem
                 if (currentInternalWaveIndex >= waveData[waveNumber].waveEnemies.Count)
                 {
                     // Ondata completata, possiamo chiamare funzione spawn boss
-                    Debug.Log("Mini Ondata completata");
+                    Debug.Log("Mini Ondata completata\n", this);
                     SpawnNextWave();
                 }
             }
@@ -87,6 +108,19 @@ namespace Code.EnemySystem
             GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity, this.transform);
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.spawnEvent, spawnPosition);
+
+            var enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+            enemyBehavior.OnDeath += RemoveEnemy;
+            _currentEnemies.Add(enemyBehavior);
+        }
+
+        private void RemoveEnemy(EnemyBehavior enemyBehavior) {
+            _currentEnemies.Remove(enemyBehavior);
+
+            if (_currentEnemies.Any())
+                return;
+
+            _nextWaveTime = Time.time + waveInterval;
         }
 
         Transform GetRandomSpawnPoint()

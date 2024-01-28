@@ -62,6 +62,7 @@ namespace Code.Weapons {
         }
 
         protected override void Effect(Vector3 position) {
+            AudioManager.instance.PlayOneShot(soundEventReference, effectOrigin.position);
             BulletTrail bulletTrail = Instantiate(bullet, effectOrigin.position, Quaternion.identity);
             bulletTrail.SetDestination(position);
         }

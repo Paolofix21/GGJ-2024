@@ -1,3 +1,4 @@
+using FMODUnity;
 using System;
 using UnityEngine;
 
@@ -9,6 +10,8 @@ namespace Code.Weapons {
         [SerializeField] protected float cooldown = default;
 
         [Header("References")]
+        [SerializeField] protected EventReference soundEventReference = default;
+        [Space]
         [SerializeField] protected Transform weaponCamera = default;
         [SerializeField] protected Transform effectOrigin = default;
 
@@ -36,8 +39,6 @@ namespace Code.Weapons {
         protected virtual void Cooldown(bool state) {
             cooldownActive = state;
             OnCooldownStateChanged?.Invoke(state);
-
-            // Debug.Log($"{gameObject.name} - {nameof(Cooldown)} - Current cooldown {cooldownActive}");
         }
 
         public abstract void Shoot(Ammunition ammunition);

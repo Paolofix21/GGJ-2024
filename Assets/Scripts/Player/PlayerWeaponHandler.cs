@@ -1,5 +1,6 @@
 using Code.Player;
 using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -34,7 +35,8 @@ namespace Code.Weapons {
                 playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
             }
         }
-        private void Start() {
+        private IEnumerator Start() {
+            yield return null;
             EquipWeapon(defaultType);
         }
         private void OnDestroy() {

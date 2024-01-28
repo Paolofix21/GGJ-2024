@@ -5,6 +5,7 @@ namespace Code.Weapons {
 
     public class SingleBulletLogic : FiringLogic {
         [SerializeField] private BulletTrail bullet = default;
+        [SerializeField] private GameObject hitParticle = default;
 
         [Header("Gizmos")]
         [SerializeField] private bool gizmosEnabled = default;
@@ -48,6 +49,8 @@ namespace Code.Weapons {
             if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
                 if (hitInfo.collider == null)
                     return;
+
+                Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
                 IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
 

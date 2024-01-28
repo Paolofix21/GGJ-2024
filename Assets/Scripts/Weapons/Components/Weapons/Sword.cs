@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Code.Weapons {
 
     public class Sword : Weapon {
-        
+        public override bool CanShoot() => firingLogic.CanShoot();
     }
 
 }

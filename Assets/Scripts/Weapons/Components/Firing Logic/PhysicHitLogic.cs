@@ -38,7 +38,7 @@ namespace Code.Weapons {
         public override void Shoot(Ammunition ammunition) {
             Cooldown(true);
 
-            Vector3 halfReachablePoint = (weaponCamera.forward * range) / 2.0f;
+            Vector3 halfReachablePoint = weaponCamera.position + weaponCamera.forward * range;
 
             Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
 

@@ -115,7 +115,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf98a7d46ccb1754fb273e3b3e365ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
+  range: 5
   cooldown: 0.3
   weaponCamera: {fileID: 8490250516042839825}
   gizmosEnabled: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bab7bb4f424ab47915c548b4cdede7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
+  weaponType: 1
   ammunition:
     damageType: 4
     damageAmount: 0
@@ -198,11 +198,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dafbbea3248c8b47a2610d43755c8ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
+  range: 3
   cooldown: 0.85
   weaponCamera: {fileID: 8490250516042839825}
-  radius: 0
-  interestedPoints: 0
+  radius: 2
+  interestedPoints: 6
   gizmosEnabled: 0
 --- !u!1 &4291758770484684762
 GameObject:
@@ -253,7 +253,7 @@ MonoBehaviour:
   weaponType: 3
   ammunition:
     damageType: -1
-    damageAmount: 0
+    damageAmount: 25
   cartridge: {fileID: 2377718168780058879}
   firingLogic: {fileID: 7503460759009476650}
 --- !u!114 &2377718168780058879
@@ -268,9 +268,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAmount: 0
-  totalAmount: 0
-  amountShotConsumed: 0
+  startingAmount: 1
+  totalAmount: 1
+  amountShotConsumed: 1
 --- !u!114 &7503460759009476650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,10 +283,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e0b8b6ff542edc4fa5ac5667b6b4bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
-  cooldown: 0
+  range: 1
+  cooldown: 0.85
   weaponCamera: {fileID: 8490250516042839825}
-  radius: 0
+  radius: 1
   gizmosEnabled: 0
 --- !u!1 &8285624306591264369
 GameObject:
@@ -334,7 +334,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143e1006ec2ce6d4f9c3f9c849568ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 1
+  weaponType: 2
   ammunition:
     damageType: 2
     damageAmount: 0
@@ -367,8 +367,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf98a7d46ccb1754fb273e3b3e365ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
-  cooldown: 1
+  range: 6
+  cooldown: 0
   weaponCamera: {fileID: 8490250516042839825}
   gizmosEnabled: 0
 --- !u!1 &8980785832192035074
@@ -435,9 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingAmount: 0
-  totalAmount: 0
-  amountShotConsumed: 0
+  startingAmount: 1
+  totalAmount: 1
+  amountShotConsumed: 1
 --- !u!114 &3166429832838788926
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -450,10 +450,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e0b8b6ff542edc4fa5ac5667b6b4bb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
-  cooldown: 0
+  range: 1.5
+  cooldown: 30
   weaponCamera: {fileID: 8490250516042839825}
-  radius: 0
+  radius: 1.5
   gizmosEnabled: 0
 --- !u!1001 &3001063358160028619
 PrefabInstance:
@@ -531,6 +531,10 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2636143515098260672}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6510461128044869446, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6124350799480368772}
     - targetCorrespondingSourceObject: {fileID: 4098327224838240829, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}
       insertIndex: -1
@@ -574,12 +578,38 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 3001063358160028619}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 8357597750909187213}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 444308909f80bce44a1da2cbc28a7289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8357597750909187213 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6510461128044869446, guid: dbed14a1dbcccd34e82ce57ea9210935,
+    type: 3}
+  m_PrefabInstance: {fileID: 3001063358160028619}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6124350799480368772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8357597750909187213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75a00adffb723974dadbf23aa9c9a6b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  defaultType: 0
+  weapons:
+  - {fileID: 3818005688256975439}
+  - {fileID: 6906457050923533044}
+  - {fileID: 6890898527770747674}
+  - {fileID: 1574838433581187232}
+  - {fileID: 4866305283085809013}
+  playerController: {fileID: 5043030336000894745}
 --- !u!4 &8490250516042839825 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6662661017876477146, guid: dbed14a1dbcccd34e82ce57ea9210935,

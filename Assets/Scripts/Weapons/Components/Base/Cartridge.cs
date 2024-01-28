@@ -24,14 +24,14 @@ namespace Code.Weapons {
             currentAmount = Mathf.Clamp(currentAmount + amount, 0, totalAmount);
             OnAmmoAmountChanged?.Invoke(currentAmount);
 
-            Debug.Log($"{gameObject.name} - {nameof(AddAmmo)} - Current amount {currentAmount}");
+            // Debug.Log($"{gameObject.name} - {nameof(AddAmmo)} - Current amount {currentAmount}");
         }
 
         public void RemoveAmmo(int amount) {
             currentAmount = Mathf.Clamp(currentAmount - amount, 0, totalAmount);
             OnAmmoAmountChanged?.Invoke(currentAmount);
 
-            Debug.Log($"{gameObject.name} - {nameof(RemoveAmmo)} - Current amount {currentAmount}");
+            // Debug.Log($"{gameObject.name} - {nameof(RemoveAmmo)} - Current amount {currentAmount}");
         }
 
         public void Consume() {

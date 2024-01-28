@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Code.Weapons;
 using Code.Graphics;
+using JetBrains.Annotations;
 
 namespace Code.EnemySystem
 {
@@ -19,11 +20,13 @@ namespace Code.EnemySystem
         private float elapsedTime = 0f;
         private float remHP;
 
-        private float attackCooldown = 2f; // Tempo di attesa tra gli attacchi
+        private float attackCooldown = 2f; 
         private float currentCooldown = 0f;
 
         private bool reverseDirection = false;
         private bool isChasing = false;
+
+        public event System.Action<EnemyBehavior> OnDeath;
 
         void Start()
         {
@@ -89,11 +92,12 @@ namespace Code.EnemySystem
             }
         }
 
+        private void OnDestroy() => OnDeath?.Invoke(this);
+
         void Wander()
         {
             float distanceToDestination = Vector3.Distance(transform.position, transform.position + wanderDirection);
 
-            // Se sei abbastanza vicino al punto di destinazione, calcola una nuova direzione casuale
             if (distanceToDestination < 1f)
             {
                 SetRandomWanderDirection();
@@ -101,20 +105,15 @@ namespace Code.EnemySystem
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
 
-            // Calcola la rotazione solo sull'asse Y
+            
             if (wanderDirection != Vector3.zero)
             {
-                float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
-                Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
+                Quaternion targetRotation = Quaternion.LookRotation(wanderDirection);
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
             }
 
-            // Applica il movimento avanti
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
-
-
-
 
         void SetRandomWanderDirection()
         {
@@ -126,20 +125,18 @@ namespace Code.EnemySystem
             else
             {
                 Debug.LogWarning("No spawn points assigned to the enemy.");
-                wanderDirection = Vector3.zero; // fallback to avoid unexpected behavior
+                wanderDirection = Vector3.zero; 
             }
         }
-
 
         void ChasePlayer(float _distanceToPlayer)
         {
             wanderDirection = (playerPos.position - transform.position).normalized;
 
-            float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
 
             float horizontalDistance = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(playerPos.position.x, 0f, playerPos.position.z));
+
+            transform.rotation = Quaternion.LookRotation(wanderDirection);
 
             if (currentCooldown <= 0f)
             {
@@ -151,12 +148,12 @@ namespace Code.EnemySystem
                 else
                 {
                     AttackPlayer();
-                    currentCooldown = attackCooldown; // Avvia il cooldown dopo un attacco
+                    currentCooldown = attackCooldown; 
                 }
             }
             else
             {
-                currentCooldown -= Time.deltaTime; // Riduci il cooldown
+                currentCooldown -= Time.deltaTime; 
             }
         }
 
@@ -164,15 +161,14 @@ namespace Code.EnemySystem
         {
             while (true)
             {
-                yield return new WaitForSeconds(5f); // Attendi 5 secondi
+                yield return new WaitForSeconds(5f);
 
-                // Calcola la distanza dal punto (0, 0, 0)
                 float distanceToOrigin = Vector3.Distance(transform.position, Vector3.zero);
 
-                // Se la distanza è maggiore di 20 metri, imposta una nuova direzione casuale
                 if (distanceToOrigin > 20f)
                 {
-                    SetRandomWanderDirection();
+                    Vector3 targetPosition = playerPos.position;
+                    transform.Translate((targetPosition - transform.position).normalized * enemySettings.wanderSpeed * Time.deltaTime);
                 }
             }
         }
@@ -182,21 +178,24 @@ namespace Code.EnemySystem
         {
             maskAnimator.AnimateLaughter();
             playerHealth.GetDamage(enemySettings.damage);
-            Debug.Log("HAHAH");
         }
 
         private void Dead()
         {
+            waveSpawner.enemyToKill--;
+            Debug.Log("Nemici rimanenti: " + waveSpawner.enemyToKill);
             Destroy(gameObject);
         }
 
         public bool GetDamage(DamageType damageType)
         {
+            Debug.Log($"Asking if can be damaged...\nType: {damageType}\n", this);
             return damageType.HasFlag(enemySettings.DamageType);
         }
 
         public void ApplyDamage(float amount)
         {
+            Debug.Log($"Applying {amount} damage...\n", this);
             remHP -= amount;
 
             if (remHP <= 0)

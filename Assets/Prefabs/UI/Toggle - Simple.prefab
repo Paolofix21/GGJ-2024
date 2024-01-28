@@ -415,8 +415,8 @@ MonoBehaviour:
   - <Graphic>k__BackingField: {fileID: 6494910307665844444}
     <ShownAlpha>k__BackingField: 0
     <HiddenAlpha>k__BackingField: 1
-    <ShownColor>k__BackingField: {r: 0.49803925, g: 0.35686275, b: 0.909804, a: 1}
-    <HiddenColor>k__BackingField: {r: 0.49803925, g: 0.35686275, b: 0.909804, a: 1}
+    <ShownColor>k__BackingField: {r: 0.39215687, g: 0.21176471, b: 0.37254903, a: 1}
+    <HiddenColor>k__BackingField: {r: 0.39215687, g: 0.21176471, b: 0.37254903, a: 1}
 --- !u!1 &9031780522658714706
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,8 +492,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4293417855
-  m_fontColor: {r: 0.49803925, g: 0.35686275, b: 0.909804, a: 1}
+    rgba: 4284429924
+  m_fontColor: {r: 0.39215687, g: 0.21176471, b: 0.37254903, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

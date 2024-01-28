@@ -402,6 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_loadLevel: {fileID: 7211881821287780324}
+  m_loadSettings: {fileID: 1962179392917804068}
   m_quitGame: {fileID: 2005051761050414731}
 --- !u!1 &5051056601123143206
 GameObject:
@@ -1020,6 +1021,18 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5f9f8ecc8c44f4e4dbae3aa4c06561ae, type: 3}
+--- !u!114 &1962179392917804068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6588080958963127207, guid: 5f9f8ecc8c44f4e4dbae3aa4c06561ae,
+    type: 3}
+  m_PrefabInstance: {fileID: 4636068208916694915}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4066438706071496558 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8662809175970832621, guid: 5f9f8ecc8c44f4e4dbae3aa4c06561ae,

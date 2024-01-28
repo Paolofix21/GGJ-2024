@@ -233,6 +233,11 @@ PrefabInstance:
       propertyPath: soundEventReference.Guid.Data4
       value: -1128658301
       objectReference: {fileID: 0}
+    - target: {fileID: 5877018968497345420, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: ammunition.damageType
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6510461128044869446, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}
       propertyPath: m_Name

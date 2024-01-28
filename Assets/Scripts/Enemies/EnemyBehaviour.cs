@@ -198,7 +198,7 @@ namespace Code.EnemySystem
         private void Dead()
         {
             Instantiate(deathParticle, transform.position, Quaternion.identity);
-            //AudioManager.instance.PlayOneShot(deathSound, transform.position);
+            AudioManager.instance.PlayOneShot(deathSound, transform.position);
             waveSpawner.enemyToKill--;
             Debug.Log("Nemici rimanenti: " + waveSpawner.enemyToKill);
             Destroy(gameObject);

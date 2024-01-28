@@ -87,6 +87,31 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 8ba58ea12fc39a041879af667da5aa26,
         type: 2}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: deathSound.Path
+      value: event:/Enemies/Death_Wow
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: deathSound.Guid.Data1
+      value: -811941244
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: deathSound.Guid.Data2
+      value: 1122492648
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: deathSound.Guid.Data3
+      value: -279609946
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: deathSound.Guid.Data4
+      value: 544519968
+      objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
       propertyPath: m_laughterClipEvent.Path

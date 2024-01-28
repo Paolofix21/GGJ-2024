@@ -15,7 +15,6 @@ namespace Code.Weapons {
         protected bool cooldownActive = default;
 
         public Action<bool> OnCooldownStateChanged = default;
-        public Action OnShotFired = default;
 
         protected virtual void Update() {
             if (!cooldownActive)
@@ -36,6 +35,8 @@ namespace Code.Weapons {
         protected virtual void Cooldown(bool state) {
             cooldownActive = state;
             OnCooldownStateChanged?.Invoke(state);
+
+            Debug.Log($"{gameObject.name} - {nameof(Cooldown)} - Current cooldown {cooldownActive}");
         }
 
         public abstract void Shoot(Ammunition ammunition);

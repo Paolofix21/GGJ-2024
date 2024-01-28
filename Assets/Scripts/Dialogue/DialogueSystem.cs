@@ -49,6 +49,7 @@ namespace Code.Dialogue
 		/// </summary>
 		public async void Play(DialogueType dialogue)
 		{
+			GetMapInfo();
 			gameObject.SetActive(true);
 			
 			// Cancel prev task if it was active

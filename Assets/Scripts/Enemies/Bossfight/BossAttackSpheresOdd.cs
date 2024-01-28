@@ -17,6 +17,8 @@ namespace Code.EnemySystem.Boss
 
 		private void ShootSingle()
 		{
+			bossAnimator.AnimateAttack(0);
+
 			for (int i = 0; i < nozzles.Count; i++)
 			{
 				if (i % 2 != 0)

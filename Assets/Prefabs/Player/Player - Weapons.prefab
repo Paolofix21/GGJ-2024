@@ -288,6 +288,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}
+      propertyPath: arms
+      value: 
+      objectReference: {fileID: 1244618424921520630}
+    - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
       propertyPath: speed
       value: 8
       objectReference: {fileID: 0}
@@ -297,11 +302,42 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4687527868275134080, guid: 8aa0155581af3f841b47e7e9288d9588,
         type: 3}
+    - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: lavaSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: lavaDamage
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: airborneSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 7807441193164072146, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: lavaJumpForce
+      value: 16
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dbed14a1dbcccd34e82ce57ea9210935, type: 3}
+--- !u!1 &1244618424921520630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4098327224838240829, guid: dbed14a1dbcccd34e82ce57ea9210935,
+    type: 3}
+  m_PrefabInstance: {fileID: 3001063358160028619}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1766913581590375504 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3540037884282154907, guid: dbed14a1dbcccd34e82ce57ea9210935,

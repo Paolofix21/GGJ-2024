@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using FMOD.Studio;
 using Barbaragno.RuntimePackages.Operations;
+using Miscellaneous;
 
 namespace Code.Player {
     public class PlayerController : MonoBehaviour {
@@ -14,6 +15,8 @@ namespace Code.Player {
 
         [SerializeField] private ColorSetSO[] hueValue;
         [SerializeField] private EndGameUI endgameUI;
+        [SerializeField] private CutsceneIntroController cutscene;
+        [SerializeField] private GameObject arms;
 
         #region Properties
         public static PlayerController Singleton { get; set; }
@@ -21,10 +24,12 @@ namespace Code.Player {
 
         #region Movement Fields
         [Header("Movement Fields")]
+        [SerializeField] private float airborneSpeed = 16f;
         [SerializeField] private float speed = 6f;
         [SerializeField] private float jumpForce = 1.5f;
 
         private const float grav = -9.8f;
+        private float _currentSpeed;
         private bool crouching = false;
 
         private int currentSelectedWeapon = default;
@@ -84,8 +89,11 @@ namespace Code.Player {
             Health = GetComponent<PlayerHealth>();
             visualSetter = GetComponentInChildren<VisualSetter>();
             input = GetComponent<InputManager>();
+
+            _currentSpeed = speed;
         }
         private void Start() {
+            cutscene.OnIntroStartStop += Intro;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -135,10 +143,13 @@ namespace Code.Player {
             input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
             Health.OnPlayerDeath -= PlayerDeath;
+            cutscene.OnIntroStartStop -= Intro;
 
             if (Singleton == this)
                 Singleton = null;
         }
+
+        private void Intro(bool ongoing) => arms.gameObject.SetActive(!ongoing);
         #endregion
 
         #region Movement Behaviours
@@ -154,17 +165,20 @@ namespace Code.Player {
 
         private void GetMovement() {
             Vector3 dir = Vector3.zero;
-            vel.x = input.GetMovement().x;
-            vel.z = input.GetMovement().y;
+            vel.x = input.GetMovement().x * _currentSpeed;
+            vel.z = input.GetMovement().y * _currentSpeed;
+            vel = transform.TransformDirection(vel);
 
             if (controller.isGrounded && vel.y < 0) {
                 vel.y = -2;
             }
             else {
-                vel.y += grav * Time.deltaTime;
+                vel.y += grav * 4f * Time.deltaTime;
             }
 
-            controller.Move(transform.TransformDirection(vel) * speed * Time.deltaTime);
+            _currentSpeed = isInsideLava ? lavaSpeed : (controller.isGrounded ? speed : airborneSpeed);
+
+            controller.Move(vel * Time.deltaTime);
             //controller.Move(vel * Time.deltaTime);
         }
 
@@ -202,7 +216,6 @@ namespace Code.Player {
 
         private IEnumerator WalkInLava() {
             isInsideLava = true;
-            speed = lavaSpeed;
 
             if (crouching) {
                 crouching = !crouching;
@@ -218,7 +231,6 @@ namespace Code.Player {
         private void ExitLava() {
             StopCoroutine(nameof(WalkInLava));
             isInsideLava = false;
-            speed = 6f;
         }
         #endregion
 

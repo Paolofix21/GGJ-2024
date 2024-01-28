@@ -13,6 +13,7 @@ namespace Code.EnemySystem
         public EnemySettings enemySettings;
         [SerializeField] private ParticleSystem deathParticle = default;
         [SerializeField] private EventReference deathSound = default;
+        [SerializeField] private EventReference wakakaSound = default;
 
         private Transform playerPos;
         private PlayerHealth playerHealth;
@@ -65,42 +66,45 @@ namespace Code.EnemySystem
             }
             SetRandomWanderDirection();
             StartCoroutine(CheckDistanceToOriginRoutine());
+
+            AudioManager.instance.PlayOneShot(wakakaSound, transform.position);
         }
 
-        void Update()
-        {
-            if (playerPos != null)
+        void Update() {
+            if (playerPos == null)
+                return;
+
+            float distanceToPlayer = Vector3.Distance(transform.position, playerPos.position);
+
+            if (_forceChasePlayer)
             {
-                float distanceToPlayer = Vector3.Distance(transform.position, playerPos.position);
+                ChasePlayer(distanceToPlayer);
+                return;
+            }
 
-                if (_forceChasePlayer)
-                {
-                    ChasePlayer(distanceToPlayer);
-                }
-                if (isChasing)
-                {
-                    elapsedTime += Time.deltaTime;
+            if (isChasing)
+            {
+                elapsedTime += Time.deltaTime;
 
-                    if (elapsedTime >= enemySettings.chaseTime || distanceToPlayer > enemySettings.visionRange || distanceToPlayer > enemySettings.maxDistanceFromPlayer)
-                    {
-                        isChasing = false;
-                        elapsedTime = 0f;
-                        SetRandomWanderDirection();
-                    }
-                    else
-                    {
-                        ChasePlayer(distanceToPlayer);
-                    }
+                if (elapsedTime >= enemySettings.chaseTime || distanceToPlayer > enemySettings.visionRange || distanceToPlayer > enemySettings.maxDistanceFromPlayer)
+                {
+                    isChasing = false;
+                    elapsedTime = 0f;
+                    SetRandomWanderDirection();
                 }
                 else
                 {
-                    Wander();
+                    ChasePlayer(distanceToPlayer);
+                }
+            }
+            else
+            {
+                Wander();
 
-                    if (distanceToPlayer <= enemySettings.visionRange)
-                    {
-                        isChasing = true;
-                        elapsedTime = 0f;
-                    }
+                if (distanceToPlayer <= enemySettings.visionRange)
+                {
+                    isChasing = true;
+                    elapsedTime = 0f;
                 }
             }
         }

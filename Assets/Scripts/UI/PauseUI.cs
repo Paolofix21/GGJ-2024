@@ -40,6 +40,8 @@ namespace Code.UI
             resume.onClick.AddListener(delegate {
                 gameObject.SetActive(false);
                 Time.timeScale = 1.0f;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             });
 
             m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);

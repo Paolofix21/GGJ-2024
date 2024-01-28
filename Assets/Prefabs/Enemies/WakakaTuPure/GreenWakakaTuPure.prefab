@@ -94,6 +94,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
+      propertyPath: wakakaSound.Path
+      value: event:/Enemies/Wakakatupure_Verse
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
       propertyPath: deathSound.Guid.Data1
       value: -811941244
       objectReference: {fileID: 0}
@@ -111,6 +116,26 @@ PrefabInstance:
         type: 3}
       propertyPath: deathSound.Guid.Data4
       value: 544519968
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: wakakaSound.Guid.Data1
+      value: -1824428809
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: wakakaSound.Guid.Data2
+      value: 1249823813
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: wakakaSound.Guid.Data3
+      value: 1927601286
+      objectReference: {fileID: 0}
+    - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: wakakaSound.Guid.Data4
+      value: 137121112
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}

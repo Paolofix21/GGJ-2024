@@ -165,6 +165,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4928699488713793825, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}
+      propertyPath: range
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928699488713793825, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
+      propertyPath: radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4928699488713793825, guid: dbed14a1dbcccd34e82ce57ea9210935,
+        type: 3}
       propertyPath: effectOrigin
       value: 
       objectReference: {fileID: 6040912742376778091}

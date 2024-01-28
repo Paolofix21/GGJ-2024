@@ -47,6 +47,7 @@ namespace Code.Player {
         #region Lava Fields
         [Header("Lava Fields")]
         [SerializeField] private float lavaSpeed;
+        [SerializeField] private float lavaJumpForce = 1.5f;
         [SerializeField] private int timeDelay;
         [SerializeField] private int lavaDamage;
 
@@ -170,7 +171,7 @@ namespace Code.Player {
         private void Jump(InputAction.CallbackContext ctx) {
             Debug.Log(controller.isGrounded);
             if (controller.isGrounded) {
-                vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
+                vel.y = Mathf.Sqrt((isInsideLava ? lavaJumpForce : jumpForce) * -3 * grav);
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
 

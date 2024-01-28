@@ -1,4 +1,5 @@
 using UnityEngine;
+using FMODUnity;
 using EventReference = FMODUnity.EventReference;
 
 public class FMODEvents : MonoBehaviour

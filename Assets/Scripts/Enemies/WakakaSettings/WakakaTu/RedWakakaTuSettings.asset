@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RedWakakaTuSettings
   m_EditorClassIdentifier: 
   HP: 30
-  damage: 0.1
+  damage: 2
   DamageType: 1
   wanderSpeed: 2
   chaseSpeed: 5

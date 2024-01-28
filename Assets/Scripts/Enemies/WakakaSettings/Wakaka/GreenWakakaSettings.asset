@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf1970bb5cb54043b3946c1caa4b479, type: 3}
   m_Name: GreenWakakaSettings
   m_EditorClassIdentifier: 
-  HP: 20
-  damage: 0.1
+  HP: 1
+  damage: 10
   DamageType: 4
   wanderSpeed: 2
   chaseSpeed: 5

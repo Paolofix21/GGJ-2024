@@ -7,37 +7,34 @@ namespace Code.EnemySystem
     {
         public List<Transform> spawnPoints = new List<Transform>();
         public List<WaveData> waveData = new List<WaveData>();
-        [HideInInspector]public float enemyToKill = 0;
+        [HideInInspector] public float enemyToKill = 0;
         private int currentInternalWaveIndex = 0;
         private int waveNumber;
-
 
         void Update()
         {
 #if UNITY_EDITOR // only for internal test
             if (Input.GetKeyDown(KeyCode.M))
             {
-                waveNumber++;
-                currentInternalWaveIndex = 0;
+                SpawnNextWave();
             }
 #endif
-            
-            if (enemyToKill <= 0 && currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
+
+            if (waveNumber < waveData.Count && enemyToKill <= 0 && currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
             {
-                if (currentInternalWaveIndex >= waveData[waveNumber].waveEnemies.Count)
-                {
-                    // Ondata completata, possiamo chiamare funzione spawn boss
-                    Debug.Log("Ondata completata");
-                }
-
-                else
-                {
-                    SpawnWave();
-                    
-                }
-
-                
+                SpawnWave();
             }
+
+
+            if (waveNumber > waveData[waveNumber].waveEnemies.Count)
+            {
+                if (waveNumber >= waveData.Count - 1)
+                {
+                    Debug.Log("All waves completed");
+
+                }
+            }
+
         }
 
         /// <summary>
@@ -48,8 +45,6 @@ namespace Code.EnemySystem
             waveNumber++;
             currentInternalWaveIndex = 0;
         }
-
-
 
         void SpawnWave()
         {
@@ -73,7 +68,15 @@ namespace Code.EnemySystem
                         return;
                     }
                 }
-                
+
+                currentInternalWaveIndex++;
+
+                if (currentInternalWaveIndex >= waveData[waveNumber].waveEnemies.Count)
+                {
+                    // Ondata completata, possiamo chiamare funzione spawn boss
+                    Debug.Log("Mini Ondata completata");
+                    SpawnNextWave();
+                }
             }
         }
 
@@ -85,8 +88,6 @@ namespace Code.EnemySystem
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.spawnEvent, spawnPosition);
         }
-
-      
 
         Transform GetRandomSpawnPoint()
         {

@@ -16,3 +16,5 @@ MonoBehaviour:
   waveEnemies:
   - enemyPrefab:
     - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}
+  - enemyPrefab:
+    - {fileID: 6173931941794782089, guid: 788e066e2ff3f5b438925fe092489902, type: 3}

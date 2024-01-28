@@ -22,13 +22,6 @@ namespace Code.EnemySystem.Boss
 		[Range(0, 100)] private float spawnWaveBelowHealth = 65;
 		[SerializeField] private float secondsBetweenAttacks = 5f;
 
-		private DialogueSystem dialogueSystem;
-		private BossAttackSpheresEven evenSpheresAttack;
-		private BossAttackSpheresOdd oddSpheresAttack;
-		private BossAttackLaserSweep laserAttack;
-		private CancellationTokenSource tokenSource;
-
-		
 		protected override IEnumerator PhaseCoroutine()
 		{
 			// Main sections of the boss phase
@@ -38,7 +31,6 @@ namespace Code.EnemySystem.Boss
 			EndPhase();
 		}
 
-		
 		private IEnumerator DialogueLoop()
 		{
 			DialogueSystem.OnAnswerChosen -= boss.ApplyModifier;

@@ -2,6 +2,8 @@ using Code.LevelSystem;
 using Code.UI;
 using System.Collections;
 using System.Collections.Generic;
+using Code.EnemySystem.Boss;
+using Code.Player;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +25,8 @@ public class EndGameUI : MonoBehaviour
     #endregion
 
     #region Private Variables
-    private enum EndgameState { Victory, GameOver};
+
+    public enum EndgameState { Victory, GameOver};
     private EndgameState _endgameState;
     #endregion
 
@@ -44,7 +47,7 @@ public class EndGameUI : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void CallEndgame(EndgameState state)
+    public void CallEndgame(EndgameState state)
     {
         string textEndgame = null;
         string hint = null;
@@ -56,16 +59,16 @@ public class EndGameUI : MonoBehaviour
                 textEndgame = "Victory!";
                 hint = "";
                 m_simpleButton.gameObject.SetActive(false);
-                m_highlightButton.transform.GetComponentInChildren<Text>().text = "main menu";
+                m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = "main menu";
                 m_highlightButton.onClick.AddListener(delegate { UIManager.Singleton.CallConfirmTask("Do you want to return to Main Menu?", LoadScene); });
                 break;
             case EndgameState.GameOver:
                 newColor = TitleColorGameOver;
                 textEndgame = "Game Over!";
                 hint = "";
-                m_simpleButton.transform.GetComponentInChildren<Text>().text = "main menu";
+                m_simpleButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = "main menu";
                 m_simpleButton.onClick.AddListener(delegate { UIManager.Singleton.CallConfirmTask("Do you want to return to Main Menu?", LoadScene); });
-                m_highlightButton.transform.GetComponentInChildren<Text>().text = "try again";
+                m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = "try again";
                 m_highlightButton.onClick.AddListener(ResetScene);
                 break;
         }

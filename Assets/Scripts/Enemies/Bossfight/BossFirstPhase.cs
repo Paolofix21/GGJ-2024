@@ -24,9 +24,9 @@ namespace Code.EnemySystem.Boss
 		protected override IEnumerator PhaseCoroutine()
 		{
 			// Main sections of the boss phase
-			yield return DialogueLoop();
+			//yield return DialogueLoop(); Disabled perche non abbiamo tempo
 			yield return AttackLoop();
-			//yield return WaveLoop();
+			//yield return WaveLoop(); Disabled perche non abbiamo tempo
 			EndPhase();
 		}
 

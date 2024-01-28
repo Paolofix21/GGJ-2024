@@ -13,7 +13,7 @@ public class WaveSystemUI : MonoBehaviour
     #endregion
 
     #region Behaviour Callbacks
-    private void Start() => WaveSpawner.OnMacroWaveIndexChanged += StartNewWave;
+    private void Awake() => WaveSpawner.OnMacroWaveIndexChanged += StartNewWave;
 
     private void OnDestroy() => WaveSpawner.OnMacroWaveIndexChanged -= StartNewWave;
     #endregion
@@ -24,12 +24,14 @@ public class WaveSystemUI : MonoBehaviour
     }
 
     private IEnumerator NewWaveCO(string wave) {
-        WaveText.text = wave;
         WaveTextGlow.text = wave;
+        WaveText.text = wave;
+        yield return new WaitForSeconds(1);
         WaveObject.SetActive(true);
+        myAnimator.SetTrigger("default");
         yield return new WaitForSeconds(5);
         myAnimator.SetTrigger("go");
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1);
         WaveObject.SetActive(false);
     }
     #endregion

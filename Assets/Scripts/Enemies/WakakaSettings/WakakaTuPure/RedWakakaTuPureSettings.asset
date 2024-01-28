@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: RedWakakaTuPureSettings
   m_EditorClassIdentifier: 
   HP: 50
-  damage: 8
+  damage: 9
   DamageType: 1
   wanderSpeed: 2
-  chaseSpeed: 3
+  chaseSpeed: 2.5
   maxDistanceFromPlayer: 20
   rotationSpeed: 1000
   visionRange: 10

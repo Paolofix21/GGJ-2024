@@ -21,7 +21,9 @@ namespace Code.UI
         #region Behaviour Callbacks
         private void Start()
         {
-            //PlayerController.Singleton.Health.OnDamageTaken += UpdateLife;
+            PlayerController.Singleton.Health.OnDamageTaken += UpdateLife;
+            PlayerController.Singleton.Health.OnHeal += UpdateLife;
+            
         }
         #endregion
 

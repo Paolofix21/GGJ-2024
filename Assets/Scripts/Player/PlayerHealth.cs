@@ -20,7 +20,7 @@ namespace Code.Player
         //in ordine: HP rimossi, HP attuali, HP max
         //public event Action<float, float, float> OnDamageTaken;
         public event Action<float, float> OnDamageTaken;
-        public event Action<float, float, float> OnHeal;
+        public event Action<float, float> OnHeal;
         public event Action OnPlayerDeath;
 
         private void OnEnable()
@@ -100,7 +100,7 @@ namespace Code.Player
 
             //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
 
-            OnHeal?.Invoke(_amount, currentHealth, maxHealth);
+            OnHeal?.Invoke(currentHealth, maxHealth);
         }
     }
 }

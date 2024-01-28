@@ -43,7 +43,7 @@ namespace Code.Weapons {
 
         public abstract void Shoot(Ammunition ammunition);
 
-        protected abstract void Effect(Vector3 position);
+        protected abstract void Effect(Vector3 origin, Vector3 lastPosition);
     }
 
 }

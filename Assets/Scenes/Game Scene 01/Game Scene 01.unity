@@ -1591,6 +1591,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4405749228268038499, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: amountShotConsumed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909351372858761962, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: range
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909351372858761962, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: radius
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7909351372858761962, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: gizmosEnabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8357597750909187213, guid: 359d8fe581768dd408449a6edff0ee05,
         type: 3}
       propertyPath: m_Name

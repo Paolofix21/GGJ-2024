@@ -55,7 +55,7 @@ namespace Code.Weapons {
             for (int i = 0; i < interestedPoints; i++) {
                 Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
 
-                Effect(randomReachablePoint);
+                Effect(effectOrigin.position, randomReachablePoint);
 
                 if (Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
                     if (hitInfo.collider == null)
@@ -74,10 +74,10 @@ namespace Code.Weapons {
             }
         }
 
-        protected override void Effect(Vector3 position) {
-            AudioManager.instance.PlayOneShot(soundEventReference, effectOrigin.position);
-            BulletTrail bulletTrail = Instantiate(bullet, effectOrigin.position, Quaternion.identity);
-            bulletTrail.SetDestination(position);
+        protected override void Effect(Vector3 origin, Vector3 lastPosition) {
+            AudioManager.instance.PlayOneShot(soundEventReference, origin);
+            BulletTrail bulletTrail = Instantiate(bullet, origin, Quaternion.identity);
+            bulletTrail.SetDestination(lastPosition);
         }
     }
 

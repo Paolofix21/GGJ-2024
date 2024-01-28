@@ -43,7 +43,7 @@ namespace Code.Weapons {
             Vector3 reachablePoint = weaponCamera.position + weaponCamera.forward * range;
             Ray ray = new Ray(weaponCamera.position, weaponCamera.forward);
 
-            Effect(reachablePoint);
+            Effect(effectOrigin.position, reachablePoint);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
                 if (hitInfo.collider == null)
@@ -61,10 +61,10 @@ namespace Code.Weapons {
             }
         }
 
-        protected override void Effect(Vector3 position) {
-            AudioManager.instance.PlayOneShot(soundEventReference, effectOrigin.position);
-            BulletTrail bulletTrail = Instantiate(bullet, effectOrigin.position, Quaternion.identity);
-            bulletTrail.SetDestination(position);
+        protected override void Effect(Vector3 origin, Vector3 lastPosition) {
+            AudioManager.instance.PlayOneShot(soundEventReference, origin);
+            BulletTrail bulletTrail = Instantiate(bullet, origin, Quaternion.identity);
+            bulletTrail.SetDestination(lastPosition);
         }
     }
 

@@ -219,12 +219,12 @@ PrefabInstance:
     - target: {fileID: 985508641245757228, guid: b26851f11f13e694e8351a120c24ee4c,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 985508641245757228, guid: b26851f11f13e694e8351a120c24ee4c,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 985508641245757228, guid: b26851f11f13e694e8351a120c24ee4c,
         type: 3}
@@ -339,7 +339,7 @@ PrefabInstance:
     - target: {fileID: 8445972841303092413, guid: b26851f11f13e694e8351a120c24ee4c,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -636,6 +636,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ConfirmTaskUIPrefab: {fileID: 5886574768599005812, guid: 4129efff39bd17d4a85e1239efe197c8,
     type: 3}
+  SettingsUIPrefab: {fileID: 1777143682768643994, guid: 985f827774a0867468e5777f142dd0cf,
+    type: 3}
 --- !u!4 &1674539550
 Transform:
   m_ObjectHideFlags: 0
@@ -663,6 +665,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: AudioManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698078321883346510, guid: e7fcad8114715b24288698b0885a85d4,
+        type: 3}
+      propertyPath: Banks.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698078321883346510, guid: e7fcad8114715b24288698b0885a85d4,
+        type: 3}
+      propertyPath: 'Banks.Array.data[1]'
+      value: MUSIC
+      objectReference: {fileID: 0}
+    - target: {fileID: 3698078321883346510, guid: e7fcad8114715b24288698b0885a85d4,
+        type: 3}
+      propertyPath: 'Banks.Array.data[2]'
+      value: SFX
       objectReference: {fileID: 0}
     - target: {fileID: 9170584412699019429, guid: e7fcad8114715b24288698b0885a85d4,
         type: 3}

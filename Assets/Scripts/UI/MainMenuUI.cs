@@ -11,6 +11,7 @@ namespace Code.UI
     {
         #region Public Variables
         [SerializeField] private Button m_loadLevel;
+        [SerializeField] private Button m_loadSettings;
         [SerializeField] private Button m_quitGame;
         #endregion
 
@@ -24,6 +25,7 @@ namespace Code.UI
         private void Awake()
         {
             m_loadLevel.onClick.RemoveAllListeners();
+            m_loadSettings.onClick.RemoveAllListeners();
             m_quitGame.onClick.RemoveAllListeners();
         }
         private void Start()
@@ -36,6 +38,7 @@ namespace Code.UI
                 AudioManager.instance.ChangeGlobalMusicAmbienceParameter(1);
                 AudioManager.instance.PlayExplorationMusic();
             });
+            m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);
             m_quitGame.onClick.AddListener(delegate {
                 UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame); 
             });

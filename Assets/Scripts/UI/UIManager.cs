@@ -8,6 +8,7 @@ namespace Code.UI
     {
         #region Public Variables
         public ConfirmTaskUI ConfirmTaskUIPrefab;
+        public SettingsUI SettingsUIPrefab;
         #endregion
 
         #region Properties
@@ -37,6 +38,10 @@ namespace Code.UI
             if (ConfirmTaskUIPrefab != null) { 
                 Instantiate(ConfirmTaskUIPrefab).Setup(textToDisplay, action);
             }
+        }
+        public void CallSettings()
+        {
+            Instantiate(SettingsUIPrefab);
         }
         #endregion
 

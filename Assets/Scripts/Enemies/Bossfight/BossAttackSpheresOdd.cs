@@ -7,6 +7,7 @@ namespace Code.EnemySystem.Boss
 	{
 		public override IEnumerator Shoot()
 		{
+			bossAnimator.AnimateAttack(0);
 			for (int i = 0; i < fireballsPerShot; i++)
 			{
 				ShootSingle();
@@ -16,6 +17,8 @@ namespace Code.EnemySystem.Boss
 
 		private void ShootSingle()
 		{
+			bossAnimator.AnimateAttack(0);
+
 			for (int i = 0; i < nozzles.Count; i++)
 			{
 				if (i % 2 != 0)

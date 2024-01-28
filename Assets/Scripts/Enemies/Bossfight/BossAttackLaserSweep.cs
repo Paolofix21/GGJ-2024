@@ -10,15 +10,20 @@ namespace Code.EnemySystem.Boss
 		[SerializeField] private Transform spawnPositionLeft;
 		[SerializeField] private Transform spawnPositionRight;
 		[SerializeField] private Laser laserPrefab;
-		private Laser laser;
+		[SerializeField] private float sweepSpeed;
+		private Laser laserLeft, laserRight;
 		private bool hasFinishedSweep;
 		
 		
 		public async Task FireLeft()
 		{
+			float laserPrepareDuration = 5f;
+			bossAnimator.AnimateAttack(1, laserPrepareDuration);
+			await Task.Delay((int)(laserPrepareDuration * 1000));
+			
 			SpawnIfNeeded();
 			hasFinishedSweep = false;
-			StartCoroutine(Sweep(laser.transform.rotation, laser.transform.rotation)); // TODO pass correct target rotation
+			StartCoroutine(Sweep(90));
 			await WaitUntil(() => hasFinishedSweep);
 		}
 
@@ -26,26 +31,41 @@ namespace Code.EnemySystem.Boss
 		{
 			SpawnIfNeeded();
 			hasFinishedSweep = false;
-			StartCoroutine(Sweep(laser.transform.rotation, laser.transform.rotation)); // TODO pass correct target rotation
+			StartCoroutine(Sweep(-90));
 			await WaitUntil(() => hasFinishedSweep);
 		}
 
 		private void SpawnIfNeeded()
 		{
-			if (laser == null)
+			if (laserLeft == null)
 			{
-				laser = Instantiate(laserPrefab);
+				laserLeft = Instantiate(laserPrefab, spawnPositionLeft);
+				laserLeft.transform.rotation = Quaternion.Euler(45f, transform.eulerAngles.y, 0f);
+			}
+			
+			if (laserRight == null)
+			{
+				laserRight = Instantiate(laserPrefab, spawnPositionRight);
+				laserRight.transform.rotation = Quaternion.Euler(45f, transform.eulerAngles.y, 0f);
 			}
 		}
 
-		private IEnumerator Sweep(Quaternion from, Quaternion to)
-		{
-			laser.gameObject.SetActive(true);
+		private IEnumerator Sweep(float targetSweepAngle)
+		{ 
+			float currentSweepAngle = 0f;
 
-			// TODO handle rotation here
-			yield return null;
+			while (currentSweepAngle > targetSweepAngle)
+			{
+				currentSweepAngle += sweepSpeed * Time.deltaTime;
+				float lerpFactor = Mathf.Sin(Mathf.Deg2Rad * currentSweepAngle / targetSweepAngle);
+				float angle = Mathf.Lerp(-targetSweepAngle / 2f, targetSweepAngle / 2f, lerpFactor);
+				laserLeft.transform.localRotation = Quaternion.Euler(0f, angle, 0f);
+				laserRight.transform.localRotation = Quaternion.Euler(0f, -angle, 0f);
+				yield return null;
+			}
 			
-			laser.gameObject.SetActive(false);
+			laserLeft.gameObject.SetActive(false);
+			laserRight.gameObject.SetActive(false);
 			hasFinishedSweep = true;
 		}
 

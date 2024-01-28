@@ -2,21 +2,23 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Dialogue
 {
 	public class AnswersUI : MonoBehaviour
 	{
 		/// <summary>
-		/// Invoked when an answer is selected. The bool is whether it was correct or not.
+		/// Invoked when an answer is selected.
 		/// </summary>
-		public static event Action<bool> OnAnswerSelected;
+		public static event Action<Answer> OnAnswerSelected;
 		private static AnswersUI instance;
 		
 		[SerializeField] private TextMeshProUGUI[] options;
 
 		private bool isActive;
 		private List<Answer> answers = new();
+		public Answer GetRandomAnswer() => answers[Random.Range(0, answers.Count - 1)];
 
 		private enum Option { A, B, C }
 		
@@ -50,8 +52,9 @@ namespace Code.Dialogue
 		{
 			var optionUI = options[(int)option];
 			// TODO Visually update optionUI
+			//optionUI.GetComponent<Image>();
 			
-			OnAnswerSelected?.Invoke(answers[(int)option].IsCorrect);
+			OnAnswerSelected?.Invoke(answers[(int)option]);
 		}
 
 		public static void Enable() => instance.isActive = true;

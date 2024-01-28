@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss
@@ -15,6 +14,7 @@ namespace Code.EnemySystem.Boss
 
 		
 		public abstract IEnumerator Shoot();
+		
 		protected void SpawnFireball(Transform spawnPoint)
 		{
 			Instantiate(fireballPrefab, spawnPoint.position, spawnPoint.rotation);

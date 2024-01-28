@@ -17,7 +17,7 @@ namespace Code.EnemySystem.Boss
 			if (!canDamage)
 				return;
 			
-			if (other.TryGetComponent<PlayerHealth>(out var playerHealth))
+			if (!other.TryGetComponent<PlayerHealth>(out var playerHealth))
 				return;
 			
 			playerHealth.GetDamage(damage);

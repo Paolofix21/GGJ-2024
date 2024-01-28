@@ -16,20 +16,10 @@ namespace Code.Dialogue
 	/// </summary>
 	public class DialogueSystem : MonoBehaviour
 	{
-		public enum Dialogue
-		{
-			Tutorial,
-			Boss1,Boss2,Boss3
-		}
-
 		/// <summary>
-		/// Invoked when a correct dialogue answer is chosen.
+		/// Invoked when a dialogue answer is chosen. Contains the boss bonus/malus
 		/// </summary>
-		public static event Action OnCorrectAnswer;
-		/// <summary>
-		/// Invoked when a wrong dialogue answer is chosen.
-		/// </summary>
-		public static event Action OnWrongAnswer;
+		public static event Action<DialogueData.BossModifier> OnAnswerChosen;
 		
 		[SerializeField] private DialogueData tutorialDialogue;
 		[SerializeField] private DialogueData bossDialogue1;
@@ -53,12 +43,14 @@ namespace Code.Dialogue
 			AnswersUI.OnAnswerSelected += CheckAnswer;
 			DialogueTimer.OnTimeout += WrongAnswer;
 		}
-
+		
 		/// <summary>
 		/// Starts playing the passed dialogue.
 		/// </summary>
-		public async void Play(Dialogue dialogue)
+		public async void Play(DialogueType dialogue)
 		{
+			gameObject.SetActive(true);
+			
 			// Cancel prev task if it was active
 			if (displayTask is { IsCompleted: false })
 				cancellationTokenSource.Cancel();
@@ -99,15 +91,15 @@ namespace Code.Dialogue
 			await displayTask;
 		}
 
-		private void WrongAnswer() => CheckAnswer(false);
-		private async void CheckAnswer(bool isCorrect)
+		private void WrongAnswer() => CheckAnswer(FindAnyObjectByType<AnswersUI>().GetRandomAnswer());
+		private async void CheckAnswer(Answer answer)
 		{
 			DialogueTimer.StopTimer();
 			AnswersUI.Disable();
 			label.text = "";
 			
 			// Display the final line based on the answer result
-			var finalLine = new List<Message>{ isCorrect ? currentDialogueData.Bonus : currentDialogueData.Malus };
+			var finalLine = answer.DialogueIfChosen;
 			displayTask = DialogueManager.DisplayText(finalLine, 0, label, audioSource, charMap, cancellationTokenSource, cancellationToken);
 			await displayTask;
 
@@ -115,29 +107,27 @@ namespace Code.Dialogue
 
 			// TODO close the dialogue? Or does another system take care of that?
 			
-			if (isCorrect)
-			{
-				OnCorrectAnswer?.Invoke();;
-			}
-			else
-			{
-				OnWrongAnswer?.Invoke();
-			}
+			OnAnswerChosen?.Invoke(answer.Modifier);
 		}
 
 		/// <summary>
-		/// Returns the correct <see cref="DialogueData"/> based on the passed <see cref="Dialogue"/>.
+		/// Returns the correct <see cref="DialogueData"/> based on the passed <see cref="DialogueType"/>.
 		/// </summary>
-		private DialogueData GetDialogue(Dialogue dialogue)
+		private DialogueData GetDialogue(DialogueType dialogue)
 		{
 			return dialogue switch
 			{
-				Dialogue.Tutorial => tutorialDialogue,
-				Dialogue.Boss1 => bossDialogue1,
-				Dialogue.Boss2 => bossDialogue2,
-				Dialogue.Boss3 => bossDialogue3,
+				DialogueType.Tutorial => tutorialDialogue,
+				DialogueType.Boss1 => bossDialogue1,
+				DialogueType.Boss2 => bossDialogue2,
+				DialogueType.Boss3 => bossDialogue3,
 				_ => null
 			};
+		}
+
+		public void Stop()
+		{
+			gameObject.SetActive(false);
 		}
 		
 		// Get/Clear the char map is necessary because...
@@ -165,6 +155,12 @@ namespace Code.Dialogue
 			charMap.mappedInfo.Clear();
 		}
 	}
+	
+	public enum DialogueType
+	{
+		Tutorial,
+		Boss1,Boss2,Boss3
+	}
 
 #if UNITY_EDITOR // TEMP to test
 	[CustomEditor(typeof(DialogueSystem))]
@@ -179,15 +175,15 @@ namespace Code.Dialogue
 			
 			if (GUILayout.Button("Boss Phase 1"))
 			{
-				((DialogueSystem)target).Play(DialogueSystem.Dialogue.Boss1);
+				((DialogueSystem)target).Play(DialogueType.Boss1);
 			}
 			else if (GUILayout.Button("Boss Phase 2"))
 			{
-				((DialogueSystem)target).Play(DialogueSystem.Dialogue.Boss2);
+				((DialogueSystem)target).Play(DialogueType.Boss2);
 			}
 			else if (GUILayout.Button("Boss Phase 3"))
 			{
-				((DialogueSystem)target).Play(DialogueSystem.Dialogue.Boss3);
+				((DialogueSystem)target).Play(DialogueType.Boss3);
 			}
 		}
 	}

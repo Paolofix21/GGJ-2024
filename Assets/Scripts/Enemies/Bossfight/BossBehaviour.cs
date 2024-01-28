@@ -1,3 +1,5 @@
+using System;
+using Code.Dialogue;
 using Code.Player;
 using Code.Weapons;
 using UnityEngine;
@@ -59,6 +61,29 @@ namespace Code.EnemySystem.Boss
 			if (remHP <= 0)
 			{
 				Dead();
+			}
+		}
+
+		// TODO implementare i modifier sul boss
+		public void ApplyModifier(DialogueData.BossModifier bossModifier)
+		{
+			switch (bossModifier)
+			{
+				case DialogueData.BossModifier.TakeDoubleDamage:
+					//throw new NotImplementedException();
+					break;
+				
+				case DialogueData.BossModifier.TakeHalfDamage:
+					//throw new NotImplementedException();
+					break;
+				
+				case DialogueData.BossModifier.DealsMoreDamage:
+					//throw new NotImplementedException();
+					break;
+				
+				case DialogueData.BossModifier.Heal:
+					//throw new NotImplementedException();
+					break;
 			}
 		}
 	}

@@ -76,29 +76,29 @@ namespace Code.Player {
             }
             Singleton = this;
 
-        }
-        private void Start() {
             controller = GetComponent<CharacterController>();
             cameraLook = GetComponent<PlayerView>();
             Health = GetComponent<PlayerHealth>();
             visualSetter = GetComponentInChildren<VisualSetter>();
             input = GetComponent<InputManager>();
+        }
+        private void Start() {
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            input.playerMap.PlayerActions.Jump.performed += Jump;
-            input.playerMap.PlayerActions.Crouch.performed += Crouch;
-            input.playerMap.PlayerActions.Shoot.performed += PlayShoot;
+            input.playerMap.PlayerActions.Jump.started += Jump;
+            input.playerMap.PlayerActions.Crouch.started += Crouch;
+            input.playerMap.PlayerActions.Shoot.started += PlayShoot;
 
-            input.playerMap.PlayerActions.ContinuousShoot.performed += _ => PlayShootContinuous(true);
+            input.playerMap.PlayerActions.ContinuousShoot.started += _ => PlayShootContinuous(true);
             input.playerMap.PlayerActions.ContinuousShoot.canceled += _ => PlayShootContinuous(false);
 
-            input.playerMap.PlayerActions.Weapon01.performed += _ => SetWeaponType(0, Pistol);
-            input.playerMap.PlayerActions.Weapon02.performed += _ => SetWeaponType(1, Shotgun);
-            input.playerMap.PlayerActions.Weapon03.performed += _ => SetWeaponType(2, Rifle);
-            input.playerMap.PlayerActions.Weapon04.performed += _ => SetWeaponType(3, Frustino);
-            input.playerMap.PlayerActions.Weapon05.performed += _ => SetWeaponType(4, Sword);
+            input.playerMap.PlayerActions.Weapon01.started += _ => SetWeaponType(0, Pistol);
+            input.playerMap.PlayerActions.Weapon02.started += _ => SetWeaponType(1, Shotgun);
+            input.playerMap.PlayerActions.Weapon03.started += _ => SetWeaponType(2, Rifle);
+            input.playerMap.PlayerActions.Weapon04.started += _ => SetWeaponType(3, Frustino);
+            input.playerMap.PlayerActions.Weapon05.started += _ => SetWeaponType(4, Sword);
 
             Health.OnPlayerDeath += PlayerDeath;
 
@@ -125,11 +125,14 @@ namespace Code.Player {
         }
 
         private void OnDestroy() {
-            input.playerMap.PlayerActions.Jump.performed -= Jump;
-            input.playerMap.PlayerActions.Crouch.performed -= Crouch;
-            input.playerMap.PlayerActions.Shoot.performed -= PlayShoot;
+            input.playerMap.PlayerActions.Jump.started -= Jump;
+            input.playerMap.PlayerActions.Crouch.started -= Crouch;
+            input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
             Health.OnPlayerDeath -= PlayerDeath;
+
+            if (Singleton == this)
+                Singleton = null;
         }
         #endregion
 
@@ -204,7 +207,7 @@ namespace Code.Player {
         }
 
         private void ExitLava() {
-            StopCoroutine("WalkInLava");
+            StopCoroutine(nameof(WalkInLava));
             isInsideLava = false;
             speed = 6f;
         }
@@ -233,13 +236,15 @@ namespace Code.Player {
 
         private void PlayShootContinuous(bool _value)
         {
+            if (!_value) {
+                anim.SetBool(isShooting, false);
+                return;
+            }
+
             if (OnShootRequest == null || !OnShootRequest.Invoke())
                 return;
 
-            if (_value && !anim.GetBool(isShooting))
-                anim.SetBool(isShooting, true);
-            else if (!_value && anim.GetBool(isShooting))
-                anim.SetBool(isShooting, false);
+            anim.SetBool(isShooting, true);
         }
         #endregion
 

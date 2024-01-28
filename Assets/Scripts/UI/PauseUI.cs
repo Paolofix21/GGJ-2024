@@ -10,6 +10,7 @@ namespace Code.UI
         #region Public Variables  
         [SerializeField] private Button returnMainMenu;
         [SerializeField] private Button m_loadSettings;
+        [SerializeField] private Button m_quitSettings;
         #endregion
 
         #region Properties
@@ -23,6 +24,7 @@ namespace Code.UI
         {
             returnMainMenu.onClick.RemoveAllListeners();
             m_loadSettings.onClick.RemoveAllListeners();
+            m_quitSettings.onClick.RemoveAllListeners();
             UIManager.Singleton.PauseUI = this;
         }
         private void Start()
@@ -34,10 +36,17 @@ namespace Code.UI
             });
 
             m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);
+            m_quitSettings.onClick.AddListener(delegate {
+                UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);
+            });
         }
         #endregion
 
         #region Public Methods
+        public void QuitGame()
+        {
+            Application.Quit();
+        }
         #endregion
 
         #region Private Methods

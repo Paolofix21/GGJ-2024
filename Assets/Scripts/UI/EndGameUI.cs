@@ -49,6 +49,7 @@ public class EndGameUI : MonoBehaviour
     #region Private Methods
     public void CallEndgame(EndgameState state)
     {
+        Cursor.lockState = CursorLockMode.None;
         string textEndgame = null;
         string hint = null;
         Color32 newColor = Color.white;

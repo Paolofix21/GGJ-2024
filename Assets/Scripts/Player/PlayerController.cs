@@ -252,13 +252,17 @@ namespace Code.Player {
             anim.SetBool(isShooting, true);
         }
         #endregion
-
+        EndGameUI endgame;
         #region Death Behaviours
         private void PlayerDeath() {
             isDead = true;
             Cursor.lockState = CursorLockMode.None;
-            var endgame = Instantiate(endgameUI, FindAnyObjectByType<Canvas>().transform, true);
-            endgame.CallEndgame(EndGameUI.EndgameState.GameOver);
+
+            if (endgame == null)
+            {
+                endgame = Instantiate(endgameUI);
+                endgame.CallEndgame(EndGameUI.EndgameState.GameOver);
+            }
 
             if (isInsideLava)
                 ExitLava();

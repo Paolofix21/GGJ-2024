@@ -49,11 +49,15 @@ namespace Code.EnemySystem.Boss
 		{
 			phases[0].StartPhase();
 		}
-		
+
+		private EndGameUI endgame;
 		private void Dead()
 		{
-			var endgame = Instantiate(endgameUI, FindAnyObjectByType<Canvas>().transform, true);
-			endgame.CallEndgame(EndGameUI.EndgameState.Victory);
+			if (endgame == null)
+			{
+				endgame = Instantiate(endgameUI);
+				endgame.CallEndgame(EndGameUI.EndgameState.Victory);
+			}
 			
 			var position = transform.position;
 			for (int i = 0; i < 4; i++)

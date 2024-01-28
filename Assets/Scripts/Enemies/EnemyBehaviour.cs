@@ -9,6 +9,7 @@ namespace Code.EnemySystem
     public class EnemyBehavior : MonoBehaviour, IDamageable
     {
         public EnemySettings enemySettings;
+        [SerializeField] private ParticleSystem particle = default;
 
         private Transform playerPos;
         private PlayerHealth playerHealth;
@@ -189,6 +190,7 @@ namespace Code.EnemySystem
 
         private void Dead()
         {
+            Instantiate(particle, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 

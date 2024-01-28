@@ -26,7 +26,7 @@ PrefabInstance:
     - target: {fileID: 92474995708794262, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}
       propertyPath: gizmosEnabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2589864667692481758, guid: dbed14a1dbcccd34e82ce57ea9210935,
         type: 3}

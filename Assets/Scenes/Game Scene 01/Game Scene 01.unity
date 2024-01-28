@@ -8,8 +8,9 @@ OcclusionCullingSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
-  m_SceneGUID: 00000000000000000000000000000000
-  m_OcclusionCullingData: {fileID: 0}
+  m_SceneGUID: bd36299848c5c514794692941e2ccb03
+  m_OcclusionCullingData: {fileID: 36300000, guid: f0906b0e5c37c1f47af2f3b6136ec74a,
+    type: 2}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
@@ -1619,6 +1620,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies
       objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1781,6 +1787,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies Crystialine Variant (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
@@ -3070,6 +3081,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies Crystialine Variant (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -3493,7 +3509,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 25.093, y: 8.794, z: -7.573}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4416,6 +4432,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies Crystialine Variant (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
@@ -6078,6 +6099,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}
@@ -9056,6 +9082,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -10766,6 +10797,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies Crystialine (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
@@ -12549,6 +12585,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}
@@ -17842,6 +17883,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -18185,6 +18231,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies Crystialine Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18258,6 +18309,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies Crystialine Variant (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
@@ -19479,6 +19535,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}
@@ -20910,6 +20971,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies Crystialine (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -22030,6 +22096,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rockies Crystialine
       objectReference: {fileID: 0}
+    - target: {fileID: 1586491861633860716, guid: cb5f2780b3ef81142891094f668d64a5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
+      objectReference: {fileID: 0}
     - target: {fileID: 2155240770920163810, guid: cb5f2780b3ef81142891094f668d64a5,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -22340,6 +22411,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Rockies
+      objectReference: {fileID: 0}
+    - target: {fileID: 7085091331404584607, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 127
       objectReference: {fileID: 0}
     - target: {fileID: 7620056457505897233, guid: 2781c294d5eadef4aad3d8a76cd1d8f5,
         type: 3}

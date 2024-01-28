@@ -25,8 +25,11 @@ namespace Code.EnemySystem
 
         private bool reverseDirection = false;
         private bool isChasing = false;
+        private bool _forceChasePlayer = false;
 
         public event System.Action<EnemyBehavior> OnDeath;
+
+        private static event System.Action OnEveryoneChasePlayer;
 
         void Start()
         {
@@ -34,6 +37,8 @@ namespace Code.EnemySystem
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
             waveSpawner = GameObject.FindFirstObjectByType<WaveSpawner>();
             maskAnimator = GetComponent<MaskAnimator>();
+
+            OnEveryoneChasePlayer += EveryoneChase;
 
             remHP = enemySettings.HP;
             switch (enemySettings.DamageType)
@@ -64,6 +69,10 @@ namespace Code.EnemySystem
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, playerPos.position);
 
+                if (_forceChasePlayer)
+                {
+                    ChasePlayer(distanceToPlayer);
+                }
                 if (isChasing)
                 {
                     elapsedTime += Time.deltaTime;
@@ -105,7 +114,6 @@ namespace Code.EnemySystem
 
             float speed = reverseDirection ? -enemySettings.wanderSpeed : enemySettings.wanderSpeed;
 
-            
             if (wanderDirection != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(wanderDirection);
@@ -173,6 +181,10 @@ namespace Code.EnemySystem
             }
         }
 
+        private void EveryoneChase() {
+            OnEveryoneChasePlayer -= EveryoneChase;
+            _forceChasePlayer = true;
+        }
 
         private void AttackPlayer()
         {
@@ -197,6 +209,9 @@ namespace Code.EnemySystem
         {
             Debug.Log($"Applying {amount} damage...\n", this);
             remHP -= amount;
+
+            if (!_forceChasePlayer)
+                OnEveryoneChasePlayer?.Invoke();
 
             if (remHP <= 0)
             {

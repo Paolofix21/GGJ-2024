@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Code.EnemySystem;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -34,7 +35,15 @@ namespace Code.Weapons {
             if(playerWeaponAnimatorListener != null) {
                 playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
             }
+
+            WaveSpawner.OnBossFightStart += OnMacroWaveChanged;
         }
+
+        private void OnMacroWaveChanged() {
+            foreach (var weapon in weapons)
+                weapon.Boost();
+        }
+
         private IEnumerator Start() {
             yield return null;
             EquipWeapon(defaultType);
@@ -47,6 +56,8 @@ namespace Code.Weapons {
             if (playerWeaponAnimatorListener != null) {
                 playerWeaponAnimatorListener.OnAnimatorShootCallback -= Shoot;
             }
+
+            WaveSpawner.OnBossFightStart -= OnMacroWaveChanged;
         }
         private void OnTriggerEnter(Collider other) {
             if (!other.gameObject.CompareTag("Ammunition"))

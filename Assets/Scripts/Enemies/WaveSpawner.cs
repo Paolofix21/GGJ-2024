@@ -17,6 +17,7 @@ namespace Code.EnemySystem
         private int waveNumber = 0;
 
         public static event System.Action<int> OnMacroWaveIndexChanged;
+        public static event System.Action OnBossFightStart;
 
         private List<EnemyBehavior> _currentEnemies = new();
         private float _nextWaveTime;
@@ -67,7 +68,7 @@ namespace Code.EnemySystem
             Debug.Log("All waves completed\n", this);
             Boss.GetComponent<BossBehaviour>().StartPhase();
             enabled = false;
-            // TODO - go to boss
+            OnBossFightStart?.Invoke();
         }
 
         void SpawnSubWave()

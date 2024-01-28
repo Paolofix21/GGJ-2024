@@ -29,6 +29,8 @@ namespace Code.Weapons {
         public virtual void Recharge(int ammount) {
             cartridge.AddAmmo(ammount);
         }
+
+        public void Boost() => firingLogic.Boost();
     }
 
 }

@@ -208,7 +208,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 14.006584, y: 5.974457, z: 2.0202851}
-  m_Center: {x: -2.341282, y: 2.2045422, z: 2.2347698}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2102047411867675966
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,17 +538,17 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: bef2867fda528584ea84201920740f62,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -2.235937
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bef2867fda528584ea84201920740f62,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.6097088
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bef2867fda528584ea84201920740f62,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.4539547
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: bef2867fda528584ea84201920740f62,
         type: 3}

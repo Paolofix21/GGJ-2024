@@ -8,6 +8,7 @@ namespace Code.UI
     public class PauseUI : MonoBehaviour
     {
         #region Public Variables  
+        [SerializeField] private Button resume;
         [SerializeField] private Button returnMainMenu;
         [SerializeField] private Button m_loadSettings;
         [SerializeField] private Button m_quitSettings;
@@ -22,6 +23,7 @@ namespace Code.UI
         #region Behaviour Callbacks
         private void Awake()
         {
+            resume.onClick.RemoveAllListeners();
             returnMainMenu.onClick.RemoveAllListeners();
             m_loadSettings.onClick.RemoveAllListeners();
             m_quitSettings.onClick.RemoveAllListeners();

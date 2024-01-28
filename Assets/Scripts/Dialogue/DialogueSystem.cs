@@ -107,6 +107,8 @@ namespace Code.Dialogue
 			label.text = "";
 
 			// TODO close the dialogue? Or does another system take care of that?
+
+			await Task.Delay(500, cancellationToken);
 			
 			OnAnswerChosen?.Invoke(answer.Modifier);
 		}

@@ -48,13 +48,15 @@ namespace Code.EnemySystem.Boss
 		private void Dead()
 		{
 			// TODO enable the You Win UI
-			//GameObject.Find("Win");
+			//var youWin = GameObject.Find("Win");
+			//youWin.SetActive(true);
 			OnDeath?.Invoke();
 			Destroy(gameObject);
 		}
 		
 		public bool GetDamage(DamageType damageType)
 		{
+			return true; // Su SO è impostato che accetta qualunque damageType, ma non funziona il check quindi ritorno sempre true
 			return !isInvulnerable && damageType.HasFlag(enemySettings.DamageType);
 		}
 

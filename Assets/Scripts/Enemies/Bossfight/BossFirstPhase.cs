@@ -27,7 +27,7 @@ namespace Code.EnemySystem.Boss
 			// Main sections of the boss phase
 			yield return DialogueLoop();
 			yield return AttackLoop();
-			yield return WaveLoop();
+			//yield return WaveLoop();
 			EndPhase();
 		}
 
@@ -57,19 +57,19 @@ namespace Code.EnemySystem.Boss
 			}
 		}
 
-
 		private IEnumerator AttackLoop()
 		{
 			WaitForSeconds attackDelay = new WaitForSeconds(secondsBetweenAttacks);
 
 			// Volevo farlo con le task ma alla fine è piu comodo con le Coroutine
-			while (boss.HeathAsPercentage >= spawnWaveBelowHealth)
+			//while (boss.HeathAsPercentage >= spawnWaveBelowHealth)
+			while (true)
 			{
 				yield return evenSpheresAttack.Shoot();
 				yield return attackDelay;
 
-				if (boss.HeathAsPercentage < spawnWaveBelowHealth)
-					break;
+				//if (boss.HeathAsPercentage < spawnWaveBelowHealth)
+				//	break;
 
 				yield return oddSpheresAttack.Shoot();
 				yield return attackDelay;
@@ -78,11 +78,7 @@ namespace Code.EnemySystem.Boss
 
 		private IEnumerator WaveLoop()
 		{
-			// The WaveSpawner has a Start() that automatically starts the first wave
 			waveSpawner.gameObject.SetActive(true);
-			//yield return new WaitUntil(() => waveSpawner.AllEnemiesAreDead); // TODO
-			
-
 			yield return null;
 		}
 

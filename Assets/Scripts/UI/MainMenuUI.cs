@@ -33,7 +33,7 @@ namespace Code.UI
             AudioManager.instance.PlayMainMenuMusic();
 
             m_loadLevel.onClick.AddListener(delegate {
-                SceneLoader.LoadScene("Hell", UnityEngine.SceneManagement.LoadSceneMode.Single);
+                SceneLoader.LoadScene("Game Scene 01", UnityEngine.SceneManagement.LoadSceneMode.Single);
                 m_loadLevel.interactable = false;
                 AudioManager.instance.ChangeGlobalMusicAmbienceParameter(1);
                 AudioManager.instance.PlayExplorationMusic();

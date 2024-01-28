@@ -31,6 +31,10 @@ public class AudioManager : MonoBehaviour
         musicInstance = CreateInstance(FMODEvents.instance.musicEvent);
         ambienceInstance = CreateInstance(FMODEvents.instance.ambienceEvent);
     }
+    private void OnDestroy() {
+        if (instance && instance == this)
+            instance = null;
+    }
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);

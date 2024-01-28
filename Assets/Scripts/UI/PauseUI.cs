@@ -27,7 +27,12 @@ namespace Code.UI
         }
         private void Start()
         {
-            returnMainMenu.onClick.AddListener(delegate { SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single); });
+            returnMainMenu.onClick.AddListener(delegate {
+                gameObject.SetActive(false); 
+                Time.timeScale = 1.0f; 
+                SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single); 
+            });
+
             m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);
         }
         #endregion

@@ -16,7 +16,7 @@ MonoBehaviour:
   damage: 5
   DamageType: 1
   wanderSpeed: 2
-  chaseSpeed: 5
+  chaseSpeed: 3
   maxDistanceFromPlayer: 20
   rotationSpeed: 1000
   visionRange: 10

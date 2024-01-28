@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using Code.Weapons;
 using Code.Graphics;
+using JetBrains.Annotations;
 
 namespace Code.EnemySystem
 {
@@ -19,7 +20,7 @@ namespace Code.EnemySystem
         private float elapsedTime = 0f;
         private float remHP;
 
-        private float attackCooldown = 2f; // Tempo di attesa tra gli attacchi
+        private float attackCooldown = 2f; 
         private float currentCooldown = 0f;
 
         private bool reverseDirection = false;
@@ -31,6 +32,8 @@ namespace Code.EnemySystem
             playerHealth = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerHealth>();
             waveSpawner = GameObject.FindFirstObjectByType<WaveSpawner>();
             maskAnimator = GetComponent<MaskAnimator>();
+
+        
 
 
             remHP = enemySettings.HP;
@@ -95,7 +98,6 @@ namespace Code.EnemySystem
         {
             float distanceToDestination = Vector3.Distance(transform.position, transform.position + wanderDirection);
 
-            // Se sei abbastanza vicino al punto di destinazione, calcola una nuova direzione casuale
             if (distanceToDestination < 1f)
             {
                 SetRandomWanderDirection();
@@ -110,7 +112,6 @@ namespace Code.EnemySystem
                 transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);
             }
 
-            // Applica il movimento avanti
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
@@ -127,7 +128,7 @@ namespace Code.EnemySystem
             else
             {
                 Debug.LogWarning("No spawn points assigned to the enemy.");
-                wanderDirection = Vector3.zero; // fallback to avoid unexpected behavior
+                wanderDirection = Vector3.zero; 
             }
         }
 
@@ -136,9 +137,6 @@ namespace Code.EnemySystem
         {
             wanderDirection = (playerPos.position - transform.position).normalized;
 
-            /*float targetAngleY = Mathf.Atan2(wanderDirection.x, wanderDirection.z) * Mathf.Rad2Deg;
-            Quaternion targetRotation = Quaternion.Euler(0f, targetAngleY, 0f);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * enemySettings.rotationSpeed);*/
 
             float horizontalDistance = Vector3.Distance(new Vector3(transform.position.x, 0f, transform.position.z), new Vector3(playerPos.position.x, 0f, playerPos.position.z));
 
@@ -184,11 +182,12 @@ namespace Code.EnemySystem
         {
             maskAnimator.AnimateLaughter();
             playerHealth.GetDamage(enemySettings.damage);
-            Debug.Log("HAHAH");
         }
 
         private void Dead()
         {
+            waveSpawner.enemyToKill--;
+            Debug.Log("Nemici rimanenti: " + waveSpawner.enemyToKill);
             Destroy(gameObject);
         }
 

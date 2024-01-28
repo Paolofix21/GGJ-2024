@@ -7,15 +7,10 @@ namespace Code.EnemySystem
     {
         public List<Transform> spawnPoints = new List<Transform>();
         public List<WaveData> waveData = new List<WaveData>();
+        [HideInInspector]public float enemyToKill = 0;
         private int currentInternalWaveIndex = 0;
-        private float nextSpawnTime;
-
         private int waveNumber;
 
-        void Start()
-        {
-            nextSpawnTime = Time.time + waveData[waveNumber].spawnRateInSecs;
-        }
 
         void Update()
         {
@@ -26,26 +21,27 @@ namespace Code.EnemySystem
                 currentInternalWaveIndex = 0;
             }
 #endif
-
-            if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count && Time.time >= nextSpawnTime)
+            
+            if (enemyToKill <= 0 && currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
             {
-                SpawnWave();
-                currentInternalWaveIndex++;
-
-                if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
-                {
-                    nextSpawnTime = Time.time + waveData[waveNumber].spawnRateInSecs;
-                }
-                else
+                if (currentInternalWaveIndex >= waveData[waveNumber].waveEnemies.Count)
                 {
                     // Ondata completata, possiamo chiamare funzione spawn boss
                     Debug.Log("Ondata completata");
                 }
+
+                else
+                {
+                    SpawnWave();
+                    
+                }
+
+                
             }
         }
 
         /// <summary>
-        /// Funzione da chiamare sconfitto il boss, spawnerà la prossima ondata
+        /// Funzione da chiamare conclusa l'ondata
         /// </summary>
         public void SpawnNextWave()
         {
@@ -59,6 +55,8 @@ namespace Code.EnemySystem
         {
             if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count)
             {
+                enemyToKill = waveData[waveNumber].waveEnemies[currentInternalWaveIndex].enemyPrefab.Count;
+
                 WaveData.WaveEnemy currentWave = waveData[waveNumber].waveEnemies[currentInternalWaveIndex];
 
                 foreach (GameObject enemyPrefab in currentWave.enemyPrefab)
@@ -75,6 +73,7 @@ namespace Code.EnemySystem
                         return;
                     }
                 }
+                
             }
         }
 

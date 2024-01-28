@@ -154,7 +154,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  amount: 0
+  amount: 30
+  cooldown: 15
+  interactableCollider: {fileID: 2659663291119346420}
+  meshRenderer: {fileID: 5889530149695150463}
 --- !u!1001 &2150143498920475002
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -18,6 +18,7 @@ MonoBehaviour:
   wanderSpeed: 2
   chaseSpeed: 5
   maxDistanceFromPlayer: 20
+  rotationSpeed: 1000
   visionRange: 10
   attackRange: 1
   wanderTime: 3

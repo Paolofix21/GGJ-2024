@@ -13,6 +13,10 @@ namespace Code.Player {
 
         [SerializeField] private ColorSetSO[] hueValue;
 
+        #region Properties
+        public static PlayerController Singleton { get; set; }
+        #endregion
+
         #region Movement Fields
         [Header("Movement Fields")]
         [SerializeField] private float speed = 6f;
@@ -32,7 +36,7 @@ namespace Code.Player {
         #region Player Components Fields
         private CharacterController controller;
         private PlayerView cameraLook;
-        private PlayerHealth health;
+        [HideInInspector] public PlayerHealth Health;
         private VisualSetter visualSetter;
         #endregion
 
@@ -63,10 +67,20 @@ namespace Code.Player {
         #endregion
 
         #region Unity Behaviours
+        private void Awake()
+        {
+            if (Singleton && Singleton != this)
+            {
+                Destroy(gameObject);
+                return;
+            }
+            Singleton = this;
+
+        }
         private void Start() {
             controller = GetComponent<CharacterController>();
             cameraLook = GetComponent<PlayerView>();
-            health = GetComponent<PlayerHealth>();
+            Health = GetComponent<PlayerHealth>();
             visualSetter = GetComponentInChildren<VisualSetter>();
             input = GetComponent<InputManager>();
 
@@ -86,7 +100,7 @@ namespace Code.Player {
             input.playerMap.PlayerActions.Weapon04.performed += _ => SetWeaponType(3, Frustino);
             input.playerMap.PlayerActions.Weapon05.performed += _ => SetWeaponType(4, Sword);
 
-            health.OnPlayerDeath += PlayerDeath;
+            Health.OnPlayerDeath += PlayerDeath;
 
             InitializeAudio();
         }
@@ -115,7 +129,7 @@ namespace Code.Player {
             input.playerMap.PlayerActions.Crouch.performed -= Crouch;
             input.playerMap.PlayerActions.Shoot.performed -= PlayShoot;
 
-            health.OnPlayerDeath -= PlayerDeath;
+            Health.OnPlayerDeath -= PlayerDeath;
         }
         #endregion
 
@@ -184,7 +198,7 @@ namespace Code.Player {
                 
             while (isInsideLava)
             {
-                health.GetDamage(lavaDamage);
+                Health.GetDamage(lavaDamage);
                 yield return new WaitForSeconds(timeDelay);
             }
         }

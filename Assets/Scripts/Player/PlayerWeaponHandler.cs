@@ -14,7 +14,7 @@ namespace Code.Weapons {
         [Header("References")]
         [SerializeField] private List<Weapon> weapons = new List<Weapon>();
         [Space]
-        [SerializeField] private PlayerController playerController = default;
+        [SerializeField] public PlayerController playerController = default;
         [SerializeField] private PlayerWeaponAnimatorListener playerWeaponAnimatorListener = default;
 
         private Weapon equippedWeapon = default;
@@ -34,6 +34,10 @@ namespace Code.Weapons {
             }
             if(playerWeaponAnimatorListener != null) {
                 playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
+            }
+
+            foreach (var weapon in weapons) {
+                weapon.SetUp(this);
             }
 
             WaveSpawner.OnBossFightStart += OnMacroWaveChanged;

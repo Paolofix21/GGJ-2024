@@ -239,7 +239,7 @@ namespace Code.Player {
                 anim.SetTrigger(shootTrigger);
         }
 
-        private void PlayShootContinuous(bool _value) {
+        public void PlayShootContinuous(bool _value) {
             if (!_value) {
                 anim.SetBool(isShooting, false);
                 return;

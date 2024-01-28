@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnWaveBelowHealth: 65
-  secondsBetweenAttacks: 3
+  secondsBetweenAttacks: 4
 --- !u!114 &7868844231554231746
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -123,7 +123,7 @@ MonoBehaviour:
   - {fileID: 3745962128258127490}
   fireballPrefab: {fileID: 8907917542864964187, guid: 822f7c23ffc96774b93bbef0adf37664,
     type: 3}
-  fireballsPerShot: 6
+  fireballsPerShot: 10
   timeBetweenShots: 0.25
 --- !u!114 &1720109890054335489
 MonoBehaviour:
@@ -148,7 +148,7 @@ MonoBehaviour:
   - {fileID: 3745962128258127490}
   fireballPrefab: {fileID: 8907917542864964187, guid: 822f7c23ffc96774b93bbef0adf37664,
     type: 3}
-  fireballsPerShot: 6
+  fireballsPerShot: 10
   timeBetweenShots: 0.25
 --- !u!114 &654950362728918304
 MonoBehaviour:

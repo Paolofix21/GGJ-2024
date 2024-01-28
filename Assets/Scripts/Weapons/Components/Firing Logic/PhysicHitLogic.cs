@@ -62,6 +62,11 @@ namespace Code.Weapons {
         protected override void Effect(Vector3 origin, Vector3 lastPosition) {
             AudioManager.instance.PlayOneShot(soundEventReference, origin);
         }
+
+        public override void Boost() {
+            range *= 3;
+            radius *= 3;
+        }
     }
 
 }

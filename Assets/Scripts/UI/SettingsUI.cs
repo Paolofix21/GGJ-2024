@@ -63,7 +63,8 @@ namespace Code.UI
             FMODUnity.RuntimeManager.GetBus(busName).getVolume(out float volume);
             textValue.text = ((int)(volume * 100)).ToString();
             mySlider.value = volume;
-            myToggle.isOn = !FMODUnity.RuntimeManager.IsMuted;
+            FMODUnity.RuntimeManager.GetBus(busName).getMute(out bool mute);
+            myToggle.isOn = !mute;
             myToggle.onValueChanged.AddListener(delegate
             {
                 savedToggle = ToggleVolume(!myToggle.isOn, busName);

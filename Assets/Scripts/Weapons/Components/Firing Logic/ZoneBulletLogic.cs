@@ -5,6 +5,7 @@ namespace Code.Weapons {
 
     public class ZoneBulletLogic : FiringLogic {
         [SerializeField] private BulletTrail bullet = default;
+        [SerializeField] private GameObject hitParticle = default;
 
         [Header("Settings")]
         [SerializeField][Range(0f, 1f)] private float radius = default;
@@ -60,6 +61,8 @@ namespace Code.Weapons {
                 if (Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
                     if (hitInfo.collider == null)
                         return;
+
+                    Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
                     IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
 

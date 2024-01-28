@@ -3,6 +3,7 @@ using System.Collections;
 using TMPro;
 using UnityEngine;
 
+[DefaultExecutionOrder(-1)]
 public class WaveSystemUI : MonoBehaviour
 {
     #region Public Variables   

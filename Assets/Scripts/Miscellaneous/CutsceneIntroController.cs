@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using Code.EnemySystem;
 using Code.Graphics;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.Splines;
 
 namespace Miscellaneous {
     [System.Serializable]
@@ -15,6 +17,7 @@ namespace Miscellaneous {
         #region Public Variables
         [SerializeField] private List<CreatureRef> m_creatures = new();
         [SerializeField] private TextMesh m_text;
+        [SerializeField] private SplineAnimate m_splineAnimate;
 
 #if UNITY_EDITOR
         [Range(0, 3)] public int testIndex = 1;
@@ -27,13 +30,29 @@ namespace Miscellaneous {
         private event System.Action _onCutsceneEnded;
         #endregion
 
+        public static CutsceneIntroController singleton { get; private set; }
+
         #region Behaviour Callbacks
         private void Awake() {
+            WaveSpawner.OnMacroWaveIndexChanged += OnWaveChanged;
+
             _director = GetComponent<PlayableDirector>();
+            _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
             _director.playOnAwake = false;
             _director.stopped += EndCutscene;
 
             gameObject.SetActive(false);
+        }
+
+        private void Update() => m_splineAnimate.ElapsedTime += Time.unscaledDeltaTime;
+
+        private void OnDestroy() {
+            WaveSpawner.OnMacroWaveIndexChanged -= OnWaveChanged;
+        }
+
+        private void OnWaveChanged(int waveIndex) {
+            Time.timeScale = 0;
+            PlayCutscene(waveIndex, () => Time.timeScale = 1);
         }
         #endregion
 
@@ -47,6 +66,7 @@ namespace Miscellaneous {
             if (_director.state == PlayState.Playing)
                 return;
 
+            m_splineAnimate.Restart(true);
             for (var i = 0; i < m_creatures.Count; i++)
                 m_creatures[i].creature.gameObject.SetActive(i == creatureIndex);
 

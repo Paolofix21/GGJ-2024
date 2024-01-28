@@ -96,5 +96,46 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5472594168257674661, guid: c4149a3d8a41dd542929c4deb5af5563,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5745564335295226630}
   m_SourcePrefab: {fileID: 100100000, guid: c4149a3d8a41dd542929c4deb5af5563, type: 3}
+--- !u!1 &8319404462066548439 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5472594168257674661, guid: c4149a3d8a41dd542929c4deb5af5563,
+    type: 3}
+  m_PrefabInstance: {fileID: 4073216833645822834}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5745564335295226630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8319404462066548439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -917857366
+      Data2: 1083524102
+      Data3: 885845915
+      Data4: -1866620494
+    Path: event:/Weapons/Sword_Hit
+  Event: 
+  PlayEvent: 1
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20

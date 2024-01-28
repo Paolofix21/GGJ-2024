@@ -30,7 +30,6 @@ namespace Miscellaneous {
         private event System.Action _onCutsceneEnded;
         #endregion
 
-        public static CutsceneIntroController singleton { get; private set; }
         public event System.Action<bool> OnIntroStartStop;
 
         #region Behaviour Callbacks

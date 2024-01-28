@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: edf1970bb5cb54043b3946c1caa4b479, type: 3}
   m_Name: BossSettings
   m_EditorClassIdentifier: 
-  HP: 400
+  HP: 10000
   damage: 0
   DamageType: -1
   wanderSpeed: 0
   chaseSpeed: 0
   maxDistanceFromPlayer: 200
   rotationSpeed: 0.5
-  visionRange: 200
-  attackRange: 200
+  visionRange: 500
+  attackRange: 500
   wanderTime: 0
   chaseTime: 0

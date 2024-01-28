@@ -59,6 +59,7 @@ namespace Code.Graphics {
         private void SetColorThree() => SetColorType(3);
 
         public void SetColorType(int id) {
+            Awake();
             var colorSet = m_colorSets[id];
             SetHueDeg(colorSet.ObjectHue, colorSet.ObjectSaturation,colorSet.EmissionColor);
             SetTrailColor(colorSet.TrailColor);

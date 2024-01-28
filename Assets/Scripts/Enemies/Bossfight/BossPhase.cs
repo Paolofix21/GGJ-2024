@@ -8,10 +8,12 @@ namespace Code.EnemySystem.Boss
 	{
 		public static event Action OnPhaseEnded;
 		protected BossBehaviour boss;
+		protected WaveSpawner waveSpawner;
 		
 		private void Awake()
 		{
 			boss = GetComponent<BossBehaviour>();
+			waveSpawner = FindAnyObjectByType<WaveSpawner>();
 		}
 
 		public abstract void StartPhase();

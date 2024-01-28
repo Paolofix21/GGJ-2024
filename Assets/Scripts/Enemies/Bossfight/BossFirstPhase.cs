@@ -31,9 +31,15 @@ namespace Code.EnemySystem.Boss
 		{
 			evenSpheresAttack = GetComponent<BossAttackSpheresEven>();
 			oddSpheresAttack = GetComponent<BossAttackSpheresOdd>();
-
-			StartCoroutine(AttackLoop());
+			StartCoroutine(PhaseCoroutine());
 		}
+
+		private IEnumerator PhaseCoroutine()
+		{
+			//yield return DialogueLoop(); TODO
+			yield return AttackLoop();
+			yield return WaveLoop();
+		}		
 
 		private IEnumerator AttackLoop()
 		{
@@ -51,21 +57,14 @@ namespace Code.EnemySystem.Boss
 				yield return oddSpheresAttack.Shoot();
 				yield return attackDelay;
 			}
-
-			print("attack has ended");
-			StartCoroutine(WaveLoop());
 		}
 
 		private IEnumerator WaveLoop()
 		{
-			// Spawn enemy wave
-			// When the wave ends, go to Phase 2
-
-			yield return null; // Placeholder for spawning enemy wave
-
-			print("wave has ended");
-
-			// Go to Phase 2 or perform other actions as needed
+			// The WaveSpawner has a Start() that automatically starts the first wave
+			waveSpawner.gameObject.SetActive(true);
+			//yield return new WaitUntil(() => waveSpawner.AllEnemiesAreDead); // TODO
+			EndPhase();
 		}
 
 		private void OnDestroy()

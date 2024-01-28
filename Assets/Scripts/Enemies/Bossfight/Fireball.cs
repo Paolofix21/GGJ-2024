@@ -27,8 +27,7 @@ namespace Code.EnemySystem.Boss
 			{
 				while (true)
 				{
-					Vector3 movement = transform.forward * (movementSpeed * Time.deltaTime);
-					transform.Translate(movement);
+					transform.Translate(Vector3.forward * (movementSpeed * Time.deltaTime));
 					lifetime -= Time.deltaTime;
 					yield return null;
 
@@ -42,10 +41,9 @@ namespace Code.EnemySystem.Boss
 		
 		private void OnTriggerEnter(Collider other)
 		{
-			if (other.TryGetComponent<PlayerHealth>(out var player))
+			if (!other.TryGetComponent<PlayerHealth>(out var player))
 				return;
 			
-			print("dealing dmg to player");
 			player.GetDamage(damage);
 			Destroy(gameObject);
 		}

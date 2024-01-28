@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using FMOD.Studio;
+using Barbaragno.RuntimePackages.Operations;
 
 namespace Code.Player {
     public class PlayerController : MonoBehaviour {
@@ -24,6 +25,8 @@ namespace Code.Player {
 
         private const float grav = -9.8f;
         private bool crouching = false;
+
+        private int currentSelectedWeapon = default;
 
         private EventInstance footsteps_instance;
 
@@ -67,10 +70,8 @@ namespace Code.Player {
         #endregion
 
         #region Unity Behaviours
-        private void Awake()
-        {
-            if (Singleton && Singleton != this)
-            {
+        private void Awake() {
+            if (Singleton && Singleton != this) {
                 Destroy(gameObject);
                 return;
             }
@@ -99,6 +100,8 @@ namespace Code.Player {
             input.playerMap.PlayerActions.Weapon03.started += _ => SetWeaponType(2, Rifle);
             input.playerMap.PlayerActions.Weapon04.started += _ => SetWeaponType(3, Frustino);
             input.playerMap.PlayerActions.Weapon05.started += _ => SetWeaponType(4, Sword);
+
+            input.playerMap.PlayerActions.RotateWeapon.started += TestRotateWeapons;
 
             Health.OnPlayerDeath += PlayerDeath;
 
@@ -137,6 +140,16 @@ namespace Code.Player {
         #endregion
 
         #region Movement Behaviours
+        private void TestRotateWeapons(InputAction.CallbackContext callbackContext) {
+            int directionalIndex = (int)callbackContext.ReadValue<float>();
+
+            currentSelectedWeapon = (currentSelectedWeapon + directionalIndex).Cycle(0, 5);
+            int animatorIndex = GetAnimatorIndex(currentSelectedWeapon);
+
+            SetWeaponType(currentSelectedWeapon, animatorIndex);
+            Debug.Log($"Current selected weapon: {currentSelectedWeapon}");
+        }
+
         private void GetMovement() {
             Vector3 dir = Vector3.zero;
             vel.x = input.GetMovement().x;
@@ -157,7 +170,7 @@ namespace Code.Player {
             Debug.Log(controller.isGrounded);
             if (controller.isGrounded) {
                 vel.y = Mathf.Sqrt(jumpForce * -3 * grav);
-                
+
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
 
                 if (crouching)
@@ -165,27 +178,23 @@ namespace Code.Player {
             }
         }
 
-        private void Crouch(InputAction.CallbackContext ctx)
-        {
+        private void Crouch(InputAction.CallbackContext ctx) {
             Crouch(ctx, true);
         }
 
-        private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true)
-        {
+        private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true) {
             if (isInsideLava)
                 return;
 
             crouching = !crouching;
             cameraLook.ChangeViewHeight(crouching);
 
-            if (shouldReproSFX)
-            {
+            if (shouldReproSFX) {
                 PlayCrouchSound();
             }
         }
 
-        private void PlayCrouchSound()
-        {
+        private void PlayCrouchSound() {
             AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
         }
 
@@ -193,14 +202,12 @@ namespace Code.Player {
             isInsideLava = true;
             speed = lavaSpeed;
 
-            if (crouching)
-            {
+            if (crouching) {
                 crouching = !crouching;
                 cameraLook.ChangeViewHeight(crouching);
             }
-                
-            while (isInsideLava)
-            {
+
+            while (isInsideLava) {
                 Health.GetDamage(lavaDamage);
                 yield return new WaitForSeconds(timeDelay);
             }
@@ -214,8 +221,7 @@ namespace Code.Player {
         #endregion
 
         #region Animation Behaviours
-        private void SetWeaponType(int type, int clip)
-        {
+        private void SetWeaponType(int type, int clip) {
             anim.ResetTrigger(shootTrigger);
             anim.SetBool(isShooting, false);
             visualSetter.SetHueDeg(hueValue[type].ObjectHue);
@@ -228,14 +234,12 @@ namespace Code.Player {
             anim.Play(clip);
         }
 
-        private void PlayShoot(InputAction.CallbackContext ctx)
-        {
-            if(OnShootRequest != null && OnShootRequest.Invoke())
+        private void PlayShoot(InputAction.CallbackContext ctx) {
+            if (OnShootRequest != null && OnShootRequest.Invoke())
                 anim.SetTrigger(shootTrigger);
         }
 
-        private void PlayShootContinuous(bool _value)
-        {
+        private void PlayShootContinuous(bool _value) {
             if (!_value) {
                 anim.SetBool(isShooting, false);
                 return;
@@ -259,25 +263,39 @@ namespace Code.Player {
         #endregion
 
         #region Audio
-        private void InitializeAudio()
-        {
+        private void InitializeAudio() {
             footsteps_instance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
         }
 
-        private void UpdateSound()
-        {
-            if(controller.isGrounded && controller.velocity.sqrMagnitude > 0.0001f)
-            {
+        private void UpdateSound() {
+            if (controller.isGrounded && controller.velocity.sqrMagnitude > 0.0001f) {
                 PLAYBACK_STATE playbackState;
                 footsteps_instance.getPlaybackState(out playbackState);
-                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-                {
+                if (playbackState.Equals(PLAYBACK_STATE.STOPPED)) {
                     footsteps_instance.start();
                 }
             }
-            else
-            {
+            else {
                 footsteps_instance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+            }
+        }
+        #endregion
+
+        #region Utility
+        private int GetAnimatorIndex(int inputIndex) {
+            switch (inputIndex) {
+                case 0:
+                    return Pistol;
+                case 1:
+                    return Shotgun;
+                case 2:
+                    return Rifle;
+                case 3:
+                    return Frustino;
+                case 4:
+                    return Sword;
+                default:
+                    return 0;
             }
         }
         #endregion

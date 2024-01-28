@@ -125,6 +125,15 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateWeapon"",
+                    ""type"": ""Value"",
+                    ""id"": ""62f5b700-2c78-4d20-aed8-4cbd4f6e9957"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -292,6 +301,17 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
                     ""action"": ""ContinuousShoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d50f5ff1-f261-4212-977e-a38a0d68dd56"",
+                    ""path"": ""<Mouse>/scroll/y"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -311,6 +331,7 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
         m_PlayerActions_Weapon04 = m_PlayerActions.FindAction("Weapon04", throwIfNotFound: true);
         m_PlayerActions_Weapon05 = m_PlayerActions.FindAction("Weapon05", throwIfNotFound: true);
         m_PlayerActions_ContinuousShoot = m_PlayerActions.FindAction("ContinuousShoot", throwIfNotFound: true);
+        m_PlayerActions_RotateWeapon = m_PlayerActions.FindAction("RotateWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -383,6 +404,7 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
     private readonly InputAction m_PlayerActions_Weapon04;
     private readonly InputAction m_PlayerActions_Weapon05;
     private readonly InputAction m_PlayerActions_ContinuousShoot;
+    private readonly InputAction m_PlayerActions_RotateWeapon;
     public struct PlayerActionsActions
     {
         private @PlayerMap m_Wrapper;
@@ -398,6 +420,7 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
         public InputAction @Weapon04 => m_Wrapper.m_PlayerActions_Weapon04;
         public InputAction @Weapon05 => m_Wrapper.m_PlayerActions_Weapon05;
         public InputAction @ContinuousShoot => m_Wrapper.m_PlayerActions_ContinuousShoot;
+        public InputAction @RotateWeapon => m_Wrapper.m_PlayerActions_RotateWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerActions; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -440,6 +463,9 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
             @ContinuousShoot.started += instance.OnContinuousShoot;
             @ContinuousShoot.performed += instance.OnContinuousShoot;
             @ContinuousShoot.canceled += instance.OnContinuousShoot;
+            @RotateWeapon.started += instance.OnRotateWeapon;
+            @RotateWeapon.performed += instance.OnRotateWeapon;
+            @RotateWeapon.canceled += instance.OnRotateWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerActionsActions instance)
@@ -477,6 +503,9 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
             @ContinuousShoot.started -= instance.OnContinuousShoot;
             @ContinuousShoot.performed -= instance.OnContinuousShoot;
             @ContinuousShoot.canceled -= instance.OnContinuousShoot;
+            @RotateWeapon.started -= instance.OnRotateWeapon;
+            @RotateWeapon.performed -= instance.OnRotateWeapon;
+            @RotateWeapon.canceled -= instance.OnRotateWeapon;
         }
 
         public void RemoveCallbacks(IPlayerActionsActions instance)
@@ -507,5 +536,6 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
         void OnWeapon04(InputAction.CallbackContext context);
         void OnWeapon05(InputAction.CallbackContext context);
         void OnContinuousShoot(InputAction.CallbackContext context);
+        void OnRotateWeapon(InputAction.CallbackContext context);
     }
 }

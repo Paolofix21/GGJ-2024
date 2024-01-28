@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using FMODUnity;
-using Mono.Cecil;
 using EventReference = FMODUnity.EventReference;
 
 public class FMODEvents : MonoBehaviour

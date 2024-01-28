@@ -23,6 +23,7 @@ namespace Code.UI
         {
             returnMainMenu.onClick.RemoveAllListeners();
             m_loadSettings.onClick.RemoveAllListeners();
+            UIManager.Singleton.PauseUI = this;
         }
         private void Start()
         {

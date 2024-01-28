@@ -638,6 +638,7 @@ MonoBehaviour:
     type: 3}
   SettingsUIPrefab: {fileID: 1777143682768643994, guid: 985f827774a0867468e5777f142dd0cf,
     type: 3}
+  PauseUI: {fileID: 7059368601497931665, guid: 0e2204e7c2f5a8b4588d3f6732e3ce65, type: 3}
 --- !u!4 &1674539550
 Transform:
   m_ObjectHideFlags: 0

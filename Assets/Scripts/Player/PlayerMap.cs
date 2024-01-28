@@ -314,6 +314,34 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""HUD"",
+            ""id"": ""869bdca4-37fd-44b5-b14c-af8b59b89c16"",
+            ""actions"": [
+                {
+                    ""name"": ""Menu"",
+                    ""type"": ""Button"",
+                    ""id"": ""414c318a-ae05-453d-8dd9-59bd1cb4d731"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""e9c044ee-54fd-4083-8746-0a90355350ab"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Menu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -332,6 +360,9 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
         m_PlayerActions_Weapon05 = m_PlayerActions.FindAction("Weapon05", throwIfNotFound: true);
         m_PlayerActions_ContinuousShoot = m_PlayerActions.FindAction("ContinuousShoot", throwIfNotFound: true);
         m_PlayerActions_RotateWeapon = m_PlayerActions.FindAction("RotateWeapon", throwIfNotFound: true);
+        // HUD
+        m_HUD = asset.FindActionMap("HUD", throwIfNotFound: true);
+        m_HUD_Menu = m_HUD.FindAction("Menu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -523,6 +554,52 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActionsActions @PlayerActions => new PlayerActionsActions(this);
+
+    // HUD
+    private readonly InputActionMap m_HUD;
+    private List<IHUDActions> m_HUDActionsCallbackInterfaces = new List<IHUDActions>();
+    private readonly InputAction m_HUD_Menu;
+    public struct HUDActions
+    {
+        private @PlayerMap m_Wrapper;
+        public HUDActions(@PlayerMap wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Menu => m_Wrapper.m_HUD_Menu;
+        public InputActionMap Get() { return m_Wrapper.m_HUD; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(HUDActions set) { return set.Get(); }
+        public void AddCallbacks(IHUDActions instance)
+        {
+            if (instance == null || m_Wrapper.m_HUDActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_HUDActionsCallbackInterfaces.Add(instance);
+            @Menu.started += instance.OnMenu;
+            @Menu.performed += instance.OnMenu;
+            @Menu.canceled += instance.OnMenu;
+        }
+
+        private void UnregisterCallbacks(IHUDActions instance)
+        {
+            @Menu.started -= instance.OnMenu;
+            @Menu.performed -= instance.OnMenu;
+            @Menu.canceled -= instance.OnMenu;
+        }
+
+        public void RemoveCallbacks(IHUDActions instance)
+        {
+            if (m_Wrapper.m_HUDActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IHUDActions instance)
+        {
+            foreach (var item in m_Wrapper.m_HUDActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_HUDActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public HUDActions @HUD => new HUDActions(this);
     public interface IPlayerActionsActions
     {
         void OnMovement(InputAction.CallbackContext context);
@@ -537,5 +614,9 @@ public partial class @PlayerMap: IInputActionCollection2, IDisposable
         void OnWeapon05(InputAction.CallbackContext context);
         void OnContinuousShoot(InputAction.CallbackContext context);
         void OnRotateWeapon(InputAction.CallbackContext context);
+    }
+    public interface IHUDActions
+    {
+        void OnMenu(InputAction.CallbackContext context);
     }
 }

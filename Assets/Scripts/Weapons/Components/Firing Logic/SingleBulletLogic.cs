@@ -1,8 +1,11 @@
 using UnityEngine;
+using Weapons.Components;
 
 namespace Code.Weapons {
 
     public class SingleBulletLogic : FiringLogic {
+        [SerializeField] private BulletTrail bullet = default;
+
         [Header("Gizmos")]
         [SerializeField] private bool gizmosEnabled = default;
 
@@ -37,7 +40,10 @@ namespace Code.Weapons {
         public override void Shoot(Ammunition ammunition) {
             Cooldown(true);
 
+            Vector3 reachablePoint = weaponCamera.position + weaponCamera.forward * range;
             Ray ray = new Ray(weaponCamera.position, weaponCamera.forward);
+
+            Effect(reachablePoint);
 
             if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
                 if (hitInfo.collider == null)
@@ -53,6 +59,12 @@ namespace Code.Weapons {
 
                 damageable.ApplyDamage(ammunition.GetDamageAmount());
             }
+        }
+
+        protected override void Effect(Vector3 position) {
+            AudioManager.instance.PlayOneShot(soundEventReference, effectOrigin.position);
+            BulletTrail bulletTrail = Instantiate(bullet, effectOrigin.position, Quaternion.identity);
+            bulletTrail.SetDestination(position);
         }
     }
 

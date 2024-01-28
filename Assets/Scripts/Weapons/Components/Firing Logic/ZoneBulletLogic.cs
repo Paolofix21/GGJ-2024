@@ -1,10 +1,13 @@
 using UnityEngine;
+using Weapons.Components;
 
 namespace Code.Weapons {
 
     public class ZoneBulletLogic : FiringLogic {
+        [SerializeField] private BulletTrail bullet = default;
+
         [Header("Settings")]
-        [SerializeField] private float radius = default;
+        [SerializeField][Range(0f, 1f)] private float radius = default;
         [SerializeField] private int interestedPoints = default;
 
         [Header("Gizmos")]
@@ -14,15 +17,12 @@ namespace Code.Weapons {
             if (!gizmosEnabled)
                 return;
 
-            Vector3 lastReachablePoint = weaponCamera.forward * range;
+            Vector3 lastReachablePoint = weaponCamera.position + weaponCamera.forward * range;
 
             for (int i = 0; i < interestedPoints; i++) {
-                float randomX = Random.Range(lastReachablePoint.x - radius, lastReachablePoint.x + radius);
-                float randomY = Random.Range(lastReachablePoint.y - radius, lastReachablePoint.y + radius);
-                Vector3 planeVector = new Vector3(randomX, randomY, 0).normalized;
-                Vector3 randomReachablePoint = lastReachablePoint + planeVector;
+                Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
 
-                Gizmos.DrawLine(weaponCamera.position, weaponCamera.position + randomReachablePoint);
+                Gizmos.DrawLine(weaponCamera.position, randomReachablePoint);
 
                 string log = Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo) ? "Raycast fired with hit" : "Raycast fired without hit";
 
@@ -50,13 +50,12 @@ namespace Code.Weapons {
         public override void Shoot(Ammunition ammunition) {
             Cooldown(true);
 
-            Vector3 lastReachablePoint = weaponCamera.forward * range;
+            Vector3 lastReachablePoint = weaponCamera.position + weaponCamera.forward * range;
 
             for (int i = 0; i < interestedPoints; i++) {
-                float randomX = Random.Range(lastReachablePoint.x - radius, lastReachablePoint.x + radius);
-                float randomY = Random.Range(lastReachablePoint.y - radius, lastReachablePoint.y + radius);
-                Vector3 planeVector = new Vector3(randomX, randomY, 0).normalized;
-                Vector3 randomReachablePoint = lastReachablePoint + planeVector;
+                Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
+
+                Effect(randomReachablePoint);
 
                 if (Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
                     if (hitInfo.collider == null)
@@ -73,6 +72,12 @@ namespace Code.Weapons {
                     damageable.ApplyDamage(ammunition.GetDamageAmount());
                 }
             }
+        }
+
+        protected override void Effect(Vector3 position) {
+            AudioManager.instance.PlayOneShot(soundEventReference, effectOrigin.position);
+            BulletTrail bulletTrail = Instantiate(bullet, effectOrigin.position, Quaternion.identity);
+            bulletTrail.SetDestination(position);
         }
     }
 

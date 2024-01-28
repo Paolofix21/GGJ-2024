@@ -39,6 +39,7 @@ namespace Code.Graphics {
             _block = new MaterialPropertyBlock();
             _block.SetFloat(MatProp_Hue, m_colorSets[0].ObjectHue);
             _block.SetFloat(MatProp_Saturation, m_colorSets[0].ObjectSaturation);
+            _block.SetColor(MatProp_EmissionColor, m_colorSets[0].EmissionColor);
 
             _trailBlock = new MaterialPropertyBlock();
             _trailBlock.SetColor(MatProp_MainColor, m_colorSets[0].TrailColor);
@@ -59,7 +60,7 @@ namespace Code.Graphics {
 
         public void SetColorType(int id) {
             var colorSet = m_colorSets[id];
-            SetHueDeg(colorSet.ObjectHue, colorSet.ObjectSaturation);
+            SetHueDeg(colorSet.ObjectHue, colorSet.ObjectSaturation,colorSet.EmissionColor);
             SetTrailColor(colorSet.TrailColor);
         }
         #endregion
@@ -80,10 +81,11 @@ namespace Code.Graphics {
         #endregion
 
         #region Private Methods
-        private void SetHueDeg(float degrees, float saturation) {
+        private void SetHueDeg(float degrees, float saturation, Color color) {
             _meshRenderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_Hue, degrees);
             _block.SetFloat(MatProp_Saturation, saturation);
+            _block.SetColor(MatProp_EmissionColor, color);
             _meshRenderer.SetPropertyBlock(_block);
         }
 

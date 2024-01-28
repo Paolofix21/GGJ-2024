@@ -70,7 +70,7 @@ namespace Code.Graphics {
         private void AttackPhaseThree() {
             emitter.Play();
             RuntimeManager.GetEventDescription(emitter.EventReference).getLength(out var lenMs);
-            AnimateAttack(2, (lenMs / 1000f) - .15f);
+            AnimateAttack(2, 2f);
         }
 #endif
 

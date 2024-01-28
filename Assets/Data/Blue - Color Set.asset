@@ -13,4 +13,6 @@ MonoBehaviour:
   m_Name: Blue - Color Set
   m_EditorClassIdentifier: 
   <ObjectHue>k__BackingField: 0
+  <ObjectSaturation>k__BackingField: 2
   <TrailColor>k__BackingField: {r: 0.27429688, g: 0.47217286, b: 0.8679245, a: 1}
+  <EmissionColor>k__BackingField: {r: 0, g: 0.6622515, b: 2, a: 1}

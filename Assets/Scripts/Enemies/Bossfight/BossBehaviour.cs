@@ -2,7 +2,9 @@ using System;
 using Code.Dialogue;
 using Code.Player;
 using Code.Weapons;
+using FMODUnity;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.EnemySystem.Boss
 {
@@ -13,6 +15,8 @@ namespace Code.EnemySystem.Boss
 	{
 		public static event Action OnDeath;
 
+		[SerializeField] private ParticleSystem deathParticle = default;
+		[SerializeField] private EventReference deathSound = default;
 		public EnemySettings enemySettings;
 
 		private Transform playerPos;
@@ -50,6 +54,12 @@ namespace Code.EnemySystem.Boss
 			// TODO enable the You Win UI
 			//var youWin = GameObject.Find("Win");
 			//youWin.SetActive(true);
+			var position = transform.position;
+			for (int i = 0; i < 4; i++)
+			{
+				Instantiate(deathParticle, position + Random.insideUnitSphere, Quaternion.identity);
+			}
+			AudioManager.instance.PlayOneShot(deathSound, position);
 			OnDeath?.Invoke();
 			Destroy(gameObject);
 		}

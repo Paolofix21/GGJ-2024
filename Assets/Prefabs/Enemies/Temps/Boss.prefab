@@ -85,6 +85,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20956c42de8b88645a771297bff710e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deathParticle: {fileID: 710859151671168106, guid: c4149a3d8a41dd542929c4deb5af5563,
+    type: 3}
+  deathSound:
+    Guid:
+      Data1: -796849634
+      Data2: 1115884673
+      Data3: 1923244688
+      Data4: 1902112352
+    Path: event:/Enemies/Death_Cough
   enemySettings: {fileID: 11400000, guid: 31a458a0bfab6844fa398e4b6d69e432, type: 2}
 --- !u!114 &1879805870884393038
 MonoBehaviour:

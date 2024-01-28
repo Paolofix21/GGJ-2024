@@ -92,7 +92,7 @@ namespace Code.Weapons {
         }
 
         private bool CanShoot() {
-            return equippedWeapon.CanShoot();
+            return equippedWeapon && equippedWeapon.CanShoot();
         }
 
         [UsedImplicitly]

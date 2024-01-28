@@ -52,6 +52,8 @@ namespace Code.EnemySystem
             }
         }
 
+        private void OnDestroy() => OnMacroWaveIndexChanged?.Invoke(0);
+
         /// <summary>
         /// Funzione da chiamare conclusa l'ondata
         /// </summary>

@@ -77,6 +77,8 @@ public class EndGameUI : MonoBehaviour
         m_title.text = textEndgame;
         m_titleGlow.text = textEndgame;
         m_hintToDisplay.text = hint;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
     private void LoadScene()
     {
@@ -84,7 +86,7 @@ public class EndGameUI : MonoBehaviour
     }
     private void ResetScene()
     {
-        SceneLoader.LoadScene("Hell", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        SceneLoader.LoadScene("Game Scene 01", UnityEngine.SceneManagement.LoadSceneMode.Single);
     }
     #endregion
 

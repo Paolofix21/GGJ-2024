@@ -14,8 +14,9 @@ namespace Code.EnemySystem.Boss
 	public class BossBehaviour : MonoBehaviour, IDamageable
 	{
 		public static event Action OnDeath;
-
+		public static event Action<float> OnDamage;
 		[SerializeField] private EndGameUI endgameUI;
+		[SerializeField] private BossUI bossUI;
 		[SerializeField] private ParticleSystem deathParticle = default;
 		[SerializeField] private EventReference deathSound = default;
 		public EnemySettings enemySettings;
@@ -47,7 +48,8 @@ namespace Code.EnemySystem.Boss
 
 		public void StartPhase()
 		{
-			phases[0].StartPhase();
+			Instantiate(bossUI).Setup();
+            phases[0].StartPhase();
 		}
 
 		private EndGameUI endgame;
@@ -77,15 +79,16 @@ namespace Code.EnemySystem.Boss
 
 		public void ApplyDamage(float amount)
 		{
-			remHP -= amount;
+            remHP -= amount;
 			if (remHP <= 0)
 			{
 				Dead();
 			}
-		}
+			OnDamage?.Invoke(HeathAsPercentage);
+        }
 
-		// TODO implementare i modifier sul boss
-		public void ApplyModifier(DialogueData.BossModifier bossModifier)
+        // TODO implementare i modifier sul boss
+        public void ApplyModifier(DialogueData.BossModifier bossModifier)
 		{
 			switch (bossModifier)
 			{

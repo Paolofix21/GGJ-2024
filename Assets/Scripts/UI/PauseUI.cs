@@ -37,6 +37,11 @@ namespace Code.UI
                 SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single); 
             });
 
+            resume.onClick.AddListener(delegate {
+                gameObject.SetActive(false);
+                Time.timeScale = 1.0f;
+            });
+
             m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);
             m_quitSettings.onClick.AddListener(delegate {
                 UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);

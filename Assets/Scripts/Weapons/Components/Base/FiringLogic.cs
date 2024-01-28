@@ -10,6 +10,7 @@ namespace Code.Weapons {
 
         [Header("References")]
         [SerializeField] protected Transform weaponCamera = default;
+        [SerializeField] protected Transform effectOrigin = default;
 
         protected float elapsedTime = default;
         protected bool cooldownActive = default;
@@ -40,6 +41,8 @@ namespace Code.Weapons {
         }
 
         public abstract void Shoot(Ammunition ammunition);
+
+        protected abstract void Effect(Vector3 position);
     }
 
 }

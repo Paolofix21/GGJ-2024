@@ -57,6 +57,8 @@ namespace Code.Weapons {
                 damageable.ApplyDamage(ammunition.GetDamageAmount());
             }
         }
+
+        protected override void Effect(Vector3 position) {}
     }
 
 }

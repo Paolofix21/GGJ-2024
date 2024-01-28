@@ -13,16 +13,25 @@ namespace Code.Weapons {
         [SerializeField] private List<Weapon> weapons = new List<Weapon>();
         [Space]
         [SerializeField] private PlayerController playerController = default;
+        [SerializeField] private PlayerWeaponAnimatorListener playerWeaponAnimatorListener = default;
 
         private Weapon equippedWeapon = default;
         public Weapon EquippedWeapon { get { return equippedWeapon; } }
 
         public event System.Action<Weapon> OnUpdateWeaponInfo;
 
+        private void OnValidate() {
+            if (playerWeaponAnimatorListener == null) {
+                playerWeaponAnimatorListener = GetComponentInChildren<PlayerWeaponAnimatorListener>();
+            }
+        }
         private void Awake() {
             if (playerController != null) {
                 playerController.OnWeaponChanged += EquipWeapon;
                 playerController.OnShootRequest += CanShoot;
+            }
+            if(playerWeaponAnimatorListener != null) {
+                playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
             }
         }
         private void Start() {
@@ -32,6 +41,9 @@ namespace Code.Weapons {
             if (playerController != null) {
                 playerController.OnWeaponChanged -= EquipWeapon;
                 playerController.OnShootRequest -= CanShoot;
+            }
+            if (playerWeaponAnimatorListener != null) {
+                playerWeaponAnimatorListener.OnAnimatorShootCallback -= Shoot;
             }
         }
         private void OnTriggerEnter(Collider other) {

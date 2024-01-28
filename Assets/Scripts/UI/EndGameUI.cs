@@ -74,6 +74,7 @@ public class EndGameUI : MonoBehaviour
                 break;
         }
         m_title.color = new Color(newColor.r, newColor.g, newColor.b, 255);
+        m_titleGlow.color = new Color(newColor.r, newColor.g, newColor.b, 255);
         m_title.text = textEndgame;
         m_titleGlow.text = textEndgame;
         m_hintToDisplay.text = hint;

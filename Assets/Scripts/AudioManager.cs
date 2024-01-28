@@ -31,27 +31,6 @@ public class AudioManager : MonoBehaviour
         musicInstance = CreateInstance(FMODEvents.instance.musicEvent);
         ambienceInstance = CreateInstance(FMODEvents.instance.ambienceEvent);
     }
-    void Start()
-    {
-        var busListOk = FMODUnity.RuntimeManager.StudioSystem.getBankList(out FMOD.Studio.Bank[] loadedBanks);
-        foreach (FMOD.Studio.Bank bank in loadedBanks)
-        {
-            Bus[] myBuses;
-            int busCount;
-            string busPath;
-            bank.getPath(out string path);
-            busListOk = bank.getBusList(out myBuses);
-            bank.getBusCount(out busCount);
-            if (busCount > 0)
-            {
-                foreach (var bus in myBuses)
-                {
-                    bus.getPath(out busPath);
-                    print(busPath);
-                }
-            }
-        }
-    }
     public void PlayOneShot(EventReference sound, Vector3 worldPos)
     {
         RuntimeManager.PlayOneShot(sound, worldPos);

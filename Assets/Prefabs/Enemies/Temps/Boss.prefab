@@ -85,6 +85,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20956c42de8b88645a771297bff710e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  endgameUI: {fileID: 0}
+  bossUI: {fileID: 4620868102731616777, guid: b964e6a03640f9840906d09a13d11fca, type: 3}
   deathParticle: {fileID: 710859151671168106, guid: c4149a3d8a41dd542929c4deb5af5563,
     type: 3}
   deathSound:

@@ -4,15 +4,14 @@ using UnityEngine.EventSystems;
 
 namespace UI {
     public class AimsightUI : UIBehaviour {
-        public CutsceneIntroController controller = default;
 
         #region Behaviour Callbacks
         protected override void Awake() {
-            controller.OnIntroStartStop += HideShow;
+            CutsceneIntroController.OnIntroStartStop += HideShow;
         }
 
         protected override void OnDestroy() {
-            controller.OnIntroStartStop -= HideShow;
+            CutsceneIntroController.OnIntroStartStop -= HideShow;
             //CutsceneIntroController.singleton.OnIntroStartStop -= HideShow;
         }
 

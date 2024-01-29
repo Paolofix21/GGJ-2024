@@ -4,6 +4,7 @@ using Code.Graphics;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Splines;
+using Code.UI;
 
 namespace Miscellaneous {
     [System.Serializable]
@@ -30,11 +31,11 @@ namespace Miscellaneous {
         private event System.Action _onCutsceneEnded;
         #endregion
 
-        public event System.Action<bool> OnIntroStartStop;
+        public static event System.Action<bool> OnIntroStartStop;
 
         #region Behaviour Callbacks
         private void Awake() {
-            WaveSpawner.OnMacroWaveIndexChanged += OnWaveChanged;
+            WaveSystemUI.OnEndWave += OnWaveChanged;
 
             _director = GetComponent<PlayableDirector>();
             _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
@@ -47,7 +48,7 @@ namespace Miscellaneous {
         private void Update() => m_splineAnimate.ElapsedTime += Time.unscaledDeltaTime;
 
         private void OnDestroy() {
-            WaveSpawner.OnMacroWaveIndexChanged -= OnWaveChanged;
+            WaveSystemUI.OnEndWave -= OnWaveChanged;
         }
 
         private void OnWaveChanged(int waveIndex) {

@@ -15,7 +15,6 @@ namespace Code.Player {
 
         [SerializeField] private ColorSetSO[] hueValue;
         [SerializeField] private EndGameUI endgameUI;
-        [SerializeField] private CutsceneIntroController cutscene;
         [SerializeField] private GameObject arms;
 
         #region Properties
@@ -93,7 +92,7 @@ namespace Code.Player {
             _currentSpeed = speed;
         }
         private void Start() {
-            cutscene.OnIntroStartStop += Intro;
+            CutsceneIntroController.OnIntroStartStop += Intro;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -143,7 +142,7 @@ namespace Code.Player {
             input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
             Health.OnPlayerDeath -= PlayerDeath;
-            cutscene.OnIntroStartStop -= Intro;
+            CutsceneIntroController.OnIntroStartStop -= Intro;
 
             if (Singleton == this)
                 Singleton = null;

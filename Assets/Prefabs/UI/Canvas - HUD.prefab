@@ -1376,7 +1376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d200f40562a044a189cce52eee4abfdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
 --- !u!1 &3452530248487523207
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2095,7 @@ GameObject:
   - component: {fileID: 4210527361619086776}
   - component: {fileID: 1105717586519117690}
   m_Layer: 5
-  m_Name: WaveObject
+  m_Name: Object - Wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

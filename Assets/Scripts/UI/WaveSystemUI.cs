@@ -1,5 +1,8 @@
 using Code.EnemySystem;
+using Miscellaneous;
+using System;
 using System.Collections;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 
@@ -13,27 +16,60 @@ public class WaveSystemUI : MonoBehaviour
     [SerializeField] private Animator myAnimator;
     #endregion
 
-    #region Behaviour Callbacks
-    private void Awake() => WaveSpawner.OnMacroWaveIndexChanged += StartNewWave;
+    #region Events
+    public static Action<int> OnEndWave;
+    #endregion
 
-    private void OnDestroy() => WaveSpawner.OnMacroWaveIndexChanged -= StartNewWave;
+    #region Private Variables
+    private bool cutsceneState;
+    #endregion
+
+    #region Behaviour Callbacks
+    private void Awake()
+    {
+        WaveSpawner.OnMacroWaveIndexChanged += NewWave;
+        CutsceneIntroController.OnIntroStartStop += CheckCutscene;
+    }
+
+    private void OnDestroy()
+    {
+        WaveSpawner.OnMacroWaveIndexChanged -= NewWave;
+        CutsceneIntroController.OnIntroStartStop -= CheckCutscene;
+    }
     #endregion
 
     #region Public Methods
-    public void StartNewWave(int i) {
-        StartCoroutine(NewWaveCO($"Wave {i+1}"));
-    }
 
-    private IEnumerator NewWaveCO(string wave) {
-        WaveTextGlow.text = wave;
-        WaveText.text = wave;
-        yield return new WaitForSeconds(1);
-        WaveObject.SetActive(true);
+    private async void NewWave(int i) {
+        if(i != 0) {
+            WaveText.text = "Wave ended";
+            WaveTextGlow.text = "Wave ended";
+            WaveObject?.SetActive(true);
+            myAnimator.SetTrigger("default");
+            await Task.Delay(2000);
+            myAnimator.SetTrigger("go");
+            await Task.Delay(1000);
+            WaveObject?.SetActive(false);
+        }
+        OnEndWave?.Invoke(i);
+        string waveText = $"Wave {i + 1}";
+        WaveText.text = waveText;
+        WaveTextGlow.text = waveText;
+
+        while(cutsceneState)
+            await Task.Yield();
+
+        await Task.Delay(500);
+        WaveObject?.SetActive(true);
         myAnimator.SetTrigger("default");
-        yield return new WaitForSeconds(5);
+        await Task.Delay(5000);
         myAnimator.SetTrigger("go");
-        yield return new WaitForSeconds(1);
-        WaveObject.SetActive(false);
+        await Task.Delay(1000);
+        WaveObject?.SetActive(false);
+    }
+    public void CheckCutscene(bool isEnded)
+    {
+        cutsceneState = isEnded;
     }
     #endregion
 }

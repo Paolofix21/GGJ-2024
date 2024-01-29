@@ -473,7 +473,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1617,7 +1617,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7095001096555749487}
   - component: {fileID: 2957092702345167029}
-  - component: {fileID: 7854488829918420782}
   - component: {fileID: 3730019969927886083}
   - component: {fileID: 7944194064629342048}
   m_Layer: 5
@@ -1660,36 +1659,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6002869658487174564}
   m_CullTransparentMesh: 1
---- !u!114 &7854488829918420782
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6002869658487174564}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac7ee8f127e33a543bceb25ed296521c, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!114 &3730019969927886083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2764,7 +2733,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.9490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 330, y: 0, z: 330, w: 0}
   m_Maskable: 1
@@ -4258,7 +4227,7 @@ PrefabInstance:
     - target: {fileID: 7737652252228732482, guid: 28458c12225bcf64fa62d4e94e1c93d9,
         type: 3}
       propertyPath: m_Spacing
-      value: 241
+      value: 219
       objectReference: {fileID: 0}
     - target: {fileID: 8029788928152349203, guid: 28458c12225bcf64fa62d4e94e1c93d9,
         type: 3}

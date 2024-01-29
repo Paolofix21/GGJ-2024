@@ -99,7 +99,6 @@ namespace Code.Player {
             Cursor.visible = false;
 
             input.playerMap.PlayerActions.Jump.started += Jump;
-            input.playerMap.PlayerActions.Crouch.started += Crouch;
             input.playerMap.PlayerActions.Shoot.started += PlayShoot;
 
             input.playerMap.PlayerActions.ContinuousShoot.started += _ => PlayShootContinuous(true);
@@ -139,7 +138,6 @@ namespace Code.Player {
 
         private void OnDestroy() {
             input.playerMap.PlayerActions.Jump.started -= Jump;
-            input.playerMap.PlayerActions.Crouch.started -= Crouch;
             input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
             Health.OnPlayerDeath -= PlayerDeath;
@@ -179,7 +177,6 @@ namespace Code.Player {
             _currentSpeed = isInsideLava ? lavaSpeed : (controller.isGrounded ? speed : airborneSpeed);
 
             controller.Move(vel * Time.deltaTime);
-            //controller.Move(vel * Time.deltaTime);
         }
 
         private void Jump(InputAction.CallbackContext ctx) {
@@ -189,30 +186,32 @@ namespace Code.Player {
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
 
-                if (crouching)
-                    Crouch(ctx, false);
+                //if (crouching)
+                //    Crouch(ctx, false);
             }
         }
 
-        private void Crouch(InputAction.CallbackContext ctx) {
-            Crouch(ctx, true);
-        }
+        #region Crouching [NOT USED]
+        //private void Crouch(InputAction.CallbackContext ctx) {
+        //    Crouch(ctx, true);
+        //}
 
-        private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true) {
-            if (isInsideLava)
-                return;
+        //private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true) {
+        //    if (isInsideLava)
+        //        return;
 
-            crouching = !crouching;
-            cameraLook.ChangeViewHeight(crouching);
+        //    crouching = !crouching;
+        //    cameraLook.ChangeViewHeight(crouching);
 
-            if (shouldReproSFX) {
-                PlayCrouchSound();
-            }
-        }
+        //    if (shouldReproSFX) {
+        //        PlayCrouchSound();
+        //    }
+        //}
 
-        private void PlayCrouchSound() {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
-        }
+        //private void PlayCrouchSound() {
+        //    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
+        //}
+        #endregion
 
         private IEnumerator WalkInLava() {
             isInsideLava = true;

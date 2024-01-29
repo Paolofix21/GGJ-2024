@@ -15,10 +15,6 @@ namespace Code.Player
         [SerializeField] private int TimeBeforeStartHealing;
         private int currentTime;
 
-        [SerializeField] private Slider healthBar;
-
-        //in ordine: HP rimossi, HP attuali, HP max
-        //public event Action<float, float, float> OnDamageTaken;
         public event Action<float, float> OnDamageTaken;
         public event Action<float, float> OnHeal;
         public event Action OnPlayerDeath;
@@ -38,30 +34,11 @@ namespace Code.Player
             currentHealth = maxHealth;
         }
 
-        private IEnumerator UpdateHealthBar()
-        {
-            var updateTime = 1f;
-            var currentTime = 0f;
-
-            float healthValue = currentHealth / maxHealth;
-
-            while (currentTime < updateTime)
-            {
-                float t = currentTime / updateTime;
-                currentTime += Time.deltaTime;
-                healthBar.value = Mathf.Lerp(healthBar.value, healthValue, t*t);
-                yield return null;
-            }
-
-            healthBar.value = currentHealth / maxHealth;
-        }
-
         public void GetDamage(float _amount)
         {
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
-            //OnDamageTaken?.Invoke(_amount, currentHealth, maxHealth);
             OnDamageTaken?.Invoke(currentHealth, maxHealth);
 
             if (currentHealth <= 0)
@@ -97,8 +74,6 @@ namespace Code.Player
         {
             currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-
-            //AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
 
             OnHeal?.Invoke(currentHealth, maxHealth);
         }

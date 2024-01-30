@@ -12,6 +12,7 @@ public class EnemySettings : ScriptableObject
     [Header("Movement Settings")]
     public float wanderSpeed = 2f;
     public float chaseSpeed = 5f;
+    [Space]
     public float maxDistanceFromPlayer = 20f;
     public float rotationSpeed = 1.0f;
 

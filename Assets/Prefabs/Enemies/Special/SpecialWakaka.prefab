@@ -69,6 +69,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpecialWakaka
       objectReference: {fileID: 0}
+    - target: {fileID: 6470780863357461265, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_dot
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6470780863357461265, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      propertyPath: m_damageRate
+      value: 0.75
+      objectReference: {fileID: 0}
     - target: {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
       propertyPath: enemySettings
@@ -77,28 +87,28 @@ PrefabInstance:
         type: 2}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Path
-      value: event:/Enemies/Enemy_Laugh
+      propertyPath: m_introVoiceLineEvent.Path
+      value: event:/Enemies/Wakakatupure_Verse
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data1
-      value: -1973858072
+      propertyPath: m_introVoiceLineEvent.Guid.Data1
+      value: -1824428809
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data2
-      value: 1272088479
+      propertyPath: m_introVoiceLineEvent.Guid.Data2
+      value: 1249823813
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data3
-      value: 397929147
+      propertyPath: m_introVoiceLineEvent.Guid.Data3
+      value: 1927601286
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data4
-      value: -110624120
+      propertyPath: m_introVoiceLineEvent.Guid.Data4
+      value: 137121112
       objectReference: {fileID: 0}
     - target: {fileID: 7535972675841793500, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
@@ -109,5 +119,83 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 2796086119160189801}
+    - targetCorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: -8408692126517982765}
+    - targetCorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 548179551712425517}
   m_SourcePrefab: {fileID: 100100000, guid: 08983a69e537e2b49bf89dcd40206c60, type: 3}
+--- !u!1 &8414743048959030089 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+    type: 3}
+  m_PrefabInstance: {fileID: 2772493109133034688}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2796086119160189801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414743048959030089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881eb93d087f43f7be5a2da5281fe7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_wanderSpeed: 8
+  m_chaseSpeed: 5
+  m_fleeSpeed: 16
+  m_wanderLerpQuickness: 8
+  m_chaseLerpQuickness: 4
+  m_maxDistanceFromPlayer: 10
+  m_maxWallCastDistance: 3
+--- !u!114 &-8408692126517982765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414743048959030089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e053b8a0d394fd0b69432263470e965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 200
+  m_type: 8
+--- !u!54 &548179551712425517
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8414743048959030089}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

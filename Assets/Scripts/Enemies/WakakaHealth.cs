@@ -15,9 +15,6 @@ namespace Code.EnemySystem {
         private float _currentHealth;
         #endregion
 
-        #region Properties
-        #endregion
-
         #region Behaviour Callbacks
         private void Awake() => _currentHealth = m_maxHealth;
 
@@ -40,12 +37,6 @@ namespace Code.EnemySystem {
 
         #region Public Methods
         public DamageType GetDamageType() => m_type;
-        #endregion
-
-        #region Private Methods
-        #endregion
-
-        #region Event Methods
         #endregion
     }
 }

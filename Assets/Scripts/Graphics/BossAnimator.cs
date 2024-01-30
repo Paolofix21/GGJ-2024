@@ -5,12 +5,17 @@ using UnityEngine;
 namespace Code.Graphics {
     [RequireComponent(typeof(Animator))]
     public class BossAnimator : MonoBehaviour {
-        #region Public Variables
 #if UNITY_EDITOR
         public StudioEventEmitter emitter;
 #endif
 
+        #region Public Variables
+        [SerializeField] private EventReference m_voiceLineEvent;
+        [Space]
+        [SerializeField] private AnimationClip m_recomposeAnimationClip;
+
         public event System.Action OnShoot;
+        public event System.Action<bool> OnStartStopVoiceLine;
         #endregion
 
         #region Private Variables
@@ -39,9 +44,10 @@ namespace Code.Graphics {
                     Invoke(nameof(StopLaserBeam), duration);
                     break;
                 case 2:
+                    Invoke(nameof(StartVoiceLine), m_recomposeAnimationClip.length);
                     _animator.CrossFade("Boss Recompose", .25f);
                     _animator.SetBool(AnimProp_IsTalking, true);
-                    Invoke(nameof(StopVoiceLine), duration);
+                    Invoke(nameof(StopVoiceLine), duration + m_recomposeAnimationClip.length);
                     break;
                 default:
                     Debug.LogWarning("Phase was not defined...\n", this);
@@ -52,9 +58,16 @@ namespace Code.Graphics {
 
         #region Private Methods
         private void StopLaserBeam() => _animator.CrossFade("Boss Laser Beam (End)", .25f);
+
+        private void StartVoiceLine() {
+            var evt = RuntimeManager.CreateInstance(m_voiceLineEvent);
+            evt.start();
+            OnStartStopVoiceLine?.Invoke(true);
+        }
         private void StopVoiceLine() {
             _animator.CrossFade("Boss Decompose", .25f);
             _animator.SetBool(AnimProp_IsTalking, false);
+            OnStartStopVoiceLine?.Invoke(false);
         }
 
         [UsedImplicitly]

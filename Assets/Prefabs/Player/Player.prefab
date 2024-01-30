@@ -471,6 +471,7 @@ MonoBehaviour:
   lavaJumpForce: 1.5
   timeDelay: 1
   lavaDamage: 2
+  jumpCooldown: 4
 --- !u!114 &7329885879184918812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -487,6 +488,8 @@ MonoBehaviour:
   sensitivityY: 30
   maxRot: 70
   minRot: -70
+  speed: 16
+  amount: 0.1
   crouchingTime: 0.3
   cam: {fileID: 6727737949139509557}
 --- !u!114 &599590968436143203
@@ -503,7 +506,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthToAdd: 2
   TimeBeforeStartHealing: 3
-  healthBar: {fileID: 0}
 --- !u!114 &9033090158500113743
 MonoBehaviour:
   m_ObjectHideFlags: 0

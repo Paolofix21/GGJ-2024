@@ -16,19 +16,34 @@ namespace Code.Player
         [SerializeField] private float maxRot;
         [SerializeField] private float minRot;
 
+        [Header("Bobbing")]
+        [SerializeField] private float speed;
+        [SerializeField] private float amount;
+        private float timer;
+
         [SerializeField, Space(10)] private float crouchingTime = .3f;
 
         [SerializeField] private GameObject cam;
         private CinemachineVirtualCamera vcam;
+        private CinemachineTransposer transposer;
+        private CharacterController controller;
 
         private float xrot = 0f;
         private float yrot = 0f;
 
-        private void Start()
+        private float defaultY = .7f;
+
+        private void Awake()
         {
             vcam = cam.GetComponent<CinemachineVirtualCamera>();
+            transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
+            controller = GetComponent<CharacterController>();
         }
 
+        private void Update()
+        {
+            DoHeadBobbing();
+        }
         public void GetMousePos(Vector2 input)
         {
             float mousex = input.x;
@@ -43,31 +58,45 @@ namespace Code.Player
             transform.rotation = Quaternion.Euler(0, yrot, 0);
         }
 
-        public async void ChangeViewHeight(bool _value)
+        #region Crouching [NOT USED]
+        //public async void ChangeViewHeight(bool _value)
+        //{
+        //    var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
+
+        //    var standingView = new Vector3(0, 0.7f, 0.9f); 
+        //    var crouchedView = new Vector3(0, -0.3f, 0.9f);
+
+        //    var _time = 0f;
+
+        //    Vector3 valueToReach;
+        //    Vector3 transposerPos = transposer.m_FollowOffset;
+
+        //    if (_value)
+        //        valueToReach = crouchedView;
+        //    else
+        //        valueToReach = standingView;
+
+        //    while(_time < crouchingTime)
+        //    {
+        //        transposer.m_FollowOffset = Vector3.Lerp(transposerPos, valueToReach, _time / crouchingTime);
+        //        _time += Time.deltaTime;
+        //        await Task.Yield();
+        //    }
+        //}
+        #endregion
+
+        private void DoHeadBobbing()
         {
-            var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
-
-            var standingView = new Vector3(0, 0.7f, 0.9f); 
-            var crouchedView = new Vector3(0, -0.3f, 0.9f);
-
-            var _time = 0f;
-
-            Vector3 valueToReach;
-            Vector3 transposerPos = transposer.m_FollowOffset;
-
-            if (_value)
-                valueToReach = crouchedView;
-            else
-                valueToReach = standingView;
-
-            while(_time < crouchingTime)
+            if (controller.velocity.sqrMagnitude > 0.0001f)
             {
-                transposer.m_FollowOffset = Vector3.Lerp(transposerPos, valueToReach, _time / crouchingTime);
-                _time += Time.deltaTime;
-                await Task.Yield();
+                timer += Time.deltaTime * speed;
+                transposer.m_FollowOffset = new Vector3(transposer.m_FollowOffset.x, defaultY + Mathf.Sin(timer) * amount, transposer.m_FollowOffset.z);
             }
-            
-
+            else
+            {
+                timer = 0;
+                transposer.m_FollowOffset = new Vector3(transposer.m_FollowOffset.x, Mathf.Lerp(transposer.m_FollowOffset.y, defaultY, Time.deltaTime * speed), transposer.m_FollowOffset.z);
+            }
 
         }
     }

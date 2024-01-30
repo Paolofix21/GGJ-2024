@@ -56,6 +56,9 @@ namespace Code.Player {
         [SerializeField] private int timeDelay;
         [SerializeField] private int lavaDamage;
 
+        [SerializeField] private float jumpCooldown;
+        private float currentCooldownValue;
+
         private bool isInsideLava = false;
         #endregion
 
@@ -152,13 +155,14 @@ namespace Code.Player {
 
         #region Movement Behaviours
         private void TestRotateWeapons(InputAction.CallbackContext callbackContext) {
+
+            if (isDead) return;
             int directionalIndex = (int)callbackContext.ReadValue<float>();
 
             currentSelectedWeapon = (currentSelectedWeapon + directionalIndex).Cycle(0, 5);
             int animatorIndex = GetAnimatorIndex(currentSelectedWeapon);
 
             SetWeaponType(currentSelectedWeapon, animatorIndex);
-            Debug.Log($"Current selected weapon: {currentSelectedWeapon}");
         }
 
         private void GetMovement() {
@@ -180,12 +184,11 @@ namespace Code.Player {
         }
 
         private void Jump(InputAction.CallbackContext ctx) {
-            Debug.Log(controller.isGrounded);
-            if (controller.isGrounded) {
+            
+            if (controller.isGrounded && currentCooldownValue <=0) {
                 vel.y = Mathf.Sqrt((isInsideLava ? lavaJumpForce : jumpForce) * -3 * grav);
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
-
                 //if (crouching)
                 //    Crouch(ctx, false);
             }
@@ -215,11 +218,12 @@ namespace Code.Player {
 
         private IEnumerator WalkInLava() {
             isInsideLava = true;
+            ResetJump();
 
-            if (crouching) {
-                crouching = !crouching;
-                cameraLook.ChangeViewHeight(crouching);
-            }
+            //if (crouching) {
+            //    crouching = !crouching;
+            //    cameraLook.ChangeViewHeight(crouching);
+            //}
 
             while (isInsideLava) {
                 Health.GetDamage(lavaDamage);
@@ -227,14 +231,34 @@ namespace Code.Player {
             }
         }
 
+        private async void ResetJump()
+        {
+            if (!isInsideLava) return;
+            currentCooldownValue = jumpCooldown;
+
+            while(currentCooldownValue > 0) 
+            {
+                if (!this)
+                    return;
+
+                Debug.Log(currentCooldownValue);
+                currentCooldownValue -= Time.deltaTime;
+                await Task.Yield();
+            }
+        }
+
         private void ExitLava() {
             StopCoroutine(nameof(WalkInLava));
             isInsideLava = false;
+            currentCooldownValue = 0;
+            
         }
         #endregion
 
         #region Animation Behaviours
         private void SetWeaponType(int type, int clip) {
+            if (isDead) return;
+
             anim.ResetTrigger(shootTrigger);
             anim.SetBool(isShooting, false);
             visualSetter.SetHueDeg(hueValue[type].ObjectHue);
@@ -248,6 +272,7 @@ namespace Code.Player {
         }
 
         private void PlayShoot(InputAction.CallbackContext ctx) {
+            if (isDead) return;
             if (OnShootRequest != null && OnShootRequest.Invoke())
                 anim.SetTrigger(shootTrigger);
         }

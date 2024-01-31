@@ -7,6 +7,7 @@ public class PlayerWeaponAnimatorListener : MonoBehaviour {
 
     [UsedImplicitly]
     private void Shoot() {
-        OnAnimatorShootCallback?.Invoke();
+        if(enabled && Time.timeScale != 0)
+            OnAnimatorShootCallback?.Invoke();
     }
 }

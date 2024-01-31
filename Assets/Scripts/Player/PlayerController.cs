@@ -150,13 +150,19 @@ namespace Code.Player {
                 Singleton = null;
         }
 
-        private void Intro(bool ongoing) => arms.gameObject.SetActive(!ongoing);
+        private void Intro(bool ongoing) 
+        { 
+            arms.gameObject.SetActive(!ongoing);
+
+            if (!ongoing)
+                SetWeaponType(currentSelectedWeapon, GetAnimatorIndex(currentSelectedWeapon));
+        }
         #endregion
 
         #region Movement Behaviours
         private void TestRotateWeapons(InputAction.CallbackContext callbackContext) {
 
-            if (isDead) return;
+            if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
             int directionalIndex = (int)callbackContext.ReadValue<float>();
 
             currentSelectedWeapon = (currentSelectedWeapon + directionalIndex).Cycle(0, 5);
@@ -256,22 +262,23 @@ namespace Code.Player {
 
         #region Animation Behaviours
         private void SetWeaponType(int type, int clip) {
-            if (isDead) return;
+            if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
 
             anim.ResetTrigger(shootTrigger);
             anim.SetBool(isShooting, false);
             visualSetter.SetHueDeg(hueValue[type].ObjectHue);
 
-            if (anim.GetInteger(weaponType) == type)
-                return;
+            if (anim.GetInteger(weaponType) == type) return;
 
             OnWeaponChanged?.Invoke(type);
             anim.SetInteger(weaponType, type);
             anim.Play(clip);
+
+            if(currentSelectedWeapon != type) currentSelectedWeapon = type;
         }
 
         private void PlayShoot(InputAction.CallbackContext ctx) {
-            if (isDead) return;
+            if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
             if (OnShootRequest != null && OnShootRequest.Invoke())
                 anim.SetTrigger(shootTrigger);
         }

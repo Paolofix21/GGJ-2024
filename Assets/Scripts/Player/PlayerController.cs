@@ -164,15 +164,15 @@ namespace Code.Player {
 
             SetWeaponType(currentSelectedWeapon, animatorIndex);
         }
-
         private void GetMovement() {
             Vector3 dir = Vector3.zero;
             vel.x = input.GetMovement().x * _currentSpeed;
             vel.z = input.GetMovement().y * _currentSpeed;
             vel = transform.TransformDirection(vel);
-
+            
             if (controller.isGrounded && vel.y < 0) {
-                vel.y = -2;
+                
+                vel.y = -10;
             }
             else {
                 vel.y += grav * 4f * Time.deltaTime;
@@ -241,7 +241,6 @@ namespace Code.Player {
                 if (!this)
                     return;
 
-                Debug.Log(currentCooldownValue);
                 currentCooldownValue -= Time.deltaTime;
                 await Task.Yield();
             }

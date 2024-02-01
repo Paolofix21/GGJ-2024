@@ -93,7 +93,7 @@ namespace Code.Player {
             _currentSpeed = speed;
         }
         private void Start() {
-            cutscene.OnIntroStartStop += Intro;
+            // cutscene.OnIntroStartStop += Intro;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
@@ -143,7 +143,7 @@ namespace Code.Player {
             input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
             Health.OnPlayerDeath -= PlayerDeath;
-            cutscene.OnIntroStartStop -= Intro;
+            // cutscene.OnIntroStartStop -= Intro;
 
             if (Singleton == this)
                 Singleton = null;

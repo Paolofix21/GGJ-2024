@@ -47,7 +47,7 @@ namespace Code.Weapons {
                 return;
 
             foreach (Collider collider in hitColliders) {
-                IDamageable damageable = collider.GetComponent<IDamageable>();
+                IDamageable damageable = collider.GetComponentInParent<IDamageable>();
 
                 if (damageable == null)
                     continue;

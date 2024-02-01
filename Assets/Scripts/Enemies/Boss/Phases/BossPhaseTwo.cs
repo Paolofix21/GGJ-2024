@@ -2,11 +2,15 @@
 
 namespace Code.EnemySystem.Boss.Phases {
     [System.Serializable]
-    public class BossPhaseOne : BossPhaseBase {
+    public class BossPhaseTwo : BossPhaseBase {
         #region Public Variables
         [SerializeField, Min(0f)] private float m_minAttackDelay = 2f;
         [SerializeField, Min(0.1f)] private float m_maxAttackDelay = 5f;
-        [SerializeField, Min(1)] private int m_rounds = 3;
+        [SerializeField, Min(1f)] private float m_duration = 4f;
+        #endregion
+
+        #region Properties
+        public float Duration => m_duration;
         #endregion
 
         #region Overrides
@@ -20,7 +24,7 @@ namespace Code.EnemySystem.Boss.Phases {
         #region Private Methods
         private void TriggerShoot() {
             var random = Random.Range(m_minAttackDelay, m_maxAttackDelay);
-            var duration = boss.BossAnimator.AnimateFireBallsAttack(m_rounds);
+            var duration = boss.BossAnimator.AnimateLaserBeamAttack(m_duration);
             Invoke(TriggerShoot, random + duration);
         }
         #endregion

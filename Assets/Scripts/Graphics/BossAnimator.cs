@@ -13,6 +13,8 @@ namespace Code.Graphics {
         [SerializeField] private EventReference m_voiceLineEvent;
         [Space]
         [SerializeField] private AnimationClip m_recomposeAnimationClip;
+        [SerializeField] private AnimationClip m_shootLoopAnimationClip;
+        [SerializeField] private AnimationClip m_laserBeamStartAnimationClip, m_laserBeamStopAnimationClip;
 
         public event System.Action OnShoot;
         public event System.Action<bool> OnStartStopVoiceLine;
@@ -34,6 +36,27 @@ namespace Code.Graphics {
         #endregion
 
         #region Public Methods
+        public float AnimateFireBallsAttack(int rounds) {
+            _animator.CrossFade("Boss Shoot (Start)", .25f);
+            var length = m_shootLoopAnimationClip.length * rounds;
+            Invoke(nameof(StopShooting), length);
+            return length;
+        }
+
+        public float AnimateLaserBeamAttack(float duration) {
+            _animator.CrossFade("Boss Laser Beam (Start)", .25f);
+            var length = m_laserBeamStartAnimationClip.length + m_laserBeamStopAnimationClip.length + duration;
+            Invoke(nameof(StopLaserBeam), length);
+            return length;
+        }
+
+        public void AnimateVoiceLine(float duration) {
+            Invoke(nameof(StartVoiceLine), m_recomposeAnimationClip.length);
+            _animator.CrossFade("Boss Recompose", .25f);
+            _animator.SetBool(AnimProp_IsTalking, true);
+            Invoke(nameof(StopVoiceLine), duration + m_recomposeAnimationClip.length);
+        }
+
         public void AnimateAttack(int phase, float duration = 0f) {
             switch (phase) {
                 case 0:
@@ -57,6 +80,8 @@ namespace Code.Graphics {
         #endregion
 
         #region Private Methods
+        private void StopShooting() => _animator.CrossFade("Boss Shoot (End)", .25f);
+
         private void StopLaserBeam() => _animator.CrossFade("Boss Laser Beam (End)", .25f);
 
         private void StartVoiceLine() {

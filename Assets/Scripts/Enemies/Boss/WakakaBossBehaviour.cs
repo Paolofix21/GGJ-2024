@@ -25,23 +25,30 @@ namespace Code.EnemySystem.Boss {
 
         [Space]
         [SerializeField] private BossPhaseOne m_phaseOne;
+        [SerializeField] private BossPhaseTwo m_phaseTwo;
 
         [Header("References")]
         [SerializeField] private BossAnimator m_bossAnimator;
+        [SerializeField] private Animator m_animator;
         #endregion
 
         #region Private Variables
         private WakakaHealth _health;
         private BossAttackFireBalls _attackFireBalls;
+        private BossAttackLaserBeams _attackLaserBeams;
+
+        private Transform _target;
 
         private Coroutine _switchPhaseCoroutine;
 
         private BossPhaseBase _currentPhase;
+        private static readonly int AnimProp_LookAtWeight = Animator.StringToHash("Look At Weight");
         #endregion
 
         #region Properties
         public bool IsSwitchingPhase => _switchPhaseCoroutine != null;
-        public BossAnimator Animator => m_bossAnimator;
+        public BossAnimator BossAnimator => m_bossAnimator;
+        public Animator Animator => m_animator;
 
         private WakakaBossState Phase { get; set; } = WakakaBossState.None;
         #endregion
@@ -50,6 +57,7 @@ namespace Code.EnemySystem.Boss {
         private void Awake() {
             _health = GetComponent<WakakaHealth>();
             _attackFireBalls = GetComponent<BossAttackFireBalls>();
+            _attackLaserBeams = GetComponent<BossAttackLaserBeams>();
 
             _health.OnHealthChanged += CheckPhase;
             _health.OnDeath += Die;
@@ -58,7 +66,11 @@ namespace Code.EnemySystem.Boss {
             m_bossAnimator.OnShoot += Shoot;
 
             m_phaseOne.SetUp(this);
+            m_phaseTwo.SetUp(this);
+            // m_phaseThree.SetUp(this);
         }
+
+        private void Start() => _target = PlayerController.Singleton.transform;
 
         private void Update() {
 #if UNITY_EDITOR
@@ -88,12 +100,14 @@ namespace Code.EnemySystem.Boss {
 
         #region Private Methods
         private void LookAtPlayer() {
-            var dir = PlayerController.Singleton.transform.position - transform.position;
+            var dir = _target.position - transform.position;
             if (m_rotationIgnoreY)
                 dir.y = 0;
             dir.Normalize();
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * m_rotateLerpQuickness);
+            var lookAtWeight = Animator.GetFloat(AnimProp_LookAtWeight);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * m_rotateLerpQuickness * lookAtWeight);
         }
 
         private IEnumerator SwitchPhaseCO(WakakaBossState phase) {
@@ -103,7 +117,8 @@ namespace Code.EnemySystem.Boss {
 
             _currentPhase?.End();
 
-            m_bossAnimator.AnimateAttack(2, duration);
+            // m_bossAnimator.AnimateAttack(2, duration);
+            m_bossAnimator.AnimateVoiceLine(2f);
 
             yield return new WaitForSeconds(duration);
 
@@ -117,7 +132,7 @@ namespace Code.EnemySystem.Boss {
 
         private BossPhaseBase GetPhase(WakakaBossState phase) => phase switch {
             WakakaBossState.PhaseOne => m_phaseOne,
-            // WakakaBossState.PhaseTwo => m_phaseTwo,
+            WakakaBossState.PhaseTwo => m_phaseTwo,
             // WakakaBossState.PhaseThree => m_phaseThree,
             _ => null
         };
@@ -126,21 +141,20 @@ namespace Code.EnemySystem.Boss {
         #region Event Methods
         private void Shoot() {
             switch (Phase) {
-                case WakakaBossState.Transitioning:
-                    break;
-                case WakakaBossState.None:
-                    break;
                 case WakakaBossState.PhaseOne:
-                    _attackFireBalls.Shoot();
+                    _attackFireBalls.ShootAt(_target);
                     break;
                 case WakakaBossState.PhaseTwo:
+                    _attackLaserBeams.ShootAt(m_phaseTwo.Duration, _target);
                     break;
                 case WakakaBossState.PhaseThree:
                     break;
                 case WakakaBossState.Surrender:
                     break;
+                case WakakaBossState.Transitioning:
+                case WakakaBossState.None:
                 default:
-                    throw new ArgumentOutOfRangeException();
+                    return;
             }
         }
 

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1237890675644851790}
   - component: {fileID: 7412805545452696179}
   - component: {fileID: 1327124856187606803}
-  m_Layer: 11
+  m_Layer: 12
   m_Name: FireBall Wakakatu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -112,7 +112,7 @@ Rigidbody:
   m_GameObject: {fileID: 8288374562569313477}
   serializedVersion: 4
   m_Mass: 2
-  m_Drag: 0.5
+  m_Drag: 0
   m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 10
+  m_homingStrength: 0.5
 --- !u!1001 &6267705915484993346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -177,6 +178,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Trail
       objectReference: {fileID: 0}
+    - target: {fileID: 6367013413199279926, guid: fb47f83f98677ee4abb74b0ea33645b0,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5dcafd48fc88f3e4aab543455f6fbbb7, type: 2}
     - target: {fileID: 6367013413199279926, guid: fb47f83f98677ee4abb74b0ea33645b0,
         type: 3}
       propertyPath: m_Parameters.colorGradient.key0.b

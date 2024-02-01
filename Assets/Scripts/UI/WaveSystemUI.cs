@@ -22,33 +22,39 @@ public class WaveSystemUI : MonoBehaviour
 
     #region Private Variables
     private bool cutsceneState;
+    private Coroutine coroutine;
     #endregion
 
     #region Behaviour Callbacks
     private void Awake()
     {
-        WaveSpawner.OnMacroWaveIndexChanged += NewWave;
+        WaveSpawner.OnMacroWaveIndexChanged += StartNewWave;
         CutsceneIntroController.OnIntroStartStop += CheckCutscene;
     }
 
     private void OnDestroy()
     {
-        WaveSpawner.OnMacroWaveIndexChanged -= NewWave;
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+        WaveSpawner.OnMacroWaveIndexChanged -= StartNewWave;
         CutsceneIntroController.OnIntroStartStop -= CheckCutscene;
     }
     #endregion
 
     #region Public Methods
-
-    private async void NewWave(int i) {
+    public void StartNewWave(int i)
+    {
+        coroutine = StartCoroutine(NewWaveCO(i));
+    }
+    private IEnumerator NewWaveCO(int i) {
         if(i != 0) {
             WaveText.text = "Wave ended";
             WaveTextGlow.text = "Wave ended";
             WaveObject?.SetActive(true);
             myAnimator.SetTrigger("default");
-            await Task.Delay(2000);
+            yield return new WaitForSeconds(2.0f);
             myAnimator.SetTrigger("go");
-            await Task.Delay(1000);
+            yield return new WaitForSeconds(1.0f);
             WaveObject?.SetActive(false);
         }
         OnEndWave?.Invoke(i);
@@ -57,15 +63,16 @@ public class WaveSystemUI : MonoBehaviour
         WaveTextGlow.text = waveText;
 
         while(cutsceneState)
-            await Task.Yield();
+            yield return Task.Yield();
 
-        await Task.Delay(500);
+        yield return new WaitForSeconds(0.5f);
         WaveObject?.SetActive(true);
         myAnimator.SetTrigger("default");
-        await Task.Delay(5000);
+        yield return new WaitForSeconds(5.0f);
         myAnimator.SetTrigger("go");
-        await Task.Delay(1000);
+        yield return new WaitForSeconds(1.0f);
         WaveObject?.SetActive(false);
+        coroutine = null;
     }
     public void CheckCutscene(bool isEnded)
     {

@@ -14,7 +14,7 @@ namespace Code.EnemySystem.Boss {
 
         #region Behaviour Callbacks
         private void OnDrawGizmos() {
-            Gizmos.color = Color.red;
+            Gizmos.color = Color.yellow;
             m_eyes.ForEach(sp => Gizmos.DrawRay(sp.position, sp.forward * 3f));
             Gizmos.color = Color.white;
         }

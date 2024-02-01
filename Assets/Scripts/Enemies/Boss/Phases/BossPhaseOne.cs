@@ -9,12 +9,24 @@ namespace Code.EnemySystem.Boss.Phases {
         [SerializeField, Min(1)] private int m_rounds = 3;
         #endregion
 
+        #region Private Variables
+        private BossAttackFireBalls _attackFireBalls;
+        #endregion
+
         #region Overrides
-        public override void Begin() => Invoke(TriggerShoot, 1f);
+        protected override void OnSetup() => _attackFireBalls = boss.GetComponent<BossAttackFireBalls>();
+
+        public override void Begin() {
+            Invoke(TriggerShoot, 1f);
+            boss.BossAnimator.OnShoot += Shoot;
+        }
 
         public override void Execute() { }
 
-        public override void End() => CancelInvoke();
+        public override void End() {
+            CancelInvoke();
+            boss.BossAnimator.OnShoot -= Shoot;
+        }
         #endregion
 
         #region Private Methods
@@ -23,6 +35,10 @@ namespace Code.EnemySystem.Boss.Phases {
             var duration = boss.BossAnimator.AnimateFireBallsAttack(m_rounds);
             Invoke(TriggerShoot, random + duration);
         }
+        #endregion
+
+        #region Event Methods
+        private void Shoot() => _attackFireBalls.ShootAt(boss.Target);
         #endregion
     }
 }

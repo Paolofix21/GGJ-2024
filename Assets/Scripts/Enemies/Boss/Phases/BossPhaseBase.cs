@@ -11,13 +11,20 @@ namespace Code.EnemySystem.Boss.Phases {
         #endregion
 
         #region Constructors
-        public void SetUp(WakakaBossBehaviour bossBehaviour) => boss = bossBehaviour;
+        public void SetUp(WakakaBossBehaviour bossBehaviour) {
+            boss = bossBehaviour;
+            OnSetup();
+        }
         #endregion
 
         #region Public Methods
+        protected virtual void OnSetup() {}
+
         public abstract void Begin();
         public abstract void Execute();
         public abstract void End();
+
+        public virtual void OnGUI() => GUILayout.Label(GetType().Name);
         #endregion
 
         #region Private Methods

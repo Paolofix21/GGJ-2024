@@ -9,16 +9,24 @@ namespace Code.EnemySystem.Boss.Phases {
         [SerializeField, Min(1f)] private float m_duration = 4f;
         #endregion
 
-        #region Properties
-        public float Duration => m_duration;
+        #region Private Variables
+        private BossAttackLaserBeams _attackLaserBeams;
         #endregion
 
         #region Overrides
-        public override void Begin() => Invoke(TriggerShoot, 1f);
+        protected override void OnSetup() => _attackLaserBeams = boss.GetComponent<BossAttackLaserBeams>();
+
+        public override void Begin() {
+            Invoke(TriggerShoot, 1f);
+            boss.BossAnimator.OnShoot += Shoot;
+        }
 
         public override void Execute() { }
 
-        public override void End() => CancelInvoke();
+        public override void End() {
+            CancelInvoke();
+            boss.BossAnimator.OnShoot -= Shoot;
+        }
         #endregion
 
         #region Private Methods
@@ -27,6 +35,10 @@ namespace Code.EnemySystem.Boss.Phases {
             var duration = boss.BossAnimator.AnimateLaserBeamAttack(m_duration);
             Invoke(TriggerShoot, random + duration);
         }
+        #endregion
+      
+        #region Event Methods
+        private void Shoot() => _attackLaserBeams.ShootAt(m_duration, boss.Target);
         #endregion
     }
 }

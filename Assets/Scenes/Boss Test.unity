@@ -221,6 +221,7 @@ GameObject:
   - component: {fileID: 57693340}
   - component: {fileID: 57693339}
   - component: {fileID: 57693338}
+  - component: {fileID: 57693343}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -381,6 +382,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 25.093, y: 8.794, z: -7.573}
+--- !u!114 &57693343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 57693337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86c6556701af9e04380698b89f691b6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attenuationObject: {fileID: 0}
 --- !u!1 &75716795
 GameObject:
   m_ObjectHideFlags: 0
@@ -706,7 +720,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Left
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -737,7 +751,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Right
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -819,10 +833,25 @@ PrefabInstance:
       propertyPath: cutscene
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5484565650131765975, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: maxRot
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 5484565650131765975, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: minRot
+      value: -70
+      objectReference: {fileID: 0}
     - target: {fileID: 8357597750909187213, guid: 359d8fe581768dd408449a6edff0ee05,
         type: 3}
       propertyPath: m_Name
       value: Player - Weapons
+      objectReference: {fileID: 0}
+    - target: {fileID: 8357597750909187213, guid: 359d8fe581768dd408449a6edff0ee05,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -909,7 +938,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Right Mid
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1107,6 +1136,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2144238191}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &922310096
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922310097}
+  m_Layer: 0
+  m_Name: Trapezio Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &922310097
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922310096}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.00000023841858, y: 0.45, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6639496791892394577}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &936856628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1270,7 @@ GameObject:
   m_Layer: 0
   m_Name: Spawn Left Mid
   m_TagString: Untagged
-  m_Icon: {fileID: -5938655980376293919, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -2023,21 +2083,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f84fde5c0a3a4c518c826daea5b67c26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  emitter: {fileID: 2955179981383671993}
-  m_voiceLineEvent:
-    Guid:
-      Data1: -1994142323
-      Data2: 1145612764
-      Data3: -1567957624
-      Data4: -1462515303
-    Path: event:/VO/VO_Boss
+  m_emitter: {fileID: 2955179981383671993}
   m_recomposeAnimationClip: {fileID: -6732462163121900185, guid: cd2e031c273d3da46970d39bbe4dc409,
+    type: 3}
+  m_decomposeAnimationClip: {fileID: 3581712291163135081, guid: 45af39cd40992ed47898b99648d202d7,
     type: 3}
   m_shootLoopAnimationClip: {fileID: -5666360371360097956, guid: 132c0fafd71b255449a840a00dc8f29a,
     type: 3}
   m_laserBeamStartAnimationClip: {fileID: 5335943263762784975, guid: c43462e19ca3e9c4fb2d993af7f46bdc,
     type: 3}
   m_laserBeamStopAnimationClip: {fileID: -239320695280431832, guid: b0bdb528f7f9faa4881d10bc97fedad4,
+    type: 3}
+  m_trapezioAttackAnimationClip: {fileID: -4405277555714672072, guid: ae72184ae83918d4b8fd2418ba851a0a,
     type: 3}
 --- !u!1 &1554208694050133795
 GameObject:
@@ -2052,6 +2109,7 @@ GameObject:
   - component: {fileID: 6639496791892394579}
   - component: {fileID: 6639496791892394578}
   - component: {fileID: 6639496791892394581}
+  - component: {fileID: 6639496791892394582}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -2303,6 +2361,7 @@ Transform:
   - {fileID: 1197621977}
   - {fileID: 2144238191}
   - {fileID: 167237767}
+  - {fileID: 922310097}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6639496791892394578
@@ -2343,7 +2402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e053b8a0d394fd0b69432263470e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 500
+  m_maxHealth: 1000
   m_type: -1
 --- !u!114 &6639496791892394580
 MonoBehaviour:
@@ -2367,6 +2426,10 @@ MonoBehaviour:
     m_minAttackDelay: 0.5
     m_maxAttackDelay: 3
     m_duration: 2
+  m_phaseThree:
+    m_minAttackDelay: 2
+    m_maxAttackDelay: 5
+    m_rounds: 3
   m_bossAnimator: {fileID: 1097022459929679160}
   m_animator: {fileID: 5940485499493797452}
 --- !u!114 &6639496791892394581
@@ -2387,6 +2450,22 @@ MonoBehaviour:
   m_eyes:
   - {fileID: 75716796}
   - {fileID: 1315366951}
+--- !u!114 &6639496791892394582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1554208694050133795}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d78b3e24f7554261a41da8cbf9f640f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_fireBallPrefab: {fileID: 7677463861789908061, guid: 1834d073e19746a41a218f64deafb92f,
+    type: 3}
+  m_shootSpeed: 20
+  m_spawnPoint: {fileID: 922310097}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

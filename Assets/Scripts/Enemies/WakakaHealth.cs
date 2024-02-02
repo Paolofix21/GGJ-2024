@@ -32,6 +32,7 @@ namespace Code.EnemySystem {
                 return;
 
             OnDeath?.Invoke();
+            enabled = false;
         }
         #endregion
 

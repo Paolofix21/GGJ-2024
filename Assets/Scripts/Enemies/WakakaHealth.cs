@@ -22,7 +22,7 @@ namespace Code.EnemySystem {
         #endregion
 
         #region IDamageable
-        public bool GetDamage(DamageType damageType) => m_type.HasFlag(damageType);
+        public bool GetDamage(DamageType damageType) => enabled && (m_type & damageType) != 0;
 
         public void ApplyDamage(float amount) {
             _currentHealth -= amount;
@@ -32,6 +32,7 @@ namespace Code.EnemySystem {
                 return;
 
             OnDeath?.Invoke();
+            enabled = false;
         }
         #endregion
 

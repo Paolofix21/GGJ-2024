@@ -109,7 +109,7 @@ namespace Code.EnemySystem {
                 case WakakaState.Chase:
                     break;
                 case WakakaState.Flee:
-                    _moveDirection = -_moveDirection;
+                    _moveDirection = (PlayerController.Singleton.transform.position - transform.position).normalized;
                     break;
                 default:
                     return;

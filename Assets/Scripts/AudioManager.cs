@@ -34,12 +34,12 @@ public class AudioManager : MonoBehaviour
     }
 
     private void Start() {
-        SetBusVolume( "bus:/", .50f);
-        //SetBusVolume("bus:/Ambience", .25f);
-        SetBusVolume("bus:/Music", .50f);
-        //SetBusVolume("bus:/SFX", .25f);
-        //SetBusVolume("bus:/UI", .25f);
-        //SetBusVolume("bus:/VO", .25f);
+        SetBusVolume( "bus:/", .5f);
+        SetBusVolume("bus:/Ambience", 1f);
+        SetBusVolume("bus:/Music", .5f);
+        SetBusVolume("bus:/SFX", 1f);
+        SetBusVolume("bus:/UI", 1f);
+        SetBusVolume("bus:/VO", 1f);
     }
 
     private void SetBusVolume(string busName, float value) {

@@ -2,6 +2,7 @@
 using Code.EnemySystem.Boss.Phases;
 using Code.Graphics;
 using Code.Player;
+using Miscellaneous;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss {
@@ -25,10 +26,13 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private BossPhaseOne m_phaseOne;
         [SerializeField] private BossPhaseTwo m_phaseTwo;
         [SerializeField] private BossPhaseThree m_phaseThree;
+        [SerializeField] private BossPhaseSurrender m_phaseSurrender;
 
         [Header("References")]
         [SerializeField] private BossAnimator m_bossAnimator;
         [SerializeField] private Animator m_animator;
+
+        public event System.Action OnSurrender; 
         #endregion
 
         #region Private Variables
@@ -38,6 +42,8 @@ namespace Code.EnemySystem.Boss {
         private Coroutine _switchPhaseCoroutine;
 
         private BossPhaseBase _currentPhase;
+        private bool _freezeExecution;
+
         private static readonly int AnimProp_LookAtWeight = Animator.StringToHash("Look At Weight");
         #endregion
 
@@ -57,11 +63,12 @@ namespace Code.EnemySystem.Boss {
             _health.OnHealthChanged += CheckPhase;
             _health.OnDeath += Die;
 
-            m_bossAnimator.OnStartStopVoiceLine += OnVoiceLineStartStop;
+            CutsceneIntroController.OnIntroStartStop += HandleCutscene;
 
             m_phaseOne.SetUp(this);
             m_phaseTwo.SetUp(this);
             m_phaseThree.SetUp(this);
+            m_phaseSurrender.SetUp(this);
         }
 
         private void Start() => _target = PlayerController.Singleton.transform;
@@ -71,6 +78,9 @@ namespace Code.EnemySystem.Boss {
             if (Input.GetKeyDown(KeyCode.F11))
                 SetPhase(WakakaBossState.PhaseOne);
 #endif
+
+            if (_freezeExecution)
+                return;
 
             LookAtPlayer();
 
@@ -89,11 +99,18 @@ namespace Code.EnemySystem.Boss {
             _health.OnHealthChanged -= CheckPhase;
             _health.OnDeath -= Die;
 
-            m_bossAnimator.OnStartStopVoiceLine -= OnVoiceLineStartStop;
+            CutsceneIntroController.OnIntroStartStop -= HandleCutscene;
         }
         #endregion
 
         #region Public Methods
+        public void Surrender() {
+            m_bossAnimator.AnimateDeath();
+            m_animator.enabled = false;
+            Destroy(this);
+            Destroy(_health);
+            OnSurrender?.Invoke();
+        }
         #endregion
 
         #region Private Methods
@@ -109,26 +126,26 @@ namespace Code.EnemySystem.Boss {
         }
 
         private IEnumerator SwitchPhaseCO(WakakaBossState phase) {
-            const float duration = 3f;
-
             Phase = WakakaBossState.Transitioning;
+            _health.enabled = false;
 
             _currentPhase?.End();
 
-            // m_bossAnimator.AnimateAttack(2, duration);
             var animTime = m_bossAnimator.AnimateRecompose();
             yield return new WaitForSeconds(animTime);
 
             animTime = m_bossAnimator.AnimateVoiceLineAuto();
             yield return new WaitForSeconds(animTime);
 
-            m_bossAnimator.AnimateDecompose();
+            animTime = m_bossAnimator.AnimateDecompose();
+            yield return new WaitForSeconds(animTime);
 
             Phase = phase;
 
             _currentPhase = GetPhase(Phase);
             _currentPhase?.Begin();
 
+            _health.enabled = true;
             _switchPhaseCoroutine = null;
         }
 
@@ -136,12 +153,16 @@ namespace Code.EnemySystem.Boss {
             WakakaBossState.PhaseOne => m_phaseOne,
             WakakaBossState.PhaseTwo => m_phaseTwo,
             WakakaBossState.PhaseThree => m_phaseThree,
+            WakakaBossState.Surrender => m_phaseSurrender,
             _ => null
         };
         #endregion
 
         #region Event Methods
-        private void OnVoiceLineStartStop(bool started) => _health.enabled = !started;
+        private void HandleCutscene(bool isPlaying) {
+            _freezeExecution = isPlaying;
+            _health.enabled = !_freezeExecution;
+        }
 
         private void CheckPhase(float health) {
             switch (Phase) {
@@ -155,6 +176,7 @@ namespace Code.EnemySystem.Boss {
                     break;
                 case WakakaBossState.PhaseThree:
                 case WakakaBossState.Surrender:
+                    break;
                 case WakakaBossState.None:
                 default:
                     return;
@@ -169,7 +191,16 @@ namespace Code.EnemySystem.Boss {
             if (_switchPhaseCoroutine != null)
                 StopCoroutine(_switchPhaseCoroutine);
 
-            _switchPhaseCoroutine = StartCoroutine(SwitchPhaseCO(phase));
+            if (phase != WakakaBossState.Surrender) {
+                _switchPhaseCoroutine = StartCoroutine(SwitchPhaseCO(phase));
+                return;
+            }
+
+            Phase = phase;
+            _currentPhase?.End();
+            _currentPhase = GetPhase(Phase);
+            _currentPhase.Begin();
+            _currentPhase.End();
         }
         #endregion
     }

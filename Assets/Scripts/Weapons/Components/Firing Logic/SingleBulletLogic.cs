@@ -52,7 +52,7 @@ namespace Code.Weapons {
 
                 Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
-                IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
+                IDamageable damageable = hitInfo.collider.GetComponentInParent<IDamageable>();
 
                 if (damageable == null)
                     return;

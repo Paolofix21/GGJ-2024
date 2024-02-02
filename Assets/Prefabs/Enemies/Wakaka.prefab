@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_dot: 5
   m_damageRate: 0.75
+  m_maskAnimator: {fileID: 7224278692960587035}
 --- !u!114 &4335379152397978567
 MonoBehaviour:
   m_ObjectHideFlags: 0

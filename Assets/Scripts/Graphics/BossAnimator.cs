@@ -1,13 +1,20 @@
-﻿using FMODUnity;
+﻿using FMOD;
+using FMOD.Studio;
+using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Code.Graphics {
     [RequireComponent(typeof(Animator))]
     public class BossAnimator : MonoBehaviour {
         #region Public Variables
-        [SerializeField] private StudioEventEmitter m_emitter;
-        [Space]
+        [Header("Sounds")]
+        [SerializeField] private EventReference m_voiceLineEvent;
+        [SerializeField] private EventReference m_deathSoundEvent;
+
+        [Header("Animations")]
         [SerializeField] private AnimationClip m_recomposeAnimationClip;
         [SerializeField] private AnimationClip m_decomposeAnimationClip;
         [SerializeField] private AnimationClip m_shootLoopAnimationClip;
@@ -21,6 +28,8 @@ namespace Code.Graphics {
         #region Private Variables
         private Animator _animator;
 
+        private EventInstance _voiceLinePlayer, _deathSoundPlayer;
+
         private static readonly int AnimProp_IsTalking = Animator.StringToHash("Is Talking");
         #endregion
 
@@ -30,6 +39,9 @@ namespace Code.Graphics {
         #region Behaviour Callbacks
         private void Awake() {
             _animator = GetComponent<Animator>();
+
+            _voiceLinePlayer = RuntimeManager.CreateInstance(m_voiceLineEvent);
+            _deathSoundPlayer = RuntimeManager.CreateInstance(m_deathSoundEvent);
         }
         #endregion
 
@@ -62,10 +74,14 @@ namespace Code.Graphics {
         }
 
         public float AnimateVoiceLineAuto() {
-            m_emitter.Play();
-            m_emitter.EventDescription.getLength(out var lenMs);
+            _voiceLinePlayer.set3DAttributes(transform.To3DAttributes());
+            _voiceLinePlayer.setVolume(5f);
+            _voiceLinePlayer.start();
+            _voiceLinePlayer.getDescription(out var description);
+            description.getLength(out var lenMs);
+
             _animator.SetBool(AnimProp_IsTalking, true);
-            var duration = 2f/*lenMs / 1000f*/;
+            var duration = Mathf.Max(1f, lenMs / 1000f);
             Invoke(nameof(StopVoiceLine), duration);
             return duration;
         }
@@ -78,6 +94,13 @@ namespace Code.Graphics {
         public float AnimateDecompose() {
             _animator.CrossFade("Boss Decompose", .25f);
             return m_decomposeAnimationClip.length;
+        }
+
+        public void AnimateDeath() {
+            _voiceLinePlayer.stop(STOP_MODE.IMMEDIATE);
+            _deathSoundPlayer.set3DAttributes(transform.To3DAttributes());
+            _deathSoundPlayer.setVolume(5f);
+            _deathSoundPlayer.start();
         }
 
         public void AnimateAttack(int phase, float duration = 0f) {
@@ -108,7 +131,7 @@ namespace Code.Graphics {
         private void StopLaserBeam() => _animator.CrossFade("Boss Laser Beam (End)", .25f);
 
         private void StartVoiceLine() {
-            m_emitter.Play();
+            _voiceLinePlayer.start();
             OnStartStopVoiceLine?.Invoke(true);
         }
         private void StopVoiceLine() {
@@ -118,22 +141,6 @@ namespace Code.Graphics {
 
         [UsedImplicitly]
         private void Shoot() => OnShoot?.Invoke();
-        #endregion
-
-#if UNITY_EDITOR
-        [ContextMenu("Attack/Phase 1")]
-        private void AttackPhaseOne() => AnimateAttack(0);
-        [ContextMenu("Attack/Phase 2")]
-        private void AttackPhaseTwo() => AnimateAttack(1, 3f);
-        [ContextMenu("Attack/Phase 3")]
-        private void AttackPhaseThree() {
-            m_emitter.Play();
-            m_emitter.EventDescription.getLength(out var lenMs);
-            AnimateAttack(2, lenMs / 1000f);
-        }
-#endif
-
-        #region Event Methods
         #endregion
     }
 }

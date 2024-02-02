@@ -133,31 +133,110 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Path
-      value: event:/Enemies/Enemy_Laugh
+      propertyPath: m_introVoiceLineEvent.Path
+      value: event:/Enemies/Wakaka_Verse
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data1
-      value: -425258364
+      propertyPath: m_introVoiceLineEvent.Guid.Data1
+      value: -185667264
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data2
-      value: 1217552244
+      propertyPath: m_introVoiceLineEvent.Guid.Data2
+      value: 1225575266
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data3
-      value: -850133102
+      propertyPath: m_introVoiceLineEvent.Guid.Data3
+      value: 1390537643
       objectReference: {fileID: 0}
     - target: {fileID: 7224278692960587035, guid: 08983a69e537e2b49bf89dcd40206c60,
         type: 3}
-      propertyPath: m_laughterClipEvent.Guid.Data4
-      value: 826070098
+      propertyPath: m_introVoiceLineEvent.Guid.Data4
+      value: -1901410886
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7195447452079264840, guid: 08983a69e537e2b49bf89dcd40206c60, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      insertIndex: 1
+      addedObject: {fileID: -1613157412026592841}
+    - targetCorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      insertIndex: 2
+      addedObject: {fileID: -4947679660255642842}
+    - targetCorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5311053294183915195}
   m_SourcePrefab: {fileID: 100100000, guid: 08983a69e537e2b49bf89dcd40206c60, type: 3}
+--- !u!1 &1797600499526160805 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5962471183389833097, guid: 08983a69e537e2b49bf89dcd40206c60,
+    type: 3}
+  m_PrefabInstance: {fileID: 5353847374372824620}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-1613157412026592841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797600499526160805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 881eb93d087f43f7be5a2da5281fe7ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_wanderSpeed: 2
+  m_chaseSpeed: 4
+  m_fleeSpeed: 8
+  m_wanderLerpQuickness: 8
+  m_chaseLerpQuickness: 4
+  m_maxDistanceFromPlayer: 30
+  m_maxWallCastDistance: 3
+--- !u!114 &-4947679660255642842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797600499526160805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e053b8a0d394fd0b69432263470e965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 25
+  m_type: 2
+--- !u!54 &5311053294183915195
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797600499526160805}
+  serializedVersion: 4
+  m_Mass: 2
+  m_Drag: 0.5
+  m_AngularDrag: 1
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0

@@ -18,7 +18,7 @@ namespace Code.EnemySystem {
         public static event System.Action<int> OnMacroWaveIndexChanged;
         public static event System.Action OnBossFightStart;
 
-        private List<EnemyBehavior> _currentEnemies = new();
+        private List<WakakaBehaviour> _currentEnemies = new();
         private float _nextWaveTime;
 
         private void Start() {
@@ -106,12 +106,12 @@ namespace Code.EnemySystem {
 
             AudioManager.instance.PlayOneShot(FMODEvents.instance.spawnEvent, spawnPosition);
 
-            var enemyBehavior = enemy.GetComponent<EnemyBehavior>();
+            var enemyBehavior = enemy.GetComponent<WakakaBehaviour>();
             enemyBehavior.OnDeath += RemoveEnemy;
             _currentEnemies.Add(enemyBehavior);
         }
 
-        private void RemoveEnemy(EnemyBehavior enemyBehavior) {
+        private void RemoveEnemy(WakakaBehaviour enemyBehavior) {
             _currentEnemies.Remove(enemyBehavior);
 
             if (_currentEnemies.Any())

@@ -55,6 +55,9 @@ namespace Code.Player {
         [SerializeField] private int timeDelay;
         [SerializeField] private int lavaDamage;
 
+        [SerializeField] private float jumpCooldown;
+        private float currentCooldownValue;
+
         private bool isInsideLava = false;
         #endregion
 
@@ -98,7 +101,6 @@ namespace Code.Player {
             Cursor.visible = false;
 
             input.playerMap.PlayerActions.Jump.started += Jump;
-            input.playerMap.PlayerActions.Crouch.started += Crouch;
             input.playerMap.PlayerActions.Shoot.started += PlayShoot;
 
             input.playerMap.PlayerActions.ContinuousShoot.started += _ => PlayShootContinuous(true);
@@ -138,7 +140,6 @@ namespace Code.Player {
 
         private void OnDestroy() {
             input.playerMap.PlayerActions.Jump.started -= Jump;
-            input.playerMap.PlayerActions.Crouch.started -= Crouch;
             input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
             Health.OnPlayerDeath -= PlayerDeath;
@@ -148,28 +149,35 @@ namespace Code.Player {
                 Singleton = null;
         }
 
-        private void Intro(bool ongoing) => arms.gameObject.SetActive(!ongoing);
+        private void Intro(bool ongoing) 
+        { 
+            arms.gameObject.SetActive(!ongoing);
+
+            if (!ongoing)
+                SetWeaponType(currentSelectedWeapon, GetAnimatorIndex(currentSelectedWeapon));
+        }
         #endregion
 
         #region Movement Behaviours
         private void TestRotateWeapons(InputAction.CallbackContext callbackContext) {
+
+            if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
             int directionalIndex = (int)callbackContext.ReadValue<float>();
 
             currentSelectedWeapon = (currentSelectedWeapon + directionalIndex).Cycle(0, 5);
             int animatorIndex = GetAnimatorIndex(currentSelectedWeapon);
 
             SetWeaponType(currentSelectedWeapon, animatorIndex);
-            Debug.Log($"Current selected weapon: {currentSelectedWeapon}");
         }
-
         private void GetMovement() {
             Vector3 dir = Vector3.zero;
             vel.x = input.GetMovement().x * _currentSpeed;
             vel.z = input.GetMovement().y * _currentSpeed;
             vel = transform.TransformDirection(vel);
-
+            
             if (controller.isGrounded && vel.y < 0) {
-                vel.y = -2;
+                
+                vel.y = -10;
             }
             else {
                 vel.y += grav * 4f * Time.deltaTime;
@@ -178,48 +186,49 @@ namespace Code.Player {
             _currentSpeed = isInsideLava ? lavaSpeed : (controller.isGrounded ? speed : airborneSpeed);
 
             controller.Move(vel * Time.deltaTime);
-            //controller.Move(vel * Time.deltaTime);
         }
 
         private void Jump(InputAction.CallbackContext ctx) {
-            Debug.Log(controller.isGrounded);
-            if (controller.isGrounded) {
+            
+            if (controller.isGrounded && currentCooldownValue <=0) {
                 vel.y = Mathf.Sqrt((isInsideLava ? lavaJumpForce : jumpForce) * -3 * grav);
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
-
-                if (crouching)
-                    Crouch(ctx, false);
+                //if (crouching)
+                //    Crouch(ctx, false);
             }
         }
 
-        private void Crouch(InputAction.CallbackContext ctx) {
-            Crouch(ctx, true);
-        }
+        #region Crouching [NOT USED]
+        //private void Crouch(InputAction.CallbackContext ctx) {
+        //    Crouch(ctx, true);
+        //}
 
-        private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true) {
-            if (isInsideLava)
-                return;
+        //private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true) {
+        //    if (isInsideLava)
+        //        return;
 
-            crouching = !crouching;
-            cameraLook.ChangeViewHeight(crouching);
+        //    crouching = !crouching;
+        //    cameraLook.ChangeViewHeight(crouching);
 
-            if (shouldReproSFX) {
-                PlayCrouchSound();
-            }
-        }
+        //    if (shouldReproSFX) {
+        //        PlayCrouchSound();
+        //    }
+        //}
 
-        private void PlayCrouchSound() {
-            AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
-        }
+        //private void PlayCrouchSound() {
+        //    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
+        //}
+        #endregion
 
         private IEnumerator WalkInLava() {
             isInsideLava = true;
+            ResetJump();
 
-            if (crouching) {
-                crouching = !crouching;
-                cameraLook.ChangeViewHeight(crouching);
-            }
+            //if (crouching) {
+            //    crouching = !crouching;
+            //    cameraLook.ChangeViewHeight(crouching);
+            //}
 
             while (isInsideLava) {
                 Health.GetDamage(lavaDamage);
@@ -227,27 +236,48 @@ namespace Code.Player {
             }
         }
 
+        private async void ResetJump()
+        {
+            if (!isInsideLava) return;
+            currentCooldownValue = jumpCooldown;
+
+            while(currentCooldownValue > 0) 
+            {
+                if (!this)
+                    return;
+
+                currentCooldownValue -= Time.deltaTime;
+                await Task.Yield();
+            }
+        }
+
         private void ExitLava() {
             StopCoroutine(nameof(WalkInLava));
             isInsideLava = false;
+            currentCooldownValue = 0;
+            
         }
         #endregion
 
         #region Animation Behaviours
         private void SetWeaponType(int type, int clip) {
+            if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
+
             anim.ResetTrigger(shootTrigger);
             anim.SetBool(isShooting, false);
             visualSetter.SetHueDeg(hueValue[type].ObjectHue);
 
-            if (anim.GetInteger(weaponType) == type)
-                return;
+            if (anim.GetInteger(weaponType) == type) return;
 
             OnWeaponChanged?.Invoke(type);
             anim.SetInteger(weaponType, type);
             anim.Play(clip);
+
+            if(currentSelectedWeapon != type) currentSelectedWeapon = type;
         }
 
         private void PlayShoot(InputAction.CallbackContext ctx) {
+            if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
             if (OnShootRequest != null && OnShootRequest.Invoke())
                 anim.SetTrigger(shootTrigger);
         }

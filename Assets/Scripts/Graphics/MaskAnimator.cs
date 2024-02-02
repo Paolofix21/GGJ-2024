@@ -1,16 +1,28 @@
 ﻿using System.Collections;
+using FMOD;
 using FMODUnity;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Code.Graphics {
+    [DefaultExecutionOrder(-1)]
     public class MaskAnimator : MonoBehaviour {
         #region Public Variables
         [SerializeField] private ColorSetSO[] m_colorSets;
+
+        [Header("Intro")]
+        [SerializeField] private EventReference m_introVoiceLineEvent;
+
+        [Header("Laughter")]
         [SerializeField] private AnimationCurve m_laughterAnimation;
         [SerializeField] private EventReference m_laughterClipEvent;
-
-        [Space]
         [SerializeField] private int m_laughterShapeIndex;
+
+        [Header("Death")]
+        [SerializeField] private AnimationCurve m_deathScaleAnimation;
+        [SerializeField] private EventReference m_deathSound;
+        [SerializeField] private ParticleSystem m_deathParticle;
+        [SerializeField] private float m_deathRotationSpeed = 720f;
         #endregion
 
         #region Private Variables
@@ -19,6 +31,8 @@ namespace Code.Graphics {
 
         private MaterialPropertyBlock _block;
         private MaterialPropertyBlock _trailBlock;
+
+        private Coroutine _deathCoroutine;
 
         private bool _animatingLaughter;
 
@@ -48,22 +62,6 @@ namespace Code.Graphics {
             _meshRenderer.SetPropertyBlock(_block);
             _trailRenderer.SetPropertyBlock(_trailBlock);
         }
-
-        [ContextMenu("Set Color/0")]
-        private void SetColorZero() => SetColorType(0);
-        [ContextMenu("Set Color/1")]
-        private void SetColorOne() => SetColorType(1);
-        [ContextMenu("Set Color/2")]
-        private void SetColorTwo() => SetColorType(2);
-        [ContextMenu("Set Color/3")]
-        private void SetColorThree() => SetColorType(3);
-
-        public void SetColorType(int id) {
-            Awake();
-            var colorSet = m_colorSets[id];
-            SetHueDeg(colorSet.ObjectHue, colorSet.ObjectSaturation,colorSet.EmissionColor);
-            SetTrailColor(colorSet.TrailColor);
-        }
         #endregion
 
         #region Public Methods
@@ -79,11 +77,41 @@ namespace Code.Graphics {
             Debug.Log("Laughing\n");
         }
 
+        [ContextMenu("Laugh")]
+        public void AnimateIntroVoiceLine() {
+            var ev = RuntimeManager.CreateInstance(m_introVoiceLineEvent);
+
+            var attr3d = new ATTRIBUTES_3D {
+                position = transform.position.ToFMODVector(),
+                forward = transform.forward.ToFMODVector()
+            };
+
+            ev.set3DAttributes(attr3d);
+            ev.start();
+        }
+
+        [ContextMenu("Laugh")]
+        public void AnimateDeath() {
+            if (_deathCoroutine != null)
+                return;
+
+            _deathCoroutine = StartCoroutine(DeathCO());
+
+            AudioManager.instance.PlayOneShot(m_deathSound, transform.position);
+        }
+
+        public void SetColorType(int id) {
+            if (!didAwake)
+                Awake();
+
+            var colorSet = m_colorSets[id];
+            SetHueDeg(colorSet.ObjectHue, colorSet.ObjectSaturation, colorSet.EmissionColor);
+            SetTrailColor(colorSet.TrailColor);
+        }
         #endregion
 
         #region Private Methods
         private void SetHueDeg(float degrees, float saturation, Color color) {
-            _meshRenderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_Hue, degrees);
             _block.SetFloat(MatProp_Saturation, saturation);
             _block.SetColor(MatProp_EmissionColor, color);
@@ -91,7 +119,6 @@ namespace Code.Graphics {
         }
 
         private void SetTrailColor(Color color) {
-            _trailRenderer.GetPropertyBlock(_trailBlock);
             _trailBlock.SetColor(MatProp_MainColor, color);
             _trailBlock.SetColor(MatProp_EmissionColor, color);
             _trailRenderer.SetPropertyBlock(_trailBlock);
@@ -117,9 +144,33 @@ namespace Code.Graphics {
             _meshRenderer.SetBlendShapeWeight(m_laughterShapeIndex, 0f);
             _animatingLaughter = false;
         }
+
+        private IEnumerator DeathCO() {
+            var t = 0f;
+            var duration = m_deathScaleAnimation.keys[^1].time;
+
+            while (t < duration) {
+                t += Time.deltaTime;
+                transform.localScale = Vector3.one * m_deathScaleAnimation.Evaluate(t);
+                transform.Rotate(m_deathRotationSpeed * Time.deltaTime * Vector3.up, Space.World);
+                yield return null;
+            }
+
+            _deathCoroutine = null;
+            Instantiate(m_deathParticle, transform.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
         #endregion
 
-        #region Event Methods
-        #endregion
+#if UNITY_EDITOR
+        [ContextMenu("Set Color/0")]
+        private void SetColorZero() => SetColorType(0);
+        [ContextMenu("Set Color/1")]
+        private void SetColorOne() => SetColorType(1);
+        [ContextMenu("Set Color/2")]
+        private void SetColorTwo() => SetColorType(2);
+        [ContextMenu("Set Color/3")]
+        private void SetColorThree() => SetColorType(3);
+#endif
     }
 }

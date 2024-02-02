@@ -460,7 +460,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94d5d0169ea5625498950ec30b3e5e38, type: 2}
   - {fileID: 11400000, guid: a6da922e61b50ae4186ba2c0eaef7c18, type: 2}
   endgameUI: {fileID: 0}
-  cutscene: {fileID: 0}
   arms: {fileID: 0}
   airborneSpeed: 16
   speed: 6
@@ -844,7 +843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 1.5
-  cooldown: 30
+  cooldown: 0.85
   soundEventReference:
     Guid:
       Data1: 0

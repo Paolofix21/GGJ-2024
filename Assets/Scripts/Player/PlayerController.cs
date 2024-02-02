@@ -33,6 +33,8 @@ namespace Code.Player {
 
         private int currentSelectedWeapon = default;
 
+        public int CurrentSelectedWeapon { get { return currentSelectedWeapon; } }
+
         private EventInstance footsteps_instance;
 
         private Vector3 vel;

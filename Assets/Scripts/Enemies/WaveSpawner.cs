@@ -17,7 +17,7 @@ namespace Code.EnemySystem {
 
         public static event System.Action<int> OnMacroWaveIndexChanged;
         public static event System.Action OnBossFightStart;
-
+        public static event System.Action OnEnemyDeath;
         private List<WakakaBehaviour> _currentEnemies = new();
         private float _nextWaveTime;
 
@@ -113,7 +113,7 @@ namespace Code.EnemySystem {
 
         private void RemoveEnemy(WakakaBehaviour enemyBehavior) {
             _currentEnemies.Remove(enemyBehavior);
-
+            OnEnemyDeath.Invoke();
             if (_currentEnemies.Any())
                 return;
 

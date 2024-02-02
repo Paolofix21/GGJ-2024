@@ -1,24 +1,38 @@
+using Code.EnemySystem;
+using Code.Player;
+using System;
+using UnityEngine;
+
 namespace Code.Weapons {
 
     public class Sword : Weapon {
+        public const int energyToRecharge = 10;
+        public static int currentEnergy;
+        public static Action OnShoot;
+
         private void Awake() {
-            if (firingLogic != null) {
-                firingLogic.OnCooldownStateChanged += OnCooldownState;
-            }
+            WaveSpawner.OnEnemyDeath += OnEnergyTaken;
         }
         private void OnDestroy() {
-            if (firingLogic != null) {
-                firingLogic.OnCooldownStateChanged -= OnCooldownState;
-            }
+            WaveSpawner.OnEnemyDeath -= OnEnergyTaken;
         }
 
-        // TERRIFICANTE
-        private void OnCooldownState(bool state) {
-            if (!state)
+        private void OnEnergyTaken() {
+            if (cartridge.HasAmmo())
+                return;
+            if (PlayerController.Singleton.CurrentSelectedWeapon == 4)
+                return;
+            if(currentEnergy < energyToRecharge)
+                currentEnergy++;
+            if(currentEnergy == energyToRecharge)
                 Recharge(1);
         }
-
-        public override bool CanShoot() => firingLogic.CanShoot();
+        public override void Shoot()
+        {
+            currentEnergy = 0;
+            OnShoot.Invoke();
+            base.Shoot();
+        }
     }
 
 }

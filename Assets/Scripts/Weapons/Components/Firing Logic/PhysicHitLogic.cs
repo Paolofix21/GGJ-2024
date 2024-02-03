@@ -53,7 +53,7 @@ namespace Code.Weapons {
                     continue;
 
                 if (!damageable.GetDamage(ammunition.GetDamageType()))
-                    return;
+                    continue;
 
                 damageable.ApplyDamage(ammunition.GetDamageAmount());
             }

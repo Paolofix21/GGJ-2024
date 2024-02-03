@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Code.Weapons {
 
@@ -11,19 +12,24 @@ namespace Code.Weapons {
         [Header("References")]
         [SerializeField] private Collider interactableCollider = default;
         [SerializeField] private MeshRenderer meshRenderer = default;
-
+        [SerializeField] private GameObject cooldownCanvas;
+        [SerializeField] private Image cooldownFiller;
         private float elapsedTime = default;
         private bool isRecharging = default; 
 
         private void Update() {
             if (!isRecharging)
                 return;
-
+            if(!cooldownCanvas.activeSelf)
+                cooldownCanvas.SetActive(true);
             elapsedTime += Time.deltaTime;
+            cooldownFiller.fillAmount = elapsedTime/cooldown;
             if (elapsedTime < cooldown)
                 return;
 
             elapsedTime = 0;
+            if (cooldownCanvas.activeSelf)
+                cooldownCanvas.SetActive(false);
             Interactable(true);
         }
 

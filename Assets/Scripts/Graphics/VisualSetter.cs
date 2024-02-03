@@ -1,11 +1,18 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 namespace Code.Graphics {
     [RequireComponent(typeof(SkinnedMeshRenderer))]
     public class VisualSetter : MonoBehaviour {
+        #region Public Variables
+        [SerializeField] private AnimationCurve m_glowProgress = AnimationCurve.EaseInOut(0f, 0f, 1f, 0f);
+        #endregion
+
         #region Private Variables
         private SkinnedMeshRenderer _renderer;
         private MaterialPropertyBlock _block;
+
+        private Coroutine _glowCoroutine;
 
         private static readonly int MatProp_Hue = Shader.PropertyToID("_Hue");
         private static readonly int MatProp_EmissivePower = Shader.PropertyToID("_Emissive_Power");
@@ -47,6 +54,30 @@ namespace Code.Graphics {
         public void SetEmissivePower(float power) {
             _renderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_EmissivePower, power);
+            _renderer.SetPropertyBlock(_block);
+        }
+
+        public void AnimateGlow(float withPower) {
+            if (_glowCoroutine != null)
+                StopCoroutine(_glowCoroutine);
+            _glowCoroutine = StartCoroutine(GlowCO(withPower));
+        }
+        #endregion
+
+        #region Private Variables
+        private IEnumerator GlowCO(float withPower) {
+            _renderer.GetPropertyBlock(_block);
+
+            var t = 0f;
+            var duration = m_glowProgress.keys[^1].time;
+            while (t < duration) {
+                t += Time.deltaTime;
+                _block.SetFloat(MatProp_EmissivePower, m_glowProgress.Evaluate(t / duration) * withPower);
+                _renderer.SetPropertyBlock(_block);
+                yield return null;
+            }
+
+            _block.SetFloat(MatProp_EmissivePower, 0f);
             _renderer.SetPropertyBlock(_block);
         }
         #endregion

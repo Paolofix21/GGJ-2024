@@ -23,11 +23,15 @@ namespace Code.EnemySystem {
         [SerializeField] public float m_fleeSpeed = 2f;
 
         [Space]
+        [SerializeField] public float m_detectionDistance = 2f;
+
+        [Space]
         [SerializeField] public float m_wanderLerpQuickness = 8f;
         [SerializeField] public float m_chaseLerpQuickness = 4f;
 
         [Space]
-        [SerializeField, Min(5f)] public float m_maxDistanceFromPlayer = 20f;
+        [SerializeField, Min(5f)] public float m_maxDistanceFromPlayer = 30f;
+        [SerializeField, Min(5f)] public float m_maxDistanceYFromPlayer = 8f;
         [SerializeField, Min(1f)] public float m_maxWallCastDistance = 3f;
 
         public event System.Action<WakakaBehaviour> OnDeath;
@@ -38,6 +42,7 @@ namespace Code.EnemySystem {
         private Collider _collider;
         private MaskAnimator _maskAnimator;
         private WakakaHealth _health;
+        private WakakaAttacker _attacker;
 
         private System.Action _logic;
 
@@ -54,6 +59,7 @@ namespace Code.EnemySystem {
         private void Awake() {
             _body = GetComponent<Rigidbody>();
             _health = GetComponent<WakakaHealth>();
+            _attacker = GetComponentInChildren<WakakaAttacker>();
             _maskAnimator = GetComponent<MaskAnimator>();
 
             _health.OnDeath += OnDie;
@@ -108,7 +114,7 @@ namespace Code.EnemySystem {
                 case WakakaState.Chase:
                     break;
                 case WakakaState.Flee:
-                    _moveDirection = (PlayerController.Singleton.transform.position - transform.position).normalized;
+                    _moveDirection = (transform.position - PlayerController.Singleton.transform.position).normalized;
                     break;
                 default:
                     return;
@@ -146,17 +152,21 @@ namespace Code.EnemySystem {
         private void Flee() => _body.velocity = _moveDirection * m_fleeSpeed;
 
         private void CheckDistancePeriodically() {
-            var distFromPlayer = Vector3.Distance(transform.position, PlayerController.Singleton.transform.position);
+            var pos = transform.position;
+            var playerPos = PlayerController.Singleton.transform.position;
+            var distFromPlayer = Vector3.Distance(pos, playerPos);
 
-            if (distFromPlayer < m_maxDistanceFromPlayer)
+            var verticalDistance = Mathf.Abs(pos.y - playerPos.y);
+
+            if (distFromPlayer < m_detectionDistance) {
+                SetState(WakakaState.Chase);
+                return;
+            }
+
+            if (distFromPlayer < m_maxDistanceFromPlayer && verticalDistance < m_maxDistanceYFromPlayer)
                 return;
 
-            CancelInvoke(nameof(RefreshWander));
-
-            _moveDirection = Random.onUnitSphere;
-            _moveDirection.y *= .5f;
-            _moveDirection.Normalize();
-            DoRayCastAndAdjustDirection(ref _moveDirection);
+            _moveDirection = -_moveDirection;
         }
 
         private void DoRayCastAndAdjustDirection(ref Vector3 direction) {
@@ -178,6 +188,7 @@ namespace Code.EnemySystem {
 
             OnEveryoneChasePlayer?.Invoke();
             Destroy(_collider);
+            Destroy(_attacker.gameObject);
             SetState(WakakaState.Flee);
 
             _maskAnimator.AnimateDeath();

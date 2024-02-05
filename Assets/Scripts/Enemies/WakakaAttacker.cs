@@ -30,6 +30,11 @@ namespace Code.EnemySystem {
             CancelInvoke();
             _target = null;
         }
+
+        private void OnDestroy() {
+            CancelInvoke();
+            _target = null;
+        }
         #endregion
 
         #region Private Methods

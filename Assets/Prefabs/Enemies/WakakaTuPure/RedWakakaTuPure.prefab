@@ -210,11 +210,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_wanderSpeed: 4
-  m_chaseSpeed: 2
+  m_chaseSpeed: 4
   m_fleeSpeed: 6
+  m_detectionDistance: 12
   m_wanderLerpQuickness: 8
   m_chaseLerpQuickness: 4
   m_maxDistanceFromPlayer: 30
+  m_maxDistanceYFromPlayer: 8
   m_maxWallCastDistance: 3
 --- !u!114 &-5774522393000413038
 MonoBehaviour:

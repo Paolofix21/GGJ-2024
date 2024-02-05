@@ -23,7 +23,8 @@ namespace UI {
 
         protected override void OnDestroy() {
             CutsceneIntroController.OnIntroStartStop -= HideShow;
-            PlayerController.Singleton.OnWeaponChanged -= CheckWeapon;
+            if(PlayerController.Singleton)
+                PlayerController.Singleton.OnWeaponChanged -= CheckWeapon;
         }
 
         private void HideShow(bool show) => gameObject.SetActive(!show);

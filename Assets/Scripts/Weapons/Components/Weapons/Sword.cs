@@ -7,7 +7,7 @@ namespace Code.Weapons {
 
     public class Sword : Weapon {
         public const int energyToRecharge = 10;
-        public static int currentEnergy;
+        public static int currentEnergy = 10;
         public static Action OnShoot;
 
         private void Awake() {

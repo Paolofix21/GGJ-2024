@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Code.EnemySystem;
 using Code.GameModeUtils.WaveBasedMode;
 using Code.Promises;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Code.Core.MatchManagers {
     public sealed class WaveBasedEntityManager : EntityManager {
@@ -11,6 +11,7 @@ namespace Code.Core.MatchManagers {
         [SerializeField] private WavesCollectionSO m_wavesDataPack;
 
         public event System.Action OnFinish;
+        public event System.Action<int> OnWaveChanged;
         #endregion
 
         #region Private Variables
@@ -18,9 +19,6 @@ namespace Code.Core.MatchManagers {
         private readonly List<SpawnPoint> _pointsOfInterestExtracted = new();
 
         private MajorWaveInfo _currentWave;
-        #endregion
-
-        #region Properties
         #endregion
 
         #region Behaviour Callbacks
@@ -56,9 +54,6 @@ namespace Code.Core.MatchManagers {
         }
         #endregion
 
-        #region Public Methods
-        #endregion
-
         #region Private Methods
         private void SpawnNextWave() {
             if (_currentWave.TryGetNextSubWave(out var minorWaveInfo)) {
@@ -69,6 +64,7 @@ namespace Code.Core.MatchManagers {
             // No minor wave has been extracted, the current wave is over
             if (m_wavesDataPack.TryGetNextWave(out _currentWave)) {
                 SpawnNextWave();
+                OnWaveChanged?.Invoke(m_wavesDataPack.GetIndex());
                 return;
             }
 
@@ -103,9 +99,6 @@ namespace Code.Core.MatchManagers {
                 yield return spawnDelay;
             }
         }
-        #endregion
-
-        #region Event Methods
         #endregion
     }
 }

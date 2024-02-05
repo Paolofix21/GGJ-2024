@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37ef89425c014714b1cb330b54da8f67, type: 3}
+  m_Name: Game Scene 01 - Wave 01 - Sub 03
+  m_EditorClassIdentifier: 
+  <SpawnDelay>k__BackingField: 0.2
+  m_randomExtraction: 1
+  m_entities:
+  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
+  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
+  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
+  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
+  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
+  - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
+  - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
+  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}

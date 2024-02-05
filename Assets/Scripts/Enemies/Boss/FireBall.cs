@@ -1,4 +1,5 @@
-﻿using Code.Player;
+﻿using Code.EnemySystem.Wakakas;
+using Code.Player;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss {

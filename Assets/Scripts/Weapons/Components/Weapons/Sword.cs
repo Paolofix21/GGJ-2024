@@ -11,10 +11,13 @@ namespace Code.Weapons {
         public static Action OnShoot;
 
         private void Awake() {
-            WaveSpawner.OnEnemyDeath += OnEnergyTaken;
+            // TODO - Fix charge with kill
+            // WaveSpawner.OnEnemyDeath += OnEnergyTaken;
         }
+
         private void OnDestroy() {
-            WaveSpawner.OnEnemyDeath -= OnEnergyTaken;
+            // TODO - Fix charge with kill
+            // WaveSpawner.OnEnemyDeath -= OnEnergyTaken;
         }
 
         private void OnEnergyTaken() {
@@ -27,6 +30,7 @@ namespace Code.Weapons {
             if(currentEnergy == energyToRecharge)
                 Recharge(1);
         }
+
         public override void Shoot()
         {
             currentEnergy = 0;

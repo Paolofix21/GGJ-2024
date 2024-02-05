@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using UnityEngine;
 
-namespace Code.EnemySystem {
+namespace Code.EnemySystem.Wakakas {
     public class WakakaHealth : MonoBehaviour, IDamageable {
         #region Public Variables
         [SerializeField, Min(1f)] private float m_maxHealth = 25f;

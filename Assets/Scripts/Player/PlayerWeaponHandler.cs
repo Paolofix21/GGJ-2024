@@ -3,101 +3,75 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Code.EnemySystem;
 using UnityEngine;
 
 namespace Code.Weapons {
     public class PlayerWeaponHandler : MonoBehaviour {
+        #region Public Variables
         [Header("Settings")]
-        [SerializeField] private WeaponType defaultType = default;
+        [SerializeField] private WeaponType defaultType;
 
         [Header("References")]
-        [SerializeField] private List<Weapon> weapons = new List<Weapon>();
-        [Space]
-        [SerializeField] public PlayerController playerController = default;
-        [SerializeField] private PlayerWeaponAnimatorListener playerWeaponAnimatorListener = default;
+        [SerializeField] private List<Weapon> weapons = new();
 
-        private Weapon equippedWeapon = default;
-        public Weapon EquippedWeapon { get { return equippedWeapon; } }
+        [Space]
+        [SerializeField] public PlayerController playerController;
+        [SerializeField] private PlayerWeaponAnimatorListener playerWeaponAnimatorListener;
 
         public event System.Action<Weapon> OnUpdateWeaponInfo;
+        #endregion
 
+        #region Properties
+        public Weapon EquippedWeapon { get; private set; }
+        #endregion
+
+        #region Behaviour Callbacks
         private void OnValidate() {
-            if (playerWeaponAnimatorListener == null) {
+            if (playerWeaponAnimatorListener == null)
                 playerWeaponAnimatorListener = GetComponentInChildren<PlayerWeaponAnimatorListener>();
-            }
         }
+
         private void Awake() {
             if (playerController != null) {
                 playerController.OnWeaponChanged += EquipWeapon;
                 playerController.OnShootRequest += CanShoot;
             }
-            if(playerWeaponAnimatorListener != null) {
+
+            if(playerWeaponAnimatorListener != null)
                 playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
-            }
 
-            foreach (var weapon in weapons) {
-                weapon.SetUp(this);
-            }
-
-            WaveSpawner.OnBossFightStart += OnMacroWaveChanged;
-        }
-
-        private void OnMacroWaveChanged() {
-            foreach (var weapon in weapons)
-                weapon.Boost();
+            weapons.ForEach(w => w.SetUp(this));
         }
 
         private IEnumerator Start() {
             yield return null;
             EquipWeapon(defaultType);
         }
+
+        private void OnTriggerEnter(Collider other) {
+            if (other.TryGetComponent(out IRecharger recharger))
+                InteractWithRecharger(recharger);
+        }
+
         private void OnDestroy() {
             if (playerController != null) {
                 playerController.OnWeaponChanged -= EquipWeapon;
                 playerController.OnShootRequest -= CanShoot;
             }
-            if (playerWeaponAnimatorListener != null) {
+
+            if (playerWeaponAnimatorListener != null)
                 playerWeaponAnimatorListener.OnAnimatorShootCallback -= Shoot;
-            }
-
-            WaveSpawner.OnBossFightStart -= OnMacroWaveChanged;
         }
-        private void OnTriggerEnter(Collider other) {
-            if (!other.gameObject.CompareTag("Ammunition"))
-                return;
+        #endregion
 
-            IRecharger recharger = other.GetComponent<IRecharger>();
-            InteractWithRecharger(recharger);
-        }
+        #region Public Methods
+        public void BoostAllWeapons() => weapons.ForEach(w => w.Boost());
+        #endregion
 
-        private void EquipWeapon(WeaponType weaponType) => EquipWeapon((int)weaponType);
-
-        private void EquipWeapon(int weaponType) {
-            if (equippedWeapon)
-                equippedWeapon.Cartridge.OnAmmoAmountChanged -= CheckAmmo;
-
-            equippedWeapon = weapons.First(weapon => weapon.WeaponType == (WeaponType)weaponType);
-            OnUpdateWeaponInfo?.Invoke(equippedWeapon);
-
-            if (equippedWeapon)
-                equippedWeapon.Cartridge.OnAmmoAmountChanged += CheckAmmo;
-
-            playerController.visualSetter.SetEmissivePower(equippedWeapon.Cartridge.GetAmmoRate());
-        }
-
-        private void CheckAmmo(int ammoCount) {
-            OnUpdateWeaponInfo?.Invoke(equippedWeapon);
-            playerController.visualSetter.SetEmissivePower(equippedWeapon.Cartridge.GetAmmoRate());
-        }
-
-        private bool CanShoot() {
-            return equippedWeapon && equippedWeapon.CanShoot();
-        }
-
+        #region Private Methods
         [UsedImplicitly]
         private void Shoot() {
-            equippedWeapon.Shoot();
+            EquippedWeapon.Shoot();
         }
 
         private void InteractWithRecharger(IRecharger recharger) {
@@ -111,5 +85,30 @@ namespace Code.Weapons {
             Weapon weaponToRecharge = weapons.First(weapon => weapon.WeaponType == type);
             weaponToRecharge.Recharge(amount);
         }
+        #endregion
+
+        #region Event Methods
+        private void EquipWeapon(WeaponType weaponType) => EquipWeapon((int)weaponType);
+
+        private void EquipWeapon(int weaponType) {
+            if (EquippedWeapon)
+                EquippedWeapon.Cartridge.OnAmmoAmountChanged -= CheckAmmo;
+
+            EquippedWeapon = weapons.First(weapon => weapon.WeaponType == (WeaponType)weaponType);
+            OnUpdateWeaponInfo?.Invoke(EquippedWeapon);
+
+            if (EquippedWeapon)
+                EquippedWeapon.Cartridge.OnAmmoAmountChanged += CheckAmmo;
+
+            playerController.visualSetter.SetEmissivePower(EquippedWeapon.Cartridge.GetAmmoRate());
+        }
+
+        private void CheckAmmo(int ammoCount) {
+            OnUpdateWeaponInfo?.Invoke(EquippedWeapon);
+            playerController.visualSetter.SetEmissivePower(EquippedWeapon.Cartridge.GetAmmoRate());
+        }
+
+        private bool CanShoot() => EquippedWeapon && EquippedWeapon.CanShoot();
+        #endregion
     }
 }

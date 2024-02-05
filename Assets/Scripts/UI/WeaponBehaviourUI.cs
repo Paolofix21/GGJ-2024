@@ -32,7 +32,8 @@ namespace Code.UI
 
             PlayerController.Singleton.OnWeaponChanged += UpdateWeaponIcon;
             PlayerController.Singleton.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
-            WaveSpawner.OnEnemyDeath += DisplayWeaponEnergy;
+            // WaveSpawner.OnEnemyDeath += DisplayWeaponEnergy;
+            // TODO - Bind UI to weapon's energy
             Sword.OnShoot += DisplayWeaponEnergy;
         }
         private void OnDestroy()
@@ -42,7 +43,8 @@ namespace Code.UI
                 PlayerController.Singleton.OnWeaponChanged -= UpdateWeaponIcon;
                 PlayerController.Singleton.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
             }
-            WaveSpawner.OnEnemyDeath -= DisplayWeaponEnergy;
+            // WaveSpawner.OnEnemyDeath -= DisplayWeaponEnergy;
+            // TODO - Bind UI to weapon's energy
             Sword.OnShoot -= DisplayWeaponEnergy;
         }
         #endregion

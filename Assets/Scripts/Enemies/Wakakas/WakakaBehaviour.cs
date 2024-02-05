@@ -1,12 +1,11 @@
 ﻿using Code.Graphics;
 using Code.Player;
-using Code.Weapons;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace Code.EnemySystem {
+namespace Code.EnemySystem.Wakakas {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(MaskAnimator))]
+    [RequireComponent(typeof(WakakaMaskAnimator))]
     [RequireComponent(typeof(WakakaHealth))]
     public class WakakaBehaviour : MonoBehaviour {
         private enum WakakaState {
@@ -40,7 +39,7 @@ namespace Code.EnemySystem {
         #region Private Variables
         private Rigidbody _body;
         private Collider _collider;
-        private MaskAnimator _maskAnimator;
+        private WakakaMaskAnimator _maskAnimator;
         private WakakaHealth _health;
         private WakakaAttacker _attacker;
 
@@ -52,15 +51,12 @@ namespace Code.EnemySystem {
         private static event System.Action OnEveryoneChasePlayer;
         #endregion
 
-        #region Properties
-        #endregion
-
         #region Behaviour Callbacks
         private void Awake() {
             _body = GetComponent<Rigidbody>();
             _health = GetComponent<WakakaHealth>();
             _attacker = GetComponentInChildren<WakakaAttacker>();
-            _maskAnimator = GetComponent<MaskAnimator>();
+            _maskAnimator = GetComponent<WakakaMaskAnimator>();
 
             _health.OnDeath += OnDie;
         }
@@ -89,12 +85,9 @@ namespace Code.EnemySystem {
             }
         }
 
-        private void OnDrawGizmos() => Gizmos.DrawLine(transform.position, transform.position + _moveDirection * m_maxWallCastDistance);
+        private void OnDrawGizmos() => Gizmos.DrawRay(transform.position, _moveDirection * m_maxWallCastDistance);
 
         private void OnDestroy() => OnEveryoneChasePlayer -= ForceChasePlayer;
-        #endregion
-
-        #region Public Methods
         #endregion
 
         #region Private Methods

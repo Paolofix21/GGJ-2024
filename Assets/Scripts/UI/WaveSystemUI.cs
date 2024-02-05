@@ -3,6 +3,7 @@ using Miscellaneous;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Code.Core.MatchManagers;
 using TMPro;
 using UnityEngine;
 
@@ -26,17 +27,15 @@ public class WaveSystemUI : MonoBehaviour
     #endregion
 
     #region Behaviour Callbacks
-    private void Awake()
-    {
-        WaveSpawner.OnMacroWaveIndexChanged += StartNewWave;
+    private void Start() {
+        WaveBasedMatchManager.Singleton.EntityManager.OnWaveChanged += StartNewWave;
         CutsceneIntroController.OnIntroStartStop += CheckCutscene;
     }
 
-    private void OnDestroy()
-    {
+    private void OnDestroy() {
         if(coroutine != null)
             StopCoroutine(coroutine);
-        WaveSpawner.OnMacroWaveIndexChanged -= StartNewWave;
+        WaveBasedMatchManager.Singleton.EntityManager.OnWaveChanged -= StartNewWave;
         CutsceneIntroController.OnIntroStartStop -= CheckCutscene;
     }
     #endregion

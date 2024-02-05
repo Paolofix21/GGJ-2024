@@ -116,9 +116,15 @@ namespace Code.Core.MatchManagers {
             Boss.StartFight();
         }
 
-        private void OnWin() => GameEvents.Win();
+        private void OnWin() {
+            GameEvents.Win();
+            EndMatch();
+        }
 
-        private void OnLose() => GameEvents.Lose();
+        private void OnLose() {
+            GameEvents.Lose();
+            EndMatch();
+        }
         #endregion
     }
 }

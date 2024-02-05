@@ -4,9 +4,9 @@ using FMODUnity;
 using UnityEngine;
 using Debug = UnityEngine.Debug;
 
-namespace Code.Graphics {
+namespace Code.EnemySystem.Wakakas {
     [DefaultExecutionOrder(-1)]
-    public class MaskAnimator : MonoBehaviour {
+    public class WakakaMaskAnimator : MonoBehaviour {
         #region Public Variables
         [Header("Intro")]
         [SerializeField] private EventReference m_introVoiceLineEvent;

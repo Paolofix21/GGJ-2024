@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Code.EnemySystem;
 using UnityEngine;
 
-namespace Code.EnemySystem {
+namespace Code.GameModeUtils.WaveBasedMode {
     [System.Serializable]
     public sealed class MajorWaveInfo {
         #region Public Variables

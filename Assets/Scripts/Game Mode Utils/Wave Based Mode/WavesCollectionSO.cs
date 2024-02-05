@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace Code.EnemySystem {
+namespace Code.GameModeUtils.WaveBasedMode {
     [CreateAssetMenu(menuName = "Waves/Waves Collection", fileName = "New Waves Collection")]
     public class WavesCollectionSO : ScriptableObject {
         #region Public Variables
@@ -29,6 +29,8 @@ namespace Code.EnemySystem {
             majorWaveInfo = m_majorWaves[_index];
             return true;
         }
+
+        public int GetIndex() => _index;
         #endregion
     }
 }

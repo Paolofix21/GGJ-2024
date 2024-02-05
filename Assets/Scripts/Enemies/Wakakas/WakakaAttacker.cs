@@ -2,12 +2,12 @@
 using Code.Player;
 using UnityEngine;
 
-namespace Code.EnemySystem {
+namespace Code.EnemySystem.Wakakas {
     public class WakakaAttacker : MonoBehaviour {
         #region Public Variables
         [SerializeField, Min(0.1f)] private float m_dot = 5f;
         [SerializeField, Min(0.1f)] private float m_damageRate = .75f;
-        [SerializeField] private MaskAnimator m_maskAnimator;
+        [SerializeField] private WakakaMaskAnimator m_maskAnimator;
         #endregion
 
         #region Private Variables

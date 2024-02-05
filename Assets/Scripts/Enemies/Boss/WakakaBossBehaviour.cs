@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Code.EnemySystem.Boss.Phases;
+using Code.EnemySystem.Wakakas;
 using Code.Graphics;
 using Code.Player;
 using Miscellaneous;

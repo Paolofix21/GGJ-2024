@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using Code.GameModeUtils.WaveBasedMode;
 using UnityEngine;
 
-namespace Code.EnemySystem {
+namespace Code.GameModeUtils.WaveBasedMode {
     [CreateAssetMenu(menuName = "Waves/Wave", fileName = "New Wave")]
     public sealed class MinorWaveInfoSO : ScriptableObject {
         #region Public Variables

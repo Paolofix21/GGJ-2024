@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Code.EnemySystem;
+using Code.EnemySystem.Wakakas;
 using Code.Graphics;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -9,7 +10,7 @@ using Code.UI;
 namespace Miscellaneous {
     [System.Serializable]
     public class CreatureRef {
-        public MaskAnimator creature;
+        public WakakaMaskAnimator creature;
         public string name;
     }
 
@@ -23,6 +24,8 @@ namespace Miscellaneous {
 #if UNITY_EDITOR
         [Range(0, 3)] public int testIndex = 1;
 #endif
+
+        public static event System.Action<bool> OnIntroStartStop;
         #endregion
 
         #region Private Variables
@@ -30,8 +33,6 @@ namespace Miscellaneous {
 
         private event System.Action _onCutsceneEnded;
         #endregion
-
-        public static event System.Action<bool> OnIntroStartStop;
 
         #region Behaviour Callbacks
         private void Awake() {

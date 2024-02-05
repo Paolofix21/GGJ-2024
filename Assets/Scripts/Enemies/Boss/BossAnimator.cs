@@ -6,7 +6,7 @@ using UnityEngine;
 using Debug = UnityEngine.Debug;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
 
-namespace Code.Graphics {
+namespace Code.EnemySystem.Boss {
     [RequireComponent(typeof(Animator))]
     public class BossAnimator : MonoBehaviour {
         #region Public Variables

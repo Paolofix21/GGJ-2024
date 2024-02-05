@@ -1,5 +1,4 @@
-﻿using Code.Core.MatchManagers;
-using Code.EnemySystem;
+﻿using Code.EnemySystem;
 using Code.Promises;
 using UnityEngine;
 using Utilities;
@@ -8,15 +7,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBehaviour))]
     [RequireComponent(typeof(WakakaHealth))]
     public class WaveBasedWakakaEntity : MonoBehaviour, IEntity {
-        #region Public Variables
-        #endregion
-
         #region Private Variables
         private WakakaBehaviour _wakakaBehaviour;
         private WakakaHealth _wakakaHealth;
-        #endregion
-
-        #region Properties
         #endregion
 
         #region Behaviour Callbacks
@@ -42,15 +35,6 @@ namespace Code.GameModeUtils.WaveBasedMode {
             _wakakaBehaviour.enabled = false;
             _wakakaHealth.enabled = false;
         }
-        #endregion
-
-        #region Public Methods
-        #endregion
-
-        #region Private Methods
-        #endregion
-
-        #region Event Methods
         #endregion
     }
 }

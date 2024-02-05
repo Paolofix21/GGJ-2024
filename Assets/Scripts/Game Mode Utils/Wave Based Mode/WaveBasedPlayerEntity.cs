@@ -7,18 +7,17 @@ namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(PlayerController))]
     public sealed class WaveBasedPlayerEntity : MonoBehaviour, IPlayableCharacter {
         #region Public Variables
+        public event System.Action OnDeath;
         #endregion
 
         #region Private Variables
         private PlayerController _controller;
         #endregion
 
-        #region Properties
-        #endregion
-
         #region Behaviour Callbacks
         private void Awake() {
             _controller = GetComponent<PlayerController>();
+            _controller.Health.OnPlayerDeath += OnDie;
 
             Disable();
         }
@@ -38,13 +37,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
         }
         #endregion
 
-        #region Public Methods
-        #endregion
-
-        #region Private Methods
-        #endregion
-
         #region Event Methods
+        private void OnDie() => OnDeath?.Invoke();
         #endregion
     }
 }

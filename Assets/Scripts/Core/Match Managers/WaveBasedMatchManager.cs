@@ -14,9 +14,6 @@ namespace Code.Core.MatchManagers {
         public event ValueSetEventHandler<WaveBasedEntityManager> OnEntityManagerChanged; 
         #endregion
 
-        #region Private Variables
-        #endregion
-
         #region Properties
         public WaveBasedPlayerEntity Character { get; private set; }
         public WaveBasedBossEntity Boss { get; private set; }
@@ -79,26 +76,31 @@ namespace Code.Core.MatchManagers {
 
         #region Public Methods
         public void SetPlayingCharacter(WaveBasedPlayerEntity character) {
+            if (Character)
+                Character.OnDeath -= OnLose;
+
             Character = character;
+            Character.OnDeath += OnLose;
             OnPlayingCharacterChanged?.Invoke(Character);
         }
 
         public void SetBoss(WaveBasedBossEntity boss) {
+            if (Boss)
+                Boss.OnFinish -= OnWin;
+
             Boss = boss;
+            Boss.OnFinish += OnWin;
             OnBossChanged?.Invoke(Boss);
         }
 
         public void SetEntityManager(WaveBasedEntityManager manager) {
-            if (EntityManager != null)
+            if (EntityManager)
                 EntityManager.OnFinish -= OnWavesOver;
 
             EntityManager = manager;
             EntityManager.OnFinish += OnWavesOver;
             OnEntityManagerChanged?.Invoke(EntityManager);
         }
-        #endregion
-
-        #region Private Methods
         #endregion
 
         #region Event Methods
@@ -113,6 +115,10 @@ namespace Code.Core.MatchManagers {
             Boss.Enable();
             Boss.StartFight();
         }
+
+        private void OnWin() => GameEvents.Win();
+
+        private void OnLose() => GameEvents.Lose();
         #endregion
     }
 }

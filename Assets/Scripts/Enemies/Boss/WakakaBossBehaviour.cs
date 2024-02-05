@@ -104,6 +104,8 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Public Methods
+        public void BeginFight() => SetPhase(WakakaBossState.PhaseOne);
+
         public void Surrender() {
             m_bossAnimator.AnimateDeath();
             m_animator.enabled = false;

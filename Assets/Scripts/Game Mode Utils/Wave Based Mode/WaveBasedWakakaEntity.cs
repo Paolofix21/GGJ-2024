@@ -2,6 +2,7 @@
 using Code.EnemySystem;
 using Code.Promises;
 using UnityEngine;
+using Utilities;
 
 namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBehaviour))]
@@ -24,11 +25,12 @@ namespace Code.GameModeUtils.WaveBasedMode {
             _wakakaHealth = GetComponent<WakakaHealth>();
         }
 
-        private void Start() => WaveBasedMatchManager.Singleton.EntityManager.Entities.Add(this);
-        private void OnDestroy() => WaveBasedMatchManager.Singleton.EntityManager.Entities.Remove(this);
+        private void OnDestroy() => OnDestroyed?.Invoke(this);
         #endregion
 
         #region IEntity
+        public event DestroyEventHandler<IEntity> OnDestroyed;
+
         public Transform Transform => transform;
 
         public void Enable() {

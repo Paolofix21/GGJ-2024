@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Code.Utilities;
+﻿using Code.Utilities;
 
 namespace Code.Promises {
     public interface IEntityManager {
@@ -8,12 +7,13 @@ namespace Code.Promises {
         #endregion
 
         #region Public Methods
+        public void Begin();
         public void Enable();
         public void Disable();
+        public void End();
 
         public void AddEntity(IEntity entity) => Entities.Add(entity);
         public void RemoveEntity(IEntity entity) => Entities.Remove(entity);
-        public void FillEntities(IEnumerable<IEntity> entity) => Entities.AddRange(entity);
         #endregion
     }
 }

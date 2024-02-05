@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8481050732941457844
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1026766940175158311, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_chaseSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1026766940175158311, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_wanderSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1115379777674732257, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_Name
+      value: Wakaka - Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 1903699819099492356, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_colorSet
+      value: 
+      objectReference: {fileID: 11400000, guid: 959470df52941524fa8b88db632f3264,
+        type: 2}
+    - target: {fileID: 2582134459859012008, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 398c5e9222d95e849b07474b6b2a37dd, type: 2}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6328783546234206265, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: a793af10018dc1d4799c759fafc70801, type: 2}
+    - target: {fileID: 9007296580711321714, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_type
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 63ab761d1fa0ce8438eb3951471c994b, type: 3}

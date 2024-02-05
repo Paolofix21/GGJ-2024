@@ -74,7 +74,7 @@ namespace Miscellaneous {
                 m_creatures[i].creature.gameObject.SetActive(i == creatureIndex);
 
             m_text.text = m_creatures[creatureIndex].name;
-            m_creatures[creatureIndex].creature.SetColorType(creatureIndex);
+            // m_creatures[creatureIndex].creature.SetColorType(creatureIndex);
 
             gameObject.SetActive(true);
 

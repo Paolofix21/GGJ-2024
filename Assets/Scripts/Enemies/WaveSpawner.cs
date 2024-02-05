@@ -8,7 +8,7 @@ namespace Code.EnemySystem {
     public class WaveSpawner : MonoBehaviour {
         public List<Transform> spawnPoints = new List<Transform>();
         public GameObject Boss;
-        public List<WaveData> waveData = new List<WaveData>();
+        public List<WavesCollectionSO> waveData = new List<WavesCollectionSO>();
         [HideInInspector] public float enemyToKill = 0;
         [SerializeField] private float waveInterval = 1f;
 
@@ -42,13 +42,13 @@ namespace Code.EnemySystem {
             if (_currentEnemies.Any())
                 return;
 
-            if (currentInternalWaveIndex < waveData[waveNumber].SubWavesCount) // ci sono altre sotto ondate?
+            /*if (currentInternalWaveIndex < waveData[waveNumber].SubWavesCount) // ci sono altre sotto ondate?
                 SpawnSubWave();
             else if (_currentEnemies.Count <= 0) // ci sono altre macro ondate?
             {
                 if (Time.time >= _nextWaveTime)
                     SpawnNextWave();
-            }
+            }*/
         }
 
         private void OnDestroy() => OnMacroWaveIndexChanged?.Invoke(0);
@@ -66,13 +66,13 @@ namespace Code.EnemySystem {
                 return;
 
             Debug.Log("All waves completed\n", this);
-            Boss.GetComponent<BossBehaviour>().StartPhase();
+            // Boss.GetComponent<BossBehaviour>().StartPhase();
             enabled = false;
             OnBossFightStart?.Invoke();
         }
 
         void SpawnSubWave() {
-            if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count) {
+            /*if (currentInternalWaveIndex < waveData[waveNumber].waveEnemies.Count) {
                 enemyToKill = waveData[waveNumber].waveEnemies[currentInternalWaveIndex].enemyPrefab.Count;
 
                 WaveData.WaveEnemy currentWave = waveData[waveNumber].waveEnemies[currentInternalWaveIndex];
@@ -96,7 +96,7 @@ namespace Code.EnemySystem {
                     Debug.Log("Mini Ondata completata\n", this);
                     SpawnNextWave();
                 }
-            }
+            }*/
         }
 
         void SpawnEnemy(GameObject enemyPrefab, Transform spawnPoint) {

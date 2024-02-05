@@ -2,6 +2,7 @@
 using Code.EnemySystem.Boss;
 using Code.Promises;
 using UnityEngine;
+using Utilities;
 
 namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBossBehaviour))]
@@ -19,14 +20,18 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Behaviour Callbacks
         private void Awake() {
             _controller = GetComponent<WakakaBossBehaviour>();
+
+            Disable();
         }
 
-        private void Start() {
-            WaveBasedMatchManager.Singleton.SetBoss(this);
-        }
+        private void Start() => WaveBasedMatchManager.Singleton.SetBoss(this);
+
+        private void OnDestroy() => OnDestroyed?.Invoke(this);
         #endregion
 
         #region IEntity
+        public event DestroyEventHandler<IEntity> OnDestroyed;
+
         public Transform Transform => transform;
 
         public void Enable() {
@@ -39,6 +44,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #endregion
 
         #region Public Methods
+        public void StartFight() => _controller.BeginFight();
         #endregion
 
         #region Private Methods

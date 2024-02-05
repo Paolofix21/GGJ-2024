@@ -10,6 +10,7 @@ namespace Code.Core {
 
     public delegate void MatchStateChangeEventHandler(MatchState state);
 
+    [DefaultExecutionOrder(-1)]
     public abstract class MatchManager<T> : SingletonBehaviour<T> where T : MonoBehaviour {
         #region Public Variables
         public event MatchStateChangeEventHandler OnMatchStateChange;

@@ -7,6 +7,7 @@ namespace Code.Utilities {
     public sealed class SmartCollection<T> {
         #region Public Variables
         public event ListAddRemoveEventHandler<T> OnAdded, OnRemoved;
+        public event System.Action OnCleared;
         #endregion
 
         #region Private Variables
@@ -29,8 +30,13 @@ namespace Code.Utilities {
         }
 
         public void Remove(T element) {
-            if (_list.Remove(element))
-                OnRemoved?.Invoke(element);
+            if (!_list.Remove(element))
+                return;
+
+            OnRemoved?.Invoke(element);
+
+            if (_list.Count <= 0)
+                OnCleared?.Invoke();
         }
 
         public void RemoveAt(int index) {
@@ -40,6 +46,9 @@ namespace Code.Utilities {
             var element = _list[index];
             _list.RemoveAt(index);
             OnRemoved?.Invoke(element);
+
+            if (_list.Count <= 0)
+                OnCleared?.Invoke();
         }
 
         public void ForeEach(System.Action<T> action) => _list.ForEach(action);

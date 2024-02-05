@@ -60,7 +60,6 @@ namespace Code.EnemySystem {
         }
 
         private void Start() {
-            _maskAnimator.SetColorType(_health.GetDamageType().ToWakakaIndex());
             _maskAnimator.AnimateIntroVoiceLine();
 
             SetState(WakakaState.Wander);
@@ -84,7 +83,7 @@ namespace Code.EnemySystem {
             }
         }
 
-        private void OnDrawGizmos() => Gizmos.DrawLine(transform.position, _moveDirection * m_maxWallCastDistance);
+        private void OnDrawGizmos() => Gizmos.DrawLine(transform.position, transform.position + _moveDirection * m_maxWallCastDistance);
 
         private void OnDestroy() => OnEveryoneChasePlayer -= ForceChasePlayer;
         #endregion

@@ -20,7 +20,7 @@ public class BossUI : MonoBehaviour
     #region Behaviour Callbacks
     private void OnDisable()
     {
-        BossBehaviour.OnDamage -= UpdateLife;
+        // BossBehaviour.OnDamage -= UpdateLife;
         m_bossGameobj.SetActive(false);
     }
     #endregion
@@ -28,7 +28,7 @@ public class BossUI : MonoBehaviour
     #region Public Methods
     public void Setup()
     {
-        BossBehaviour.OnDamage += UpdateLife;
+        // BossBehaviour.OnDamage += UpdateLife;
         m_bossGameobj.SetActive(true);
     }
     public void UpdateLife(float remHp)

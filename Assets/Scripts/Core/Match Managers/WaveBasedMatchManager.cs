@@ -1,22 +1,26 @@
-﻿using Code.Promises;
+﻿using Code.GameModeUtils.WaveBasedMode;
+using Code.Promises;
 using UnityEngine;
 using Utilities;
 
 namespace Code.Core.MatchManagers {
+    [DefaultExecutionOrder(-1)]
     public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager> {
         #region Public Variables
-        public event ValueSetEventHandler<IPlayableCharacter> OnPlayingCharacterChanged; 
-        public event ValueSetEventHandler<IEntity> OnBossChanged; 
-        public event ValueSetEventHandler<IEntityManager> OnEntityManagerChanged; 
+        [SerializeField] private bool m_beginOnStart = false;
+
+        public event ValueSetEventHandler<WaveBasedPlayerEntity> OnPlayingCharacterChanged; 
+        public event ValueSetEventHandler<WaveBasedBossEntity> OnBossChanged; 
+        public event ValueSetEventHandler<WaveBasedEntityManager> OnEntityManagerChanged; 
         #endregion
 
         #region Private Variables
         #endregion
 
         #region Properties
-        public IPlayableCharacter Character { get; private set; }
-        public IEntity Boss { get; private set; }
-        public IEntityManager EntityManager { get; private set; }
+        public WaveBasedPlayerEntity Character { get; private set; }
+        public WaveBasedBossEntity Boss { get; private set; }
+        public WaveBasedEntityManager EntityManager { get; private set; }
 
         public TimeCounter Timer { get; } = new();
         #endregion
@@ -24,6 +28,13 @@ namespace Code.Core.MatchManagers {
         #region Behaviour Callbacks
         protected override void OnAfterAwake() {
             GameEvents.OnPauseStatusChanged += TogglePause;
+        }
+
+        private System.Collections.IEnumerator Start() {
+            yield return null;
+
+            if (m_beginOnStart)
+                BeginMatch();
         }
 
         protected override void OnBeforeDestroy() {
@@ -40,7 +51,7 @@ namespace Code.Core.MatchManagers {
 
             Timer.Start();
 
-            EntityManager.Enable();
+            EntityManager.Begin();
             Character.Enable();
         }
 
@@ -60,25 +71,29 @@ namespace Code.Core.MatchManagers {
 
         protected override void OnMatchEnded() {
             Character.Disable();
-            EntityManager.Disable();
+            EntityManager.End();
 
             Timer.End();
         }
         #endregion
 
         #region Public Methods
-        public void SetPlayingCharacter(IPlayableCharacter character) {
+        public void SetPlayingCharacter(WaveBasedPlayerEntity character) {
             Character = character;
             OnPlayingCharacterChanged?.Invoke(Character);
         }
 
-        public void SetBoss(IEntity boss) {
+        public void SetBoss(WaveBasedBossEntity boss) {
             Boss = boss;
             OnBossChanged?.Invoke(Boss);
         }
 
-        public void SetEntityManager(IEntityManager manager) {
+        public void SetEntityManager(WaveBasedEntityManager manager) {
+            if (EntityManager != null)
+                EntityManager.OnFinish -= OnWavesOver;
+
             EntityManager = manager;
+            EntityManager.OnFinish += OnWavesOver;
             OnEntityManagerChanged?.Invoke(EntityManager);
         }
         #endregion
@@ -92,6 +107,11 @@ namespace Code.Core.MatchManagers {
                 PauseMatch();
             else
                 ResumeMatch();
+        }
+
+        private void OnWavesOver() {
+            Boss.Enable();
+            Boss.StartFight();
         }
         #endregion
     }

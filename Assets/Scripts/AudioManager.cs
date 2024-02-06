@@ -51,14 +51,10 @@ public class AudioManager : MonoBehaviour
         if (instance && instance == this)
             instance = null;
     }
-    public void PlayOneShot(EventReference sound, Vector3 worldPos)
-    {
-        RuntimeManager.PlayOneShot(sound, worldPos);
-    }
+    public void PlayOneShot(EventReference sound, Vector3 worldPos = default) => RuntimeManager.PlayOneShot(sound, worldPos);
 
     public  EventInstance CreateInstance(EventReference eventReference) 
-    
-    { 
+    {
         EventInstance eventInstance = RuntimeManager.CreateInstance(eventReference);
         return eventInstance;
     }

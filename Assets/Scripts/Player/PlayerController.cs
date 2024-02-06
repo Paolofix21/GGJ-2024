@@ -1,4 +1,3 @@
-using FMODUnity;
 using Code.Graphics;
 using System;
 using System.Collections;
@@ -14,7 +13,6 @@ namespace Code.Player {
         private bool isDead = false;
 
         [SerializeField] private ColorSetSO[] hueValue;
-        [SerializeField] private EndGameUI endgameUI;
         [SerializeField] private GameObject arms;
 
         #region Properties
@@ -24,16 +22,16 @@ namespace Code.Player {
         #region Movement Fields
         [Header("Movement Fields")]
         [SerializeField] private float airborneSpeed = 16f;
+
         [SerializeField] private float speed = 6f;
         [SerializeField] private float jumpForce = 1.5f;
 
         private const float grav = -9.8f;
         private float _currentSpeed;
-        private bool crouching = false;
 
         private int currentSelectedWeapon = default;
 
-        public int CurrentSelectedWeapon { get { return currentSelectedWeapon; } }
+        public int CurrentSelectedWeapon => currentSelectedWeapon;
 
         private EventInstance footsteps_instance;
 
@@ -53,6 +51,7 @@ namespace Code.Player {
         #region Lava Fields
         [Header("Lava Fields")]
         [SerializeField] private float lavaSpeed;
+
         [SerializeField] private float lavaJumpForce = 1.5f;
         [SerializeField] private int timeDelay;
         [SerializeField] private int lavaDamage;
@@ -86,6 +85,7 @@ namespace Code.Player {
                 Destroy(gameObject);
                 return;
             }
+
             Singleton = this;
 
             controller = GetComponent<CharacterController>();
@@ -96,25 +96,28 @@ namespace Code.Player {
 
             _currentSpeed = speed;
         }
+
+        private void OnEnable() {
+            input.playerMap.PlayerActions.Jump.started += Jump;
+            input.playerMap.PlayerActions.Shoot.started += PlayShoot;
+
+            input.playerMap.PlayerActions.ContinuousShoot.started += ShootContinuousInput;
+            input.playerMap.PlayerActions.ContinuousShoot.canceled += ShootContinuousInput;
+
+            input.playerMap.PlayerActions.Weapon01.started += SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon02.started += SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon03.started += SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon04.started += SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon05.started += SetWeaponInput;
+
+            input.playerMap.PlayerActions.RotateWeapon.started += TestRotateWeapons;
+        }
+
         private void Start() {
             CutsceneIntroController.OnIntroStartStop += Intro;
 
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-
-            input.playerMap.PlayerActions.Jump.started += Jump;
-            input.playerMap.PlayerActions.Shoot.started += PlayShoot;
-
-            input.playerMap.PlayerActions.ContinuousShoot.started += _ => PlayShootContinuous(true);
-            input.playerMap.PlayerActions.ContinuousShoot.canceled += _ => PlayShootContinuous(false);
-
-            input.playerMap.PlayerActions.Weapon01.started += _ => SetWeaponType(0, Pistol);
-            input.playerMap.PlayerActions.Weapon02.started += _ => SetWeaponType(1, Shotgun);
-            input.playerMap.PlayerActions.Weapon03.started += _ => SetWeaponType(2, Rifle);
-            input.playerMap.PlayerActions.Weapon04.started += _ => SetWeaponType(3, Frustino);
-            input.playerMap.PlayerActions.Weapon05.started += _ => SetWeaponType(4, Sword);
-
-            input.playerMap.PlayerActions.RotateWeapon.started += TestRotateWeapons;
 
             Health.OnPlayerDeath += PlayerDeath;
 
@@ -140,10 +143,23 @@ namespace Code.Player {
             cameraLook.GetMousePos(input.CameraLookAt());
         }
 
-        private void OnDestroy() {
+        private void OnDisable() {
             input.playerMap.PlayerActions.Jump.started -= Jump;
             input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
 
+            input.playerMap.PlayerActions.ContinuousShoot.started -= ShootContinuousInput;
+            input.playerMap.PlayerActions.ContinuousShoot.canceled -= ShootContinuousInput;
+
+            input.playerMap.PlayerActions.Weapon01.started -= SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon02.started -= SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon03.started -= SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon04.started -= SetWeaponInput;
+            input.playerMap.PlayerActions.Weapon05.started -= SetWeaponInput;
+
+            input.playerMap.PlayerActions.RotateWeapon.started -= TestRotateWeapons;
+        }
+
+        private void OnDestroy() {
             Health.OnPlayerDeath -= PlayerDeath;
             CutsceneIntroController.OnIntroStartStop -= Intro;
 
@@ -151,8 +167,7 @@ namespace Code.Player {
                 Singleton = null;
         }
 
-        private void Intro(bool ongoing) 
-        { 
+        private void Intro(bool ongoing) {
             arms.gameObject.SetActive(!ongoing);
 
             if (!ongoing)
@@ -162,7 +177,6 @@ namespace Code.Player {
 
         #region Movement Behaviours
         private void TestRotateWeapons(InputAction.CallbackContext callbackContext) {
-
             if (isDead || !arms.gameObject.activeSelf || Time.timeScale == 0) return;
             int directionalIndex = (int)callbackContext.ReadValue<float>();
 
@@ -171,14 +185,14 @@ namespace Code.Player {
 
             SetWeaponType(currentSelectedWeapon, animatorIndex);
         }
+
         private void GetMovement() {
             Vector3 dir = Vector3.zero;
             vel.x = input.GetMovement().x * _currentSpeed;
             vel.z = input.GetMovement().y * _currentSpeed;
             vel = transform.TransformDirection(vel);
-            
+
             if (controller.isGrounded && vel.y < 0) {
-                
                 vel.y = -10;
             }
             else {
@@ -191,8 +205,7 @@ namespace Code.Player {
         }
 
         private void Jump(InputAction.CallbackContext ctx) {
-            
-            if (controller.isGrounded && currentCooldownValue <=0) {
+            if (controller.isGrounded && currentCooldownValue <= 0) {
                 vel.y = Mathf.Sqrt((isInsideLava ? lavaJumpForce : jumpForce) * -3 * grav);
 
                 AudioManager.instance.PlayOneShot(FMODEvents.instance.playerJumpEvent, this.transform.position);
@@ -201,36 +214,9 @@ namespace Code.Player {
             }
         }
 
-        #region Crouching [NOT USED]
-        //private void Crouch(InputAction.CallbackContext ctx) {
-        //    Crouch(ctx, true);
-        //}
-
-        //private void Crouch(InputAction.CallbackContext ctx, bool shouldReproSFX = true) {
-        //    if (isInsideLava)
-        //        return;
-
-        //    crouching = !crouching;
-        //    cameraLook.ChangeViewHeight(crouching);
-
-        //    if (shouldReproSFX) {
-        //        PlayCrouchSound();
-        //    }
-        //}
-
-        //private void PlayCrouchSound() {
-        //    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerCrouchEvent, this.transform.position);
-        //}
-        #endregion
-
         private IEnumerator WalkInLava() {
             isInsideLava = true;
             ResetJump();
-
-            //if (crouching) {
-            //    crouching = !crouching;
-            //    cameraLook.ChangeViewHeight(crouching);
-            //}
 
             while (isInsideLava) {
                 Health.GetDamage(lavaDamage);
@@ -238,13 +224,11 @@ namespace Code.Player {
             }
         }
 
-        private async void ResetJump()
-        {
+        private async void ResetJump() {
             if (!isInsideLava) return;
             currentCooldownValue = jumpCooldown;
 
-            while(currentCooldownValue > 0) 
-            {
+            while (currentCooldownValue > 0) {
                 if (!this)
                     return;
 
@@ -257,7 +241,6 @@ namespace Code.Player {
             StopCoroutine(nameof(WalkInLava));
             isInsideLava = false;
             currentCooldownValue = 0;
-            
         }
         #endregion
 
@@ -275,7 +258,7 @@ namespace Code.Player {
             anim.SetInteger(weaponType, type);
             anim.Play(clip);
 
-            if(currentSelectedWeapon != type) currentSelectedWeapon = type;
+            if (currentSelectedWeapon != type) currentSelectedWeapon = type;
         }
 
         private void PlayShoot(InputAction.CallbackContext ctx) {
@@ -295,28 +278,38 @@ namespace Code.Player {
 
             anim.SetBool(isShooting, true);
         }
+
+        private void ShootContinuousInput(InputAction.CallbackContext ctx) => PlayShootContinuous(ctx.started);
+
+        private void SetWeaponInput(InputAction.CallbackContext ctx) {
+            if (ctx.action == input.playerMap.PlayerActions.Weapon01)
+                SetWeaponType(0, Pistol);
+            else if (ctx.action == input.playerMap.PlayerActions.Weapon02)
+                SetWeaponType(1, Shotgun);
+            else if (ctx.action == input.playerMap.PlayerActions.Weapon03)
+                SetWeaponType(2, Rifle);
+            else if (ctx.action == input.playerMap.PlayerActions.Weapon04)
+                SetWeaponType(3, Frustino);
+            else if (ctx.action == input.playerMap.PlayerActions.Weapon05)
+                SetWeaponType(4, Sword);
+        }
         #endregion
-        EndGameUI endgame;
+
         #region Death Behaviours
         private void PlayerDeath() {
             isDead = true;
             Cursor.lockState = CursorLockMode.None;
 
-            if (endgame == null)
-            {
-                endgame = Instantiate(endgameUI);
-                endgame.CallEndgame(EndGameUI.EndgameState.GameOver);
-            }
-
             if (isInsideLava)
                 ExitLava();
+
+            input.playerMap.PlayerActions.Jump.started -= Jump;
+            input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
         }
         #endregion
 
         #region Audio
-        private void InitializeAudio() {
-            footsteps_instance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
-        }
+        private void InitializeAudio() => footsteps_instance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
 
         private void UpdateSound() {
             if (controller.isGrounded && controller.velocity.sqrMagnitude > 0.0001f) {
@@ -333,22 +326,14 @@ namespace Code.Player {
         #endregion
 
         #region Utility
-        private int GetAnimatorIndex(int inputIndex) {
-            switch (inputIndex) {
-                case 0:
-                    return Pistol;
-                case 1:
-                    return Shotgun;
-                case 2:
-                    return Rifle;
-                case 3:
-                    return Frustino;
-                case 4:
-                    return Sword;
-                default:
-                    return 0;
-            }
-        }
+        private int GetAnimatorIndex(int inputIndex) => inputIndex switch {
+            0 => Pistol,
+            1 => Shotgun,
+            2 => Rifle,
+            3 => Frustino,
+            4 => Sword,
+            _ => 0
+        };
         #endregion
     }
 }

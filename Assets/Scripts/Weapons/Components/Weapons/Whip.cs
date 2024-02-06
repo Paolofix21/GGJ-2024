@@ -22,7 +22,7 @@ namespace Code.Weapons {
         protected override void OnShoot() {
             _isInCooldown = true;
 
-            _chargeStatus.Info = "Overheat...";
+            _chargeStatus.Info = "...";
             _chargeStatus.CooldownProgress = 0f;
             _chargeStatus.Dispatch();
 

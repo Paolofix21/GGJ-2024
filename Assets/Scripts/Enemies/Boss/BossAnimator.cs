@@ -28,8 +28,6 @@ namespace Code.EnemySystem.Boss {
         #region Private Variables
         private Animator _animator;
 
-        private EventInstance _voiceLinePlayer, _deathSoundPlayer;
-
         private static readonly int AnimProp_IsTalking = Animator.StringToHash("Is Talking");
         #endregion
 
@@ -37,12 +35,7 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Behaviour Callbacks
-        private void Awake() {
-            _animator = GetComponent<Animator>();
-
-            _voiceLinePlayer = RuntimeManager.CreateInstance(m_voiceLineEvent);
-            _deathSoundPlayer = RuntimeManager.CreateInstance(m_deathSoundEvent);
-        }
+        private void Awake() => _animator = GetComponent<Animator>();
         #endregion
 
         #region Public Methods
@@ -74,14 +67,10 @@ namespace Code.EnemySystem.Boss {
         }
 
         public float AnimateVoiceLineAuto() {
-            _voiceLinePlayer.set3DAttributes(transform.To3DAttributes());
-            _voiceLinePlayer.setVolume(5f);
-            _voiceLinePlayer.start();
-            _voiceLinePlayer.getDescription(out var description);
-            description.getLength(out var lenMs);
+            RuntimeManager.PlayOneShotAttached(m_voiceLineEvent, gameObject);
 
             _animator.SetBool(AnimProp_IsTalking, true);
-            var duration = Mathf.Max(1f, lenMs / 1000f);
+            var duration = Mathf.Max(1f, .5f); // TODO - Replace with audio clip length
             Invoke(nameof(StopVoiceLine), duration);
             return duration;
         }
@@ -96,33 +85,7 @@ namespace Code.EnemySystem.Boss {
             return m_decomposeAnimationClip.length;
         }
 
-        public void AnimateDeath() {
-            _voiceLinePlayer.stop(STOP_MODE.IMMEDIATE);
-            _deathSoundPlayer.set3DAttributes(transform.To3DAttributes());
-            _deathSoundPlayer.setVolume(5f);
-            _deathSoundPlayer.start();
-        }
-
-        public void AnimateAttack(int phase, float duration = 0f) {
-            switch (phase) {
-                case 0:
-                    _animator.CrossFade("Shoot", .25f);
-                    break;
-                case 1:
-                    _animator.CrossFade("Boss Laser Beam (Start)", .25f);
-                    Invoke(nameof(StopLaserBeam), duration);
-                    break;
-                case 2:
-                    Invoke(nameof(StartVoiceLine), m_recomposeAnimationClip.length);
-                    _animator.CrossFade("Boss Recompose", .25f);
-                    _animator.SetBool(AnimProp_IsTalking, true);
-                    Invoke(nameof(StopVoiceLine), duration + m_recomposeAnimationClip.length);
-                    break;
-                default:
-                    Debug.LogWarning("Phase was not defined...\n", this);
-                    return;
-            }
-        }
+        public void AnimateDeath() => RuntimeManager.PlayOneShotAttached(m_deathSoundEvent, gameObject);
         #endregion
 
         #region Private Methods
@@ -131,7 +94,7 @@ namespace Code.EnemySystem.Boss {
         private void StopLaserBeam() => _animator.CrossFade("Boss Laser Beam (End)", .25f);
 
         private void StartVoiceLine() {
-            _voiceLinePlayer.start();
+            RuntimeManager.PlayOneShotAttached(m_voiceLineEvent, gameObject);
             OnStartStopVoiceLine?.Invoke(true);
         }
         private void StopVoiceLine() {

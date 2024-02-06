@@ -55,17 +55,7 @@ namespace Code.EnemySystem.Wakakas {
         }
 
         [ContextMenu("Laugh")]
-        public void AnimateIntroVoiceLine() {
-            var ev = RuntimeManager.CreateInstance(m_introVoiceLineEvent);
-
-            var attr3d = new ATTRIBUTES_3D {
-                position = transform.position.ToFMODVector(),
-                forward = transform.forward.ToFMODVector()
-            };
-
-            ev.set3DAttributes(attr3d);
-            ev.start();
-        }
+        public void AnimateIntroVoiceLine() => RuntimeManager.PlayOneShotAttached(m_introVoiceLineEvent, gameObject);
 
         [ContextMenu("Laugh")]
         public void AnimateDeath() {
@@ -74,7 +64,7 @@ namespace Code.EnemySystem.Wakakas {
 
             _deathCoroutine = StartCoroutine(DeathCO());
 
-            AudioManager.instance.PlayOneShot(m_deathSound, transform.position);
+            RuntimeManager.PlayOneShotAttached(m_deathSound, gameObject);
         }
         #endregion
 
@@ -86,8 +76,7 @@ namespace Code.EnemySystem.Wakakas {
             var duration = m_laughterAnimation.keys[^1].time;
 
             if (!m_laughterClipEvent.IsNull) {
-                var ev = RuntimeManager.CreateInstance(m_laughterClipEvent);
-                ev.start();
+                RuntimeManager.PlayOneShotAttached(m_laughterClipEvent, gameObject);
             }
 
             while (t < duration) {

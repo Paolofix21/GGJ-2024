@@ -21,8 +21,6 @@ namespace Code.Player
         [SerializeField] private float amount;
         private float timer;
 
-        [SerializeField, Space(10)] private float crouchingTime = .3f;
-
         [SerializeField] private GameObject cam;
         private CinemachineVirtualCamera vcam;
         private CinemachineTransposer transposer;

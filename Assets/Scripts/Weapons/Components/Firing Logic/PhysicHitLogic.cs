@@ -43,7 +43,7 @@ namespace Code.Weapons {
         #region Overrides
         public override void Shoot(Ammunition ammunition) {
             var halfReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
-            // Effect(m_effectOrigin.position, halfReachablePoint);
+            Effect(m_effectOrigin.position, halfReachablePoint);
 
             var hitColliders = Physics.OverlapSphere(halfReachablePoint, m_radius);
 

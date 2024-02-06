@@ -12,6 +12,10 @@ namespace Code.Weapons {
         [SerializeField] private bool m_gizmosEnabled;
         #endregion
 
+        #region Private Variables
+        
+        #endregion
+
         #region Behaviour Callbacks
         private void OnDrawGizmos() {
             if (!m_gizmosEnabled)

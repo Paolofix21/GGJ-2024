@@ -1,5 +1,4 @@
-﻿using Code.Graphics;
-using Code.Player;
+﻿using Code.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -153,17 +152,19 @@ namespace Code.EnemySystem.Wakakas {
 
             if (distFromPlayer < m_detectionDistance) {
                 SetState(WakakaState.Chase);
+                _maskAnimator.AnimateLaughter();
                 return;
             }
 
             if (distFromPlayer < m_maxDistanceFromPlayer && verticalDistance < m_maxDistanceYFromPlayer)
                 return;
 
-            _moveDirection = -_moveDirection;
+            // _moveDirection = -_moveDirection;
+            _moveDirection = (PlayerController.Singleton.transform.position - transform.position).normalized;
         }
 
         private void DoRayCastAndAdjustDirection(ref Vector3 direction) {
-            if (!Physics.Raycast(transform.position, direction, out var hit, m_maxWallCastDistance))
+            if (!Physics.SphereCast(transform.position, .25f, direction, out var hit, m_maxWallCastDistance))
                 return;
 
             direction = hit.normal;

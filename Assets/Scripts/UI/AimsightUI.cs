@@ -7,16 +7,15 @@ using UnityEngine.EventSystems;
 
 namespace UI {
     public class AimsightUI : UIBehaviour {
-
         #region Public Variables
         [SerializeField] private List<GameObject> Aim;
         #endregion
 
         #region Behaviour Callbacks
-        protected override void Awake()
-        {
+        protected override void Awake() {
             CutsceneIntroController.OnIntroStartStop += HideShow;
         }
+
         protected override void Start() {
             PlayerController.Singleton.OnWeaponChanged += CheckWeapon;
         }
@@ -29,9 +28,9 @@ namespace UI {
 
         private void HideShow(bool show) => gameObject.SetActive(!show);
         #endregion
+
         #region Private Methods
-        private void CheckWeapon(int weapon)
-        {
+        private void CheckWeapon(int weapon) {
             foreach (var item in Aim)
                 item.SetActive(false);
             Aim[weapon].SetActive(true);

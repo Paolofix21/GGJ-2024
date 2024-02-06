@@ -3,6 +3,7 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using FMODUnity;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -10,6 +11,7 @@ namespace Code.Weapons {
         #region Public Variables
         [Header("Settings")]
         [SerializeField] private WeaponType defaultType;
+        [SerializeField] private EventReference m_rechargeSound;
 
         [Header("References")]
         [SerializeField] private List<Weapon> weapons = new();
@@ -65,20 +67,20 @@ namespace Code.Weapons {
         #endregion
 
         #region Public Methods
+        [UsedImplicitly]
         public void BoostAllWeapons() => weapons.ForEach(w => w.Boost());
         #endregion
 
         #region Private Methods
         [UsedImplicitly]
-        private void Shoot() {
-            EquippedWeapon.Shoot();
-        }
+        private void Shoot() => EquippedWeapon.Shoot();
 
         private void InteractWithRecharger(IRecharger recharger) {
             if (recharger == null) return;
 
             RechargeWeapon(recharger.Type, recharger.Amount);
             recharger.SetInteractable(false);
+            RuntimeManager.PlayOneShotAttached(m_rechargeSound, gameObject);
         }
 
         private void RechargeWeapon(WeaponType type, int amount) {

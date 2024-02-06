@@ -130,6 +130,7 @@ MonoBehaviour:
     <TotalAmount>k__BackingField: 16
   <FiringLogic>k__BackingField:
     rid: 5009933660594372685
+  m_cooldownDuration: 0.35
   references:
     version: 2
     RefIds:
@@ -315,13 +316,13 @@ MonoBehaviour:
         m_range: 1
         m_soundEventReference:
           Guid:
-            Data1: 366919177
-            Data2: 1131037564
-            Data3: 553253536
-            Data4: 684652103
-          Path: event:/Weapons/Sword_Sium
+            Data1: -1366560208
+            Data2: 1301260594
+            Data3: -807903320
+            Data4: 452516081
+          Path: event:/Weapons/Mysterious
         m_weaponCamera: {fileID: 6662661017876477146}
-        m_effectOrigin: {fileID: 0}
+        m_effectOrigin: {fileID: 8822632051471444640}
         m_radius: 2
         m_boostMultiplier: 3
         m_gizmosEnabled: 0
@@ -340,7 +341,7 @@ GameObject:
   - component: {fileID: 599590968436143203}
   - component: {fileID: 9033090158500113743}
   - component: {fileID: 4491049517479311234}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -453,6 +454,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   defaultType: 0
+  m_rechargeSound:
+    Guid:
+      Data1: -1103274195
+      Data2: 1215403400
+      Data3: -1645827663
+      Data4: -864889033
+    Path: event:/VO/VO_DropAmmunition
   weapons:
   - {fileID: 2101023675109285379}
   - {fileID: 5274860541504368092}
@@ -764,7 +772,7 @@ MonoBehaviour:
             Data4: 2060778761
           Path: event:/Weapons/Whip_Sqadush
         m_weaponCamera: {fileID: 6662661017876477146}
-        m_effectOrigin: {fileID: 0}
+        m_effectOrigin: {fileID: 8822632051471444640}
         m_radius: 8
         m_boostMultiplier: 3
         m_gizmosEnabled: 0
@@ -822,6 +830,7 @@ MonoBehaviour:
     <TotalAmount>k__BackingField: 8
   <FiringLogic>k__BackingField:
     rid: 5009933660594372686
+  m_cooldownDuration: 0.7
   references:
     version: 2
     RefIds:
@@ -831,11 +840,11 @@ MonoBehaviour:
         m_range: 10
         m_soundEventReference:
           Guid:
-            Data1: 2031580340
-            Data2: 1097586792
-            Data3: -343753563
-            Data4: 226358733
-          Path: event:/Weapons/Shotgun_Fart
+            Data1: 65293639
+            Data2: 1119677427
+            Data3: 12045242
+            Data4: -2008194876
+          Path: event:/Weapons/Shotgun_Ptewf
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
         bullet: {fileID: 4482838815022368570, guid: 2e3a8823dd8101c48872be8b8ee0e452,

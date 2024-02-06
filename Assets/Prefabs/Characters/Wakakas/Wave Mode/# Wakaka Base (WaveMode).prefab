@@ -58,10 +58,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8088826163164090745, guid: 9a401d4f1f5c1c442afc3b69a30f8ad9,
+        type: 3}
+      propertyPath: m_detectionDistance
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 8143660834925428671, guid: 9a401d4f1f5c1c442afc3b69a30f8ad9,
         type: 3}
       propertyPath: m_Name
-      value: Wakaka Base (WaveMode)
+      value: '# Wakaka Base (WaveMode)'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

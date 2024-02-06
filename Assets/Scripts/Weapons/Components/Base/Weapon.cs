@@ -6,7 +6,7 @@ namespace Code.Weapons {
         [field: Header("Settings")]
         [field: SerializeField] public WeaponType WeaponType { get; private set; }
         [field: SerializeField] public Ammunition Ammunition { get; private set; }
-        [field: SerializeReference] public abstract FiringLogicBase FiringLogic { get; protected set; }
+        public abstract FiringLogicBase FiringLogic { get; protected set; }
         #endregion
 
         #region Private Variables

@@ -152,7 +152,7 @@ namespace Code.Dialogue
 				{
 					charMap.mappedInfo.Add(charMap.DialogueChars[i].Letter, charMap.DialogueChars[i].CharClip);
 				}
-				catch (Exception e)
+				catch
 				{
 					// Se non ci riesce pazienza
 					Debug.Log("Error when adding chars to the charMap");

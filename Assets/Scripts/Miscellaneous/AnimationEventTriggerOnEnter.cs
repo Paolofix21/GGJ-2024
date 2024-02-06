@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Code.EnemySystem.Boss {
+namespace Code.EnemySystem.Miscellaneous {
     public class AnimationEventTriggerOnEnter : StateMachineBehaviour {
         [SerializeField] private string m_eventName;
 

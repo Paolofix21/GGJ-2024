@@ -423,6 +423,13 @@ MonoBehaviour:
   <Type>k__BackingField: 0
   <Amount>k__BackingField: 16
   cooldown: 6
+  m_rechargeSound:
+    Guid:
+      Data1: -1103274195
+      Data2: 1215403400
+      Data3: -1645827663
+      Data4: -864889033
+    Path: event:/VO/VO_DropAmmunition
   interactableCollider: {fileID: 2659663291119346420}
   meshRenderer: {fileID: 5889530149695150463}
   cooldownCanvas: {fileID: 3134700869417518277}

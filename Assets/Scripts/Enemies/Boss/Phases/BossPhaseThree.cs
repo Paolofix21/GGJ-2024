@@ -3,12 +3,6 @@
 namespace Code.EnemySystem.Boss.Phases {
     [System.Serializable]
     public class BossPhaseThree : BossPhaseBase {
-        #region Public Variables
-        [SerializeField, Min(0f)] private float m_minAttackDelay = 2f;
-        [SerializeField, Min(0.1f)] private float m_maxAttackDelay = 5f;
-        [SerializeField, Min(1)] private int m_rounds = 3;
-        #endregion
-
         #region Private Variables
         private BossAttackTrapezio _attackTrapezio;
 

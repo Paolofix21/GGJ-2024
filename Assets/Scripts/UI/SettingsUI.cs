@@ -1,4 +1,5 @@
 using Code.Graphics;
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,6 +22,10 @@ namespace Code.UI
 
         #region Properties
         #endregion
+
+        public static event Action<int> OnSensitivityChanged;
+        public static event Action<int> OnFOVChanged;
+        public static event Action<bool> OnMotionBlurChanged;
 
         #region Behaviour Callbacks
         private void Awake()
@@ -60,9 +65,9 @@ namespace Code.UI
             Setup(m_sfx.m_Toggle, m_sfx.m_Slider, "bus:/SFX", m_sfx.IsOn, m_sfx.m_Text);
             Setup(m_ui.m_Toggle, m_ui.m_Slider, "bus:/UI", m_ui.IsOn, m_ui.m_Text);
             Setup(m_vo.m_Toggle, m_vo.m_Slider, "bus:/VO", m_vo.IsOn, m_vo.m_Text);
-            SettingsSetup(null, m_sensitivity.m_Slider, VideoSettingsHelper.MouseSensitivity, false, false, m_sensitivity.m_Text);
-            SettingsSetup(null, m_fov.m_Slider, VideoSettingsHelper.FOV, false, false, m_fov.m_Text);
-            SettingsSetup(m_blur.m_Toggle, null, 0, VideoSettingsHelper.MotionBlurActive, m_blur.IsOn, m_blur.m_Text);
+            SensitivitySliderSetup(m_sensitivity.m_Slider, m_sensitivity.m_Text, 10, 100, OnSensitivityChanged);
+            FOVSliderSetup(m_fov.m_Slider, m_fov.m_Text, 60, 100, OnFOVChanged);
+            BlurToggle(m_blur.m_Toggle, OnMotionBlurChanged);
             m_backButton.onClick.AddListener(DestroyThisGO);
         }
         private void Setup(Toggle myToggle, Slider mySlider, string busName, bool savedToggle, TMP_Text textValue)
@@ -81,16 +86,50 @@ namespace Code.UI
                 textValue.text = UpdateVolume(mySlider.value, busName);
             });
         }
-        private void SettingsSetup(Toggle myToggle, Slider mySlider, int value, bool check, bool savedToggle, TMP_Text textValue)
+        private void BlurToggle(Toggle myToggle, Action<bool> act)
         {
-            if(mySlider) mySlider.value = value;
-            if(myToggle) myToggle.isOn = check;
+            myToggle.isOn = VideoSettingsHelper.MotionBlurActive;
 
             myToggle.onValueChanged.AddListener(delegate
             {
+                VideoSettingsHelper.MotionBlurActive = myToggle.isOn;
+                act?.Invoke(VideoSettingsHelper.MotionBlurActive);
             });
+        }
+
+        private void SensitivitySliderSetup(Slider mySlider, TMP_Text textValue, int minValue, int maxValue, Action<int> act)
+        {
+            mySlider.minValue = minValue;
+            mySlider.maxValue = maxValue;
+            mySlider.value = VideoSettingsHelper.MouseSensitivity;
+
+            textValue.text = VideoSettingsHelper.MouseSensitivity.ToString();
+
             mySlider.onValueChanged.AddListener(delegate
             {
+                var value = mySlider.value;
+                VideoSettingsHelper.MouseSensitivity = (int)value;
+                textValue.text = VideoSettingsHelper.MouseSensitivity.ToString();
+                act?.Invoke(VideoSettingsHelper.MouseSensitivity);
+
+            });
+        }
+
+        private void FOVSliderSetup(Slider mySlider, TMP_Text textValue, int minValue, int maxValue, Action<int> act)
+        {
+            mySlider.minValue = minValue;
+            mySlider.maxValue = maxValue;
+            mySlider.value = VideoSettingsHelper.FOV;
+
+            textValue.text = VideoSettingsHelper.FOV.ToString();
+
+            mySlider.onValueChanged.AddListener(delegate
+            {
+                var value = mySlider.value;
+                VideoSettingsHelper.FOV = (int)value;
+                textValue.text = VideoSettingsHelper.FOV.ToString();
+                act?.Invoke(VideoSettingsHelper.FOV);
+
             });
         }
         private bool ToggleVolume(bool isOn, string busName)

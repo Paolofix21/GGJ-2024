@@ -10,8 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 406747828913112871}
   - component: {fileID: 5274860541504368092}
-  - component: {fileID: 4424931624641172843}
-  - component: {fileID: 2589864667692481758}
   m_Layer: 0
   m_Name: Automatic Rifle
   m_TagString: Untagged
@@ -46,53 +44,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143e1006ec2ce6d4f9c3f9c849568ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 2
-  ammunition:
-    damageType: 2
-    damageAmount: 20
-  cartridge: {fileID: 4424931624641172843}
-  firingLogic: {fileID: 2589864667692481758}
---- !u!114 &4424931624641172843
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2153682534830100242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingAmount: 30
-  totalAmount: 30
-  amountShotConsumed: 1
---- !u!114 &2589864667692481758
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2153682534830100242}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf98a7d46ccb1754fb273e3b3e365ca8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 6
-  cooldown: 0
-  soundEventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  weaponCamera: {fileID: 6662661017876477146}
-  effectOrigin: {fileID: 0}
-  bullet: {fileID: 953616528730205463, guid: f91aa57b5c82f1d4da9540386b480d62, type: 3}
-  hitParticle: {fileID: 0}
-  gizmosEnabled: 0
+  <WeaponType>k__BackingField: 2
+  <Ammunition>k__BackingField:
+    <DamageType>k__BackingField: 2
+    <DamageAmount>k__BackingField: 10
+  <Cartridge>k__BackingField:
+    amountShotConsumed: 1
+    startingAmount: 18
+    <TotalAmount>k__BackingField: 24
+  <FiringLogic>k__BackingField:
+    rid: 5009933660594372689
+  references:
+    version: 2
+    RefIds:
+    - rid: 5009933660594372689
+      type: {class: SingleBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
+      data:
+        m_range: 14
+        m_soundEventReference:
+          Guid:
+            Data1: 1960522785
+            Data2: 1233969561
+            Data3: 1944457107
+            Data4: 1739172865
+          Path: event:/Weapons/RifleTik
+        m_weaponCamera: {fileID: 6662661017876477146}
+        m_effectOrigin: {fileID: 3569501502771818034}
+        m_bullet: {fileID: 953616528730205463, guid: f91aa57b5c82f1d4da9540386b480d62,
+          type: 3}
+        m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
+          type: 3}
+        m_boostMultiplier: 3
+        m_gizmosEnabled: 0
 --- !u!1 &2176538191775194421
 GameObject:
   m_ObjectHideFlags: 0
@@ -103,8 +86,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7863780361649108950}
   - component: {fileID: 2101023675109285379}
-  - component: {fileID: 8666441600665656673}
-  - component: {fileID: 5584742441554055452}
   m_Layer: 0
   m_Name: Pistol
   m_TagString: Untagged
@@ -139,53 +120,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86215deb66e49d44fa5177c7df0bc333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 0
-  ammunition:
-    damageType: 1
-    damageAmount: 30
-  cartridge: {fileID: 8666441600665656673}
-  firingLogic: {fileID: 5584742441554055452}
---- !u!114 &8666441600665656673
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2176538191775194421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingAmount: 30
-  totalAmount: 30
-  amountShotConsumed: 1
---- !u!114 &5584742441554055452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2176538191775194421}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bf98a7d46ccb1754fb273e3b3e365ca8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 5
-  cooldown: 0.3
-  soundEventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  weaponCamera: {fileID: 6662661017876477146}
-  effectOrigin: {fileID: 0}
-  bullet: {fileID: 7895803028753661806, guid: 41a39b493634ea840a2cd867a86c1a51, type: 3}
-  hitParticle: {fileID: 0}
-  gizmosEnabled: 0
+  <WeaponType>k__BackingField: 0
+  <Ammunition>k__BackingField:
+    <DamageType>k__BackingField: 1
+    <DamageAmount>k__BackingField: 25
+  <Cartridge>k__BackingField:
+    amountShotConsumed: 1
+    startingAmount: 12
+    <TotalAmount>k__BackingField: 16
+  <FiringLogic>k__BackingField:
+    rid: 5009933660594372685
+  references:
+    version: 2
+    RefIds:
+    - rid: 5009933660594372685
+      type: {class: SingleBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
+      data:
+        m_range: 16
+        m_soundEventReference:
+          Guid:
+            Data1: 111357726
+            Data2: 1186097951
+            Data3: -182839660
+            Data4: -1128658301
+          Path: event:/Weapons/PistolOneShoot
+        m_weaponCamera: {fileID: 6662661017876477146}
+        m_effectOrigin: {fileID: 1126597652111750780}
+        m_bullet: {fileID: 7895803028753661806, guid: 41a39b493634ea840a2cd867a86c1a51,
+          type: 3}
+        m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
+          type: 3}
+        m_boostMultiplier: 3
+        m_gizmosEnabled: 0
 --- !u!1 &3087453832401542410
 GameObject:
   m_ObjectHideFlags: 0
@@ -299,8 +265,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7095102524325830490}
   - component: {fileID: 6649242715459608422}
-  - component: {fileID: 1477663010319231656}
-  - component: {fileID: 2394681519219461257}
   m_Layer: 0
   m_Name: Whip
   m_TagString: Untagged
@@ -335,52 +299,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 615a9af9f45ce2d42a4ab3aa874324e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 3
-  ammunition:
-    damageType: -1
-    damageAmount: 25
-  cartridge: {fileID: 1477663010319231656}
-  firingLogic: {fileID: 2394681519219461257}
---- !u!114 &1477663010319231656
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5684284421859403756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingAmount: 1
-  totalAmount: 1
-  amountShotConsumed: 1
---- !u!114 &2394681519219461257
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5684284421859403756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0b8b6ff542edc4fa5ac5667b6b4bb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 1
-  cooldown: 0.85
-  soundEventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  weaponCamera: {fileID: 6662661017876477146}
-  effectOrigin: {fileID: 0}
-  radius: 1
-  gizmosEnabled: 0
+  <WeaponType>k__BackingField: 3
+  <Ammunition>k__BackingField:
+    <DamageType>k__BackingField: -1
+    <DamageAmount>k__BackingField: 25
+  <FiringLogic>k__BackingField:
+    rid: 5009933660594372687
+  m_cooldownDuration: 0.75
+  references:
+    version: 2
+    RefIds:
+    - rid: 5009933660594372687
+      type: {class: PhysicHitLogic, ns: Code.Weapons, asm: Assembly-CSharp}
+      data:
+        m_range: 1
+        m_soundEventReference:
+          Guid:
+            Data1: 366919177
+            Data2: 1131037564
+            Data3: 553253536
+            Data4: 684652103
+          Path: event:/Weapons/Sword_Sium
+        m_weaponCamera: {fileID: 6662661017876477146}
+        m_effectOrigin: {fileID: 0}
+        m_radius: 2
+        m_boostMultiplier: 3
+        m_gizmosEnabled: 0
 --- !u!1 &6510461128044869446
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,7 +334,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2756047984188629095}
-  - component: {fileID: 998787926068469481}
   - component: {fileID: 7942111860754080912}
   - component: {fileID: 7807441193164072146}
   - component: {fileID: 7329885879184918812}
@@ -421,14 +364,6 @@ Transform:
   - {fileID: 7774580334619202219}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &998787926068469481
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6510461128044869446}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &7942111860754080912
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,14 +395,14 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 94d5d0169ea5625498950ec30b3e5e38, type: 2}
   - {fileID: 11400000, guid: a6da922e61b50ae4186ba2c0eaef7c18, type: 2}
   endgameUI: {fileID: 0}
-  arms: {fileID: 0}
-  airborneSpeed: 16
-  speed: 6
-  jumpForce: 0.2
+  arms: {fileID: 4098327224838240829}
+  airborneSpeed: 12
+  speed: 8
+  jumpForce: 8
   anim: {fileID: 7299159195889580797}
   Health: {fileID: 0}
-  lavaSpeed: 2
-  lavaJumpForce: 1.5
+  lavaSpeed: 3
+  lavaJumpForce: 16
   timeDelay: 1
   lavaDamage: 2
   jumpCooldown: 4
@@ -483,8 +418,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85b246c4d0b217f44865173e2e8628bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 30
-  sensitivityY: 30
+  sensitivityX: 10
+  sensitivityY: 10
   maxRot: 70
   minRot: -70
   speed: 16
@@ -578,7 +513,7 @@ Transform:
   m_GameObject: {fileID: 6727737949139509557}
   serializedVersion: 2
   m_LocalRotation: {x: 0.24161299, y: -0.07779399, z: 0.01943639, w: 0.967054}
-  m_LocalPosition: {x: 0, y: 0.6999998, z: 0}
+  m_LocalPosition: {x: 0, y: 0.70000005, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -773,8 +708,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2877908004064318183}
   - component: {fileID: 5877018968497345420}
-  - component: {fileID: 1675470087675349455}
-  - component: {fileID: 4928699488713793825}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -809,52 +742,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3619eecd525230740bec8a1517c1a5a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 4
-  ammunition:
-    damageType: 8
-    damageAmount: 100
-  cartridge: {fileID: 1675470087675349455}
-  firingLogic: {fileID: 4928699488713793825}
---- !u!114 &1675470087675349455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7955934278163305949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingAmount: 1
-  totalAmount: 1
-  amountShotConsumed: 1
---- !u!114 &4928699488713793825
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7955934278163305949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e0b8b6ff542edc4fa5ac5667b6b4bb6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 1.5
-  cooldown: 0.85
-  soundEventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  weaponCamera: {fileID: 6662661017876477146}
-  effectOrigin: {fileID: 0}
-  radius: 1.5
-  gizmosEnabled: 0
+  <WeaponType>k__BackingField: 4
+  <Ammunition>k__BackingField:
+    <DamageType>k__BackingField: -1
+    <DamageAmount>k__BackingField: 125
+  <FiringLogic>k__BackingField:
+    rid: 5009933660594372688
+  m_maxEnergy: 10
+  references:
+    version: 2
+    RefIds:
+    - rid: 5009933660594372688
+      type: {class: PhysicHitLogic, ns: Code.Weapons, asm: Assembly-CSharp}
+      data:
+        m_range: 4
+        m_soundEventReference:
+          Guid:
+            Data1: -1091618892
+            Data2: 1179883727
+            Data3: -1153598305
+            Data4: 2060778761
+          Path: event:/Weapons/Whip_Sqadush
+        m_weaponCamera: {fileID: 6662661017876477146}
+        m_effectOrigin: {fileID: 0}
+        m_radius: 8
+        m_boostMultiplier: 3
+        m_gizmosEnabled: 0
 --- !u!1 &8622749203894034788
 GameObject:
   m_ObjectHideFlags: 0
@@ -865,8 +778,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2187046813221908388}
   - component: {fileID: 2302632041159539967}
-  - component: {fileID: 7794853745400635584}
-  - component: {fileID: 92474995708794262}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: Untagged
@@ -901,55 +812,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bab7bb4f424ab47915c548b4cdede7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponType: 1
-  ammunition:
-    damageType: 4
-    damageAmount: 50
-  cartridge: {fileID: 7794853745400635584}
-  firingLogic: {fileID: 92474995708794262}
---- !u!114 &7794853745400635584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8622749203894034788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a69487f306fef440b825339e5152c2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  startingAmount: 30
-  totalAmount: 30
-  amountShotConsumed: 1
---- !u!114 &92474995708794262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8622749203894034788}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3dafbbea3248c8b47a2610d43755c8ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  range: 3
-  cooldown: 0.85
-  soundEventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  weaponCamera: {fileID: 6662661017876477146}
-  effectOrigin: {fileID: 0}
-  bullet: {fileID: 4482838815022368570, guid: 2e3a8823dd8101c48872be8b8ee0e452, type: 3}
-  hitParticle: {fileID: 0}
-  radius: 2
-  interestedPoints: 6
-  gizmosEnabled: 0
+  <WeaponType>k__BackingField: 1
+  <Ammunition>k__BackingField:
+    <DamageType>k__BackingField: 4
+    <DamageAmount>k__BackingField: 12
+  <Cartridge>k__BackingField:
+    amountShotConsumed: 1
+    startingAmount: 5
+    <TotalAmount>k__BackingField: 8
+  <FiringLogic>k__BackingField:
+    rid: 5009933660594372686
+  references:
+    version: 2
+    RefIds:
+    - rid: 5009933660594372686
+      type: {class: ZoneBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
+      data:
+        m_range: 10
+        m_soundEventReference:
+          Guid:
+            Data1: 2031580340
+            Data2: 1097586792
+            Data3: -343753563
+            Data4: 226358733
+          Path: event:/Weapons/Shotgun_Fart
+        m_weaponCamera: {fileID: 6662661017876477146}
+        m_effectOrigin: {fileID: 8822632051471444640}
+        bullet: {fileID: 4482838815022368570, guid: 2e3a8823dd8101c48872be8b8ee0e452,
+          type: 3}
+        hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
+          type: 3}
+        m_boostMultiplier: 3
+        radius: 0.2
+        interestedPoints: 7
+        gizmosEnabled: 0
 --- !u!1001 &3756361854172432236
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1221,6 +1117,18 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 68047360212055158}
   m_SourcePrefab: {fileID: 100100000, guid: 86c8f8b1a7db2134292e415656992149, type: 3}
+--- !u!4 &1126597652111750780 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4935032956798471920, guid: 86c8f8b1a7db2134292e415656992149,
+    type: 3}
+  m_PrefabInstance: {fileID: 3756361854172432236}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &3569501502771818034 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8815746242191988386, guid: 86c8f8b1a7db2134292e415656992149,
+    type: 3}
+  m_PrefabInstance: {fileID: 3756361854172432236}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3723349107301671047 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 86c8f8b1a7db2134292e415656992149,
@@ -1263,9 +1171,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5f994043bb04da6b625a77a2b03ec36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_glowProgress:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!95 &7299159195889580797 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 86c8f8b1a7db2134292e415656992149,
+    type: 3}
+  m_PrefabInstance: {fileID: 3756361854172432236}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8822632051471444640 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5643307403335757260, guid: 86c8f8b1a7db2134292e415656992149,
     type: 3}
   m_PrefabInstance: {fileID: 3756361854172432236}
   m_PrefabAsset: {fileID: 0}

@@ -40,7 +40,7 @@ namespace Code.Weapons {
             if(playerWeaponAnimatorListener != null)
                 playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
 
-            weapons.ForEach(w => w.SetUp(this));
+            weapons.ForEach(w => w.Init(this));
         }
 
         private IEnumerator Start() {
@@ -77,12 +77,12 @@ namespace Code.Weapons {
         private void InteractWithRecharger(IRecharger recharger) {
             if (recharger == null) return;
 
-            RechargeWeapon(recharger.GetCompatibleWeapon(), recharger.GetReloadAmount());
-            recharger.Interactable(false);
+            RechargeWeapon(recharger.Type, recharger.Amount);
+            recharger.SetInteractable(false);
         }
 
         private void RechargeWeapon(WeaponType type, int amount) {
-            Weapon weaponToRecharge = weapons.First(weapon => weapon.WeaponType == type);
+            var weaponToRecharge = weapons.Find(weapon => weapon.WeaponType == type);
             weaponToRecharge.Recharge(amount);
         }
         #endregion
@@ -92,20 +92,34 @@ namespace Code.Weapons {
 
         private void EquipWeapon(int weaponType) {
             if (EquippedWeapon)
-                EquippedWeapon.Cartridge.OnAmmoAmountChanged -= CheckAmmo;
+                EquippedWeapon.ChargeStatus.OnUpdated -= CheckAmmo;
 
             EquippedWeapon = weapons.First(weapon => weapon.WeaponType == (WeaponType)weaponType);
             OnUpdateWeaponInfo?.Invoke(EquippedWeapon);
 
             if (EquippedWeapon)
-                EquippedWeapon.Cartridge.OnAmmoAmountChanged += CheckAmmo;
+                EquippedWeapon.ChargeStatus.OnUpdated += CheckAmmo;
 
-            playerController.visualSetter.SetEmissivePower(EquippedWeapon.Cartridge.GetAmmoRate());
+            SetEmissionChargeFeedback(EquippedWeapon.ChargeStatus);
         }
 
-        private void CheckAmmo(int ammoCount) {
+        private void CheckAmmo(WeaponChargeStatus weaponChargeStatus) {
             OnUpdateWeaponInfo?.Invoke(EquippedWeapon);
-            playerController.visualSetter.SetEmissivePower(EquippedWeapon.Cartridge.GetAmmoRate());
+            SetEmissionChargeFeedback(weaponChargeStatus);
+        }
+
+        private void SetEmissionChargeFeedback(WeaponChargeStatus weaponChargeStatus) {
+            switch (weaponChargeStatus) {
+                case WeaponEnergyChargeStatus energyWeapon:
+                    playerController.visualSetter.SetEmissivePower(Mathf.Clamp01(energyWeapon.EnergyAmount));
+                    return;
+                case WeaponCooldownChargeStatus cooldownWeapon:
+                    playerController.visualSetter.SetEmissivePower(Mathf.Clamp01(cooldownWeapon.CooldownProgress));
+                    return;
+                case WeaponBulletChargeStatus bulletWeapon:
+                    playerController.visualSetter.SetEmissivePower(Mathf.Clamp01((float)bulletWeapon.CurrentBullets / bulletWeapon.MaxBullets));
+                    return;
+            }
         }
 
         private bool CanShoot() => EquippedWeapon && EquippedWeapon.CanShoot();

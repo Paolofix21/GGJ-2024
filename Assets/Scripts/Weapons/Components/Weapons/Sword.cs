@@ -1,42 +1,54 @@
-using Code.EnemySystem;
-using Code.Player;
-using System;
+using Code.Core;
+using Code.Promises;
 using UnityEngine;
 
 namespace Code.Weapons {
-
     public class Sword : Weapon {
-        public const int energyToRecharge = 10;
-        public static int currentEnergy = 10;
-        public static Action OnShoot;
+        #region Public Variables
+        [field: SerializeReference] public override FiringLogicBase FiringLogic { get; protected set; } = new PhysicHitLogic();
+        [SerializeField] private int m_maxEnergy = 10;
+        #endregion
 
-        private void Awake() {
-            // TODO - Fix charge with kill
-            // WaveSpawner.OnEnemyDeath += OnEnergyTaken;
+        #region Private Variables
+        private int _currentEnergy = 10;
+        #endregion
+
+        #region Properties
+        private readonly WeaponEnergyChargeStatus _chargeStatus = new();
+        public override WeaponChargeStatus ChargeStatus => _chargeStatus;
+        #endregion
+
+        #region Behaviour Callbacks
+        private void Awake() => _currentEnergy = m_maxEnergy;
+
+        protected override void OnStart() {
+            FindFirstObjectByType<EntityManager>().Entities.OnRemoved += EnemyRemoved;
+            Refresh();
+        }
+        #endregion
+
+        #region Overrides
+        public override bool CanShoot() => _currentEnergy >= m_maxEnergy;
+
+        protected override void OnShoot() {
+            _currentEnergy = 0;
+            Refresh();
         }
 
-        private void OnDestroy() {
-            // TODO - Fix charge with kill
-            // WaveSpawner.OnEnemyDeath -= OnEnergyTaken;
+        public override void Recharge(int amount) { }
+        #endregion
+
+        #region Event Methods
+        private void EnemyRemoved(IEntity element) {
+            ++_currentEnergy;
+            Refresh();
         }
 
-        private void OnEnergyTaken() {
-            if (cartridge.HasAmmo())
-                return;
-            if (PlayerController.Singleton.CurrentSelectedWeapon == 4)
-                return;
-            if(currentEnergy < energyToRecharge)
-                currentEnergy++;
-            if(currentEnergy == energyToRecharge)
-                Recharge(1);
+        private void Refresh() {
+            _chargeStatus.Info = CanShoot() ? "Ready" : "Discharged";
+            _chargeStatus.EnergyAmount = (float)_currentEnergy / m_maxEnergy;
+            _chargeStatus.Dispatch();
         }
-
-        public override void Shoot()
-        {
-            currentEnergy = 0;
-            OnShoot.Invoke();
-            base.Shoot();
-        }
+        #endregion
     }
-
 }

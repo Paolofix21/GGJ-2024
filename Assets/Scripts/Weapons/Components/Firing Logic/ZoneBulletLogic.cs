@@ -2,10 +2,11 @@ using UnityEngine;
 using Weapons.Components;
 
 namespace Code.Weapons {
-
-    public class ZoneBulletLogic : FiringLogic {
+    public class ZoneBulletLogic : FiringLogicBase {
+        #region Public Variables
         [SerializeField] private BulletTrail bullet = default;
         [SerializeField] private GameObject hitParticle = default;
+        [SerializeField] private float m_boostMultiplier = 3f;
 
         [Header("Settings")]
         [SerializeField][Range(0f, 1f)] private float radius = default;
@@ -13,79 +14,80 @@ namespace Code.Weapons {
 
         [Header("Gizmos")]
         [SerializeField] private bool gizmosEnabled = default;
+        #endregion
 
+        #region Behaviour Callbacks
         private void OnDrawGizmos() {
             if (!gizmosEnabled)
                 return;
 
-            Vector3 lastReachablePoint = weaponCamera.position + weaponCamera.forward * range;
+            var lastReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
 
-            for (int i = 0; i < interestedPoints; i++) {
+            for (var i = 0; i < interestedPoints; i++) {
                 Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
 
-                Gizmos.DrawLine(weaponCamera.position, randomReachablePoint);
+                Gizmos.DrawLine(m_weaponCamera.position, randomReachablePoint);
 
-                string log = Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo) ? "Raycast fired with hit" : "Raycast fired without hit";
+                var log = Physics.Linecast(m_weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo) ? "Raycast fired with hit" : "Raycast fired without hit";
 
-                Debug.Log($"{gameObject.name} - {log}");
+                Debug.Log($"{_weapon.name} - {log}");
 
                 if (hitInfo.collider == null) {
                     Gizmos.color = Color.red;
-                    Debug.Log($"{gameObject.name} - No collider detected");
+                    Debug.Log($"{_weapon.name} - No collider detected");
                     return;
                 }
 
                 Gizmos.color = Color.blue;
-                Debug.Log($"{gameObject.name} - Collider detected");
+                Debug.Log($"{_weapon.name} - Collider detected");
 
-                IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
+                var damageable = hitInfo.collider.GetComponent<IDamageable>();
 
                 if (damageable != null) {
                     Gizmos.color = Color.green;
-                    Debug.Log($"{gameObject.name} - Damageable detected");
+                    Debug.Log($"{_weapon.name} - Damageable detected");
                 }
 
             }
         }
+        #endregion
 
+        #region Overrides
         public override void Shoot(Ammunition ammunition) {
-            Cooldown(true);
+            var lastReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
 
-            Vector3 lastReachablePoint = weaponCamera.position + weaponCamera.forward * range;
-
-            for (int i = 0; i < interestedPoints; i++) {
+            for (var i = 0; i < interestedPoints; i++) {
                 Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
 
-                Effect(effectOrigin.position, randomReachablePoint);
+                Effect(m_effectOrigin.position, randomReachablePoint);
 
-                if (Physics.Linecast(weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
+                if (Physics.Linecast(m_weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
                     if (hitInfo.collider == null)
                         return;
 
-                    Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                    Object.Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
-                    IDamageable damageable = hitInfo.collider.GetComponentInParent<IDamageable>();
+                    var damageable = hitInfo.collider.GetComponentInParent<IDamageable>();
 
                     if (damageable == null)
                         return;
 
-                    if (!damageable.GetDamage(ammunition.GetDamageType()))
+                    if (!damageable.GetDamage(ammunition.DamageType))
                         return;
 
-                    damageable.ApplyDamage(ammunition.GetDamageAmount());
+                    damageable.ApplyDamage(ammunition.DamageAmount);
                 }
             }
         }
 
+        public override void Boost() => m_range *= m_boostMultiplier;
+
         protected override void Effect(Vector3 origin, Vector3 lastPosition) {
-            AudioManager.instance.PlayOneShot(soundEventReference, origin);
-            BulletTrail bulletTrail = Instantiate(bullet, origin, Quaternion.identity);
+            AudioManager.instance.PlayOneShot(m_soundEventReference, origin);
+            var bulletTrail = Object.Instantiate(bullet, origin, Quaternion.identity);
             bulletTrail.SetDestination(lastPosition);
         }
-
-        public override void Boost() {
-            range *= 3;
-        }
+        #endregion
     }
 
 }

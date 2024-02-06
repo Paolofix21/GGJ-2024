@@ -1,72 +1,74 @@
 using UnityEngine;
 
 namespace Code.Weapons {
-
-    public class PhysicHitLogic : FiringLogic {
+    [System.Serializable]
+    public class PhysicHitLogic : FiringLogicBase {
+        #region Public Variables
         [Header("Settings")]
-        [SerializeField] private float radius = default;
+        [SerializeField] private float m_radius;
+        [SerializeField] private float m_boostMultiplier = 3f;
 
         [Header("Gizmos")]
-        [SerializeField] private bool gizmosEnabled = default;
+        [SerializeField] private bool m_gizmosEnabled;
+        #endregion
 
+        #region Behaviour Callbacks
         private void OnDrawGizmos() {
-            if (!gizmosEnabled)
+            if (!m_gizmosEnabled)
                 return;
 
-            Vector3 halfReachablePoint = weaponCamera.position + weaponCamera.forward * range;
+            var halfReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
 
-            Gizmos.DrawSphere(halfReachablePoint, radius);
-            Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
+            Gizmos.DrawSphere(halfReachablePoint, m_radius);
+            var hitColliders = Physics.OverlapSphere(halfReachablePoint, m_radius);
 
-            string log = hitColliders.Length > 0 ? "Raycast fired with hit" : "Raycast fired without hit";
-            Debug.Log($"{gameObject.name} - {log}");
+            var log = hitColliders.Length > 0 ? "Raycast fired with hit" : "Raycast fired without hit";
+            Debug.Log($"{_weapon.name} - {log}");
 
-            foreach (Collider collider in hitColliders) {
-                IDamageable damageable = collider.GetComponent<IDamageable>();
+            foreach (var col in hitColliders) {
+                var damageable = col.GetComponent<IDamageable>();
 
                 if (damageable != null) {
                     Gizmos.color = Color.green;
-                    Debug.Log($"{gameObject.name} - Damageable detected");
+                    Debug.Log($"{_weapon.name} - Damageable detected");
                     continue;
                 }
 
                 Gizmos.color = Color.blue;
-                Debug.Log($"{gameObject.name} - Collider detected : {collider.name}");
+                Debug.Log($"{_weapon.name} - Collider detected : {col.name}");
             }
         }
+        #endregion
 
+        #region Overrides
         public override void Shoot(Ammunition ammunition) {
-            Cooldown(true);
+            var halfReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
+            // Effect(m_effectOrigin.position, halfReachablePoint);
 
-            Vector3 halfReachablePoint = weaponCamera.position + weaponCamera.forward * range;
-            Effect(effectOrigin.position, halfReachablePoint);
-
-            Collider[] hitColliders = Physics.OverlapSphere(halfReachablePoint, radius);
+            var hitColliders = Physics.OverlapSphere(halfReachablePoint, m_radius);
 
             if (hitColliders.Length <= 0)
                 return;
 
-            foreach (Collider collider in hitColliders) {
-                IDamageable damageable = collider.GetComponentInParent<IDamageable>();
+            foreach (var col in hitColliders) {
+                var damageable = col.GetComponentInParent<IDamageable>();
 
                 if (damageable == null)
                     continue;
 
-                if (!damageable.GetDamage(ammunition.GetDamageType()))
+                if (!damageable.GetDamage(ammunition.DamageType))
                     continue;
 
-                damageable.ApplyDamage(ammunition.GetDamageAmount());
+                damageable.ApplyDamage(ammunition.DamageAmount);
             }
         }
 
-        protected override void Effect(Vector3 origin, Vector3 lastPosition) {
-            AudioManager.instance.PlayOneShot(soundEventReference, origin);
-        }
-
         public override void Boost() {
-            range *= 3;
-            radius *= 3;
+            m_range *= m_boostMultiplier;
+            m_radius *= m_boostMultiplier;
         }
-    }
 
+        protected override void Effect(Vector3 origin, Vector3 lastPosition) => AudioManager.instance.PlayOneShot(m_soundEventReference, origin);
+        #endregion
+    }
 }

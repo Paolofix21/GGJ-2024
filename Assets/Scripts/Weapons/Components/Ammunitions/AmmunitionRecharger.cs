@@ -2,51 +2,55 @@ using UnityEngine;
 using UnityEngine.UI;
 
 namespace Code.Weapons {
-
     public class AmmunitionRecharger : MonoBehaviour, IRecharger {
+        #region Public Variables
         [Header("Settings")]
-        [SerializeField] private WeaponType type = default;
-        [SerializeField] private int amount = default;
-        [SerializeField] private float cooldown = default;
+        [field: SerializeField] public WeaponType Type { get; private set; }
+        [field: SerializeField] public int Amount { get; private set; }
+        [SerializeField] private float cooldown;
 
         [Header("References")]
-        [SerializeField] private Collider interactableCollider = default;
-        [SerializeField] private MeshRenderer meshRenderer = default;
+        [SerializeField] private Collider interactableCollider;
+        [SerializeField] private MeshRenderer meshRenderer;
         [SerializeField] private GameObject cooldownCanvas;
         [SerializeField] private Image cooldownFiller;
-        private float elapsedTime = default;
-        private bool isRecharging = default; 
+        #endregion
 
+        #region Private Variables
+        private float _elapsedTime;
+        private bool _isRecharging;
+        #endregion
+
+        #region Behaviour Callbacks
         private void Update() {
-            if (!isRecharging)
+            if (!_isRecharging)
                 return;
+
             if(!cooldownCanvas.activeSelf)
                 cooldownCanvas.SetActive(true);
-            elapsedTime += Time.deltaTime;
-            cooldownFiller.fillAmount = elapsedTime/cooldown;
-            if (elapsedTime < cooldown)
+
+            _elapsedTime += Time.deltaTime;
+            cooldownFiller.fillAmount = _elapsedTime/cooldown;
+
+            if (_elapsedTime < cooldown)
                 return;
 
-            elapsedTime = 0;
+            _elapsedTime = 0;
+
             if (cooldownCanvas.activeSelf)
                 cooldownCanvas.SetActive(false);
-            Interactable(true);
-        }
 
-        public WeaponType GetCompatibleWeapon() {
-            return type;
+            SetInteractable(true);
         }
-        public int GetReloadAmount() {
-            return amount;
-        }
+        #endregion
 
-        public void Interactable(bool state) {
-            isRecharging = !state;
+        #region Public Methods
+        public void SetInteractable(bool state) {
+            _isRecharging = !state;
 
             interactableCollider.enabled = state;
             meshRenderer.enabled = state;
         }
-
+        #endregion
     }
-
 }

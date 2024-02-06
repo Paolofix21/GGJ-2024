@@ -34,7 +34,7 @@ namespace Code.UI
             PlayerController.Singleton.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
             // WaveSpawner.OnEnemyDeath += DisplayWeaponEnergy;
             // TODO - Bind UI to weapon's energy
-            Sword.OnShoot += DisplayWeaponEnergy;
+            // Sword.OnShoot += DisplayWeaponEnergy;
         }
         private void OnDestroy()
         {
@@ -45,7 +45,7 @@ namespace Code.UI
             }
             // WaveSpawner.OnEnemyDeath -= DisplayWeaponEnergy;
             // TODO - Bind UI to weapon's energy
-            Sword.OnShoot -= DisplayWeaponEnergy;
+            // Sword.OnShoot -= DisplayWeaponEnergy;
         }
         #endregion
 
@@ -55,14 +55,14 @@ namespace Code.UI
             m_selectedWeapon.sprite = weaponSprites[i];
         }
 
-        private void CheckWeapon(Weapon weapon) => m_munitions.text = $"{weapon.Cartridge.CurrentAmount}/{weapon.Cartridge.TotalAmount}";
+        private void CheckWeapon(Weapon weapon) => m_munitions.text = $"{weapon.ChargeStatus.Info}";
         #endregion
 
         #region Private Methods
-        private async void DisplayWeaponEnergy()
-        {
+        private async void DisplayWeaponEnergy() {
             await Task.Yield();
-            m_specialWeaponFiller.fillAmount = Sword.currentEnergy / 10.0f;
+            // TODO - Bind energy progress to sword weapon
+            // m_specialWeaponFiller.fillAmount = Sword.currentEnergy / 10.0f;
         }
         #endregion
 

@@ -1,24 +1,44 @@
+using UnityEngine;
+
 namespace Code.Weapons {
-
     public class Whip : Weapon {
-        private void Awake() {
-            if (firingLogic != null) {
-                firingLogic.OnCooldownStateChanged += OnCooldownState;
-            }
-        }
-        private void OnDestroy() {
-            if (firingLogic != null) {
-                firingLogic.OnCooldownStateChanged -= OnCooldownState;
-            }
+        #region Public Variables
+        [field: SerializeReference] public override FiringLogicBase FiringLogic { get; protected set; } = new PhysicHitLogic();
+        [SerializeField] private float m_cooldownDuration = .75f;
+        #endregion
+
+        #region Private Variables
+        private bool _isInCooldown;
+        #endregion
+
+        #region Properties
+        private readonly WeaponCooldownChargeStatus _chargeStatus = new();
+        public override WeaponChargeStatus ChargeStatus => _chargeStatus;
+        #endregion
+
+        #region Overrides
+        protected override void OnStart() => ClearCooldown();
+
+        protected override void OnShoot() {
+            _isInCooldown = true;
+
+            _chargeStatus.Info = "Overheat...";
+            _chargeStatus.CooldownProgress = 0f;
+            _chargeStatus.Dispatch();
+
+            Invoke(nameof(ClearCooldown), m_cooldownDuration);
         }
 
-        // TERRIFICANTE
-        private void OnCooldownState(bool state) {
-            if (!state)
-                Recharge(1);
-        }
+        public override bool CanShoot() => !_isInCooldown;
 
-        public override bool CanShoot() => firingLogic.CanShoot();
+        public override void Recharge(int amount) { }
+        #endregion
+
+        private void ClearCooldown() {
+            _isInCooldown = false;
+            _chargeStatus.Info = "Ready";
+            _chargeStatus.CooldownProgress = 1f;
+            _chargeStatus.Dispatch();
+        }
     }
-
 }

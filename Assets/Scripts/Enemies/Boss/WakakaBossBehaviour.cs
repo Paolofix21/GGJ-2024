@@ -110,8 +110,8 @@ namespace Code.EnemySystem.Boss {
         public void Surrender() {
             m_bossAnimator.AnimateDeath();
             m_animator.enabled = false;
-            Destroy(this);
-            Destroy(_health);
+            _health.enabled = false;
+            enabled = false;
             OnSurrender?.Invoke();
         }
         #endregion

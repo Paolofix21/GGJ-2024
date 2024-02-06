@@ -41,7 +41,7 @@ namespace Code.Player
 
         public void PauseMenu(InputAction.CallbackContext context) {
             context.ReadValueAsButton();
-            UIManager.Singleton.CallPauseUI();
+            UIManager.Singleton?.CallPauseUI();
         }
 
     }

@@ -6,6 +6,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 namespace Code.Core.MatchManagers {
+    [DefaultExecutionOrder(-1)]
     public sealed class WaveBasedEntityManager : EntityManager {
         #region Public Variables
         [SerializeField] private WavesCollectionSO m_wavesDataPack;

@@ -420,9 +420,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26c2967a86ea1bf4e8fb0b1c552a3513, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
-  amount: 30
-  cooldown: 15
+  <Type>k__BackingField: 0
+  <Amount>k__BackingField: 16
+  cooldown: 6
   interactableCollider: {fileID: 2659663291119346420}
   meshRenderer: {fileID: 5889530149695150463}
   cooldownCanvas: {fileID: 3134700869417518277}

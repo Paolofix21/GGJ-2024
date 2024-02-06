@@ -1,9 +1,12 @@
 namespace Code.Weapons {
-
     public interface IRecharger {
-        public WeaponType GetCompatibleWeapon();
-        public int GetReloadAmount();
-        public void Interactable(bool state);
-    }
+        #region Properties
+        public WeaponType Type { get; }
+        public int Amount { get; }
+        #endregion
 
+        #region Public Methods
+        public void SetInteractable(bool state);
+        #endregion
+    }
 }

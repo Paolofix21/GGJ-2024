@@ -27,7 +27,8 @@ public class WaveSystemUI : MonoBehaviour
     #endregion
 
     #region Behaviour Callbacks
-    private void Start() {
+    private IEnumerator Start() {
+        yield return null;
         WaveBasedMatchManager.Singleton.EntityManager.OnWaveChanged += StartNewWave;
         CutsceneIntroController.OnIntroStartStop += CheckCutscene;
     }
@@ -35,7 +36,7 @@ public class WaveSystemUI : MonoBehaviour
     private void OnDestroy() {
         if(coroutine != null)
             StopCoroutine(coroutine);
-        WaveBasedMatchManager.Singleton.EntityManager.OnWaveChanged -= StartNewWave;
+        // WaveBasedMatchManager.Singleton.EntityManager.OnWaveChanged -= StartNewWave;
         CutsceneIntroController.OnIntroStartStop -= CheckCutscene;
     }
     #endregion

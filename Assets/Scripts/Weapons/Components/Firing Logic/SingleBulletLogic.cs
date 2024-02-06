@@ -2,77 +2,78 @@ using UnityEngine;
 using Weapons.Components;
 
 namespace Code.Weapons {
-
-    public class SingleBulletLogic : FiringLogic {
-        [SerializeField] private BulletTrail bullet = default;
-        [SerializeField] private GameObject hitParticle = default;
+    public class SingleBulletLogic : FiringLogicBase {
+        #region Public Variables
+        [SerializeField] private BulletTrail m_bullet;
+        [SerializeField] private GameObject m_hitParticle;
+        [SerializeField] private float m_boostMultiplier = 3f;
 
         [Header("Gizmos")]
-        [SerializeField] private bool gizmosEnabled = default;
+        [SerializeField] private bool m_gizmosEnabled;
+        #endregion
 
+        #region Behaviour Callbacks
         private void OnDrawGizmos() {
-            if (!gizmosEnabled)
+            if (!m_gizmosEnabled)
                 return;
 
-            Gizmos.DrawLine(weaponCamera.position, weaponCamera.position + weaponCamera.forward * range);
-            Ray ray = new Ray(weaponCamera.position, weaponCamera.forward);
+            Gizmos.DrawLine(m_weaponCamera.position, m_weaponCamera.position + m_weaponCamera.forward * m_range);
+            var ray = new Ray(m_weaponCamera.position, m_weaponCamera.forward);
 
-            string log = Physics.Raycast(ray, out RaycastHit hitInfo, range) ? "Raycast fired with hit" : "Raycast fired without hit";
+            var log = Physics.Raycast(ray, out RaycastHit hitInfo, m_range) ? "Raycast fired with hit" : "Raycast fired without hit";
 
-            Debug.Log($"{gameObject.name} - {log}");
+            Debug.Log($"{_weapon.name} - {log}");
 
             if (hitInfo.collider == null) {
                 Gizmos.color = Color.red;
-                Debug.Log($"{gameObject.name} - No collider detected");
+                Debug.Log($"{_weapon.name} - No collider detected");
                 return;
             }
 
             Gizmos.color = Color.blue;
-            Debug.Log($"{gameObject.name} -Collider detected");
+            Debug.Log($"{_weapon.name} -Collider detected");
 
-            IDamageable damageable = hitInfo.collider.GetComponent<IDamageable>();
+            var damageable = hitInfo.collider.GetComponent<IDamageable>();
 
             if (damageable != null) {
                 Gizmos.color = Color.green;
-                Debug.Log($"{gameObject.name} - Damageable detected");
+                Debug.Log($"{_weapon.name} - Damageable detected");
             }
         }
+        #endregion
 
+        #region Overrides
         public override void Shoot(Ammunition ammunition) {
-            Cooldown(true);
+            var reachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
+            var ray = new Ray(m_weaponCamera.position, m_weaponCamera.forward);
 
-            Vector3 reachablePoint = weaponCamera.position + weaponCamera.forward * range;
-            Ray ray = new Ray(weaponCamera.position, weaponCamera.forward);
+            Effect(m_effectOrigin.position, reachablePoint);
 
-            Effect(effectOrigin.position, reachablePoint);
-
-            if (Physics.Raycast(ray, out RaycastHit hitInfo, range)) {
+            if (Physics.Raycast(ray, out RaycastHit hitInfo, m_range)) {
                 if (hitInfo.collider == null)
                     return;
 
-                Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
+                Object.Instantiate(m_hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
-                IDamageable damageable = hitInfo.collider.GetComponentInParent<IDamageable>();
+                var damageable = hitInfo.collider.GetComponentInParent<IDamageable>();
 
                 if (damageable == null)
                     return;
 
-                if (!damageable.GetDamage(ammunition.GetDamageType()))
+                if (!damageable.GetDamage(ammunition.DamageType))
                     return;
 
-                damageable.ApplyDamage(ammunition.GetDamageAmount());
+                damageable.ApplyDamage(ammunition.DamageAmount);
             }
         }
 
+        public override void Boost() => m_range *= m_boostMultiplier;
+
         protected override void Effect(Vector3 origin, Vector3 lastPosition) {
-            AudioManager.instance.PlayOneShot(soundEventReference, origin);
-            BulletTrail bulletTrail = Instantiate(bullet, origin, Quaternion.identity);
+            AudioManager.instance.PlayOneShot(m_soundEventReference, origin);
+            var bulletTrail = Object.Instantiate(m_bullet, origin, Quaternion.identity);
             bulletTrail.SetDestination(lastPosition);
         }
-
-        public override void Boost() {
-            range *= 3;
-        }
+        #endregion
     }
-
 }

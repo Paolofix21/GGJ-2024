@@ -1,10 +1,9 @@
 ﻿using Code.GameModeUtils.WaveBasedMode;
-using Code.Promises;
 using UnityEngine;
 using Utilities;
 
 namespace Code.Core.MatchManagers {
-    [DefaultExecutionOrder(-1)]
+    [DefaultExecutionOrder(-2)]
     public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager> {
         #region Public Variables
         [SerializeField] private bool m_beginOnStart = false;
@@ -114,6 +113,7 @@ namespace Code.Core.MatchManagers {
         private void OnWavesOver() {
             Boss.Enable();
             Boss.StartFight();
+            Character.SendMessage("BoostAllWeapons");
         }
 
         private void OnWin() {

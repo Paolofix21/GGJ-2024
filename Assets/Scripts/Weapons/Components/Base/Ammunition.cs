@@ -1,14 +1,9 @@
 using UnityEngine;
 
 namespace Code.Weapons {
-
     [System.Serializable] 
     public struct Ammunition {
-        [SerializeField] private DamageType damageType;
-        [SerializeField] private float damageAmount;
-
-        public DamageType GetDamageType() { return damageType; }
-        public float GetDamageAmount() {  return damageAmount; }
+        [field: SerializeField] public DamageType DamageType { get; private set; }
+        [field: SerializeField] public float DamageAmount { get; private set; }
     }
-
 }

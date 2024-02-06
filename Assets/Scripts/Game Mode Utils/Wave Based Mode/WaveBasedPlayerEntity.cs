@@ -17,12 +17,13 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Behaviour Callbacks
         private void Awake() {
             _controller = GetComponent<PlayerController>();
-            _controller.Health.OnPlayerDeath += OnDie;
 
             Disable();
         }
 
         private void Start() {
+            _controller.Health.OnPlayerDeath += OnDie;
+
             WaveBasedMatchManager.Singleton.SetPlayingCharacter(this);
         }
         #endregion

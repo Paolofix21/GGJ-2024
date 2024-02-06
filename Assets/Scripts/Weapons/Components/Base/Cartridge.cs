@@ -1,44 +1,45 @@
-using System;
 using UnityEngine;
 
 namespace Code.Weapons {
+    [System.Serializable]
+    public class Cartridge : IRechargeable, IConsumable {
+        #region Public Variables
+        [SerializeField] private int amountShotConsumed;
+        [SerializeField] private int startingAmount;
+        [field: SerializeField] public int TotalAmount { get; private set; }
 
-    public class Cartridge : MonoBehaviour, IRechargeable, IConsumable {
-        [Header("Settings")]
-        [SerializeField] private int startingAmount = default;
-        [SerializeField] private int totalAmount = default;
-        [SerializeField] private int amountShotConsumed = default;
+        public event System.Action<int> OnAmmoAmountChanged;
+        #endregion
 
-        private int currentAmount = default;
-        public int TotalAmount { get { return totalAmount; } }
-        public int CurrentAmount { get { return currentAmount; } }
-        public event Action<int> OnAmmoAmountChanged = default;
+        #region Properties
+        public int CurrentAmount { get; private set; }
+        #endregion
 
-        private void Start() {
-            AddAmmo(startingAmount);
-        }
+        #region Public Methods
+        public void Init() => AddAmmo(startingAmount);
 
-        public bool HasAmmo() { return currentAmount % amountShotConsumed < currentAmount; }
+        public bool HasAmmo() { return CurrentAmount % amountShotConsumed < CurrentAmount; }
 
         public void AddAmmo(int amount) {
-            currentAmount = Mathf.Clamp(currentAmount + amount, 0, totalAmount);
-            OnAmmoAmountChanged?.Invoke(currentAmount);
+            CurrentAmount = Mathf.Clamp(CurrentAmount + amount, 0, TotalAmount);
+            OnAmmoAmountChanged?.Invoke(CurrentAmount);
 
             // Debug.Log($"{gameObject.name} - {nameof(AddAmmo)} - Current amount {currentAmount}");
         }
 
         public void RemoveAmmo(int amount) {
-            currentAmount = Mathf.Clamp(currentAmount - amount, 0, totalAmount);
-            OnAmmoAmountChanged?.Invoke(currentAmount);
+            CurrentAmount = Mathf.Clamp(CurrentAmount - amount, 0, TotalAmount);
+            OnAmmoAmountChanged?.Invoke(CurrentAmount);
 
             // Debug.Log($"{gameObject.name} - {nameof(RemoveAmmo)} - Current amount {currentAmount}");
         }
 
         public void Consume() {
-            if (HasAmmo()) RemoveAmmo(amountShotConsumed);
+            if (HasAmmo())
+                RemoveAmmo(amountShotConsumed);
         }
 
-        public float GetAmmoRate() => (float)currentAmount / totalAmount;
+        public float GetAmmoRate() => (float)CurrentAmount / TotalAmount;
+        #endregion
     }
-
 }

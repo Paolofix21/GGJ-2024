@@ -1,3 +1,5 @@
+using Code.Player;
+using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,7 @@ namespace Code.Weapons {
         [SerializeField] private MeshRenderer meshRenderer = default;
         [SerializeField] private GameObject cooldownCanvas;
         [SerializeField] private Image cooldownFiller;
+        [SerializeField] private EventReference reload;
         private float elapsedTime = default;
         private bool isRecharging = default; 
 
@@ -45,6 +48,10 @@ namespace Code.Weapons {
 
             interactableCollider.enabled = state;
             meshRenderer.enabled = state;
+            if(!state)
+            {
+                AudioManager.instance.PlayOneShot(reload);
+            }
         }
 
     }

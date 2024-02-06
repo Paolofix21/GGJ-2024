@@ -427,6 +427,13 @@ MonoBehaviour:
   meshRenderer: {fileID: 5889530149695150463}
   cooldownCanvas: {fileID: 3134700869417518277}
   cooldownFiller: {fileID: 6395050758831812796}
+  reload:
+    Guid:
+      Data1: -1103274195
+      Data2: 1215403400
+      Data3: -1645827663
+      Data4: -864889033
+    Path: event:/VO/VO_DropAmmunition
 --- !u!1001 &2150143498920475002
 PrefabInstance:
   m_ObjectHideFlags: 0

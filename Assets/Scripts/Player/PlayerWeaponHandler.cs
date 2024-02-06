@@ -113,13 +113,13 @@ namespace Code.Weapons {
         private void SetEmissionChargeFeedback(WeaponChargeStatus weaponChargeStatus) {
             switch (weaponChargeStatus) {
                 case WeaponEnergyChargeStatus energyWeapon:
-                    playerController.visualSetter.SetEmissivePower(Mathf.Clamp01(energyWeapon.EnergyAmount));
+                    playerController.VisualSetter.SetEmissivePower(Mathf.Clamp01(energyWeapon.EnergyAmount));
                     return;
                 case WeaponCooldownChargeStatus cooldownWeapon:
-                    playerController.visualSetter.SetEmissivePower(Mathf.Clamp01(cooldownWeapon.CooldownProgress));
+                    playerController.VisualSetter.SetEmissivePower(Mathf.Clamp01(cooldownWeapon.CooldownProgress));
                     return;
                 case WeaponBulletChargeStatus bulletWeapon:
-                    playerController.visualSetter.SetEmissivePower(Mathf.Clamp01((float)bulletWeapon.CurrentBullets / bulletWeapon.MaxBullets));
+                    playerController.VisualSetter.SetEmissivePower(Mathf.Clamp01((float)bulletWeapon.CurrentBullets / bulletWeapon.MaxBullets));
                     return;
             }
         }

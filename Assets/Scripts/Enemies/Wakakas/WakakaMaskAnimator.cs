@@ -51,7 +51,6 @@ namespace Code.EnemySystem.Wakakas {
                 return;
 
             StartCoroutine(LaughCO());
-            Debug.Log("Laughing\n");
         }
 
         [ContextMenu("Laugh")]

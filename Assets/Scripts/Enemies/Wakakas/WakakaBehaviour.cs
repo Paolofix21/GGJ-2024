@@ -100,7 +100,8 @@ namespace Code.EnemySystem.Wakakas {
 
             switch (_state) {
                 case WakakaState.Wander:
-                    RefreshWander();
+                    _moveDirection = transform.forward;
+                    Invoke(nameof(RefreshWander), 1f);
                     InvokeRepeating(nameof(CheckDistancePeriodically), 1f, 1f);
                     break;
                 case WakakaState.Chase:

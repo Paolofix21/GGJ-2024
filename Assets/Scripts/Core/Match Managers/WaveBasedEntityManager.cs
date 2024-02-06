@@ -48,11 +48,7 @@ namespace Code.Core.MatchManagers {
             
         }
 
-        protected override void OnEntitiesCleared() {
-            Debug.Log("Dio\n");
-
-            SpawnNextWave();
-        }
+        protected override void OnEntitiesCleared() => SpawnNextWave();
         #endregion
 
         #region Private Methods

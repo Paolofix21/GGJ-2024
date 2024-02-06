@@ -395,18 +395,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 4827e661242dfc64a8b4255e31a54b18, type: 2}
   - {fileID: 11400000, guid: 94d5d0169ea5625498950ec30b3e5e38, type: 2}
   - {fileID: 11400000, guid: a6da922e61b50ae4186ba2c0eaef7c18, type: 2}
-  endgameUI: {fileID: 0}
   arms: {fileID: 4098327224838240829}
+  anim: {fileID: 7299159195889580797}
   airborneSpeed: 12
+  lavaSpeed: 3
   speed: 8
   jumpForce: 8
-  anim: {fileID: 7299159195889580797}
-  Health: {fileID: 0}
-  lavaSpeed: 3
   lavaJumpForce: 16
   timeDelay: 1
   lavaDamage: 2
   jumpCooldown: 4
+  lavaLayer: Lava
 --- !u!114 &7329885879184918812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -425,7 +424,6 @@ MonoBehaviour:
   minRot: -70
   speed: 16
   amount: 0.1
-  crouchingTime: 0.3
   cam: {fileID: 6727737949139509557}
 --- !u!114 &599590968436143203
 MonoBehaviour:

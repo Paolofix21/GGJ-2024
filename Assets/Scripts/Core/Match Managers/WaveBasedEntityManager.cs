@@ -23,9 +23,16 @@ namespace Code.Core.MatchManagers {
         #endregion
 
         #region Behaviour Callbacks
-        protected override void OnAfterAwake() => _pointsOfInterest.AddRange(FindObjectsByType<SpawnPoint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None));
+        protected override void OnAfterAwake() {
+            _pointsOfInterest.AddRange(FindObjectsByType<SpawnPoint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None));
+            GameEvents.OnCutsceneStateChanged += ResumeWavesAfterCutscene;
+        }
 
         private void Start() => WaveBasedMatchManager.Singleton.SetEntityManager(this);
+
+        protected override void OnBeforeDestroy() {
+            GameEvents.OnCutsceneStateChanged -= ResumeWavesAfterCutscene;
+        }
         #endregion
 
         #region Overrides
@@ -60,7 +67,8 @@ namespace Code.Core.MatchManagers {
 
             // No minor wave has been extracted, the current wave is over
             if (m_wavesDataPack.TryGetNextWave(out _currentWave)) {
-                SpawnNextWave();
+                // TODO - Should wait for confirmation before starting next wave?
+                // SpawnNextWave();
                 OnWaveChanged?.Invoke(m_wavesDataPack.GetIndex());
                 return;
             }
@@ -81,6 +89,9 @@ namespace Code.Core.MatchManagers {
             var entityInstance = (IEntity)Instantiate(entity as MonoBehaviour, poi.Position, poi.Rotation);
             AddEntity(entityInstance);
 
+            if (GameEvents.IsOnHold)
+                entityInstance.Disable();
+
             _pointsOfInterest.RemoveAt(index);
             _pointsOfInterestExtracted.Add(poi);
         }
@@ -92,9 +103,21 @@ namespace Code.Core.MatchManagers {
             var spawnDelay = new WaitForSeconds(minorWaveInfo.SpawnDelay);
 
             while (minorWaveInfo.TryExtraction(out var entity)) {
+                if (GameEvents.IsOnHold)
+                    yield return null;
+
                 SpawnEntity(entity);
                 yield return spawnDelay;
             }
+        }
+        #endregion
+
+        #region Event Methods
+        private void ResumeWavesAfterCutscene(bool cutscenePlaying) {
+            if (cutscenePlaying)
+                return;
+
+            SpawnNextWave();
         }
         #endregion
     }

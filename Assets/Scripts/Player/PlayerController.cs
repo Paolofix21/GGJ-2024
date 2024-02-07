@@ -9,6 +9,7 @@ using Barbaragno.RuntimePackages.Operations;
 using FMODUnity;
 using Izinspector.Runtime.PropertyAttributes;
 using Miscellaneous;
+using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Code.Player {
     [DefaultExecutionOrder(1)]
@@ -28,8 +29,8 @@ namespace Code.Player {
 
         [Header("Lava Fields")]
         [SerializeField] private float lavaJumpForce = 1.5f;
-        [SerializeField] private int timeDelay;
-        [SerializeField] private int lavaDamage;
+        [SerializeField] private float lavaDamageDelay = 2f;
+        [SerializeField] private int lavaDamage = 5;
         [Space(2)]
         [SerializeField] private float jumpCooldown = 1.5f;
 
@@ -41,15 +42,13 @@ namespace Code.Player {
         #endregion
 
         #region Properties
-        public static PlayerController Singleton { get; set; }
-
         public PlayerHealth Health { get; private set; }
         public VisualSetter VisualSetter { get; private set; }
         #endregion
 
         #region Private Variables
-        private CharacterController controller;
-        private PlayerView cameraLook;
+        private CharacterController _controller;
+        private PlayerView _cameraLook;
         private InputManager _input;
 
         private EventInstance _footstepsInstance;
@@ -78,17 +77,11 @@ namespace Code.Player {
 
         #region MonoBehaviour Callbacks
         private void Awake() {
-            if (Singleton && Singleton != this) {
-                Destroy(gameObject);
-                return;
-            }
-
-            Singleton = this;
-
-            controller = GetComponent<CharacterController>();
-            cameraLook = GetComponent<PlayerView>();
             Health = GetComponent<PlayerHealth>();
             VisualSetter = GetComponentInChildren<VisualSetter>();
+
+            _controller = GetComponent<CharacterController>();
+            _cameraLook = GetComponent<PlayerView>();
             _input = GetComponent<InputManager>();
 
             _currentSpeed = speed;
@@ -109,7 +102,8 @@ namespace Code.Player {
 
             _input.playerMap.PlayerActions.RotateWeapon.started += TestRotateWeapons;
 
-            cameraLook.enabled = true;
+            Health.enabled = true;
+            _cameraLook.enabled = true;
         }
 
         private void Start() {
@@ -129,7 +123,7 @@ namespace Code.Player {
 
             GetMovement();
             UpdateSound();
-            cameraLook.GetMousePos(_input.CameraLookAt());
+            _cameraLook.GetMousePos(_input.CameraLookAt());
         }
 
         private void OnTriggerEnter(Collider other) {
@@ -157,15 +151,16 @@ namespace Code.Player {
 
             _input.playerMap.PlayerActions.RotateWeapon.started -= TestRotateWeapons;
 
-            cameraLook.enabled = false;
+            PlayShootContinuous(false);
+            Health.enabled = false;
+            _cameraLook.enabled = false;
+
+            _footstepsInstance.stop(STOP_MODE.IMMEDIATE);
         }
 
         private void OnDestroy() {
             Health.OnPlayerDeath -= PlayerDeath;
             CutsceneIntroController.OnIntroStartStop -= Intro;
-
-            if (Singleton == this)
-                Singleton = null;
         }
         #endregion
 
@@ -208,18 +203,18 @@ namespace Code.Player {
             _vel.z = _input.GetMovement().y * _currentSpeed;
             _vel = transform.TransformDirection(_vel);
 
-            if (controller.isGrounded && _vel.y < 0)
+            if (_controller.isGrounded && _vel.y < 0)
                 _vel.y = -10;
             else
                 _vel.y += Physics.gravity.y * 4f * Time.deltaTime;
 
-            _currentSpeed = _isInsideLava ? lavaSpeed : (controller.isGrounded ? speed : airborneSpeed);
+            _currentSpeed = _isInsideLava ? lavaSpeed : (_controller.isGrounded ? speed : airborneSpeed);
 
-            controller.Move(_vel * Time.deltaTime);
+            _controller.Move(_vel * Time.deltaTime);
         }
 
         private void Jump(InputAction.CallbackContext ctx) {
-            if (!controller.isGrounded || !(_currentCooldownValue <= 0))
+            if (!_controller.isGrounded || !(_currentCooldownValue <= 0))
                 return;
 
             _vel.y = Mathf.Sqrt((_isInsideLava ? lavaJumpForce : jumpForce) * -3 * Physics.gravity.y);
@@ -230,10 +225,12 @@ namespace Code.Player {
         private IEnumerator WalkInLava() {
             _isInsideLava = true;
             ResetJump();
+            var delayHalf = new WaitForSeconds(lavaDamageDelay * .5f);
 
             while (_isInsideLava) {
+                yield return delayHalf;
                 Health.GetDamage(lavaDamage);
-                yield return new WaitForSeconds(timeDelay);
+                yield return delayHalf;
             }
         }
 
@@ -309,14 +306,14 @@ namespace Code.Player {
         private void InitializeAudio() => _footstepsInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
 
         private void UpdateSound() {
-            if (controller.isGrounded && controller.velocity.sqrMagnitude > 0.0001f) {
+            if (_controller.isGrounded && _controller.velocity.sqrMagnitude > 0.0001f) {
                 PLAYBACK_STATE playbackState;
                 _footstepsInstance.getPlaybackState(out playbackState);
                 if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
                     _footstepsInstance.start();
             }
             else
-                _footstepsInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+                _footstepsInstance.stop(STOP_MODE.ALLOWFADEOUT);
         }
 
         private int GetAnimatorIndex(int inputIndex) => inputIndex switch {

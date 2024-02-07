@@ -8,7 +8,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBossBehaviour))]
     public class WaveBasedBossEntity : MonoBehaviour, IEntity {
         #region Public Variables
-        public event System.Action OnFinish;
+        public event System.Action OnSurrender;
         #endregion
 
         #region Private Variables
@@ -33,13 +33,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         public Transform Transform => transform;
 
-        public void Enable() {
-            _controller.enabled = true;
-        }
+        public void Enable() => _controller.Enabled = true;
 
-        public void Disable() {
-            _controller.enabled = false;
-        }
+        public void Disable() => _controller.Enabled = false;
         #endregion
 
         #region Public Methods
@@ -47,7 +43,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #endregion
 
         #region Event Methods
-        private void Surrender() => OnFinish?.Invoke();
+        private void Surrender() => OnSurrender?.Invoke();
         #endregion
     }
 }

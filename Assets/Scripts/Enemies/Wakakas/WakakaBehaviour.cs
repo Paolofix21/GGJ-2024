@@ -1,4 +1,5 @@
-﻿using Code.Player;
+﻿using Code.Core;
+using Code.Player;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -42,11 +43,12 @@ namespace Code.EnemySystem.Wakakas {
         private WakakaHealth _health;
         private WakakaAttacker _attacker;
 
-        private System.Action _logic;
+        private static Transform _target;
 
         private WakakaState _state = WakakaState.None;
         private Vector3 _moveDirection;
 
+        private System.Action _logic;
         private static event System.Action OnEveryoneChasePlayer;
         #endregion
 
@@ -60,8 +62,16 @@ namespace Code.EnemySystem.Wakakas {
             _health.OnDeath += OnDie;
         }
 
+        private void OnEnable() {
+            _body.isKinematic = false;
+            _health.enabled = true;
+            _attacker.enabled = true;
+        }
+
         private void Start() {
             _maskAnimator.AnimateIntroVoiceLine();
+
+            _target ??= GameEvents.MatchManager.GetPlayerEntity().Transform;
 
             SetState(WakakaState.Wander);
 
@@ -86,6 +96,13 @@ namespace Code.EnemySystem.Wakakas {
 
         private void OnDrawGizmos() => Gizmos.DrawRay(transform.position, _moveDirection * m_maxWallCastDistance);
 
+        private void OnDisable() {
+            _body.isKinematic = true;
+            _health.enabled = false;
+            if (_attacker)
+                _attacker.enabled = false;
+        }
+
         private void OnDestroy() => OnEveryoneChasePlayer -= ForceChasePlayer;
         #endregion
 
@@ -107,7 +124,8 @@ namespace Code.EnemySystem.Wakakas {
                 case WakakaState.Chase:
                     break;
                 case WakakaState.Flee:
-                    _moveDirection = (transform.position - PlayerController.Singleton.transform.position).normalized;
+                    _moveDirection = transform.position - _target.position;
+                    _moveDirection.Normalize();
                     break;
                 default:
                     return;
@@ -129,13 +147,13 @@ namespace Code.EnemySystem.Wakakas {
 
         private void Chase() {
             var pos = transform.position;
-            var targetPos = PlayerController.Singleton.transform.position;
+            var targetPos = _target.position;
 
             _moveDirection = (targetPos - pos).normalized;
 
             if (Physics.Raycast(pos, _moveDirection, out var hit, m_maxWallCastDistance)) {
                 if (!hit.collider.CompareTag("Player"))
-                    _moveDirection = Quaternion.Euler(transform.right * -90f) * hit.normal; // Bend upwards
+                    _moveDirection = Quaternion.Euler(transform.right * 90f) * hit.normal; // Bend upwards
             }
 
             _body.velocity = Vector3.Slerp(_body.velocity, _moveDirection * m_chaseSpeed, Time.deltaTime * m_chaseLerpQuickness);
@@ -146,7 +164,7 @@ namespace Code.EnemySystem.Wakakas {
 
         private void CheckDistancePeriodically() {
             var pos = transform.position;
-            var playerPos = PlayerController.Singleton.transform.position;
+            var playerPos = _target.position;
             var distFromPlayer = Vector3.Distance(pos, playerPos);
 
             var verticalDistance = Mathf.Abs(pos.y - playerPos.y);
@@ -160,8 +178,8 @@ namespace Code.EnemySystem.Wakakas {
             if (distFromPlayer < m_maxDistanceFromPlayer && verticalDistance < m_maxDistanceYFromPlayer)
                 return;
 
-            // _moveDirection = -_moveDirection;
-            _moveDirection = (PlayerController.Singleton.transform.position - transform.position).normalized;
+            _moveDirection = _target.position - transform.position;
+            _moveDirection.Normalize();
         }
 
         private void DoRayCastAndAdjustDirection(ref Vector3 direction) {

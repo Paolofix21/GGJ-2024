@@ -1,8 +1,8 @@
 ﻿using System.Collections;
+using Code.Core;
 using Code.EnemySystem.Boss.Phases;
 using Code.EnemySystem.Wakakas;
 using Code.Player;
-using Miscellaneous;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss {
@@ -32,6 +32,7 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private BossAnimator m_bossAnimator;
         [SerializeField] private Animator m_animator;
 
+        public event System.Action OnBeginFight; 
         public event System.Action OnSurrender; 
         #endregion
 
@@ -53,6 +54,8 @@ namespace Code.EnemySystem.Boss {
         public Transform Target => _target;
         public Animator Animator => m_animator;
 
+        public bool Enabled { get; set; }
+
         private WakakaBossState Phase { get; set; } = WakakaBossState.None;
         #endregion
 
@@ -63,7 +66,7 @@ namespace Code.EnemySystem.Boss {
             _health.OnHealthChanged += CheckPhase;
             _health.OnDeath += Die;
 
-            CutsceneIntroController.OnIntroStartStop += HandleCutscene;
+            GameEvents.OnCutsceneStateChanged += HandleCutscene;
 
             m_phaseOne.SetUp(this);
             m_phaseTwo.SetUp(this);
@@ -71,11 +74,11 @@ namespace Code.EnemySystem.Boss {
             m_phaseSurrender.SetUp(this);
         }
 
-        private void Start() => _target = PlayerController.Singleton.transform;
+        private void Start() => _target = GameEvents.MatchManager.GetPlayerEntity().Transform;
 
         private void Update() {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.F11))
+            if (Input.GetKeyDown(KeyCode.F1) && Phase == WakakaBossState.None)
                 SetPhase(WakakaBossState.PhaseOne);
 #endif
 
@@ -83,6 +86,9 @@ namespace Code.EnemySystem.Boss {
                 return;
 
             LookAtPlayer();
+
+            if (!Enabled)
+                return;
 
             if (Phase is WakakaBossState.None or WakakaBossState.Transitioning)
                 return;
@@ -99,12 +105,15 @@ namespace Code.EnemySystem.Boss {
             _health.OnHealthChanged -= CheckPhase;
             _health.OnDeath -= Die;
 
-            CutsceneIntroController.OnIntroStartStop -= HandleCutscene;
+            GameEvents.OnCutsceneStateChanged -= HandleCutscene;
         }
         #endregion
 
         #region Public Methods
-        public void BeginFight() => SetPhase(WakakaBossState.PhaseOne);
+        public void BeginFight() {
+            SetPhase(WakakaBossState.PhaseOne);
+            OnBeginFight?.Invoke();
+        }
 
         public void Surrender() {
             m_bossAnimator.AnimateDeath();

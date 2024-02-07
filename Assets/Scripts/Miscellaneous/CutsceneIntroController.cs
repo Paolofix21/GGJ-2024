@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Code.Core;
 using Code.EnemySystem;
 using Code.EnemySystem.Wakakas;
 using Code.Graphics;
@@ -53,7 +54,8 @@ namespace Miscellaneous {
         }
 
         private void OnWaveChanged(int waveIndex) {
-            Time.timeScale = 0;
+            // Time.timeScale = 0;
+            GameEvents.SetCutsceneState(true);
             PlayCutscene(waveIndex, () => Time.timeScale = 1);
         }
         #endregion
@@ -90,6 +92,7 @@ namespace Miscellaneous {
             _onCutsceneEnded = null;
             OnIntroStartStop?.Invoke(false);
             gameObject.SetActive(false);
+            GameEvents.SetCutsceneState(false);
         }
         #endregion
     }

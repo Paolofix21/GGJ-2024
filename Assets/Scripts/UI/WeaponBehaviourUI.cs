@@ -4,6 +4,7 @@ using Code.Weapons;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Code.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,27 +23,26 @@ namespace Code.UI
         #endregion
 
         #region Private Variables
+        private PlayerController _target;
         #endregion
 
         #region Behaviour Callbacks
-        private void Start()
-        {
-            if(!PlayerController.Singleton)
-                return;
+        private IEnumerator Start() {
+            yield return null;
+            _target = GameEvents.MatchManager.GetPlayerEntity().Transform.GetComponent<PlayerController>();
 
-            PlayerController.Singleton.OnWeaponChanged += UpdateWeaponIcon;
-            PlayerController.Singleton.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
+            _target.OnWeaponChanged += UpdateWeaponIcon;
+            _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
             // WaveSpawner.OnEnemyDeath += DisplayWeaponEnergy;
             // TODO - Bind UI to weapon's energy
             // Sword.OnShoot += DisplayWeaponEnergy;
         }
-        private void OnDestroy()
-        {
-            if (PlayerController.Singleton)
-            {
-                PlayerController.Singleton.OnWeaponChanged -= UpdateWeaponIcon;
-                PlayerController.Singleton.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
-            }
+        private void OnDestroy() {
+            if (!_target)
+                return;
+
+            _target.OnWeaponChanged -= UpdateWeaponIcon;
+            _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
             // WaveSpawner.OnEnemyDeath -= DisplayWeaponEnergy;
             // TODO - Bind UI to weapon's energy
             // Sword.OnShoot -= DisplayWeaponEnergy;

@@ -18,24 +18,21 @@ namespace Code.GameModeUtils.WaveBasedMode {
         private void Awake() {
             _controller = GetComponent<PlayerController>();
 
+            // Granted by the execution order
+            WaveBasedMatchManager.Singleton.SetPlayingCharacter(this);
+
             Disable();
         }
 
-        private void Start() {
-            _controller.Health.OnPlayerDeath += OnDie;
-
-            WaveBasedMatchManager.Singleton.SetPlayingCharacter(this);
-        }
+        private void Start() => _controller.Health.OnPlayerDeath += OnDie;
         #endregion
 
         #region IPlayableCharacter
-        public void Enable() {
-            _controller.enabled = true;
-        }
+        public Transform Transform => transform;
 
-        public void Disable() {
-            _controller.enabled = false;
-        }
+        public void Enable() => _controller.enabled = true;
+
+        public void Disable() => _controller.enabled = false;
         #endregion
 
         #region Event Methods

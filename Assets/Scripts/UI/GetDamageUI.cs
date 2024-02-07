@@ -1,4 +1,5 @@
-﻿using Code.Player;
+﻿using Code.Core;
+using Code.Player;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,6 +9,7 @@ namespace UI {
     public class GetDamageUI : UIBehaviour {
         #region Private Variables
         private Image _image;
+        private PlayerController _target;
         #endregion
 
         #region Behaviour Callbacks
@@ -16,10 +18,14 @@ namespace UI {
             _image.CrossFadeAlpha(0f, 0f, true);
         }
 
-        protected override void Start() => PlayerController.Singleton.Health.OnDamageTaken += TakeDamage;
+        protected override void Start() {
+            _target = GameEvents.MatchManager.GetPlayerEntity().Transform.GetComponent<PlayerController>();
+            _target.Health.OnDamageTaken += TakeDamage;
+        }
+
         protected override void OnDestroy() {
-            if (PlayerController.Singleton)
-                PlayerController.Singleton.Health.OnDamageTaken -= TakeDamage;
+            if (_target)
+                _target.Health.OnDamageTaken -= TakeDamage;
         }
 
         private void TakeDamage(float cur, float max) {

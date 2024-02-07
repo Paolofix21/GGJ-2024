@@ -1,10 +1,11 @@
 ﻿using Code.GameModeUtils.WaveBasedMode;
+using Code.Promises;
 using UnityEngine;
 using Utilities;
 
 namespace Code.Core.MatchManagers {
     [DefaultExecutionOrder(-2)]
-    public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager> {
+    public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager>, IMatchManager {
         #region Public Variables
         [SerializeField] private bool m_beginOnStart = false;
 
@@ -24,6 +25,9 @@ namespace Code.Core.MatchManagers {
         #region Behaviour Callbacks
         protected override void OnAfterAwake() {
             GameEvents.OnPauseStatusChanged += TogglePause;
+            GameEvents.OnCutsceneStateChanged += TogglePause;
+
+            GameEvents.MatchManager = this;
         }
 
         private System.Collections.IEnumerator Start() {
@@ -35,6 +39,7 @@ namespace Code.Core.MatchManagers {
 
         protected override void OnBeforeDestroy() {
             GameEvents.OnPauseStatusChanged -= TogglePause;
+            GameEvents.OnCutsceneStateChanged -= TogglePause;
         }
         #endregion
 
@@ -71,6 +76,8 @@ namespace Code.Core.MatchManagers {
 
             Timer.End();
         }
+
+        public override IPlayableCharacter GetPlayerEntity() => Character;
         #endregion
 
         #region Public Methods
@@ -85,10 +92,10 @@ namespace Code.Core.MatchManagers {
 
         public void SetBoss(WaveBasedBossEntity boss) {
             if (Boss)
-                Boss.OnFinish -= OnWin;
+                Boss.OnSurrender -= OnWin;
 
             Boss = boss;
-            Boss.OnFinish += OnWin;
+            Boss.OnSurrender += OnWin;
             OnBossChanged?.Invoke(Boss);
         }
 

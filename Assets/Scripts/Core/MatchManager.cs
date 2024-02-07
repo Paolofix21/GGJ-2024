@@ -72,6 +72,8 @@ namespace Code.Core {
 
             State = MatchState.Stopped;
         }
+
+        public abstract IPlayableCharacter GetPlayerEntity();
         #endregion
 
         #region Private Methods

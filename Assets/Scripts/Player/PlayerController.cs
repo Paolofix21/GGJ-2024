@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using FMOD.Studio;
 using Barbaragno.RuntimePackages.Operations;
+using Code.Core;
 using FMODUnity;
 using Izinspector.Runtime.PropertyAttributes;
 using Miscellaneous;
@@ -228,6 +229,9 @@ namespace Code.Player {
             var delayHalf = new WaitForSeconds(lavaDamageDelay * .5f);
 
             while (_isInsideLava) {
+                if (GameEvents.IsOnHold)
+                    yield return null;
+
                 yield return delayHalf;
                 Health.GetDamage(lavaDamage);
                 yield return delayHalf;
@@ -235,7 +239,9 @@ namespace Code.Player {
         }
 
         private async void ResetJump() {
-            if (!_isInsideLava) return;
+            if (!_isInsideLava)
+                return;
+
             _currentCooldownValue = jumpCooldown;
 
             while (_currentCooldownValue > 0) {

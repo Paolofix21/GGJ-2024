@@ -9,11 +9,10 @@ namespace Code.Data {
         #region Constructors
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSplashScreen)]
         private static void Init() {
-            if (!SavesManager.Load(out _data)) {
-                Debug.Log("No data found to load...\n");
+            if (SavesManager.Load(out _data))
                 return;
-            }
 
+            Debug.Log("No data found to load...\n");
             _data = new SaveData();
             SavesManager.Save(_data);
         }

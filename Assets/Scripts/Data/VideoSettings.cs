@@ -10,7 +10,7 @@ namespace Code.Data {
 
         #region Properties
         [JsonProperty("blur")]
-        public bool MotionBlur { get; set; }
+        public bool MotionBlur { get; set; } = true;
         #endregion
 
         #region Public Methods

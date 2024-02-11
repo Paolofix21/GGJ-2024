@@ -11,8 +11,8 @@ namespace Code.Data {
     [Serializable]
     public sealed class SaveData {
         [JsonProperty("high-score")]
-        public int HighScore { get; set; }
+        public int HighScore { get; set; } = 0;
         [JsonProperty("settings")]
-        public Settings Settings { get; set; }
+        public Settings Settings { get; set; } = new();
     }
 }

@@ -5,8 +5,8 @@ namespace Code.Data {
     [Serializable]
     public sealed class Settings {
         [JsonProperty("video")]
-        public VideoSettings Video { get; set; }
+        public VideoSettings Video { get; set; } = new();
         [JsonProperty("audio")]
-        public AudioSettings Audio { get; set; }
+        public AudioSettings Audio { get; set; } = new();
     }
 }

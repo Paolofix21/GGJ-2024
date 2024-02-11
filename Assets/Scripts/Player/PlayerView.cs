@@ -1,8 +1,9 @@
 using Cinemachine;
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Code.Graphics;
+using Code.UI;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace Code.Player
 {
@@ -25,6 +26,7 @@ namespace Code.Player
         private CinemachineVirtualCamera vcam;
         private CinemachineTransposer transposer;
         private CharacterController controller;
+        private Volume globalVolume;
 
         private float xrot = 0f;
         private float yrot = 0f;
@@ -36,11 +38,27 @@ namespace Code.Player
             vcam = cam.GetComponent<CinemachineVirtualCamera>();
             transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
             controller = GetComponent<CharacterController>();
+            globalVolume = FindFirstObjectByType<Volume>();
         }
+        private void Start()
+        {
+            OnSensitivity(VideoSettingsHelper.MouseSensitivity);
+            OnFOV(VideoSettingsHelper.FOV);
+            OnMotionBlur(VideoSettingsHelper.MotionBlurActive);
 
+            SettingsUI.OnSensitivityChanged += OnSensitivity;
+            SettingsUI.OnFOVChanged += OnFOV;
+            SettingsUI.OnMotionBlurChanged += OnMotionBlur;
+        }
         private void Update()
         {
             DoHeadBobbing();
+        }
+        private void OnDestroy()
+        {
+            SettingsUI.OnSensitivityChanged -= OnSensitivity;
+            SettingsUI.OnFOVChanged -= OnFOV;
+            SettingsUI.OnMotionBlurChanged -= OnMotionBlur;
         }
         public void GetMousePos(Vector2 input)
         {
@@ -96,6 +114,27 @@ namespace Code.Player
                 transposer.m_FollowOffset = new Vector3(transposer.m_FollowOffset.x, Mathf.Lerp(transposer.m_FollowOffset.y, defaultY, Time.deltaTime * speed), transposer.m_FollowOffset.z);
             }
 
+        }
+
+        private void OnSensitivity(int value)
+        {
+            sensitivityX = value;
+            sensitivityY = value;
+            Debug.Log($"sensitivity {value}");
+        }
+        private void OnFOV(int value)
+        {
+            vcam.m_Lens.FieldOfView = value;
+            Debug.Log($"fov {value}");
+        }
+        private void OnMotionBlur(bool value)
+        {
+            MotionBlur blur;
+            if (globalVolume.profile.TryGet(out blur))
+            {
+                blur.active = value;
+                Debug.Log($"blur {value}");
+            }
         }
     }
 }

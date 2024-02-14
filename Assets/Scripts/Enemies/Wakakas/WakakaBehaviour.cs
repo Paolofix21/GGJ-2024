@@ -43,7 +43,7 @@ namespace Code.EnemySystem.Wakakas {
         private WakakaHealth _health;
         private WakakaAttacker _attacker;
 
-        private static Transform _target;
+        private Transform _target;
 
         private WakakaState _state = WakakaState.None;
         private Vector3 _moveDirection;
@@ -71,7 +71,7 @@ namespace Code.EnemySystem.Wakakas {
         private void Start() {
             _maskAnimator.AnimateIntroVoiceLine();
 
-            _target ??= GameEvents.MatchManager.GetPlayerEntity().Transform;
+            _target = GameEvents.MatchManager.GetPlayerEntity().Transform;
 
             SetState(WakakaState.Wander);
 

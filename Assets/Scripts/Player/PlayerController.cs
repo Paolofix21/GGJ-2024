@@ -53,6 +53,7 @@ namespace Code.Player {
         private InputManager _input;
 
         private EventInstance _footstepsInstance;
+        private Coroutine _inLavaCoroutine;
 
         private bool _isDead;
         private bool _isInsideLava;
@@ -129,7 +130,7 @@ namespace Code.Player {
 
         private void OnTriggerEnter(Collider other) {
             if (other.gameObject.CompareTag(lavaLayer))
-                StartCoroutine(WalkInLava());
+                EnterLava();
         }
 
         private void OnTriggerExit(Collider other) {
@@ -225,6 +226,7 @@ namespace Code.Player {
 
         private IEnumerator WalkInLava() {
             _isInsideLava = true;
+
             ResetJump();
             var delayHalf = new WaitForSeconds(lavaDamageDelay * .5f);
 
@@ -253,8 +255,10 @@ namespace Code.Player {
             }
         }
 
+        private void EnterLava() => _inLavaCoroutine = StartCoroutine(WalkInLava());
+
         private void ExitLava() {
-            StopCoroutine(nameof(WalkInLava));
+            StopCoroutine(_inLavaCoroutine);
             _isInsideLava = false;
             _currentCooldownValue = 0;
         }

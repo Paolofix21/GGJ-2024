@@ -6,8 +6,8 @@ using Code.Core;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace UI {
-    public class AimsightUI : UIBehaviour {
+namespace Code.UI {
+    public sealed class AimSightUI : UIBehaviour {
         #region Public Variables
         [SerializeField] private List<GameObject> Aim;
         #endregion

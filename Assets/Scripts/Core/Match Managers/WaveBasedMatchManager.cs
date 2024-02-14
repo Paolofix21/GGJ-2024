@@ -40,6 +40,8 @@ namespace Code.Core.MatchManagers {
         protected override void OnBeforeDestroy() {
             GameEvents.OnPauseStatusChanged -= TogglePause;
             GameEvents.OnCutsceneStateChanged -= TogglePause;
+
+            GameEvents.MatchManager = null;
         }
         #endregion
 

@@ -33,9 +33,7 @@ namespace Code.UI
             AudioManager.instance.PlayMainMenuMusic();
 
             m_loadLevel.onClick.AddListener(delegate {
-                SceneLoader.LoadScene("Game Scene 01", UnityEngine.SceneManagement.LoadSceneMode.Single);
-                SceneLoader.LoadScene("Game Scene 01 Waves", UnityEngine.SceneManagement.LoadSceneMode.Additive);
-                SceneLoader.LoadScene("Game Scene 01 UI", UnityEngine.SceneManagement.LoadSceneMode.Additive);
+                SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
                 m_loadLevel.interactable = false;
                 AudioManager.instance.ChangeGlobalMusicAmbienceParameter(1);
                 AudioManager.instance.PlayExplorationMusic();

@@ -5,7 +5,7 @@ using Utilities;
 
 namespace Code.Core.MatchManagers {
     [DefaultExecutionOrder(-2)]
-    public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager>, IMatchManager {
+    public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager> {
         #region Public Variables
         [SerializeField] private bool m_beginOnStart = false;
 

@@ -5,7 +5,8 @@ namespace Code.Data {
     public enum SettingType {
         UserData,
         Audio,
-        Video
+        Video,
+        GamePlay
     }
 
     [Serializable]

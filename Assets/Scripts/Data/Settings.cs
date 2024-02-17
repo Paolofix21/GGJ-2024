@@ -8,5 +8,7 @@ namespace Code.Data {
         public VideoSettings Video { get; set; } = new();
         [JsonProperty("audio")]
         public AudioSettings Audio { get; set; } = new();
+        [JsonProperty("game")]
+        public GamePlaySettings Game { get; set; } = new();
     }
 }

@@ -2,7 +2,6 @@
 using Code.Core;
 using Code.EnemySystem.Boss.Phases;
 using Code.EnemySystem.Wakakas;
-using Code.Player;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss {
@@ -65,6 +64,7 @@ namespace Code.EnemySystem.Boss {
 
             _health.OnHealthChanged += CheckPhase;
             _health.OnDeath += Die;
+            _health.OnEnableDisable += m_bossAnimator.AnimateShieldOnOff;
 
             GameEvents.OnCutsceneStateChanged += HandleCutscene;
 
@@ -74,7 +74,10 @@ namespace Code.EnemySystem.Boss {
             m_phaseSurrender.SetUp(this);
         }
 
-        private void Start() => _target = GameEvents.MatchManager.GetPlayerEntity().Transform;
+        private void Start() {
+            _target = GameEvents.MatchManager.GetPlayerEntity().Transform;
+            _health.enabled = false;
+        }
 
         private void Update() {
 #if UNITY_EDITOR
@@ -120,6 +123,7 @@ namespace Code.EnemySystem.Boss {
             m_animator.enabled = false;
             _health.enabled = false;
             enabled = false;
+            m_bossAnimator.AnimateShieldOnOff(true);
             OnSurrender?.Invoke();
         }
         #endregion

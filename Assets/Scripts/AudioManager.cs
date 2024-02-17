@@ -8,6 +8,13 @@ using Code.Data;
 using AudioSettings = Code.Data.AudioSettings;
 
 public class AudioManager : MonoBehaviour {
+    public const string k_busGeneral = "bus:/";
+    public const string k_busAmbience = "bus:/Ambience";
+    public const string k_busMusic = "bus:/Music";
+    public const string k_busSfx = "bus:/SFX";
+    public const string k_busUi = "bus:/UI";
+    public const string k_busVoiceLine = "bus:/VO";
+
     public static AudioManager instance { get; private set; }
 
     [SerializeField]
@@ -34,12 +41,12 @@ public class AudioManager : MonoBehaviour {
     }
 
     private void Start() {
-        SetBusVolume("bus:/", DataManager.GetVolumeSetting(AudioSettings.BusId.General));
-        SetBusVolume("bus:/Ambience", DataManager.GetVolumeSetting(AudioSettings.BusId.Ambience));
-        SetBusVolume("bus:/Music", DataManager.GetVolumeSetting(AudioSettings.BusId.Music));
-        SetBusVolume("bus:/SFX", DataManager.GetVolumeSetting(AudioSettings.BusId.SoundEffect));
-        SetBusVolume("bus:/UI", DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface));
-        SetBusVolume("bus:/VO", DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine));
+        SetBusVolume(k_busGeneral, DataManager.GetVolumeSetting(AudioSettings.BusId.General));
+        SetBusVolume(k_busAmbience, DataManager.GetVolumeSetting(AudioSettings.BusId.Ambience));
+        SetBusVolume(k_busMusic, DataManager.GetVolumeSetting(AudioSettings.BusId.Music));
+        SetBusVolume(k_busSfx, DataManager.GetVolumeSetting(AudioSettings.BusId.SoundEffect));
+        SetBusVolume(k_busUi, DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface));
+        SetBusVolume(k_busVoiceLine, DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine));
     }
 
     private void OnDestroy() {

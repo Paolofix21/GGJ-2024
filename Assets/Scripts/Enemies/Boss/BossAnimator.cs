@@ -1,15 +1,14 @@
-﻿using FMOD;
-using FMOD.Studio;
-using FMODUnity;
+﻿using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
-using STOP_MODE = FMOD.Studio.STOP_MODE;
 
 namespace Code.EnemySystem.Boss {
     [RequireComponent(typeof(Animator))]
     public class BossAnimator : MonoBehaviour {
         #region Public Variables
+        [Header("References")]
+        [SerializeField] private GameObject m_shieldObject;
+
         [Header("Sounds")]
         [SerializeField] private EventReference m_voiceLineEvent;
         [SerializeField] private EventReference m_deathSoundEvent;
@@ -35,7 +34,10 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Behaviour Callbacks
-        private void Awake() => _animator = GetComponent<Animator>();
+        private void Awake() {
+            _animator = GetComponent<Animator>();
+            AnimateShieldOnOff(true);
+        }
         #endregion
 
         #region Public Methods
@@ -84,6 +86,8 @@ namespace Code.EnemySystem.Boss {
             _animator.CrossFade("Boss Decompose", .25f);
             return m_decomposeAnimationClip.length;
         }
+
+        public void AnimateShieldOnOff(bool off) => m_shieldObject.SetActive(!off);
 
         public void AnimateDeath() => RuntimeManager.PlayOneShotAttached(m_deathSoundEvent, gameObject);
         #endregion

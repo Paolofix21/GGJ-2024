@@ -9,6 +9,7 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField] private DamageType m_type;
 
         public event System.Action<float> OnHealthChanged;
+        public event System.Action<bool> OnEnableDisable;
         public event System.Action OnDeath;
         #endregion
 
@@ -19,7 +20,11 @@ namespace Code.EnemySystem.Wakakas {
         #region Behaviour Callbacks
         private void Awake() => _currentHealth = m_maxHealth;
 
+        private void OnEnable() => OnEnableDisable?.Invoke(true);
+
         private void Start() => OnHealthChanged?.Invoke(_currentHealth / m_maxHealth);
+
+        private void OnDisable() => OnEnableDisable?.Invoke(false);
         #endregion
 
         #region IDamageable
@@ -39,6 +44,8 @@ namespace Code.EnemySystem.Wakakas {
 
         #region Public Methods
         public DamageType GetDamageType() => m_type;
+
+        public float GetCurrent() => _currentHealth / m_maxHealth;
         #endregion
     }
 }

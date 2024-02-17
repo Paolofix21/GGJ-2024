@@ -16,6 +16,8 @@ namespace Code.Data {
             _data = new SaveData();
             SavesManager.Save(_data);
         }
+
+        public static void Apply() => SavesManager.Save(_data);
         #endregion
 
         #region Public Methods
@@ -31,6 +33,11 @@ namespace Code.Data {
 
         public static void UpdateVideoSetting(VideoSettings.Type type, object value) => _data.Settings.Video[type] = value;
         public static void GetVideoSetting<T>(VideoSettings.Type type, out T volume) => volume = (T)_data.Settings.Video[type];
+        public static T GetVideoSetting<T>(VideoSettings.Type type) => (T)_data.Settings.Video[type];
+
+        public static void UpdateGamePlaySetting(GamePlaySettings.Type type, object value) => _data.Settings.Game[type] = value;
+        public static void GetGamePlaySetting<T>(GamePlaySettings.Type type, out T volume) => volume = (T)_data.Settings.Game[type];
+        public static T GetGamePlaySetting<T>(GamePlaySettings.Type type) => (T)_data.Settings.Game[type];
         #endregion
     }
 }

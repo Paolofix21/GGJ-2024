@@ -22,6 +22,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: Shield
+    second: {fileID: 2100000, guid: 9ebe7cd257ee1a84e81474d1901203b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: Teeth
     second: {fileID: 2504516506940294678, guid: 543bd7bd275941949b0814ef44766a2b,
       type: 3}

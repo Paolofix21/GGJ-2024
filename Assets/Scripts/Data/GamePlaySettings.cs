@@ -6,30 +6,30 @@ namespace Code.Data {
     public sealed class GamePlaySettings {
         public enum Type {
             Sensitivity,
-            FieldOfview
+            FieldOfView
         }
 
         #region Properties
         [JsonProperty("send")]
-        public float Sensitivity { get; set; } = 1f;
+        public int Sensitivity { get; set; } = 10;
         [JsonProperty("fov")]
-        public float FieldOfView { get; set; } = 60f;
+        public int FieldOfView { get; set; } = 60;
         #endregion
 
         #region Public Methods
         public object this[Type type] {
             get => type switch {
                 Type.Sensitivity => Sensitivity,
-                Type.FieldOfview => FieldOfView,
+                Type.FieldOfView => FieldOfView,
                 _ => null
             };
             set {
                 switch (type) {
                     case Type.Sensitivity:
-                        Sensitivity = (float)value;
+                        Sensitivity = (int)value;
                         break;
-                    case Type.FieldOfview:
-                        FieldOfView = (float)value;
+                    case Type.FieldOfView:
+                        FieldOfView = (int)value;
                         break;
                     default:
                         return;

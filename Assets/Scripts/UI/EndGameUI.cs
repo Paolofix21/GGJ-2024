@@ -13,7 +13,7 @@ public class EndGameUI : MonoBehaviour {
     [FormerlySerializedAs("TitleColorVictory")] public Color m_titleColorVictory;
     [FormerlySerializedAs("TitleColorGameOver")] public Color m_titleColorGameOver;
     [SerializeField] private string m_victoryText = "Victory!", m_loseText = "Game Over!";
-    [SerializeField] private string m_victoryHint, m_loseHint;
+    [SerializeField] private string m_highScoreHint = "New High Score: {0}";
     [SerializeField] private string m_retryText = "Try again?";
     [SerializeField] private string m_mainMenuText = "Main Menu";
 
@@ -35,12 +35,18 @@ public class EndGameUI : MonoBehaviour {
     #region Behaviour Callbacks
     private void Awake() {
         GameEvents.OnEndGame += OnEndGame;
+        GameEvents.OnNewRecordBeaten += OnHighScore;
+
+        m_hintToDisplay.text = string.Empty;
         gameObject.SetActive(false);
     }
 
     private void Start() => m_quitButton.onClick.AddListener(QuitToDesktop);
 
-    private void OnDestroy() => GameEvents.OnEndGame -= OnEndGame;
+    private void OnDestroy() {
+        GameEvents.OnEndGame -= OnEndGame;
+        GameEvents.OnNewRecordBeaten -= OnHighScore;
+    }
     #endregion
 
     #region Private Methods
@@ -51,7 +57,6 @@ public class EndGameUI : MonoBehaviour {
         m_title.color = m_titleColorVictory;
         m_titleGlow.color = new Color(m_titleColorVictory.r, m_titleColorVictory.g, m_titleColorVictory.b, 1f);
         m_title.text = m_titleGlow.text = m_victoryText;
-        m_hintToDisplay.text = m_victoryHint;
 
         m_simpleButton.gameObject.SetActive(false);
 
@@ -66,7 +71,6 @@ public class EndGameUI : MonoBehaviour {
         m_title.color = m_titleColorGameOver;
         m_titleGlow.color = new Color(m_titleColorGameOver.r, m_titleColorGameOver.g, m_titleColorGameOver.b, 1f);
         m_title.text = m_titleGlow.text = m_loseText;
-        m_hintToDisplay.text = m_loseHint;
 
         m_simpleButton.gameObject.SetActive(true);
         m_simpleButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
@@ -92,5 +96,11 @@ public class EndGameUI : MonoBehaviour {
 
     private void LoadMainMenu() => SceneLoader.LoadScene("MainMenu", LoadSceneMode.Single);
     private void ReloadCurrentLevel() => SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+
+    private void OnHighScore(float timeSeconds) {
+        var time = System.TimeSpan.FromSeconds(timeSeconds);
+        var timeString = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
+        m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);
+    }
     #endregion
 }

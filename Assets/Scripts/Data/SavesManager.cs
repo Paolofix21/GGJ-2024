@@ -23,7 +23,7 @@ namespace Code.Data {
         }
 
         private static void WriteToFile(SaveData data) {
-            var stringedData = JsonConvert.SerializeObject(data);
+            var stringedData = JsonConvert.SerializeObject(data, Formatting.Indented);
             File.WriteAllText(Application.persistentDataPath + "/mecmeloffa.json", stringedData);
         }
         #endregion

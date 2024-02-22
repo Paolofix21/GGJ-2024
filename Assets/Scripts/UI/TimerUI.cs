@@ -1,5 +1,6 @@
 using System;
 using Code.Core;
+using Code.Core.MatchManagers;
 using Code.Data;
 using TMPro;
 using UnityEngine;
@@ -13,6 +14,7 @@ public class TimerUI : MonoBehaviour {
     #endregion
 
     #region Private Variables
+    private WaveBasedMatchManager _matchManager;
     private float _timePassed;
     #endregion
 
@@ -20,7 +22,6 @@ public class TimerUI : MonoBehaviour {
     private void Awake() {
         if (m_text != null) {
             GameEvents.OnEndGame += OnEndGame;
-
             return;
         }
 
@@ -28,8 +29,13 @@ public class TimerUI : MonoBehaviour {
         enabled = false;
     }
 
+    private void Start() => _matchManager = GameEvents.GetMatchManager<WaveBasedMatchManager>();
+
     private void Update() {
         if (GameEvents.IsOnHold)
+            return;
+
+        if (!_matchManager.IsOngoing)
             return;
 
         _timePassed += Time.deltaTime;
@@ -54,7 +60,7 @@ public class TimerUI : MonoBehaviour {
         enabled = false;
         DataManager.GetHighScore(out var highScore);
 
-        var span = TimeSpan.FromSeconds(_timePassed).TotalMilliseconds;
+        var span = TimeSpan.FromSeconds(_timePassed);
         if (highScore < span)
             return;
 

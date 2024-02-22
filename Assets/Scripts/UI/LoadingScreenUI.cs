@@ -2,12 +2,12 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-namespace Code.UI
-{
-    public class LoadingScreenUI : MonoBehaviour
-    {
+
+namespace Code.UI {
+    public class LoadingScreenUI : MonoBehaviour {
         #region Public Variables
         [SerializeField] private CanvasGroup m_canvasGroup;
+
         [SerializeField] private Animator m_animator;
         //[SerializeField] private Slider m_slider;
         #endregion
@@ -21,20 +21,19 @@ namespace Code.UI
         #endregion
 
         #region Behaviour Callbacks
-        private void Awake()
-        {
-            if (Singleton && Singleton != this)
-            {
+        private void Awake() {
+            if (Singleton && Singleton != this) {
                 Destroy(gameObject);
                 return;
             }
+
             Singleton = this;
             transform.SetParent(null);
             DontDestroyOnLoad(gameObject);
             m_canvasGroup.alpha = 0.0f;
         }
-        private void OnDestroy()
-        {
+
+        private void OnDestroy() {
             if (Singleton != this)
                 return;
 
@@ -43,26 +42,18 @@ namespace Code.UI
         #endregion
 
         #region Public Methods
-        public async Task FadeIn(bool isOn)
-        {
+        public async Task FadeIn(bool isOn) {
             currentCount = isOn ? currentCount++ : currentCount--;
-            if (currentCount > 1 || (currentCount == 1 && !isOn))
-            {
+            if (currentCount > 1 || (currentCount == 1 && !isOn)) {
                 return;
             }
+
             m_animator.SetBool("go", isOn);
             await Task.Delay(1000);
-            while (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1)
-            {
+            while (m_animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1) {
                 await Task.Yield();
             }
         }
-        #endregion
-
-        #region Private Methods
-        #endregion
-
-        #region Virtual Methods
         #endregion
     }
 }

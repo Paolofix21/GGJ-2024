@@ -79,10 +79,18 @@ public class EndGameUI : MonoBehaviour {
         m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_retryText;
         m_highlightButton.onClick.AddListener(ReloadCurrentLevel);
     }
+
+    private void Quit() {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.ExitPlaymode();
+#else
+        Application.Quit();
+#endif
+    }
     #endregion
 
     #region Event Methods
-    private void QuitToDesktop() => UIManager.Singleton.CallConfirmTask(m_quitToDesktopText, Application.Quit);
+    private void QuitToDesktop() => UIManager.Singleton.CallConfirmTask(m_quitToDesktopText, Quit);
     private void QuitToMenu() => UIManager.Singleton.CallConfirmTask(m_quitToMenuText, LoadMainMenu);
 
     private void OnEndGame(bool didWin) {

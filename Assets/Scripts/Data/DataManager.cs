@@ -21,11 +21,11 @@ namespace Code.Data {
         #endregion
 
         #region Public Methods
-        public static void UpdateHighScore(double newValue) {
+        public static void UpdateHighScore(System.TimeSpan newValue) {
             if (newValue > _data.HighScore)
                 _data.HighScore = newValue;
         }
-        public static void GetHighScore(out double highScore) => highScore = _data.HighScore;
+        public static void GetHighScore(out System.TimeSpan highScore) => highScore = _data.HighScore;
 
         public static void UpdateVolumeSetting(AudioSettings.BusId busId, float volume) => _data.Settings.Audio[busId] = volume;
         public static void GetVolumeSetting(AudioSettings.BusId busId, out float volume) => volume = _data.Settings.Audio[busId];

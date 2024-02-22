@@ -176,7 +176,7 @@ namespace Code.EnemySystem.Boss {
         #region Event Methods
         private void HandleCutscene(bool isPlaying) {
             _freezeExecution = isPlaying;
-            _health.enabled = !_freezeExecution;
+            _health.enabled = !_freezeExecution && Phase != WakakaBossState.None;
         }
 
         private void CheckPhase(float health) {

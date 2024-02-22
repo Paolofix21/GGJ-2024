@@ -73,8 +73,8 @@ namespace Code.UI {
             m_ui.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface));
             m_vo.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine));
 
-            m_sensitivity.SetValueSilently(DataManager.GetGamePlaySetting<float>(GamePlaySettings.Type.Sensitivity));
-            m_fov.SetValueSilently(DataManager.GetGamePlaySetting<float>(GamePlaySettings.Type.FieldOfview));
+            m_sensitivity.SetValueSilently(DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity));
+            m_fov.SetValueSilently(DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.FieldOfView));
             m_blur.SetValueSilently(DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur));
         }
 
@@ -105,14 +105,14 @@ namespace Code.UI {
 
         private void ChangeSensitivity(float sens) {
             VideoSettingsHelper.MouseSensitivity = (int)sens;
-            OnFOVChanged?.Invoke(VideoSettingsHelper.MouseSensitivity);
-            DataManager.UpdateGamePlaySetting(GamePlaySettings.Type.Sensitivity, sens);
+            OnSensitivityChanged?.Invoke(VideoSettingsHelper.MouseSensitivity);
+            DataManager.UpdateGamePlaySetting(GamePlaySettings.Type.Sensitivity, VideoSettingsHelper.MouseSensitivity);
         }
 
         private void ChangeFieldOfView(float fov) {
             VideoSettingsHelper.FOV = (int)fov;
             OnFOVChanged?.Invoke(VideoSettingsHelper.FOV);
-            DataManager.UpdateGamePlaySetting(GamePlaySettings.Type.FieldOfview, fov);
+            DataManager.UpdateGamePlaySetting(GamePlaySettings.Type.FieldOfView, VideoSettingsHelper.FOV);
         }
 
         private void ChangeBlur(bool blurOn) {

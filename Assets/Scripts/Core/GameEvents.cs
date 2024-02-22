@@ -7,6 +7,7 @@ namespace Code.Core {
         public static event ValueSetEventHandler<bool> OnPauseStatusChanged;
         public static event ValueSetEventHandler<bool> OnCutsceneStateChanged;
         public static event ValueSetEventHandler<bool> OnEndGame;
+        public static event ValueSetEventHandler<double> OnNewRecordBeaten;
         #endregion
 
         #region Properties
@@ -19,6 +20,8 @@ namespace Code.Core {
         #endregion
 
         #region Public Methods
+        public static T GetMatchManager<T>() where T : IMatchManager => (T)MatchManager;
+
         public static void Pause() {
             if (IsPaused)
                 return;
@@ -35,7 +38,7 @@ namespace Code.Core {
             OnPauseStatusChanged?.Invoke(IsPaused);
         }
 
-        public static void TogglePause(bool pause) {
+        public static void TogglePause() {
             IsPaused = !IsPaused;
             OnPauseStatusChanged?.Invoke(IsPaused);
         }
@@ -44,6 +47,8 @@ namespace Code.Core {
 
         public static void Win() => OnEndGame?.Invoke(true);
         public static void Lose() => OnEndGame?.Invoke(false);
+
+        public static void BeatHighScore(double newHighScore) => OnNewRecordBeaten?.Invoke(newHighScore);
         #endregion
     }
 }

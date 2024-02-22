@@ -8,6 +8,9 @@ using Code.Core;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Code.Core.MatchManagers;
+using Code.Promises;
+using System;
 namespace Code.UI
 {
     public class WeaponBehaviourUI : MonoBehaviour
@@ -34,18 +37,23 @@ namespace Code.UI
             _sword = _target.GetComponentInChildren<Sword>();
             _target.OnWeaponChanged += UpdateWeaponIcon;
             _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
-            // WaveSpawner.OnEnemyDeath += DisplayWeaponEnergy;
-            // TODO - Bind UI to weapon's energy
+            GameEvents.GetMatchManager<WaveBasedMatchManager>().EntityManager.Entities.OnRemoved += DisplayWeaponEnergy;
             _sword.Shot += DisplayWeaponEnergy;
+            CheckWeapon(_target.gameObject.GetComponent<PlayerWeaponHandler>().EquippedWeapon);
         }
+
+        private void DisplayWeaponEnergy(IEntity element)
+        {
+            DisplayWeaponEnergy();
+        }
+
         private void OnDestroy() {
             if (!_target)
                 return;
 
             _target.OnWeaponChanged -= UpdateWeaponIcon;
             _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
-            // WaveSpawner.OnEnemyDeath -= DisplayWeaponEnergy;
-            // TODO - Bind UI to weapon's energy
+            GameEvents.GetMatchManager<WaveBasedMatchManager>().EntityManager.Entities.OnRemoved -= DisplayWeaponEnergy;
             _sword.Shot -= DisplayWeaponEnergy;
         }
         #endregion
@@ -62,7 +70,6 @@ namespace Code.UI
         #region Private Methods
         private async void DisplayWeaponEnergy() {
             await Task.Yield();
-            // TODO - Bind energy progress to sword weapon
              m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 10.0f;
         }
         #endregion

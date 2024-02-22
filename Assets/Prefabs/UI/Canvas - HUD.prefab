@@ -1729,6 +1729,7 @@ GameObject:
   - component: {fileID: 5248946806975334597}
   - component: {fileID: 8176366990994278560}
   - component: {fileID: 5452500120793541608}
+  - component: {fileID: 7308165661857017922}
   m_Layer: 5
   m_Name: Canvas - HUD
   m_TagString: Untagged
@@ -1751,10 +1752,10 @@ RectTransform:
   - {fileID: 4204903648339288382}
   - {fileID: 5415873281378799016}
   - {fileID: 3240798019086029684}
-  - {fileID: 4378717957925898350}
   - {fileID: 2066950216654105814}
   - {fileID: 4568766391369262109}
   - {fileID: 4210527361619086776}
+  - {fileID: 4378717957925898350}
   - {fileID: 8291501588392737459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1826,6 +1827,25 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7308165661857017922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659886066175106348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e69d1358388e43a9b29931d46506977e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_hideOnCutsceneOnly:
+  - {fileID: 5437468719071659404}
+  - {fileID: 3516685667725190607}
+  m_hideAlways:
+  - {fileID: 3300641347748988865}
+  - {fileID: 8782483660090564326}
+  - {fileID: 1600104749977241636}
 --- !u!1 &4172202719695086545
 GameObject:
   m_ObjectHideFlags: 0

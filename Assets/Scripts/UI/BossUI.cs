@@ -22,6 +22,9 @@ namespace Code.UI {
 
         #region Behaviour Callbacks
         protected override void Start() {
+            GameEvents.OnCutsceneStateChanged += CheckVisible;
+            GameEvents.OnPauseStatusChanged += CheckVisible;
+
             _matchManager = (WaveBasedMatchManager)GameEvents.MatchManager;
             _matchManager.OnBossChanged += OnBossChanged;
             _matchManager.EntityManager.OnFinish += OnBeginBossFight;
@@ -30,10 +33,15 @@ namespace Code.UI {
                 OnBossChanged(_matchManager.Boss);
 
             gameObject.SetActive(false);
-            m_immuneImage.gameObject.SetActive(false);
+            m_immuneImage.gameObject.SetActive(true);
         }
 
         private void Update() => m_fillBarSlowImage.fillAmount = Mathf.Lerp(m_fillBarSlowImage.fillAmount, m_fillBarImage.fillAmount, Time.deltaTime * 2f);
+
+        protected override void OnDestroy() {
+            GameEvents.OnCutsceneStateChanged -= CheckVisible;
+            GameEvents.OnPauseStatusChanged -= CheckVisible;
+        }
         #endregion
 
         #region Private Methods
@@ -62,9 +70,14 @@ namespace Code.UI {
             UpdateLife(_health.GetCurrent());
         }
 
-        private void ToggleDamageableState(bool isDamageable) => m_immuneImage.gameObject.SetActive(!isDamageable);
+        private void ToggleDamageableState(bool isDamageable) {
+            if (m_immuneImage)
+                m_immuneImage.gameObject.SetActive(!isDamageable);
+        }
 
         private void UpdateLife(float percent) => m_fillBarImage.fillAmount = percent;
+
+        private void CheckVisible(bool _) => gameObject.SetActive(_health.enabled && !GameEvents.IsOnHold);
         #endregion
     }
 }

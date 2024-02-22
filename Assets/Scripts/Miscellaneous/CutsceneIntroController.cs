@@ -1,12 +1,9 @@
 ﻿using System.Collections.Generic;
 using Code.Core;
-using Code.EnemySystem;
 using Code.EnemySystem.Wakakas;
-using Code.Graphics;
 using UnityEngine;
 using UnityEngine.Playables;
 using UnityEngine.Splines;
-using Code.UI;
 
 namespace Miscellaneous {
     [System.Serializable]
@@ -47,11 +44,18 @@ namespace Miscellaneous {
             gameObject.SetActive(false);
         }
 
-        private void Update() => m_splineAnimate.ElapsedTime += Time.unscaledDeltaTime;
+        private void OnEnable() => GameEvents.OnPauseStatusChanged += CheckPause;
 
-        private void OnDestroy() {
-            WaveSystemUI.OnEndWave -= OnWaveChanged;
+        private void Update() {
+            if (GameEvents.IsPaused)
+                return;
+
+            m_splineAnimate.ElapsedTime += Time.unscaledDeltaTime;
         }
+
+        private void OnDisable() => GameEvents.OnPauseStatusChanged -= CheckPause;
+
+        private void OnDestroy() => WaveSystemUI.OnEndWave -= OnWaveChanged;
 
         private void OnWaveChanged(int waveIndex) {
             // Time.timeScale = 0;
@@ -93,6 +97,13 @@ namespace Miscellaneous {
             OnIntroStartStop?.Invoke(false);
             gameObject.SetActive(false);
             GameEvents.SetCutsceneState(false);
+        }
+
+        private void CheckPause(bool pause) {
+            if (pause)
+                _director.Pause();
+            else
+                _director.Resume();
         }
         #endregion
     }

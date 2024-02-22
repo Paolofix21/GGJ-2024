@@ -45,7 +45,10 @@ namespace Code.UI {
             Cursor.visible = false;
         }
 
-        private void OnDestroy() => GameEvents.OnPauseStatusChanged -= ToggleShow;
+        private void OnDestroy() {
+            GameEvents.OnPauseStatusChanged -= ToggleShow;
+            GameEvents.Resume();
+        }
         #endregion
 
         #region Public Methods

@@ -1,4 +1,3 @@
-using System;
 using Code.Core;
 using Code.Core.MatchManagers;
 using Code.Data;
@@ -15,7 +14,7 @@ public class TimerUI : MonoBehaviour {
 
     #region Private Variables
     private WaveBasedMatchManager _matchManager;
-    private float _timePassed;
+    private double _timePassed;
     #endregion
 
     #region Behaviour Callbacks
@@ -49,8 +48,8 @@ public class TimerUI : MonoBehaviour {
     #endregion
 
     #region Private Methods
-    private void UpdateTimer(float timer) {
-        var time = TimeSpan.FromSeconds(timer);
+    private void UpdateTimer(double timer) {
+        var time = System.TimeSpan.FromSeconds(timer);
         m_text.text = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
     }
     #endregion
@@ -58,15 +57,19 @@ public class TimerUI : MonoBehaviour {
     #region Event Methods
     private void OnEndGame(bool didWin) {
         enabled = false;
-        DataManager.GetHighScore(out var highScore);
 
-        var span = TimeSpan.FromSeconds(_timePassed);
-        if (highScore < span)
+        if (!didWin)
+            return;
+
+        DataManager.GetHighScore(out var highScore);
+        Debug.Log(highScore);
+
+        if (highScore < _timePassed)
             return;
 
         GameEvents.BeatHighScore(_timePassed);
 
-        DataManager.UpdateHighScore(span);
+        DataManager.UpdateHighScore(_timePassed);
         DataManager.Apply();
     }
     #endregion

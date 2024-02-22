@@ -105,7 +105,7 @@ public class EndGameUI : MonoBehaviour {
     private void LoadMainMenu() => SceneLoader.LoadScene("MainMenu", LoadSceneMode.Single);
     private void ReloadCurrentLevel() => SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
 
-    private void OnHighScore(float timeSeconds) {
+    private void OnHighScore(double timeSeconds) {
         var time = System.TimeSpan.FromSeconds(timeSeconds);
         var timeString = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
         m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);

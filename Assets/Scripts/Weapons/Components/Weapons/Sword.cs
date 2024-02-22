@@ -11,6 +11,8 @@ namespace Code.Weapons {
 
         #region Private Variables
         private int _currentEnergy = 10;
+        
+        [HideInInspector] public int CurrentEnergy { get { return _currentEnergy; } }
         #endregion
 
         #region Properties

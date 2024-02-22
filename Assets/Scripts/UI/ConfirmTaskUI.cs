@@ -30,7 +30,11 @@ namespace Code.UI
         }
         private void Start()
         {
-            m_discardButton.onClick.AddListener(PlayAndDestroy);
+            m_discardButton.onClick.AddListener(delegate
+            {
+                m_discardButton.interactable = false;
+                PlayAndDestroy();
+            });
         }
         #endregion
 

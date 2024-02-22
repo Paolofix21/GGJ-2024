@@ -24,18 +24,19 @@ namespace Code.UI
 
         #region Private Variables
         private PlayerController _target;
+        private Sword _sword;
         #endregion
 
         #region Behaviour Callbacks
         private IEnumerator Start() {
             yield return null;
             _target = GameEvents.MatchManager.GetPlayerEntity().Transform.GetComponent<PlayerController>();
-
+            _sword = _target.GetComponentInChildren<Sword>();
             _target.OnWeaponChanged += UpdateWeaponIcon;
             _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
             // WaveSpawner.OnEnemyDeath += DisplayWeaponEnergy;
             // TODO - Bind UI to weapon's energy
-            // Sword.OnShoot += DisplayWeaponEnergy;
+            _sword.Shot += DisplayWeaponEnergy;
         }
         private void OnDestroy() {
             if (!_target)
@@ -45,7 +46,7 @@ namespace Code.UI
             _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
             // WaveSpawner.OnEnemyDeath -= DisplayWeaponEnergy;
             // TODO - Bind UI to weapon's energy
-            // Sword.OnShoot -= DisplayWeaponEnergy;
+            _sword.Shot -= DisplayWeaponEnergy;
         }
         #endregion
 
@@ -62,7 +63,7 @@ namespace Code.UI
         private async void DisplayWeaponEnergy() {
             await Task.Yield();
             // TODO - Bind energy progress to sword weapon
-            // m_specialWeaponFiller.fillAmount = Sword.currentEnergy / 10.0f;
+             m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 10.0f;
         }
         #endregion
 

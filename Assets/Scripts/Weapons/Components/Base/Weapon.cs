@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -16,7 +17,9 @@ namespace Code.Weapons {
         #region Properties
         public abstract WeaponChargeStatus ChargeStatus { get; }
         #endregion
-
+        #region Events
+        public event Action Shot;
+        #endregion
         #region Behaviour Callbacks
         private void Start() {
             FiringLogic.Init(this);
@@ -31,6 +34,7 @@ namespace Code.Weapons {
         public abstract bool CanShoot();
 
         public void Shoot() {
+            Shot?.Invoke();
             OnShoot();
             FiringLogic.Shoot(Ammunition);
         }

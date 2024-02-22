@@ -91,6 +91,10 @@ public class EndGameUI : MonoBehaviour {
     }
 
     private void LoadMainMenu() => SceneLoader.LoadScene("MainMenu", LoadSceneMode.Single);
-    private void ReloadCurrentLevel() => SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+    private void ReloadCurrentLevel()
+    {
+        m_highlightButton.interactable = false;
+        SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+    }
     #endregion
 }

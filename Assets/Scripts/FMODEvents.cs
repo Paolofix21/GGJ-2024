@@ -54,6 +54,7 @@ public class FMODEvents : MonoBehaviour
     [field: SerializeField] public EventReference evilLaughEvent { get; private set; }
     [field: SerializeField] public EventReference voBossEvent { get; private set; }
     [field: SerializeField] public EventReference voDropAmmunitionEvent { get; private set; }
+    [field: SerializeField] public EventReference voNoAmmoEvent { get; private set; }
 
     [field: Header("UI")]
     [field: SerializeField] public EventReference uiClickEvent { get; private set; }

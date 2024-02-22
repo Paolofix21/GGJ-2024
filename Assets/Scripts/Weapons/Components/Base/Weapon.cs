@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -15,6 +16,7 @@ namespace Code.Weapons {
 
         #region Properties
         public abstract WeaponChargeStatus ChargeStatus { get; }
+        public event Action OnCantShoot;
         #endregion
 
         #region Behaviour Callbacks
@@ -44,6 +46,8 @@ namespace Code.Weapons {
         protected virtual void OnStart() { }
 
         protected virtual void OnShoot() {}
+
+        protected void CantShoot() => OnCantShoot?.Invoke();
         #endregion
     }
 }

@@ -357,6 +357,13 @@ MonoBehaviour:
       Data3: -1645827663
       Data4: -864889033
     Path: event:/VO/VO_DropAmmunition
+  <voNoAmmoEvent>k__BackingField:
+    Guid:
+      Data1: -253295552
+      Data2: 1312788953
+      Data3: -1811863365
+      Data4: -331443100
+    Path: event:/VO/VO_NoAmmo
   <uiClickEvent>k__BackingField:
     Guid:
       Data1: -624073319

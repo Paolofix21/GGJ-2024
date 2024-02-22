@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using FMODUnity;
 using UnityEngine;
+using System.Threading.Tasks;
 
 namespace Code.Weapons {
     public class PlayerWeaponHandler : MonoBehaviour {
@@ -19,6 +20,10 @@ namespace Code.Weapons {
         [Space]
         [SerializeField] public PlayerController playerController;
         [SerializeField] private PlayerWeaponAnimatorListener playerWeaponAnimatorListener;
+
+        [Header("Audio")]
+        [SerializeField] private float _cooldown;
+        private float _currentCooldown;
 
         public event System.Action<Weapon> OnUpdateWeaponInfo;
         #endregion
@@ -87,6 +92,27 @@ namespace Code.Weapons {
             var weaponToRecharge = weapons.Find(weapon => weapon.WeaponType == type);
             weaponToRecharge.Recharge(amount);
         }
+
+        private async void CooldownVO()
+        {
+            _currentCooldown = _cooldown;
+
+            while (_currentCooldown > 0)
+            {
+                if (!this)
+                    return;
+
+                _currentCooldown -= Time.deltaTime;
+                await Task.Yield();
+            }
+        }
+
+        private void PlayNoAmmo()
+        {
+            if (_currentCooldown > 0) return;
+            RuntimeManager.PlayOneShot(FMODEvents.instance.voNoAmmoEvent, playerController.transform.position);
+            CooldownVO();
+        }
         #endregion
 
         #region Event Methods
@@ -94,13 +120,21 @@ namespace Code.Weapons {
 
         private void EquipWeapon(int weaponType) {
             if (EquippedWeapon)
+            {
                 EquippedWeapon.ChargeStatus.OnUpdated -= CheckAmmo;
+                EquippedWeapon.OnCantShoot -= PlayNoAmmo;
+            }
+                
 
             EquippedWeapon = weapons.First(weapon => weapon.WeaponType == (WeaponType)weaponType);
             OnUpdateWeaponInfo?.Invoke(EquippedWeapon);
 
             if (EquippedWeapon)
+            {
                 EquippedWeapon.ChargeStatus.OnUpdated += CheckAmmo;
+                EquippedWeapon.OnCantShoot += PlayNoAmmo;
+            }
+
 
             SetEmissionChargeFeedback(EquippedWeapon.ChargeStatus);
         }

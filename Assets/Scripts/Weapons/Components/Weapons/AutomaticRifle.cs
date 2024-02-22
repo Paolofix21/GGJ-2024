@@ -22,7 +22,14 @@ namespace Code.Weapons {
         #endregion
 
         #region Overrides
-        public override bool CanShoot() => Cartridge.CurrentAmount > 0;
+        public override bool CanShoot()
+        {
+            if (Cartridge.CurrentAmount > 0)
+                return true;
+
+            CantShoot();
+            return false;
+        }
 
         protected override void OnShoot() {
             if (Cartridge.CurrentAmount <= 0)

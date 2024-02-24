@@ -13,12 +13,12 @@ namespace Code.EnemySystem.Boss.Phases {
         #region Overrides
         protected override void OnSetup() => _attackTrapezio = boss.GetComponent<BossAttackTrapezio>();
 
-        public override void Begin() {
+        protected override void OnBegin() {
             Invoke(TriggerVoiceLine, 1f);
             boss.BossAnimator.OnShoot += Shoot;
         }
 
-        public override void Execute() {
+        protected override void OnExecute() {
             if (_speakingPhase < 0)
                 return;
 
@@ -43,7 +43,7 @@ namespace Code.EnemySystem.Boss.Phases {
             }
         }
 
-        public override void End() {
+        protected override void OnEnd() {
             CancelInvoke();
             boss.BossAnimator.OnShoot -= Shoot;
         }

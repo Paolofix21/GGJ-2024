@@ -1,4 +1,5 @@
 using Cinemachine;
+using Code.Data;
 using Code.Graphics;
 using Code.UI;
 using UnityEngine;
@@ -40,8 +41,11 @@ namespace Code.Player
             controller = GetComponent<CharacterController>();
             globalVolume = FindFirstObjectByType<Volume>();
         }
-        private void Start()
-        {
+        private void Start() {
+            VideoSettingsHelper.FOV = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.FieldOfView);
+            VideoSettingsHelper.MouseSensitivity = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity);
+            VideoSettingsHelper.MotionBlurActive = DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur);
+
             OnSensitivity(VideoSettingsHelper.MouseSensitivity);
             OnFOV(VideoSettingsHelper.FOV);
             OnMotionBlur(VideoSettingsHelper.MotionBlurActive);

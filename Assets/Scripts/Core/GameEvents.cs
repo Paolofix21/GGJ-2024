@@ -22,7 +22,12 @@ namespace Code.Core {
         #region Public Methods
         public static T GetMatchManager<T>() where T : IMatchManager => (T)MatchManager;
 
+        public static void Begin() => MatchManager?.BeginMatch();
+
         public static void Pause() {
+            if (MatchManager == null || MatchManager.IsStopped())
+                return;
+
             if (IsPaused)
                 return;
 
@@ -31,6 +36,9 @@ namespace Code.Core {
         }
 
         public static void Resume() {
+            if (MatchManager == null || MatchManager.IsStopped())
+                return;
+
             if (!IsPaused)
                 return;
 
@@ -39,6 +47,9 @@ namespace Code.Core {
         }
 
         public static void TogglePause() {
+            if (MatchManager == null || MatchManager.IsStopped())
+                return;
+
             IsPaused = !IsPaused;
             OnPauseStatusChanged?.Invoke(IsPaused);
         }

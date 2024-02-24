@@ -10,7 +10,7 @@ namespace Code.EnemySystem.Boss.Phases {
         #endregion
 
         #region Overrides
-        public override void Begin() {
+        protected override void OnBegin() {
             boss.Surrender();
 
             foreach (var body in m_bodies) {
@@ -20,9 +20,9 @@ namespace Code.EnemySystem.Boss.Phases {
             }
         }
 
-        public override void Execute() { }
+        protected override void OnExecute() { }
 
-        public override void End() { }
+        protected override void OnEnd() { }
         #endregion
     }
 }

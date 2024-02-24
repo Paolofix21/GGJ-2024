@@ -25,7 +25,7 @@ namespace Code.UI {
             if (m_filler.fillAmount < 1)
                 return;
 
-            GameEvents.MatchManager.BeginMatch();
+            GameEvents.Begin();
             Destroy(gameObject);
         }
         #endregion

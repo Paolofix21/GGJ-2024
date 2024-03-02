@@ -8,6 +8,7 @@ namespace Code.Core.MatchManagers {
     public sealed class WaveBasedMatchManager : MatchManager<WaveBasedMatchManager> {
         #region Public Variables
         [SerializeField] private bool m_beginOnStart = false;
+        [SerializeField] private bool m_stopTimeOnPause = true;
 
         public event ValueSetEventHandler<WaveBasedPlayerEntity> OnPlayingCharacterChanged; 
         public event ValueSetEventHandler<WaveBasedBossEntity> OnBossChanged; 
@@ -59,6 +60,9 @@ namespace Code.Core.MatchManagers {
         }
 
         protected override void OnMatchPaused() {
+            if (m_stopTimeOnPause)
+                Time.timeScale = 0f;
+
             Timer.Pause();
 
             EntityManager.Disable();
@@ -66,6 +70,9 @@ namespace Code.Core.MatchManagers {
         }
 
         protected override void OnMatchResumed() {
+            if (m_stopTimeOnPause)
+                Time.timeScale = 1f;
+
             Character.Enable();
             EntityManager.Enable();
 

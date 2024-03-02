@@ -16,14 +16,14 @@ namespace Code.EnemySystem.Boss.Phases {
         #region Overrides
         protected override void OnSetup() => _attackFireBalls = boss.GetComponent<BossAttackFireBalls>();
 
-        public override void Begin() {
+        protected override void OnBegin() {
             Invoke(TriggerShoot, 1f);
             boss.BossAnimator.OnShoot += Shoot;
         }
 
-        public override void Execute() { }
+        protected override void OnExecute() { }
 
-        public override void End() {
+        protected override void OnEnd() {
             CancelInvoke();
             boss.BossAnimator.OnShoot -= Shoot;
         }

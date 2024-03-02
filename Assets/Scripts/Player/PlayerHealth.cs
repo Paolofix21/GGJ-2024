@@ -19,23 +19,20 @@ namespace Code.Player
         public event Action<float, float> OnHeal;
         public event Action OnPlayerDeath;
 
-        private void OnEnable()
-        {
-            InvokeRepeating(nameof(CheckHealth), 1, 1);
-        }
+        private void OnEnable() => InvokeRepeating(nameof(CheckHealth), 1, 1);
 
-        private void OnDisable()
-        {
-            CancelInvoke(nameof(CheckHealth));
-        }
+        private void OnDisable() => CancelInvoke(nameof(CheckHealth));
 
-        private void Start()
-        {
-            currentHealth = maxHealth;
-        }
+        private void Start() => currentHealth = maxHealth;
 
         public void GetDamage(float _amount)
         {
+            if (!enabled)
+                return;
+
+            if (currentHealth <= 0)
+                return;
+
             currentHealth -= _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 

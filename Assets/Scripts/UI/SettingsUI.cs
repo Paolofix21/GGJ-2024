@@ -1,5 +1,6 @@
 using Code.Graphics;
 using System;
+using Code.Core;
 using Code.Data;
 using FMODUnity;
 using UnityEngine;
@@ -31,6 +32,8 @@ namespace Code.UI {
 
         #region Behaviour Callbacks
         private void Awake() {
+            GameEvents.OnPauseStatusChanged += OnPauseStateChange;
+
             LoadValuesFromSettings();
 
             m_general.Register(v => OnVolumeChanged(v, AudioSettings.BusId.General));
@@ -58,7 +61,10 @@ namespace Code.UI {
             m_backButton.onClick.AddListener(DestroyThisGO);
         }
 
-        private void OnDestroy() => DataManager.Apply();
+        private void OnDestroy() {
+            GameEvents.OnPauseStatusChanged -= OnPauseStateChange;
+            DataManager.Apply();
+        }
         #endregion
 
         #region Public Methods
@@ -119,6 +125,11 @@ namespace Code.UI {
             VideoSettingsHelper.MotionBlurActive = blurOn;
             OnMotionBlurChanged?.Invoke(blurOn);
             DataManager.UpdateVideoSetting(VideoSettings.Type.MotionBlur, blurOn);
+        }
+
+        private void OnPauseStateChange(bool pause) {
+            if (!pause)
+                Destroy(gameObject);
         }
         #endregion
     }

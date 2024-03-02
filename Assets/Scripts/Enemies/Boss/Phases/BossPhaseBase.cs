@@ -1,9 +1,15 @@
 ﻿using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 namespace Code.EnemySystem.Boss.Phases {
     [System.Serializable]
     public abstract class BossPhaseBase {
+        #region Public Variables
+        [FormerlySerializedAs("onBeginEndPhase")] public UnityEvent<bool> onBeginOrEndPhase;
+        #endregion
+
         #region Private Variables
         protected WakakaBossBehaviour boss;
 
@@ -18,11 +24,27 @@ namespace Code.EnemySystem.Boss.Phases {
         #endregion
 
         #region Public Methods
+        public void Begin() {
+            Debug.Log($"Begin '{GetType().Name}' phase...\n");
+            onBeginOrEndPhase?.Invoke(true);
+            OnBegin();
+        }
+
+        public void Execute() => OnExecute();
+
+        public void End() {
+            Debug.Log($"...end '{GetType().Name}' phase\n");
+            OnEnd();
+            onBeginOrEndPhase?.Invoke(false);
+        }
+        #endregion
+
+        #region Virtual Methods
         protected virtual void OnSetup() {}
 
-        public abstract void Begin();
-        public abstract void Execute();
-        public abstract void End();
+        protected abstract void OnBegin();
+        protected abstract void OnExecute();
+        protected abstract void OnEnd();
 
         public virtual void OnGUI() => GUILayout.Label(GetType().Name);
         #endregion

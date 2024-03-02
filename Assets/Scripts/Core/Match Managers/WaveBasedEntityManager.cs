@@ -58,6 +58,13 @@ namespace Code.Core.MatchManagers {
         protected override void OnEntitiesCleared() => SpawnNextWave();
         #endregion
 
+        #region Public Methods
+        public void SpawnWaveCustom(MinorWaveInfoSO wave) {
+            wave.Init();
+            SpawnAllEntities(wave, 0f);
+        }
+        #endregion
+
         #region Private Methods
         private void SpawnNextWave() {
             if (_currentWave.TryGetNextSubWave(out var minorWaveInfo)) {

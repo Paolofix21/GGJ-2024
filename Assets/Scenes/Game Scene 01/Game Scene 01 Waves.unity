@@ -636,6 +636,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_surviveSceneChanged: 0
   m_beginOnStart: 0
+  m_stopTimeOnPause: 0
 --- !u!4 &808335672
 Transform:
   m_ObjectHideFlags: 0

@@ -1,4 +1,5 @@
-﻿using FMODUnity;
+﻿using Code.Core;
+using FMODUnity;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -37,6 +38,13 @@ namespace Code.EnemySystem.Boss {
         private void Awake() {
             _animator = GetComponent<Animator>();
             AnimateShieldOnOff(true);
+        }
+
+        private void Update() {
+            if (GameEvents.IsOnHold)
+                _animator.speed = 0f;
+            else
+                _animator.speed = 1f;
         }
         #endregion
 

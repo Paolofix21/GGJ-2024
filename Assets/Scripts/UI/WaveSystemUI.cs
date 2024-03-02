@@ -42,10 +42,8 @@ public class WaveSystemUI : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void StartNewWave(int i)
-    {
-        coroutine = StartCoroutine(NewWaveCO(i));
-    }
+    public void StartNewWave(int i) => coroutine = StartCoroutine(NewWaveCO(i));
+
     private IEnumerator NewWaveCO(int i) {
         if(i != 0) {
             WaveText.text = "Wave ended";

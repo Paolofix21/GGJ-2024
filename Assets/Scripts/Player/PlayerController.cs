@@ -90,6 +90,9 @@ namespace Code.Player {
             _weaponHandler = GetComponent<PlayerWeaponHandler>();
 
             _currentSpeed = speed;
+
+            CutsceneIntroController.OnIntroStartStop += Intro;
+            GameEvents.OnPauseStatusChanged += Pause;
         }
 
         private void OnEnable() {
@@ -112,8 +115,6 @@ namespace Code.Player {
         }
 
         private void Start() {
-            CutsceneIntroController.OnIntroStartStop += Intro;
-
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
@@ -165,6 +166,7 @@ namespace Code.Player {
 
         private void OnDestroy() {
             Health.OnPlayerDeath -= PlayerDeath;
+            GameEvents.OnPauseStatusChanged -= Pause;
             CutsceneIntroController.OnIntroStartStop -= Intro;
         }
         #endregion
@@ -186,6 +188,7 @@ namespace Code.Player {
         #region Private Methods
         private void Intro(bool ongoing) {
             arms.gameObject.SetActive(!ongoing);
+            enabled = !ongoing;
 
             if (!ongoing)
                 SetWeaponType(_currentSelectedWeapon, GetAnimatorIndex(_currentSelectedWeapon));
@@ -219,7 +222,7 @@ namespace Code.Player {
         }
 
         private void Jump(InputAction.CallbackContext ctx) {
-            if (!_controller.isGrounded || !(_currentCooldownValue <= 0))
+            if (!_controller.isGrounded || _currentCooldownValue > 0)
                 return;
 
             _vel.y = Mathf.Sqrt((_isInsideLava ? lavaJumpForce : jumpForce) * -3 * Physics.gravity.y);
@@ -337,6 +340,8 @@ namespace Code.Player {
             4 => AnimState_Sword,
             _ => 0
         };
+
+        private void Pause(bool value) => anim.speed = value ? 0f : 1f;
         #endregion
     }
 }

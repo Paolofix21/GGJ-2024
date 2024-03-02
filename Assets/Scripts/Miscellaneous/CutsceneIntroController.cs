@@ -60,7 +60,7 @@ namespace Miscellaneous {
         private void OnDestroy() => WaveSystemUI.OnEndWave -= OnWaveChanged;
 
         private void OnWaveChanged(int waveIndex) {
-            Time.timeScale = 0;
+            // Time.timeScale = 0;
             GameEvents.SetCutsceneState(true);
             PlayCutscene(waveIndex, () => Time.timeScale = 1);
         }
@@ -102,10 +102,10 @@ namespace Miscellaneous {
         }
 
         private void CheckPause(bool pause) {
-            /*if (pause)
+            if (pause)
                 _director.Pause();
             else
-                _director.Resume();*/
+                _director.Resume();
         }
         #endregion
     }

@@ -1,4 +1,5 @@
-﻿using Code.Player;
+﻿using Code.Core;
+using Code.Player;
 using UnityEngine;
 
 namespace Code.EnemySystem.Boss {
@@ -79,7 +80,12 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Private Methods
-        private void ApplyDot() => _playerHealth.GetDamage(m_damageOverTime);
+        private void ApplyDot() {
+            if (GameEvents.IsOnHold || !_playerHealth)
+                return;
+
+            _playerHealth.GetDamage(m_damageOverTime);
+        }
         #endregion
     }
 }

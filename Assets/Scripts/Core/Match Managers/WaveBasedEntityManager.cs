@@ -39,8 +39,9 @@ namespace Code.Core.MatchManagers {
         public override void Begin() {
             m_wavesDataPack.Init();
 
-            if (m_wavesDataPack.TryGetNextWave(out _currentWave))
-                SpawnNextWave();
+            OnWaveChanged?.Invoke(0);
+            /*if (m_wavesDataPack.TryGetNextWave(out _currentWave))
+                SpawnNextWave();*/
         }
 
         public override void Enable() {
@@ -67,6 +68,9 @@ namespace Code.Core.MatchManagers {
 
         #region Private Methods
         private void SpawnNextWave() {
+            if (_currentWave == null)
+                return;
+
             if (_currentWave.TryGetNextSubWave(out var minorWaveInfo)) {
                 SpawnAllEntities(minorWaveInfo, _currentWave.Delay);
                 return;
@@ -124,7 +128,10 @@ namespace Code.Core.MatchManagers {
             if (cutscenePlaying)
                 return;
 
-            SpawnNextWave();
+            if (_currentWave != null)
+                SpawnNextWave();
+            else if (m_wavesDataPack.TryGetNextWave(out _currentWave))
+                SpawnNextWave();
         }
         #endregion
     }

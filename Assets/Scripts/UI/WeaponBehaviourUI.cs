@@ -53,7 +53,9 @@ namespace Code.UI
 
             _target.OnWeaponChanged -= UpdateWeaponIcon;
             _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
-            GameEvents.GetMatchManager<WaveBasedMatchManager>().EntityManager.Entities.OnRemoved -= DisplayWeaponEnergy;
+            var mm = GameEvents.GetMatchManager<WaveBasedMatchManager>(); 
+            if (mm)
+                mm.EntityManager.Entities.OnRemoved -= DisplayWeaponEnergy;
             _sword.Shot -= DisplayWeaponEnergy;
         }
         #endregion
@@ -70,7 +72,10 @@ namespace Code.UI
         #region Private Methods
         private async void DisplayWeaponEnergy() {
             await Task.Yield();
-             m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 10.0f;
+            if (!this) // Safeguard for errors
+                return;
+
+            m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 10.0f;
         }
         #endregion
 

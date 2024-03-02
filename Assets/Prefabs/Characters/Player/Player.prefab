@@ -404,7 +404,7 @@ MonoBehaviour:
   lavaJumpForce: 16
   lavaDamageDelay: 2
   lavaDamage: 6
-  jumpCooldown: 1.8
+  jumpCooldown: 0.8
   lavaLayer: Lava
 --- !u!114 &7329885879184918812
 MonoBehaviour:

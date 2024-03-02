@@ -110,7 +110,7 @@ namespace Code.Weapons {
         private void PlayNoAmmo()
         {
             if (_currentCooldown > 0) return;
-            RuntimeManager.PlayOneShot(FMODEvents.instance.voNoAmmoEvent, playerController.transform.position);
+            RuntimeManager.PlayOneShotAttached(FMODEvents.instance.voNoAmmoEvent, playerController.gameObject);
             CooldownVO();
         }
         #endregion

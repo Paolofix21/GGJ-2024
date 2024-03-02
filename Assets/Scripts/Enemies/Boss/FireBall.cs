@@ -1,4 +1,5 @@
-﻿using Code.EnemySystem.Wakakas;
+﻿using Code.Core;
+using Code.EnemySystem.Wakakas;
 using Code.Player;
 using UnityEngine;
 
@@ -29,6 +30,11 @@ namespace Code.EnemySystem.Boss {
         }
 
         private void FixedUpdate() {
+            if (GameEvents.IsOnHold) {
+                _body.velocity = Vector3.zero;
+                return;
+            }
+
             if (!_target)
                 return;
 

@@ -30,8 +30,14 @@ namespace Code.Weapons {
         #endregion
 
         #region Overrides
-        public override bool CanShoot() => _currentEnergy >= m_maxEnergy;
+        public override bool CanShoot()
+        {
+            if (_currentEnergy >= m_maxEnergy)
+                return true;
 
+            CantShoot();
+            return false;
+        }
         protected override void OnShoot() {
             _currentEnergy = 0;
             Refresh();

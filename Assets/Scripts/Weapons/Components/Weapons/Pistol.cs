@@ -25,7 +25,17 @@ namespace Code.Weapons {
         }
         #endregion
 
-        public override bool CanShoot() => !_isInCooldown && Cartridge.CurrentAmount > 0;
+        public override bool CanShoot()
+        {
+            if (_isInCooldown)
+                return false;
+
+            if (Cartridge.CurrentAmount > 0)
+                return true;
+            
+            CantShoot();
+            return false;
+        }
 
         protected override void OnShoot() {
             _isInCooldown = true;

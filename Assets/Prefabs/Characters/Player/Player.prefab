@@ -467,6 +467,7 @@ MonoBehaviour:
   - {fileID: 5877018968497345420}
   playerController: {fileID: 7807441193164072146}
   playerWeaponAnimatorListener: {fileID: 872462280487227105}
+  _cooldown: 3
 --- !u!143 &4491049517479311234
 CharacterController:
   m_ObjectHideFlags: 0

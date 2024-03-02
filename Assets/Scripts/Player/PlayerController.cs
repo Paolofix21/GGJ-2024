@@ -11,6 +11,7 @@ using FMODUnity;
 using Izinspector.Runtime.PropertyAttributes;
 using Miscellaneous;
 using STOP_MODE = FMOD.Studio.STOP_MODE;
+using Code.Weapons;
 
 namespace Code.Player {
     [DefaultExecutionOrder(1)]
@@ -51,6 +52,7 @@ namespace Code.Player {
         private CharacterController _controller;
         private PlayerView _cameraLook;
         private InputManager _input;
+        private PlayerWeaponHandler _weaponHandler;
 
         private EventInstance _footstepsInstance;
         private Coroutine _inLavaCoroutine;
@@ -85,6 +87,7 @@ namespace Code.Player {
             _controller = GetComponent<CharacterController>();
             _cameraLook = GetComponent<PlayerView>();
             _input = GetComponent<InputManager>();
+            _weaponHandler = GetComponent<PlayerWeaponHandler>();
 
             _currentSpeed = speed;
         }

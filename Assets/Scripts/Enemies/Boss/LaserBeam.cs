@@ -34,14 +34,16 @@ namespace Code.EnemySystem.Boss {
             _collider.height = didHit ? hit.distance : m_range;
             _collider.center = _collider.height * .5f * Vector3.forward;
             m_lineRenderer.SetPosition(1, Vector3.forward * _collider.height);
-            m_hitParticle.gameObject.SetActive(didHit);
+            m_hitParticle.gameObject.SetActive(true);
 
             if (didHit)
                 m_hitParticle.position = hit.point;
+            else
+                m_hitParticle.position = transform.position + transform.forward * _collider.height;
         }
 
         private void FixedUpdate() {
-            if (!_target)
+            if (!_target || GameEvents.IsOnHold)
                 return;
 
             var t = transform;

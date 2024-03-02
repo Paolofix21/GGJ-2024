@@ -275,12 +275,18 @@ MonoBehaviour:
   m_titleColorGameOver: {r: 0.39215687, g: 0.21176471, b: 0.37254903, a: 1}
   m_victoryText: Victory!
   m_loseText: Game Over!
-  m_victoryHint: 
-  m_loseHint: 
+  m_highScoreHint: 'New High Score: {0}'
   m_retryText: Try again?
   m_mainMenuText: Main Menu
   m_quitToDesktopText: Do you really want to return to your Desktop?
   m_quitToMenuText: Do you want to return to Main Menu?
+  m_victorySound:
+    Guid:
+      Data1: 2101322888
+      Data2: 1317665630
+      Data3: -114339450
+      Data4: -1820795173
+    Path: event:/Weapons/Upgrade
   m_title: {fileID: 497388395224946511}
   m_titleGlow: {fileID: 2689525899968344902}
   m_hintToDisplay: {fileID: 1347576242782059547}

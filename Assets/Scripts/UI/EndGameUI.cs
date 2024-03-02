@@ -1,6 +1,7 @@
 using Code.LevelSystem;
 using Code.UI;
 using Code.Core;
+using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -20,6 +21,9 @@ public class EndGameUI : MonoBehaviour {
     [Space]
     [SerializeField] private string m_quitToDesktopText = "Do you really want to return to your Desktop?";
     [SerializeField] private string m_quitToMenuText = "Do you want to return to Main Menu?";
+
+    [Space]
+    [SerializeField] private EventReference m_victorySound;
 
     [Header("References")]
     [SerializeField] private TMP_Text m_title;
@@ -62,6 +66,8 @@ public class EndGameUI : MonoBehaviour {
 
         m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
         m_highlightButton.onClick.AddListener(QuitToMenu);
+
+        RuntimeManager.PlayOneShot(m_victorySound);
     }
 
     private void ShowLosingScreen() {

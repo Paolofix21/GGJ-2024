@@ -31,9 +31,11 @@ namespace Code.EnemySystem.Boss {
 
         private void FixedUpdate() {
             if (GameEvents.IsOnHold) {
-                _body.velocity = Vector3.zero;
+                _body.isKinematic = true;
                 return;
             }
+
+            _body.isKinematic = false;
 
             if (!_target)
                 return;

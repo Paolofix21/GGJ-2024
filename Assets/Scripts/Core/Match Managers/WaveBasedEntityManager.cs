@@ -52,9 +52,7 @@ namespace Code.Core.MatchManagers {
             Entities.ForeEach(e => e.Disable());
         }
 
-        public override void End() {
-            
-        }
+        public override void End() => Entities.ForeEach(e => Destroy(e.Transform.gameObject));
 
         protected override void OnEntitiesCleared() => SpawnNextWave();
         #endregion

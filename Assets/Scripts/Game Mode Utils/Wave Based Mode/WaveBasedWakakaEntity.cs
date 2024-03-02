@@ -24,6 +24,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
         public void Enable() => _wakakaBehaviour.enabled = true;
 
         public void Disable() => _wakakaBehaviour.enabled = false;
+
+        public void Terminate() => _wakakaBehaviour.GetComponent<WakakaMaskAnimator>().AnimateDeath();
         #endregion
     }
 }

@@ -1,6 +1,5 @@
 using Code.LevelSystem;
-using System.Collections;
-using System.Collections.Generic;
+using Audio;
 using Code.Core;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,16 +7,15 @@ using UnityEngine.UI;
 namespace Code.UI {
     public class PauseUI : MonoBehaviour {
         #region Public Variables
+        [Header("Settings")]
+        [SerializeField] private float m_musicAttenuation = .5f;
+        [SerializeField] private float m_musicAttenuationTime = 1f;
+
+        [Header("References")]
         [SerializeField] private Button resume;
         [SerializeField] private Button returnMainMenu;
         [SerializeField] private Button m_loadSettings;
         [SerializeField] private Button m_quitSettings;
-        #endregion
-
-        #region Properties
-        #endregion
-
-        #region Private Variables
         #endregion
 
         #region Behaviour Callbacks
@@ -29,6 +27,9 @@ namespace Code.UI {
         private void OnEnable() {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            if (didStart)
+                AudioManager.Singleton.AttenuateMusic(m_musicAttenuation, m_musicAttenuationTime);
         }
 
         private void Start() {
@@ -43,6 +44,8 @@ namespace Code.UI {
         private void OnDisable() {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
+
+            AudioManager.Singleton.AttenuateMusic(1f, .25f);
         }
 
         private void OnDestroy() {

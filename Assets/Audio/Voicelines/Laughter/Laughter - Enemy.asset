@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Laughter - Enemy
+  m_EditorClassIdentifier: 
+  m_method: 1
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 632236c3d49884a4c9a2c5b02ddb966c,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 26f0964f49f79964ab0703bb6e68db92,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 5e04b04ff8f110647b30928bbee5b877,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 54fec3f53a9c2074ca1d89fafbd6830f,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 63753c008492a99498da9a58f8dd3021,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 8fb0e39d81426944e9893f9a59355116,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 54b9cf47342d30048bd6db274ec44df5,
+      type: 3}
+    <Volume>k__BackingField: 1

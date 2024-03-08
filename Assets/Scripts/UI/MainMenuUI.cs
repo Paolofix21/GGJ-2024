@@ -1,3 +1,5 @@
+using System.Collections;
+using Audio;
 using Code.LevelSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +10,11 @@ namespace Code.UI {
         [SerializeField] private Button m_loadLevel;
         [SerializeField] private Button m_loadSettings;
         [SerializeField] private Button m_quitGame;
+
+        [Space]
+        [SerializeField] private SoundSO m_mainMenuSoundtrack;
+        [SerializeField] private SoundSO m_explorationSoundTrack;
+        [SerializeField, Min(1f)] private float m_crossFadeDuration = 3f;
         #endregion
 
         #region Behaviour Callbacks
@@ -20,8 +27,10 @@ namespace Code.UI {
             Cursor.visible = true;
         }
 
-        private void Start() {
-            AudioManager.instance.PlayMainMenuMusic();
+        private IEnumerator Start() {
+            yield return null;
+
+            AudioManager.Singleton.CrossFadeMusic(m_mainMenuSoundtrack.GetSound(), m_crossFadeDuration);
 
             m_loadLevel.onClick.AddListener(LoadGameScenes);
             m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);
@@ -43,8 +52,8 @@ namespace Code.UI {
         private void LoadGameScenes() {
             SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
             m_loadLevel.interactable = false;
-            AudioManager.instance.ChangeGlobalMusicAmbienceParameter(1);
-            AudioManager.instance.PlayExplorationMusic();
+            AudioManager.Singleton.AmbienceFadeTo(1f);
+            AudioManager.Singleton.CrossFadeMusic(m_explorationSoundTrack.GetSound(), m_crossFadeDuration);
         }
 
         private void Quit() => UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);

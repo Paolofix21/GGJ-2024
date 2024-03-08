@@ -3,16 +3,17 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using FMODUnity;
 using UnityEngine;
 using System.Threading.Tasks;
+using Audio;
 
 namespace Code.Weapons {
     public class PlayerWeaponHandler : MonoBehaviour {
         #region Public Variables
         [Header("Settings")]
         [SerializeField] private WeaponType defaultType;
-        [SerializeField] private EventReference m_rechargeSound;
+        [SerializeField] private SoundSO m_rechargeSound;
+        [SerializeField] private SoundSO m_noAmmoSound;
 
         [Header("References")]
         [SerializeField] private List<Weapon> weapons = new();
@@ -85,7 +86,7 @@ namespace Code.Weapons {
 
             RechargeWeapon(recharger.Type, recharger.Amount);
             recharger.SetInteractable(false);
-            RuntimeManager.PlayOneShotAttached(m_rechargeSound, gameObject);
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_rechargeSound.GetSound(), gameObject, MixerType.Voice);
         }
 
         private void RechargeWeapon(WeaponType type, int amount) {
@@ -110,7 +111,7 @@ namespace Code.Weapons {
         private void PlayNoAmmo()
         {
             if (_currentCooldown > 0) return;
-            RuntimeManager.PlayOneShotAttached(FMODEvents.instance.voNoAmmoEvent, playerController.gameObject);
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_noAmmoSound.GetSound(), playerController.gameObject, MixerType.Voice);
             CooldownVO();
         }
         #endregion

@@ -1,8 +1,8 @@
 using Code.Graphics;
 using System;
+using Audio;
 using Code.Core;
 using Code.Data;
-using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 using AudioSettings = Code.Data.AudioSettings;
@@ -84,30 +84,16 @@ namespace Code.UI {
             m_blur.SetValueSilently(DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur));
         }
 
-        private string BusIdToName(AudioSettings.BusId busId) => busId switch {
-            AudioSettings.BusId.General => AudioManager.k_busGeneral,
-            AudioSettings.BusId.Ambience => AudioManager.k_busAmbience,
-            AudioSettings.BusId.Music => AudioManager.k_busMusic,
-            AudioSettings.BusId.SoundEffect => AudioManager.k_busSfx,
-            AudioSettings.BusId.UserInterface => AudioManager.k_busUi,
-            AudioSettings.BusId.VoiceLine => AudioManager.k_busVoiceLine,
-            _ => null
-        };
-
         private void DestroyThisGO() => Destroy(gameObject);
         #endregion
 
         #region Event Methods
         private void OnVolumeChanged(float volume, AudioSettings.BusId busId) {
-            var bus = RuntimeManager.GetBus(BusIdToName(busId));
-            bus.setVolume(volume);
+            AudioManager.Singleton.SetVolume(busId, volume);
             DataManager.UpdateVolumeSetting(busId, volume);
         }
 
-        private void OnMuteChanged(bool isMute, AudioSettings.BusId busId) {
-            var bus = RuntimeManager.GetBus(BusIdToName(busId));
-            bus.setMute(isMute);
-        }
+        private void OnMuteChanged(bool isMute, AudioSettings.BusId busId) => AudioManager.Singleton.SetVolume(busId, isMute ? 0f : DataManager.GetVolumeSetting(busId));
 
         private void ChangeSensitivity(float sens) {
             VideoSettingsHelper.MouseSensitivity = (int)sens;

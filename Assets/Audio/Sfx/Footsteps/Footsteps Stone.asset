@@ -1,0 +1,73 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Footsteps Stone
+  m_EditorClassIdentifier: 
+  m_method: 0
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 61e8988825e20414183aa111173f036f,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 107846cee75d56c46b1a31975a19b335,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 2ba8804d4be4eea42a58cb6abe92c47b,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 05ee3bdbda70cad40b3a85893aff596b,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: e41dbe0396bcab34b9d6c8feb582eca6,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: e6536781417c68142b64a73bb4a864ea,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 0b48376bc8c1bbf4e9540b787d006f95,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 23342acde2450774ab2ed7b8b791a49f,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: fc0a2d850df8941439812f685ba01647,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 849b6fa8ebbf7f443ab13694c89e1323,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: aa4ab24d09e3d4d49815dabcdb9c1ad8,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: a59285b08c588074ea4ca93f726c7f7e,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 46c07055894f8d9409e22d59c4bbc75e,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 3e674b906fb29484b90f07847d3c9cb2,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 9b1b6a63f086eb646a396cadd11b1453,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 24e9d531c92f77c4eabf2ba0b3991e08,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: d4e73d27c5b29e347a10b377c3213e38,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 3ff88e9840bc4eb40af3ee11d2250acb,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: cafedbbc71c3f994c9948bd78e84d285,
+      type: 3}
+    <Volume>k__BackingField: 1

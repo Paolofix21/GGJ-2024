@@ -280,13 +280,7 @@ MonoBehaviour:
   m_mainMenuText: Main Menu
   m_quitToDesktopText: Do you really want to return to your Desktop?
   m_quitToMenuText: Do you want to return to Main Menu?
-  m_victorySound:
-    Guid:
-      Data1: 2101322888
-      Data2: 1317665630
-      Data3: -114339450
-      Data4: -1820795173
-    Path: event:/Weapons/Upgrade
+  m_victorySound: {fileID: 11400000, guid: c525444302ba03d4a991c5981bed2992, type: 2}
   m_title: {fileID: 497388395224946511}
   m_titleGlow: {fileID: 2689525899968344902}
   m_hintToDisplay: {fileID: 1347576242782059547}

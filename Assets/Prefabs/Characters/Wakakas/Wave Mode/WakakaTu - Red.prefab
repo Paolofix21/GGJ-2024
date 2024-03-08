@@ -34,6 +34,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1d4df92b362f0274d838098f30bf7f3f,
         type: 2}
+    - target: {fileID: 1903699819099492356, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_introVoiceLineEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: d8bfd093bd4eebd4ea4c8472e9caccb3,
+        type: 2}
     - target: {fileID: 2582134459859012008, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}
       propertyPath: m_Mesh

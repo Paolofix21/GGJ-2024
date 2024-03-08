@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Shotgun Ptewf
+  m_EditorClassIdentifier: 
+  m_method: 0
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 659f5de0e201c024390e8cce8e79b4db,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 7b7fc227335107c40904977ac869557f,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: daf598b6b0bcecb4d90a28e9afea5ce3,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 8bb577e9ab9cfb24fb93c01f3d7e7415,
+      type: 3}
+    <Volume>k__BackingField: 1

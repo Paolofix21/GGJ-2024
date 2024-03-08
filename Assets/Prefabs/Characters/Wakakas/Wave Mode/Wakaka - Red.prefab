@@ -29,6 +29,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 1d4df92b362f0274d838098f30bf7f3f,
         type: 2}
+    - target: {fileID: 1903699819099492356, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: m_introVoiceLineEvent
+      value: 
+      objectReference: {fileID: 11400000, guid: bad16893a9c410546a2eb2c4c8df9ebf,
+        type: 2}
     - target: {fileID: 3573644554372306588, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}
       propertyPath: m_LocalPosition.x

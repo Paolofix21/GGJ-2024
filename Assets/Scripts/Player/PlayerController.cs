@@ -2,15 +2,13 @@ using Code.Graphics;
 using System;
 using System.Collections;
 using System.Threading.Tasks;
+using Audio;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using FMOD.Studio;
 using Barbaragno.RuntimePackages.Operations;
 using Code.Core;
-using FMODUnity;
 using Izinspector.Runtime.PropertyAttributes;
 using Miscellaneous;
-using STOP_MODE = FMOD.Studio.STOP_MODE;
 using Code.Weapons;
 
 namespace Code.Player {
@@ -21,6 +19,10 @@ namespace Code.Player {
         [SerializeField] private ColorSetSO[] hueValue;
         [SerializeField] private GameObject arms;
         [SerializeField] private Animator anim;
+
+        [Header("Settings")]
+        [SerializeField] private SoundSO m_jumpSound;
+        [SerializeField] private SoundSO m_footStepsSound;
 
         [Header("Movement Fields")]
         [SerializeField] private float airborneSpeed = 16f;
@@ -54,7 +56,7 @@ namespace Code.Player {
         private InputManager _input;
         private PlayerWeaponHandler _weaponHandler;
 
-        private EventInstance _footstepsInstance;
+        private SoundPlayer _footstepsInstance;
         private Coroutine _inLavaCoroutine;
 
         private bool _isDead;
@@ -161,7 +163,7 @@ namespace Code.Player {
             Health.enabled = false;
             _cameraLook.enabled = false;
 
-            _footstepsInstance.stop(STOP_MODE.IMMEDIATE);
+            _footstepsInstance.Stop(StopMode.Sudden);
         }
 
         private void OnDestroy() {
@@ -227,7 +229,7 @@ namespace Code.Player {
 
             _vel.y = Mathf.Sqrt((_isInsideLava ? lavaJumpForce : jumpForce) * -3 * Physics.gravity.y);
 
-            RuntimeManager.PlayOneShot(FMODEvents.instance.playerJumpEvent);
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_jumpSound.GetSound(), gameObject, MixerType.Voice);
         }
 
         private IEnumerator WalkInLava() {
@@ -319,17 +321,15 @@ namespace Code.Player {
             _input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
         }
 
-        private void InitializeAudio() => _footstepsInstance = AudioManager.instance.CreateInstance(FMODEvents.instance.playerFootstepsEvent);
+        private void InitializeAudio() => _footstepsInstance = AudioManager.Singleton.CreateSource(m_footStepsSound, MixerType.SoundFx, gameObject);
 
         private void UpdateSound() {
             if (_controller.isGrounded && _controller.velocity.sqrMagnitude > 0.0001f) {
-                PLAYBACK_STATE playbackState;
-                _footstepsInstance.getPlaybackState(out playbackState);
-                if (playbackState.Equals(PLAYBACK_STATE.STOPPED))
-                    _footstepsInstance.start();
+                if (!_footstepsInstance.IsPlaying)
+                    _footstepsInstance.Play();
             }
-            else
-                _footstepsInstance.stop(STOP_MODE.ALLOWFADEOUT);
+            else if (_footstepsInstance.IsPlaying)
+                _footstepsInstance.Stop(StopMode.Sudden);
         }
 
         private int GetAnimatorIndex(int inputIndex) => inputIndex switch {

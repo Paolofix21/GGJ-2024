@@ -1,7 +1,7 @@
+using Audio;
 using Code.LevelSystem;
 using Code.UI;
 using Code.Core;
-using FMODUnity;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +23,7 @@ public class EndGameUI : MonoBehaviour {
     [SerializeField] private string m_quitToMenuText = "Do you want to return to Main Menu?";
 
     [Space]
-    [SerializeField] private EventReference m_victorySound;
+    [SerializeField] private SoundSO m_victorySound;
 
     [Header("References")]
     [SerializeField] private TMP_Text m_title;
@@ -67,7 +67,7 @@ public class EndGameUI : MonoBehaviour {
         m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
         m_highlightButton.onClick.AddListener(QuitToMenu);
 
-        RuntimeManager.PlayOneShot(m_victorySound);
+        AudioManager.Singleton.PlayUiSound(m_victorySound.GetSound());
     }
 
     private void ShowLosingScreen() {

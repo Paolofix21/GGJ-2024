@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Pump
+  m_EditorClassIdentifier: 
+  m_method: 0
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 6221115dad5b2a44fb911df6f120c0e4,
+      type: 3}
+    <Volume>k__BackingField: 0.4
+  - <Clip>k__BackingField: {fileID: 8300000, guid: f72e6e08e50dc8d4d9c1451a599d7f33,
+      type: 3}
+    <Volume>k__BackingField: 0.4
+  - <Clip>k__BackingField: {fileID: 8300000, guid: bcd68b284e847d741a2185ed977f2226,
+      type: 3}
+    <Volume>k__BackingField: 0.4

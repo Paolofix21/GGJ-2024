@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  m_method: 0
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: fdb5c395d1d498844bec08db285e10d9,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 96b36a4565a849e4ab4e58f5b615e573,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 111c9f2be2c1d6d43901f047aa769dae,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 1063a463101b8b14c830d6eebe09d317,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 5b8670fee7fce414298c2a2d94f22408,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: b3685b8534ca8e044b49576db325772b,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 324cdcad5e502874483d065bafb22d61,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 86bd6ff4a3bebb64485ae76360377453,
+      type: 3}
+    <Volume>k__BackingField: 1.5
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 8ebdbad7356392246aab534cc54558c2,
+      type: 3}
+    <Volume>k__BackingField: 1.5

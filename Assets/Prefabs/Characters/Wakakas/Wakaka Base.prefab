@@ -210,9 +210,11 @@ MonoBehaviour:
   m_wanderSpeed: 3
   m_chaseSpeed: 3
   m_fleeSpeed: 10
+  m_detectionDistance: 2
   m_wanderLerpQuickness: 8
   m_chaseLerpQuickness: 4
   m_maxDistanceFromPlayer: 30
+  m_maxDistanceYFromPlayer: 8
   m_maxWallCastDistance: 3
 --- !u!114 &251883932460174636
 MonoBehaviour:
@@ -240,14 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af950c14fa444ca8c0db4d997a1003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colorSet: {fileID: 0}
-  m_introVoiceLineEvent:
-    Guid:
-      Data1: -185667264
-      Data2: 1225575266
-      Data3: 1390537643
-      Data4: -1901410886
-    Path: event:/Enemies/Wakaka_Verse
+  m_introVoiceLineEvent: {fileID: 0}
   m_laughterAnimation:
     serializedVersion: 2
     m_Curve:
@@ -317,13 +312,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_laughterClipEvent:
-    Guid:
-      Data1: -425258364
-      Data2: 1217552244
-      Data3: -850133102
-      Data4: 826070098
-    Path: event:/Enemies/Enemy_Laugh
+  m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
+    type: 2}
   m_laughterShapeIndex: 0
   m_deathScaleAnimation:
     serializedVersion: 2
@@ -349,13 +339,9 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_deathSound:
-    Guid:
-      Data1: -796849634
-      Data2: 1115884673
-      Data3: 1923244688
-      Data4: 1902112352
-    Path: event:/Enemies/Death_Cough
+  m_deathPushSound: {fileID: 11400000, guid: 29a1496230f238347bfe8ce0e3e7bc08, type: 2}
+  m_deathExplosionSound: {fileID: 11400000, guid: 248c47b78cf31074f9518e8d69723ffb,
+    type: 2}
   m_deathParticle: {fileID: 710859151671168106, guid: c4149a3d8a41dd542929c4deb5af5563,
     type: 3}
   m_deathRotationSpeed: 1440

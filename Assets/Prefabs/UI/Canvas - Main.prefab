@@ -1948,6 +1948,11 @@ MonoBehaviour:
   m_loadLevel: {fileID: 7211881821287780324}
   m_loadSettings: {fileID: 1962179392917804068}
   m_quitGame: {fileID: 2005051761050414731}
+  m_mainMenuSoundtrack: {fileID: 11400000, guid: e2ad57a1de9d1094896365e71264c75f,
+    type: 2}
+  m_explorationSoundTrack: {fileID: 11400000, guid: 7d41213d305dd734ab7241fd00ecbcc1,
+    type: 2}
+  m_crossFadeDuration: 4
 --- !u!1 &4963889660853615575
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,7 +2194,7 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0.2509804}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}

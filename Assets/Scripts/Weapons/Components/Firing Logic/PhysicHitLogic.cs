@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -68,7 +69,7 @@ namespace Code.Weapons {
             m_radius *= m_boostMultiplier;
         }
 
-        protected override void Effect(Vector3 origin, Vector3 lastPosition) => AudioManager.instance.PlayOneShot(m_soundEventReference, origin);
+        protected override void Effect(Vector3 origin, Vector3 lastPosition) => AudioManager.Singleton.PlayOneShotWorld(m_shootSound.GetSound(), origin, MixerType.SoundFx);
         #endregion
     }
 }

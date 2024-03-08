@@ -1,16 +1,17 @@
-using FMODUnity;
 using System;
-using System.Collections;
+using Audio;
 using UnityEngine;
-using UnityEngine.UI;
 
-namespace Code.Player
-{
-    public class PlayerHealth : MonoBehaviour
-    {
+namespace Code.Player {
+    public class PlayerHealth : MonoBehaviour {
         private float maxHealth = 100f;
         private float currentHealth;
 
+        [SerializeField] private SoundSO m_playerDeathSound;
+        [SerializeField] private SoundSO m_playerDamageSound;
+        [SerializeField] private SoundSO m_playerHealSound;
+
+        [Space]
         [SerializeField] private int healthToAdd;
         [SerializeField] private int TimeBeforeStartHealing;
         private int currentTime;
@@ -25,8 +26,7 @@ namespace Code.Player
 
         private void Start() => currentHealth = maxHealth;
 
-        public void GetDamage(float _amount)
-        {
+        public void GetDamage(float _amount) {
             if (!enabled)
                 return;
 
@@ -38,37 +38,31 @@ namespace Code.Player
 
             OnDamageTaken?.Invoke(currentHealth, maxHealth);
 
-            if (currentHealth <= 0)
-            {
+            if (currentHealth <= 0) {
                 OnPlayerDeath?.Invoke();
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerDeathEvent, this.transform.position);
+                AudioManager.Singleton.PlayOneShotWorldAttached(m_playerDeathSound.GetSound(), gameObject, MixerType.Voice);
             }
-            else
-            {
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.playerTakeDamageEvent, this.transform.position);
+            else {
+                AudioManager.Singleton.PlayOneShotWorldAttached(m_playerDamageSound.GetSound(), gameObject, MixerType.Voice);
                 currentTime = TimeBeforeStartHealing;
             }
         }
 
-        private void CheckHealth() 
-        { 
-            if(currentTime > 0)
-            {
+        private void CheckHealth() {
+            if (currentTime > 0) {
                 currentTime--;
                 if (currentTime == 0)
-                    AudioManager.instance.PlayOneShot(FMODEvents.instance.playerHealEvent, this.transform.position);
+                    AudioManager.Singleton.PlayOneShotWorldAttached(m_playerHealSound.GetSound(), gameObject, MixerType.Voice);
                 else
                     return;
             }
 
-            if(currentHealth < maxHealth)
-            {
+            if (currentHealth < maxHealth) {
                 Heal(healthToAdd);
             }
         }
 
-        public void Heal(float _amount)
-        {
+        public void Heal(float _amount) {
             currentHealth += _amount;
             currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
 
@@ -76,4 +70,3 @@ namespace Code.Player
         }
     }
 }
-

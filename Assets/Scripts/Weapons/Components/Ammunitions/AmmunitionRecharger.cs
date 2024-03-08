@@ -1,4 +1,3 @@
-using FMODUnity;
 using UnityEngine;
 using UnityEngine.UI;
 

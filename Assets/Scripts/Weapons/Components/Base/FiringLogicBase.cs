@@ -1,4 +1,4 @@
-using FMODUnity;
+using Audio;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -8,7 +8,7 @@ namespace Code.Weapons {
         [SerializeField] protected float m_range;
 
         [Header("References")]
-        [SerializeField] protected EventReference m_soundEventReference;
+        [SerializeField] protected SoundSO m_shootSound;
 
         [Space]
         [SerializeField] protected Transform m_weaponCamera;

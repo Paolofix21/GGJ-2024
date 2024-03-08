@@ -1,24 +1,23 @@
 ﻿using System.Collections;
-using FMOD;
-using FMODUnity;
+using Audio;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Code.EnemySystem.Wakakas {
     [DefaultExecutionOrder(-1)]
     public class WakakaMaskAnimator : MonoBehaviour {
         #region Public Variables
         [Header("Intro")]
-        [SerializeField] private EventReference m_introVoiceLineEvent;
+        [SerializeField] private SoundSO m_introVoiceLineEvent;
 
         [Header("Laughter")]
         [SerializeField] private AnimationCurve m_laughterAnimation;
-        [SerializeField] private EventReference m_laughterClipEvent;
+        [SerializeField] private SoundSO m_laughterClipEvent;
         [SerializeField] private int m_laughterShapeIndex;
 
         [Header("Death")]
         [SerializeField] private AnimationCurve m_deathScaleAnimation;
-        [SerializeField] private EventReference m_deathSound;
+        [SerializeField] private SoundSO m_deathPushSound;
+        [SerializeField] private SoundSO m_deathExplosionSound;
         [SerializeField] private ParticleSystem m_deathParticle;
         [SerializeField] private float m_deathRotationSpeed = 720f;
         #endregion
@@ -31,6 +30,7 @@ namespace Code.EnemySystem.Wakakas {
         private MaterialPropertyBlock _trailBlock;
 
         private Coroutine _deathCoroutine;
+        private Coroutine _laughterCoroutine;
 
         private bool _animatingLaughter;
         #endregion
@@ -50,20 +50,26 @@ namespace Code.EnemySystem.Wakakas {
             if (_animatingLaughter)
                 return;
 
-            StartCoroutine(LaughCO());
+            if (_laughterCoroutine != null)
+                StopCoroutine(_laughterCoroutine);
+
+            _laughterCoroutine = StartCoroutine(LaughCO());
         }
 
         [ContextMenu("Laugh")]
-        public void AnimateIntroVoiceLine() => RuntimeManager.PlayOneShotAttached(m_introVoiceLineEvent, gameObject);
+        public void AnimateIntroVoiceLine() => AudioManager.Singleton.PlayOneShotWorldAttached(m_introVoiceLineEvent.GetSound(), gameObject, MixerType.Voice);
 
         [ContextMenu("Laugh")]
         public void AnimateDeath() {
             if (_deathCoroutine != null)
                 return;
 
+            if (_laughterCoroutine != null)
+                StopCoroutine(_laughterCoroutine);
+
             _deathCoroutine = StartCoroutine(DeathCO());
 
-            RuntimeManager.PlayOneShotAttached(m_deathSound, gameObject);
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_deathPushSound.GetSound(), gameObject, MixerType.Voice);
         }
         #endregion
 
@@ -74,9 +80,7 @@ namespace Code.EnemySystem.Wakakas {
             var t = 0f;
             var duration = m_laughterAnimation.keys[^1].time;
 
-            if (!m_laughterClipEvent.IsNull) {
-                RuntimeManager.PlayOneShotAttached(m_laughterClipEvent, gameObject);
-            }
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_laughterClipEvent.GetSound(), gameObject, MixerType.SoundFx);
 
             while (t < duration) {
                 t += Time.deltaTime;
@@ -101,6 +105,7 @@ namespace Code.EnemySystem.Wakakas {
 
             _deathCoroutine = null;
             Instantiate(m_deathParticle, transform.position, Quaternion.identity);
+            AudioManager.Singleton.PlayOneShotWorld(m_deathExplosionSound.GetSound(), transform.position, MixerType.SoundFx);
             Destroy(gameObject);
         }
         #endregion

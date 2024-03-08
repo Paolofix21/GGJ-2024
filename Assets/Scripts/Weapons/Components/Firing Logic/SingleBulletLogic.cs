@@ -1,3 +1,4 @@
+using Audio;
 using UnityEngine;
 using Weapons.Components;
 
@@ -74,7 +75,7 @@ namespace Code.Weapons {
         public override void Boost() => m_range *= m_boostMultiplier;
 
         protected override void Effect(Vector3 origin, Vector3 lastPosition) {
-            AudioManager.instance.PlayOneShot(m_soundEventReference, origin);
+            AudioManager.Singleton.PlayOneShotWorld(m_shootSound.GetSound(), origin, MixerType.SoundFx);
             var bulletTrail = Object.Instantiate(m_bullet, origin, Quaternion.identity);
             bulletTrail.SetDestination(lastPosition);
         }

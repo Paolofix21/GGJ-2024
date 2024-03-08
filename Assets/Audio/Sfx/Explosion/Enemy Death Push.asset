@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Enemy Death Push
+  m_EditorClassIdentifier: 
+  m_method: 1
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: e147ad31600f24a40901a2ac1c8da206,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: eb973013fc3f60345813dd9fe184d1fe,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 5775c130c5a7a0f4facbe0f06df59ba9,
+      type: 3}
+    <Volume>k__BackingField: 1

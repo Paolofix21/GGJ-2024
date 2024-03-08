@@ -1,9 +1,13 @@
+using Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Code.UI.Sounds {
     public class UISoundBehaviour : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler {
+        [SerializeField] private SoundSO m_uiHoverEvent;
+        [SerializeField] private SoundSO m_uiClickEvent;
+
         private Button button;
         private Toggle toggle;
         private Slider slider;
@@ -23,16 +27,13 @@ namespace Code.UI.Sounds {
                 slider = GetComponent<Slider>();
         }
 
-        public void OnPointerEnter(PointerEventData eventData) {
-            if (button)
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.uiClickEvent, this.transform.position);
-        }
+        public void OnPointerEnter(PointerEventData eventData) => AudioManager.Singleton.PlayUiSound(m_uiHoverEvent.GetSound());
 
         public void OnPointerDown(PointerEventData eventData) {
             if (slider)
-                AudioManager.instance.PlayOneShot(FMODEvents.instance.uiClickEvent, this.transform.position);
+                AudioManager.Singleton.PlayUiSound(m_uiClickEvent.GetSound());
         }
 
-        private void ClickSound() => AudioManager.instance.PlayOneShot(FMODEvents.instance.uiClickEvent, this.transform.position);
+        private void ClickSound() => AudioManager.Singleton.PlayUiSound(m_uiClickEvent.GetSound());
     }
 }

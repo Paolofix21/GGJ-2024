@@ -398,14 +398,27 @@ MonoBehaviour:
   m_rotateLerpQuickness: 12
   m_rotationIgnoreY: 0
   m_phaseOne:
+    onBeginOrEndPhase:
+      m_PersistentCalls:
+        m_Calls: []
     m_minAttackDelay: 1.25
     m_maxAttackDelay: 3
     m_rounds: 4
   m_phaseTwo:
+    onBeginOrEndPhase:
+      m_PersistentCalls:
+        m_Calls: []
     m_minAttackDelay: 0.5
     m_maxAttackDelay: 3
     m_duration: 2
+  m_phaseThree:
+    onBeginOrEndPhase:
+      m_PersistentCalls:
+        m_Calls: []
   m_phaseSurrender:
+    onBeginOrEndPhase:
+      m_PersistentCalls:
+        m_Calls: []
     m_pushForce: 50
     m_pushRadius: 30
     m_bodies:
@@ -1135,20 +1148,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shieldObject: {fileID: 5965183366413976257}
-  m_voiceLineEvent:
-    Guid:
-      Data1: -1994142323
-      Data2: 1145612764
-      Data3: -1567957624
-      Data4: -1462515303
-    Path: event:/VO/VO_Boss
-  m_deathSoundEvent:
-    Guid:
-      Data1: -811941244
-      Data2: 1122492648
-      Data3: -279609946
-      Data4: 544519968
-    Path: event:/Enemies/Death_Wow
+  m_voiceLineEvent: {fileID: 11400000, guid: e5cbd3337424db24a9437700354d37da, type: 2}
+  m_deathSoundEvent: {fileID: 11400000, guid: ad1932b6bd7537b4dab2157491de6d3d, type: 2}
   m_recomposeAnimationClip: {fileID: -6732462163121900185, guid: cd2e031c273d3da46970d39bbe4dc409,
     type: 3}
   m_decomposeAnimationClip: {fileID: 3581712291163135081, guid: 45af39cd40992ed47898b99648d202d7,

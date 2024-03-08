@@ -36,6 +36,9 @@ namespace Code.Graphics {
         /// </summary>
         /// <param name="value">The hue offset (0 .. 1)</param>
         public void SetHueVal(float value) {
+            if (!_renderer)
+                return;
+
             _renderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_Hue, (value - .5f) * 180f);
             _renderer.SetPropertyBlock(_block);
@@ -46,12 +49,18 @@ namespace Code.Graphics {
         /// </summary>
         /// <param name="degrees">The hue offset in degrees (-180° .. 180°)</param>
         public void SetHueDeg(float degrees) {
+            if (!_renderer)
+                return;
+
             _renderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_Hue, degrees);
             _renderer.SetPropertyBlock(_block);
         }
 
         public void SetEmissivePower(float power) {
+            if (!_renderer)
+                return;
+
             _renderer.GetPropertyBlock(_block);
             _block.SetFloat(MatProp_EmissivePower, power);
             _renderer.SetPropertyBlock(_block);

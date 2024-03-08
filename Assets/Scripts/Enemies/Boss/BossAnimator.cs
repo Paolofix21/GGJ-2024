@@ -1,5 +1,5 @@
-﻿using Code.Core;
-using FMODUnity;
+﻿using Audio;
+using Code.Core;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -11,8 +11,8 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private GameObject m_shieldObject;
 
         [Header("Sounds")]
-        [SerializeField] private EventReference m_voiceLineEvent;
-        [SerializeField] private EventReference m_deathSoundEvent;
+        [SerializeField] private SoundSO m_voiceLineEvent;
+        [SerializeField] private SoundSO m_deathSoundEvent;
 
         [Header("Animations")]
         [SerializeField] private AnimationClip m_recomposeAnimationClip;
@@ -77,7 +77,7 @@ namespace Code.EnemySystem.Boss {
         }
 
         public float AnimateVoiceLineAuto() {
-            RuntimeManager.PlayOneShotAttached(m_voiceLineEvent, gameObject);
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_voiceLineEvent.GetSound(), gameObject, MixerType.Voice);
 
             _animator.SetBool(AnimProp_IsTalking, true);
             var duration = Mathf.Max(1f, .5f); // TODO - Replace with audio clip length
@@ -97,7 +97,7 @@ namespace Code.EnemySystem.Boss {
 
         public void AnimateShieldOnOff(bool off) => m_shieldObject.SetActive(!off);
 
-        public void AnimateDeath() => RuntimeManager.PlayOneShotAttached(m_deathSoundEvent, gameObject);
+        public void AnimateDeath() => AudioManager.Singleton.PlayOneShotWorldAttached(m_deathSoundEvent.GetSound(), gameObject, MixerType.Voice);
         #endregion
 
         #region Private Methods
@@ -106,7 +106,7 @@ namespace Code.EnemySystem.Boss {
         private void StopLaserBeam() => _animator.CrossFade("Boss Laser Beam (End)", .25f);
 
         private void StartVoiceLine() {
-            RuntimeManager.PlayOneShotAttached(m_voiceLineEvent, gameObject);
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_voiceLineEvent.GetSound(), gameObject, MixerType.Voice);
             OnStartStopVoiceLine?.Invoke(true);
         }
         private void StopVoiceLine() {

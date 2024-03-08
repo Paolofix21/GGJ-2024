@@ -430,6 +430,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8d4ca0fc713d2d4c9996fd75d28795c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_uiHoverEvent: {fileID: 11400000, guid: 01f7056d566c6494285d376edb3490cc, type: 2}
+  m_uiClickEvent: {fileID: 11400000, guid: 0bffd71a88eb11845a5fd91da9a0f5ff, type: 2}
 --- !u!1 &9031780522658714706
 GameObject:
   m_ObjectHideFlags: 0

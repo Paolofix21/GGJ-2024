@@ -105,6 +105,8 @@ namespace Code.EnemySystem.Boss {
         }
 
         private void OnDestroy() {
+            _currentPhase?.End();
+
             _health.OnHealthChanged -= CheckPhase;
             _health.OnDeath -= Die;
 

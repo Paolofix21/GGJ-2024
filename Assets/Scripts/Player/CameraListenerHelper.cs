@@ -6,7 +6,10 @@ namespace Player {
         #region Behaviour Callbacks
         private void Awake() => AudioManager.Singleton.SetListenerState(false);
 
-        private void OnDestroy() => AudioManager.Singleton.SetListenerState(true);
+        private void OnDestroy() {
+            if (AudioManager.Singleton)
+                AudioManager.Singleton.SetListenerState(true);
+        }
         #endregion
     }
 }

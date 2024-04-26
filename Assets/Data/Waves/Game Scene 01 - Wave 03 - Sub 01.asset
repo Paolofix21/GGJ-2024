@@ -10,19 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 37ef89425c014714b1cb330b54da8f67, type: 3}
-  m_Name: Game Scene 01 - Wave 01 - Sub 01
+  m_Name: Game Scene 01 - Wave 03 - Sub 01
   m_EditorClassIdentifier: 
-  <SpawnDelay>k__BackingField: 0.75
+  <SpawnDelay>k__BackingField: 0.2
   m_randomExtraction: 1
   m_entities:
-  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
-  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
-  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
+  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
   - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
-  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
-  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
-  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
+  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
   - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
+  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}

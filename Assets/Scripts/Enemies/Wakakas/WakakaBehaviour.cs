@@ -59,6 +59,7 @@ namespace Code.EnemySystem.Wakakas {
             _attacker = GetComponentInChildren<WakakaAttacker>();
             _maskAnimator = GetComponent<WakakaMaskAnimator>();
 
+            _health.OnHealthChanged += OnHealthChanged;
             _health.OnDeath += OnDie;
         }
 
@@ -195,6 +196,8 @@ namespace Code.EnemySystem.Wakakas {
             OnEveryoneChasePlayer -= ForceChasePlayer;
             SetState(WakakaState.Chase);
         }
+
+        private void OnHealthChanged(float health) => _maskAnimator.AnimateDamage();
 
         private void OnDie() {
             OnEveryoneChasePlayer -= ForceChasePlayer;

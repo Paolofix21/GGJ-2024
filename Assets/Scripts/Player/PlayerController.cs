@@ -135,11 +135,9 @@ namespace Code.Player {
         }
 
         private void OnControllerColliderHit(ControllerColliderHit hit) {
-            Debug.Log("Hitting\n");
             if (!hit.gameObject.TryGetComponent(out JumpPad jumpPad))
                 return;
 
-            Debug.Log("CC\n");
             if (hit.normal.y > .5f)
                 _vel = Vector3.up * jumpPad.PushSpeed;
         }

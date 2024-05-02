@@ -129,7 +129,7 @@ namespace Code.Player {
             if (_isDead)
                 return;
 
-            GetMovement();
+            Move();
             UpdateSound();
             _cameraLook.GetMousePos(_input.CameraLookAt());
         }
@@ -216,10 +216,13 @@ namespace Code.Player {
             SetWeaponType(_currentSelectedWeapon, animatorIndex);
         }
 
-        private void GetMovement() {
-            _vel.x = _input.GetMovement().x * _currentSpeed;
-            _vel.z = _input.GetMovement().y * _currentSpeed;
-            _vel = transform.TransformDirection(_vel);
+        private void Move() {
+            var targetVel = _vel;
+            targetVel.x = _input.GetMovement().x * _currentSpeed;
+            targetVel.z = _input.GetMovement().y * _currentSpeed;
+            targetVel = transform.TransformDirection(targetVel);
+
+            _vel = _controller.isGrounded ? targetVel : Vector3.Lerp(_vel, targetVel, Time.deltaTime * 4f);
 
             if (_controller.isGrounded && _vel.y < 0)
                 _vel.y = -10;

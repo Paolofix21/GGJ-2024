@@ -216,6 +216,8 @@ MonoBehaviour:
   m_maxDistanceFromPlayer: 30
   m_maxDistanceYFromPlayer: 8
   m_maxWallCastDistance: 3
+  m_enemiesKilledStat: {fileID: 11400000, guid: c30e198c218508f4da7ccc7a9e2ef3f3,
+    type: 2}
 --- !u!114 &251883932460174636
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -39,6 +39,7 @@ namespace Code.Utilities {
         #endregion
 
         #region Public Methods
+        public void Persist() => DontDestroyOnLoad(gameObject);
         public void DieWithScene() => SceneManager.MoveGameObjectToScene(gameObject, SceneManager.GetActiveScene());
         public void DieWithScene(Scene scene) => SceneManager.MoveGameObjectToScene(gameObject, scene);
         #endregion

@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "com.itstheconnection.izinspector": "https://www.gitlab.com/untold/izinspector.git",
+    "com.rlabrecque.steamworks.net": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
     "com.unity.2d.sprite": "1.0.0",
     "com.unity.ai.navigation": "2.0.0",
     "com.unity.cinemachine": "2.9.7",

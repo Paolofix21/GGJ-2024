@@ -14,6 +14,11 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField] private SoundSO m_laughterClipEvent;
         [SerializeField] private int m_laughterShapeIndex;
 
+        [Header("Damage")]
+        [SerializeField] private float m_damageAnimationDuration = 0.5f;
+        [SerializeField] private AnimationCurve m_damageAnimation = AnimationCurve.Linear(0, 0, 1, 1);
+        [SerializeField] private SoundSO m_hitSound;
+
         [Header("Death")]
         [SerializeField] private AnimationCurve m_deathScaleAnimation;
         [SerializeField] private SoundSO m_deathPushSound;
@@ -29,15 +34,20 @@ namespace Code.EnemySystem.Wakakas {
         private MaterialPropertyBlock _block;
         private MaterialPropertyBlock _trailBlock;
 
+        private Coroutine _damageCoroutine;
         private Coroutine _deathCoroutine;
         private Coroutine _laughterCoroutine;
 
         private bool _animatingLaughter;
+
+        private static readonly int MatProp_Saturation = Shader.PropertyToID("_Saturation");
         #endregion
 
         #region Behaviour Callbacks
         private void Awake() {
             _meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
+            _block = new MaterialPropertyBlock();
+            _meshRenderer.GetPropertyBlock(_block);
         }
         #endregion
 
@@ -56,10 +66,20 @@ namespace Code.EnemySystem.Wakakas {
             _laughterCoroutine = StartCoroutine(LaughCO());
         }
 
-        [ContextMenu("Laugh")]
         public void AnimateIntroVoiceLine() => AudioManager.Singleton.PlayOneShotWorldAttached(m_introVoiceLineEvent.GetSound(), gameObject, MixerType.Voice);
 
-        [ContextMenu("Laugh")]
+        public void AnimateDamage() {
+            if (!isActiveAndEnabled)
+                return;
+
+            AudioManager.Singleton.PlayOneShot2D(m_hitSound.GetSound(), MixerType.SoundFx);
+
+            if (_damageCoroutine != null)
+                return;
+
+            _damageCoroutine = StartCoroutine(DamageCO());
+        }
+
         public void AnimateDeath() {
             if (_deathCoroutine != null)
                 return;
@@ -74,6 +94,26 @@ namespace Code.EnemySystem.Wakakas {
         #endregion
 
         #region Private Methods
+        private IEnumerator DamageCO() {
+            var t = 0f;
+
+            while (t < m_damageAnimationDuration) {
+                t += Time.deltaTime;
+
+                _meshRenderer.GetPropertyBlock(_block);
+                _block.SetFloat(MatProp_Saturation, m_damageAnimation.Evaluate(t / m_damageAnimationDuration));
+                _meshRenderer.SetPropertyBlock(_block);
+
+                yield return null;
+            }
+
+            _meshRenderer.GetPropertyBlock(_block);
+            _block.SetFloat(MatProp_Saturation, 1);
+            _meshRenderer.SetPropertyBlock(_block);
+
+            _damageCoroutine = null;
+        }
+
         private IEnumerator LaughCO() {
             _animatingLaughter = true;
 

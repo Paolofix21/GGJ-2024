@@ -440,7 +440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e053b8a0d394fd0b69432263470e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 1000
+  m_maxHealth: 5000
   m_type: -1
 --- !u!114 &7890905809979017130
 MonoBehaviour:
@@ -454,9 +454,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca097b383de7459cb271d57020e975b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_fireBallPrefab: {fileID: 6498200347692043202, guid: 13b5925c2a70cc14093e557eb29ecf13,
+  m_fireBallPrefab: {fileID: 1327124856187606803, guid: fbbc098415622ce439bf16c88d79bc3b,
     type: 3}
-  m_shootSpeed: 14
+  m_shootSpeed: 10
   m_spawnPoints:
   - {fileID: 6369111625995856841}
   - {fileID: 6677561887926061591}

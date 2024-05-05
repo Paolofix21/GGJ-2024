@@ -11,7 +11,7 @@ PrefabInstance:
     - target: {fileID: 1026766940175158311, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}
       propertyPath: m_chaseSpeed
-      value: 10
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 1026766940175158311, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}

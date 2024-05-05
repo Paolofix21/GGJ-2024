@@ -50,8 +50,8 @@ MonoBehaviour:
     <DamageAmount>k__BackingField: 10
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
-    startingAmount: 18
-    <TotalAmount>k__BackingField: 24
+    startingAmount: 72
+    <TotalAmount>k__BackingField: 104
   <FiringLogic>k__BackingField:
     rid: 5009933660594372689
   references:
@@ -60,7 +60,7 @@ MonoBehaviour:
     - rid: 5009933660594372689
       type: {class: SingleBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 14
+        m_range: 16
         m_shootSound: {fileID: 11400000, guid: 204bf524c6e8d5a4e97962e1948369cd, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 3569501502771818034}
@@ -68,7 +68,7 @@ MonoBehaviour:
           type: 3}
         m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
-        m_boostMultiplier: 3
+        m_boostMultiplier: 1
         m_gizmosEnabled: 0
 --- !u!1 &2176538191775194421
 GameObject:
@@ -117,21 +117,21 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 0
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 1
-    <DamageAmount>k__BackingField: 25
+    <DamageAmount>k__BackingField: 26
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
-    startingAmount: 12
-    <TotalAmount>k__BackingField: 16
+    startingAmount: 24
+    <TotalAmount>k__BackingField: 30
   <FiringLogic>k__BackingField:
     rid: 5009933660594372685
-  m_cooldownDuration: 0.35
+  m_cooldownDuration: 0.15
   references:
     version: 2
     RefIds:
     - rid: 5009933660594372685
       type: {class: SingleBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 16
+        m_range: 32
         m_shootSound: {fileID: 11400000, guid: 7b34a6af2c1358d48a7e49215aeaf133, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 1126597652111750780}
@@ -139,7 +139,7 @@ MonoBehaviour:
           type: 3}
         m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
-        m_boostMultiplier: 3
+        m_boostMultiplier: 1
         m_gizmosEnabled: 0
 --- !u!1 &3087453832401542410
 GameObject:
@@ -291,10 +291,10 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 3
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: -1
-    <DamageAmount>k__BackingField: 25
+    <DamageAmount>k__BackingField: 45
   <FiringLogic>k__BackingField:
     rid: 5009933660594372687
-  m_cooldownDuration: 0.75
+  m_cooldownDuration: 1
   references:
     version: 2
     RefIds:
@@ -386,7 +386,7 @@ MonoBehaviour:
   speed: 8
   jumpForce: 8
   lavaJumpForce: 16
-  lavaDamageDelay: 2
+  lavaDamageDelay: 0.7
   lavaDamage: 6
   jumpCooldown: 0.8
   lavaLayer: Lava
@@ -726,7 +726,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 4
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: -1
-    <DamageAmount>k__BackingField: 125
+    <DamageAmount>k__BackingField: 101
   <FiringLogic>k__BackingField:
     rid: 5009933660594372688
   m_maxEnergy: 10
@@ -736,12 +736,12 @@ MonoBehaviour:
     - rid: 5009933660594372688
       type: {class: PhysicHitLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 4
+        m_range: 8
         m_shootSound: {fileID: 11400000, guid: 4ed0bd1e2230c6e4e8898afcdc607c45, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
         m_radius: 8
-        m_boostMultiplier: 3
+        m_boostMultiplier: 1
         m_gizmosEnabled: 0
 --- !u!1 &8622749203894034788
 GameObject:
@@ -790,11 +790,11 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 1
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 4
-    <DamageAmount>k__BackingField: 12
+    <DamageAmount>k__BackingField: 8
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
-    startingAmount: 5
-    <TotalAmount>k__BackingField: 8
+    startingAmount: 12
+    <TotalAmount>k__BackingField: 16
   <FiringLogic>k__BackingField:
     rid: 5009933660594372686
   m_cooldownDuration: 0.7
@@ -804,7 +804,7 @@ MonoBehaviour:
     - rid: 5009933660594372686
       type: {class: ZoneBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 10
+        m_range: 14
         m_shootSound: {fileID: 11400000, guid: ac9dd252bf23dad44baa1f3de72d3728, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
@@ -812,7 +812,7 @@ MonoBehaviour:
           type: 3}
         hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
-        m_boostMultiplier: 3
+        m_boostMultiplier: 1
         radius: 0.2
         interestedPoints: 7
         gizmosEnabled: 0

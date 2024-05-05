@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 1237890675644851790}
   - component: {fileID: 7412805545452696179}
   - component: {fileID: 1327124856187606803}
+  - component: {fileID: 2761048680859988387}
   m_Layer: 12
   m_Name: FireBall Wakakatu
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3964234796614907995}
@@ -149,7 +150,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.65
+  m_Radius: 0.4
   m_Center: {x: 0, y: 0.085, z: -0.04}
 --- !u!114 &1327124856187606803
 MonoBehaviour:
@@ -164,7 +165,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 10
-  m_homingStrength: 0.5
+  m_homingStrength: 1.5
+  m_lifeTime: 5
+--- !u!114 &2761048680859988387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8288374562569313477}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e053b8a0d394fd0b69432263470e965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_maxHealth: 30
+  m_type: -1
 --- !u!1001 &6267705915484993346
 PrefabInstance:
   m_ObjectHideFlags: 0

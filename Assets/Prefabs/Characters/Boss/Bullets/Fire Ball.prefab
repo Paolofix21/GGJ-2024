@@ -52,7 +52,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_damage: 15
-  m_homingStrength: 1.5
+  m_homingStrength: 0.5
   m_lifeTime: 3
 --- !u!114 &4864876999483582771
 MonoBehaviour:

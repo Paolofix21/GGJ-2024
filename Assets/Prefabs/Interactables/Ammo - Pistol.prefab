@@ -406,7 +406,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.6
+  m_Radius: 1.0434871
   m_Center: {x: 0, y: 1.5, z: 0}
 --- !u!114 &8435353254436886976
 MonoBehaviour:
@@ -421,26 +421,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
-  <Amount>k__BackingField: 16
-  cooldown: 6
-  m_rechargeSound:
-    Guid:
-      Data1: -1103274195
-      Data2: 1215403400
-      Data3: -1645827663
-      Data4: -864889033
-    Path: event:/VO/VO_DropAmmunition
+  <Amount>k__BackingField: 24
+  cooldown: 20
   interactableCollider: {fileID: 2659663291119346420}
   meshRenderer: {fileID: 5889530149695150463}
   cooldownCanvas: {fileID: 3134700869417518277}
   cooldownFiller: {fileID: 6395050758831812796}
-  reload:
-    Guid:
-      Data1: -1103274195
-      Data2: 1215403400
-      Data3: -1645827663
-      Data4: -864889033
-    Path: event:/VO/VO_DropAmmunition
 --- !u!1001 &2150143498920475002
 PrefabInstance:
   m_ObjectHideFlags: 0

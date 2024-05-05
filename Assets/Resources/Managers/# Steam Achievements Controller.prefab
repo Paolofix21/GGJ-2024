@@ -47,3 +47,5 @@ MonoBehaviour:
   m_surviveSceneChanged: 1
   m_achievements:
   - {fileID: 11400000, guid: 71e113643d7b7634495026958bfd2fa9, type: 2}
+  - {fileID: 11400000, guid: bf7daa30e4fb4f14585a9a2348b75112, type: 2}
+  - {fileID: 11400000, guid: aa6cdd367e69f0347a03ec3cba7063ac, type: 2}

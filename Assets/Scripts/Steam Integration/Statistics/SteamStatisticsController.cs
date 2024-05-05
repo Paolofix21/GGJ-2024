@@ -15,10 +15,14 @@ namespace SteamIntegration.Statistics {
 
         #region Overrides
         protected override void OnAfterAwake() {
-            if (!SteamUserStats.RequestCurrentStats()) {
-                Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not retrieve the stats from the Steam API\n");
-                return;
-            }
+            if (!SteamUserStats.ResetAllStats(true))
+                Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not reset stats and achievements through the Steam API\n");
+
+            if (!SteamUserStats.RequestCurrentStats())
+                Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not retrieve the stats through the Steam API\n");
+
+            if (SteamUserStats.GetStat("COUNT_ENEMIES_DEFEATED", out int amt))
+                Debug.Log($"COUNT_ENEMIES_DEFEATED: {amt}\n");
         }
         #endregion
 
@@ -50,10 +54,13 @@ namespace SteamIntegration.Statistics {
             }
 
             if (SteamUserStats.GetStat(statistic.Id, out float stat)) {
-                if (!SteamUserStats.SetStat(statistic.Id, stat + amount))
-                    Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not set a stat through the Steam API\n");
+                if (SteamUserStats.SetStat(statistic.Id, stat + amount)) {
+                    SteamUserStats.GetStat(statistic.Id, out float newVal);
+                    OnStatisticChanged?.Invoke(statistic, newVal);
+                    Debug.Log($"{statistic.name}: {newVal}\n");
+                }
                 else
-                    Debug.Log($"{statistic.name}: {stat + amount}\n");
+                    Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not set a stat through the Steam API\n");
             }
             else
                 Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not get a stat through the Steam API\n");
@@ -66,17 +73,20 @@ namespace SteamIntegration.Statistics {
             }
 
             if (SteamUserStats.GetStat(statistic.Id, out int stat)) {
-                if (!SteamUserStats.SetStat(statistic.Id, stat + amount))
-                    Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not set a stat through the Steam API\n");
+                if (SteamUserStats.SetStat(statistic.Id, stat + amount)) {
+                    SteamUserStats.GetStat(statistic.Id, out int newVal);
+                    OnStatisticChanged?.Invoke(statistic, newVal);
+                    Debug.Log($"{statistic.name}: {newVal}\n");
+                }
                 else
-                    Debug.Log($"{statistic.name}: {stat + amount}\n");
+                    Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not set a stat through the Steam API\n");
             }
             else
                 Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not get a stat through the Steam API\n");
         }
 
         public void PushStats() {
-            if (!SteamUserStats.StoreStats())
+            if (SteamUserStats.StoreStats())
                 return;
 
             Debug.LogError("[Steamworks.NET] SteamStatsRequestFailedException\nCould not store the stats through the Steam API\n");

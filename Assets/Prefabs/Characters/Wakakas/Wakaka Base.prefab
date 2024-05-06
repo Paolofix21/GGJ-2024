@@ -315,7 +315,7 @@ MonoBehaviour:
   m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
     type: 2}
   m_laughterShapeIndex: 0
-  m_damageAnimationDuration: 1.25
+  m_damageAnimationDuration: 0.75
   m_damageAnimation:
     serializedVersion: 2
     m_Curve:
@@ -331,8 +331,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 2
-      outSlope: 2
+      inSlope: 0
+      outSlope: 0
       tangentMode: 0
       weightedMode: 0
       inWeight: 0

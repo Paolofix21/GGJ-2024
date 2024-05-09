@@ -33,6 +33,9 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField, Min(5f)] public float m_maxDistanceYFromPlayer = 8f;
         [SerializeField, Min(1f)] public float m_maxWallCastDistance = 3f;
 
+        [Space]
+        [SerializeField] private SteamIntegration.Statistics.SteamStatisticSO m_enemiesKilledStat;
+
         public event System.Action<WakakaBehaviour> OnDeath;
         #endregion
 
@@ -209,6 +212,8 @@ namespace Code.EnemySystem.Wakakas {
 
             _maskAnimator.AnimateDeath();
             OnDeath?.Invoke(this);
+
+            SteamIntegration.Statistics.SteamStatisticsController.Singleton.AdvanceStat(m_enemiesKilledStat, 1);
         }
         #endregion
     }

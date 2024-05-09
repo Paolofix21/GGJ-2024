@@ -11,7 +11,6 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private GameObject m_shieldObject;
 
         [Header("Sounds")]
-        [SerializeField] private SoundSO m_voiceLineEvent;
         [SerializeField] private SoundSO m_deathSoundEvent;
 
         [Header("Animations")]
@@ -68,22 +67,15 @@ namespace Code.EnemySystem.Boss {
             return m_trapezioAttackAnimationClip.length;
         }
 
-        public float AnimateVoiceLine(float duration) {
-            Invoke(nameof(StartVoiceLine), m_recomposeAnimationClip.length);
-            _animator.CrossFade("Boss Recompose", .25f);
+        public float AnimateVoiceLineAuto(Sound voiceLine) {
+            StartVoiceLine(voiceLine);
             _animator.SetBool(AnimProp_IsTalking, true);
-            Invoke(nameof(StopVoiceLine), duration + m_recomposeAnimationClip.length);
-            return duration + m_recomposeAnimationClip.length;
-        }
-
-        public float AnimateVoiceLineAuto() {
-            AudioManager.Singleton.PlayOneShotWorldAttached(m_voiceLineEvent.GetSound(), gameObject, MixerType.Voice);
-
-            _animator.SetBool(AnimProp_IsTalking, true);
-            var duration = Mathf.Max(1f, .5f); // TODO - Replace with audio clip length
+            var duration = voiceLine.Clip.length; // TODO - Replace with audio clip length
             Invoke(nameof(StopVoiceLine), duration);
             return duration;
         }
+
+        public void CancelVoiceLine() => StopVoiceLine();
 
         public float AnimateRecompose() {
             _animator.CrossFade("Boss Recompose", .25f);
@@ -105,8 +97,8 @@ namespace Code.EnemySystem.Boss {
 
         private void StopLaserBeam() => _animator.CrossFade("Boss Laser Beam (End)", .25f);
 
-        private void StartVoiceLine() {
-            AudioManager.Singleton.PlayOneShotWorldAttached(m_voiceLineEvent.GetSound(), gameObject, MixerType.Voice);
+        private void StartVoiceLine(Sound voiceLine) {
+            AudioManager.Singleton.PlayOneShotWorldAttached(voiceLine, gameObject, MixerType.Voice);
             OnStartStopVoiceLine?.Invoke(true);
         }
         private void StopVoiceLine() {

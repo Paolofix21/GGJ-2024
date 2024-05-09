@@ -404,6 +404,8 @@ MonoBehaviour:
     m_minAttackDelay: 1.25
     m_maxAttackDelay: 3
     m_rounds: 4
+    m_attackVoiceLine: {fileID: 11400000, guid: e30363cd7f25b074abf294c29b8b0bc2,
+      type: 2}
   m_phaseTwo:
     onBeginOrEndPhase:
       m_PersistentCalls:
@@ -411,10 +413,16 @@ MonoBehaviour:
     m_minAttackDelay: 0.5
     m_maxAttackDelay: 3
     m_duration: 2
+    m_attackVoiceLine: {fileID: 11400000, guid: 35f44107f3a56ea4db6e7d0c45786c45,
+      type: 2}
   m_phaseThree:
     onBeginOrEndPhase:
       m_PersistentCalls:
         m_Calls: []
+    m_preAttackVoiceLine: {fileID: 11400000, guid: da23605f3df2d884190cc1167a407757,
+      type: 2}
+    m_attackVoiceLine: {fileID: 11400000, guid: 3f5523b3cf61dbf458ed5bc43e125bec,
+      type: 2}
   m_phaseSurrender:
     onBeginOrEndPhase:
       m_PersistentCalls:
@@ -426,6 +434,8 @@ MonoBehaviour:
     - {fileID: 1481568258661853517}
     - {fileID: 5303151112403891614}
     - {fileID: 4307869437698948885}
+  m_phaseChangeVoiceLine: {fileID: 11400000, guid: e5cbd3337424db24a9437700354d37da,
+    type: 2}
   m_bossAnimator: {fileID: 6852693291893051115}
   m_animator: {fileID: 756657381810575076}
 --- !u!114 &3887620421628908518
@@ -1148,7 +1158,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_shieldObject: {fileID: 5965183366413976257}
-  m_voiceLineEvent: {fileID: 11400000, guid: e5cbd3337424db24a9437700354d37da, type: 2}
   m_deathSoundEvent: {fileID: 11400000, guid: ad1932b6bd7537b4dab2157491de6d3d, type: 2}
   m_recomposeAnimationClip: {fileID: -6732462163121900185, guid: cd2e031c273d3da46970d39bbe4dc409,
     type: 3}

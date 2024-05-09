@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Audio;
 using Code.Core;
 using Code.EnemySystem.Boss.Phases;
 using Code.EnemySystem.Wakakas;
@@ -27,6 +28,9 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private BossPhaseThree m_phaseThree;
         [SerializeField] private BossPhaseSurrender m_phaseSurrender;
 
+        [Space]
+        [SerializeField] private SoundSO m_phaseChangeVoiceLine;
+
         [Header("References")]
         [SerializeField] private BossAnimator m_bossAnimator;
         [SerializeField] private Animator m_animator;
@@ -36,7 +40,6 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Private Variables
-        private WakakaHealth _health;
         private Transform _target;
 
         private Coroutine _switchPhaseCoroutine;
@@ -52,6 +55,7 @@ namespace Code.EnemySystem.Boss {
         public BossAnimator BossAnimator => m_bossAnimator;
         public Transform Target => _target;
         public Animator Animator => m_animator;
+        public WakakaHealth Health { get; private set; }
 
         public bool Enabled { get; set; }
 
@@ -60,11 +64,11 @@ namespace Code.EnemySystem.Boss {
 
         #region Behaviour Callbacks
         private void Awake() {
-            _health = GetComponent<WakakaHealth>();
+            Health = GetComponent<WakakaHealth>();
 
-            _health.OnHealthChanged += CheckPhase;
-            _health.OnDeath += Die;
-            _health.OnEnableDisable += m_bossAnimator.AnimateShieldOnOff;
+            Health.OnHealthChanged += CheckPhase;
+            Health.OnDeath += Die;
+            Health.OnEnableDisable += m_bossAnimator.AnimateShieldOnOff;
 
             GameEvents.OnCutsceneStateChanged += HandleCutscene;
 
@@ -76,7 +80,7 @@ namespace Code.EnemySystem.Boss {
 
         private void Start() {
             _target = GameEvents.MatchManager.GetPlayerEntity().Transform;
-            _health.enabled = false;
+            Health.enabled = false;
         }
 
         private void Update() {
@@ -107,8 +111,8 @@ namespace Code.EnemySystem.Boss {
         private void OnDestroy() {
             _currentPhase?.End();
 
-            _health.OnHealthChanged -= CheckPhase;
-            _health.OnDeath -= Die;
+            Health.OnHealthChanged -= CheckPhase;
+            Health.OnDeath -= Die;
 
             GameEvents.OnCutsceneStateChanged -= HandleCutscene;
         }
@@ -123,7 +127,7 @@ namespace Code.EnemySystem.Boss {
         public void Surrender() {
             m_bossAnimator.AnimateDeath();
             m_animator.enabled = false;
-            _health.enabled = false;
+            Health.enabled = false;
             enabled = false;
             m_bossAnimator.AnimateShieldOnOff(true);
             OnSurrender?.Invoke();
@@ -144,14 +148,14 @@ namespace Code.EnemySystem.Boss {
 
         private IEnumerator SwitchPhaseCO(WakakaBossState phase) {
             Phase = WakakaBossState.Transitioning;
-            _health.enabled = false;
+            Health.enabled = false;
 
             _currentPhase?.End();
 
             var animTime = m_bossAnimator.AnimateRecompose();
             yield return new WaitForSeconds(animTime);
 
-            animTime = m_bossAnimator.AnimateVoiceLineAuto();
+            animTime = m_bossAnimator.AnimateVoiceLineAuto(m_phaseChangeVoiceLine.GetSound());
             yield return new WaitForSeconds(animTime);
 
             animTime = m_bossAnimator.AnimateDecompose();
@@ -162,7 +166,7 @@ namespace Code.EnemySystem.Boss {
             _currentPhase = GetPhase(Phase);
             _currentPhase?.Begin();
 
-            _health.enabled = true;
+            Health.enabled = true;
             _switchPhaseCoroutine = null;
         }
 
@@ -178,7 +182,7 @@ namespace Code.EnemySystem.Boss {
         #region Event Methods
         private void HandleCutscene(bool isPlaying) {
             _freezeExecution = isPlaying;
-            _health.enabled = !_freezeExecution && Phase != WakakaBossState.None;
+            Health.enabled = !_freezeExecution && Phase != WakakaBossState.None;
         }
 
         private void CheckPhase(float health) {

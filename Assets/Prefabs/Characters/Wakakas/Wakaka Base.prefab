@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_wanderSpeed: 3
-  m_chaseSpeed: 3
+  m_chaseSpeed: 5
   m_fleeSpeed: 10
   m_detectionDistance: 2
   m_wanderLerpQuickness: 8
@@ -315,7 +315,7 @@ MonoBehaviour:
   m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
     type: 2}
   m_laughterShapeIndex: 0
-  m_damageAnimationDuration: 1.25
+  m_damageAnimationDuration: 0.5
   m_damageAnimation:
     serializedVersion: 2
     m_Curve:

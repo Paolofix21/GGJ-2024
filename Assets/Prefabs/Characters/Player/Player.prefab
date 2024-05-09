@@ -47,7 +47,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 2
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 2
-    <DamageAmount>k__BackingField: 10
+    <DamageAmount>k__BackingField: 15
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
     startingAmount: 72
@@ -60,7 +60,7 @@ MonoBehaviour:
     - rid: 5009933660594372689
       type: {class: SingleBulletLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 16
+        m_range: 30
         m_shootSound: {fileID: 11400000, guid: 204bf524c6e8d5a4e97962e1948369cd, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 3569501502771818034}
@@ -117,7 +117,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 0
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 1
-    <DamageAmount>k__BackingField: 26
+    <DamageAmount>k__BackingField: 51
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
     startingAmount: 24
@@ -301,7 +301,7 @@ MonoBehaviour:
     - rid: 5009933660594372687
       type: {class: PhysicHitLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 1
+        m_range: 0.6
         m_shootSound: {fileID: 11400000, guid: 0e06639d7b9b12b4dafc875f6e45172e, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
@@ -790,7 +790,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 1
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 4
-    <DamageAmount>k__BackingField: 8
+    <DamageAmount>k__BackingField: 10
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
     startingAmount: 12

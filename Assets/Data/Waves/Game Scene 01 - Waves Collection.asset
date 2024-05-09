@@ -24,16 +24,11 @@ MonoBehaviour:
     - {fileID: 11400000, guid: 6ed6cc50a2eabe845ac267c2338471fd, type: 2}
     - {fileID: 11400000, guid: 81dd516df26a3d3488a8a93fe44a500f, type: 2}
     - {fileID: 11400000, guid: 38ebd8fb283c05a40bcc00725c0e49e7, type: 2}
-    - {fileID: 11400000, guid: b41cc4aabf4c4d446893f3160da0203e, type: 2}
   - <Delay>k__BackingField: 2
     m_waves:
     - {fileID: 11400000, guid: 65aa3e46e8e9b5446a46176f29ef2634, type: 2}
     - {fileID: 11400000, guid: 368006c9f7b3567418c758b2b927bee3, type: 2}
     - {fileID: 11400000, guid: 87e82c8da32cb994cbd1481138d35965, type: 2}
-    - {fileID: 11400000, guid: f4e75419594c3144a9a008f7bd45e3c1, type: 2}
   - <Delay>k__BackingField: 2
     m_waves:
-    - {fileID: 11400000, guid: e5c0085d549cb3e458d52084b69df433, type: 2}
-    - {fileID: 11400000, guid: 1f6408b1c11976540843a0fa125cd7fb, type: 2}
-    - {fileID: 11400000, guid: cd10198092d095a49a92a844a158dd61, type: 2}
     - {fileID: 11400000, guid: 3c45a4475654b874c98a325ff79baffc, type: 2}

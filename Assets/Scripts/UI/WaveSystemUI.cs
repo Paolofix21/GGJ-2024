@@ -56,7 +56,7 @@ public class WaveSystemUI : MonoBehaviour
             WaveObject?.SetActive(false);
         }
         OnEndWave?.Invoke(i);
-        string waveText = $"Wave {i + 1}";
+        string waveText = i != 3 ? $"Wave {i + 1}" : "Final Wave";
         WaveText.text = waveText;
         WaveTextGlow.text = waveText;
 

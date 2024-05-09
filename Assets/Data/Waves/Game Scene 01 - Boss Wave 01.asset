@@ -15,7 +15,18 @@ MonoBehaviour:
   <SpawnDelay>k__BackingField: 1
   m_randomExtraction: 1
   m_entities:
-  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
-  - {fileID: 1254284302377354375, guid: d2a8fd0d670bfb6498ed85257dbb3bbe, type: 3}
-  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
+  - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
+  - {fileID: 1254284302377354375, guid: 5bcd9df00023fba4cae8542eaf4158e4, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}
+  - {fileID: 6886149445448701327, guid: 5b4d1d6142a828e49a39f70ccaecf36e, type: 3}
+  - {fileID: 6886149445448701327, guid: 5b4d1d6142a828e49a39f70ccaecf36e, type: 3}
+  - {fileID: 6886149445448701327, guid: 5b4d1d6142a828e49a39f70ccaecf36e, type: 3}
+  - {fileID: 6886149445448701327, guid: 5b4d1d6142a828e49a39f70ccaecf36e, type: 3}
+  - {fileID: 6886149445448701327, guid: 5b4d1d6142a828e49a39f70ccaecf36e, type: 3}

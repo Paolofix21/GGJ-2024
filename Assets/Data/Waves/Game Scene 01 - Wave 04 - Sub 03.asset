@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ef89425c014714b1cb330b54da8f67, type: 3}
   m_Name: Game Scene 01 - Wave 04 - Sub 03
   m_EditorClassIdentifier: 
-  <SpawnDelay>k__BackingField: 0.2
+  <SpawnDelay>k__BackingField: 1
   m_randomExtraction: 1
   m_entities:
   - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
@@ -28,19 +28,11 @@ MonoBehaviour:
   - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
-  - {fileID: 1254284302377354375, guid: ade1dd3876e4ed247be738d176db339b, type: 3}
   - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
   - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
   - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
   - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
   - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
-  - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
-  - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
-  - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
-  - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
-  - {fileID: 6376655157139027058, guid: ea9bbe0d699133a4b81ab138e68da769, type: 3}
-  - {fileID: 6886149445448701327, guid: 7f0b89a5a6882ab478706edbc56e4da4, type: 3}
-  - {fileID: 6886149445448701327, guid: 7f0b89a5a6882ab478706edbc56e4da4, type: 3}
   - {fileID: 6886149445448701327, guid: 7f0b89a5a6882ab478706edbc56e4da4, type: 3}
   - {fileID: 6886149445448701327, guid: 7f0b89a5a6882ab478706edbc56e4da4, type: 3}
   - {fileID: 6886149445448701327, guid: 7f0b89a5a6882ab478706edbc56e4da4, type: 3}

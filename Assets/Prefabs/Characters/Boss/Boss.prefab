@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8304008727172965567}
   - component: {fileID: 497189077742337044}
+  - component: {fileID: 1468462144122325560}
   m_Layer: 0
   m_Name: COL Boss Mask Mouth
   m_TagString: Untagged
@@ -54,6 +55,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1126791949885572353, guid: cb003999416032f4ab168e307f54f175, type: 3}
+--- !u!114 &1468462144122325560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313844939981272826}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PushSpeed>k__BackingField: 24
 --- !u!1 &812339499773695190
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,6 +433,7 @@ MonoBehaviour:
     onBeginOrEndPhase:
       m_PersistentCalls:
         m_Calls: []
+    m_delayBetweenVoiceLines: 1.5
     m_preAttackVoiceLine: {fileID: 11400000, guid: da23605f3df2d884190cc1167a407757,
       type: 2}
     m_attackVoiceLine: {fileID: 11400000, guid: 3f5523b3cf61dbf458ed5bc43e125bec,
@@ -651,6 +666,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1555411132524038421}
   - component: {fileID: 8339779585621482256}
+  - component: {fileID: 3483392562208046500}
   m_Layer: 0
   m_Name: COL Boss Mask Face
   m_TagString: Untagged
@@ -695,6 +711,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8733183541188894689, guid: cb003999416032f4ab168e307f54f175, type: 3}
+--- !u!114 &3483392562208046500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6932801270477554723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PushSpeed>k__BackingField: 24
 --- !u!1 &7004828333956922910
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +734,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5063059635507561133}
   - component: {fileID: 2006408210313829320}
+  - component: {fileID: 8656131766179941474}
   m_Layer: 0
   m_Name: COL Boss Mask Cheek
   m_TagString: Untagged
@@ -749,6 +779,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3928127687009157734, guid: cb003999416032f4ab168e307f54f175, type: 3}
+--- !u!114 &8656131766179941474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004828333956922910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PushSpeed>k__BackingField: 24
 --- !u!1 &7365386308012006283
 GameObject:
   m_ObjectHideFlags: 0
@@ -790,6 +833,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8606042847436846313}
   - component: {fileID: 6351048888349390966}
+  - component: {fileID: 6091922648830326071}
   m_Layer: 0
   m_Name: COL Boss Mask Cheek
   m_TagString: Untagged
@@ -834,6 +878,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3928127687009157734, guid: cb003999416032f4ab168e307f54f175, type: 3}
+--- !u!114 &6091922648830326071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7505650500095046886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <PushSpeed>k__BackingField: 24
 --- !u!1 &8007261808520492180
 GameObject:
   m_ObjectHideFlags: 0

@@ -200,7 +200,10 @@ namespace Code.EnemySystem.Wakakas {
             SetState(WakakaState.Chase);
         }
 
-        private void OnHealthChanged(float health) => _maskAnimator.AnimateDamage();
+        private void OnHealthChanged(float health) {
+            if (health < 1f)
+                _maskAnimator.AnimateDamage();
+        }
 
         private void OnDie() {
             OnEveryoneChasePlayer -= ForceChasePlayer;

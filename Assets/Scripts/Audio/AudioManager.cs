@@ -108,7 +108,10 @@ namespace Audio {
             SetMixerVolume(mixer, volume);
         }
 
-        public void SetListenerState(bool active) => _tempListener.enabled = active;
+        public void SetListenerState(bool active) {
+            if (_tempListener)
+                _tempListener.enabled = active;
+        }
 
         public void PlayOneShotWorld(Sound sound, Vector3 worldPos, MixerType type) {
             var go = new GameObject("play-one-shot") {

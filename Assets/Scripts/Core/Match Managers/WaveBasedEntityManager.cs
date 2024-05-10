@@ -107,6 +107,9 @@ namespace Code.Core.MatchManagers {
 
         private void SpawnAllEntities(MinorWaveInfoSO minorWaveInfo, float delay) => StartCoroutine(SpawnAllEntitiesCO(minorWaveInfo, delay));
         private IEnumerator SpawnAllEntitiesCO(MinorWaveInfoSO minorWaveInfo, float delay) {
+            _pointsOfInterest.ForEach(poi => poi.AnimatePortal(true));
+            _pointsOfInterestExtracted.ForEach(poi => poi.AnimatePortal(true));
+
             yield return new WaitForSeconds(delay);
 
             var spawnDelay = new WaitForSeconds(minorWaveInfo.SpawnDelay);
@@ -118,6 +121,9 @@ namespace Code.Core.MatchManagers {
                 SpawnEntity(entity);
                 yield return spawnDelay;
             }
+
+            _pointsOfInterest.ForEach(poi => poi.AnimatePortal(false));
+            _pointsOfInterestExtracted.ForEach(poi => poi.AnimatePortal(false));
         }
         #endregion
 

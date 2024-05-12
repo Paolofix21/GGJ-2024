@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Trampuline Bounce
+  m_EditorClassIdentifier: 
+  m_method: 2
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: dbbd72d264db6d54586060a6a13f2700,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: beb4e86cb8d64e4489a9ae042ee06f6f,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 8412ad70eb7c7774fb89baa62b45cc54,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 3664c3167f535974eaf2a58c40719a1c,
+      type: 3}
+    <Volume>k__BackingField: 1

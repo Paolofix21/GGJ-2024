@@ -4,15 +4,15 @@ using System.Collections;
 using System.Threading.Tasks;
 using Audio;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Barbaragno.RuntimePackages.Operations;
 using Code.Core;
 using Izinspector.Runtime.PropertyAttributes;
 using Miscellaneous;
-using Code.Weapons;
 
 namespace Code.Player {
     [DefaultExecutionOrder(1)]
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(CapsuleCollider))]
     public class PlayerController : MonoBehaviour {
         #region Public Variables
         [Header("References")]
@@ -20,9 +20,10 @@ namespace Code.Player {
         [SerializeField] private GameObject arms;
         [SerializeField] private Animator anim;
 
-        [Header("Settings")]
+        [Header("Audio")]
         [SerializeField] private SoundSO m_jumpSound;
         [SerializeField] private SoundSO m_footStepsSound;
+        [SerializeField] private SoundSO m_trampulineSound;
 
         [Header("Movement Fields")]
         [SerializeField] private float airborneSpeed = 16f;
@@ -30,6 +31,20 @@ namespace Code.Player {
         [SerializeField] private float speed = 6f;
         [Space(2)]
         [SerializeField] private float jumpForce = 1.5f;
+
+        [Header("Settings")]
+        [SerializeField] private float m_groundNormalThresholdY = 0.35f;
+        [SerializeField] private float m_dragGrounded = 6f;
+        [SerializeField] private float m_dragAirborne = 2f;
+        [SerializeField] private float m_gravityScale = 2f;
+        [SerializeField] private float m_coyoteTime = .15f;
+
+        [Space]
+        [SerializeField] private float m_airViscosity = 2f;
+
+        [Space]
+        [SerializeField] private float m_padForceMultiplier = 500f;
+        [SerializeField] private float m_jumpPadVerticalPredominance = 2f;
 
         [Header("Lava Fields")]
         [SerializeField] private float lavaJumpForce = 1.5f;
@@ -48,13 +63,14 @@ namespace Code.Player {
         #region Properties
         public PlayerHealth Health { get; private set; }
         public VisualSetter VisualSetter { get; private set; }
+        public bool IsGrounded { get; private set; }
         #endregion
 
         #region Private Variables
-        private CharacterController _controller;
+        private Rigidbody _body;
+        private CapsuleCollider _collider;
         private PlayerView _cameraLook;
-        private InputManager _input;
-        private PlayerWeaponHandler _weaponHandler;
+        private PlayerInputController _playerInput;
 
         private SoundPlayer _footstepsInstance;
         private Coroutine _inLavaCoroutine;
@@ -62,8 +78,12 @@ namespace Code.Player {
         private bool _isDead;
         private bool _isInsideLava;
 
+        private bool _wasGrounded;
+        private float _coyoteTime;
+
         private Vector3 _vel;
         private float _currentSpeed;
+        private RaycastHit _groundInfo;
 
         private int _currentSelectedWeapon;
         private float _currentCooldownValue;
@@ -86,10 +106,10 @@ namespace Code.Player {
             Health = GetComponent<PlayerHealth>();
             VisualSetter = GetComponentInChildren<VisualSetter>();
 
-            _controller = GetComponent<CharacterController>();
-            _cameraLook = GetComponent<PlayerView>();
-            _input = GetComponent<InputManager>();
-            _weaponHandler = GetComponent<PlayerWeaponHandler>();
+            _body = GetComponent<Rigidbody>();
+            _collider = GetComponent<CapsuleCollider>();
+            _cameraLook = GetComponentInChildren<PlayerView>();
+            _playerInput = GetComponent<PlayerInputController>();
 
             _currentSpeed = speed;
 
@@ -98,19 +118,11 @@ namespace Code.Player {
         }
 
         private void OnEnable() {
-            _input.playerMap.PlayerActions.Jump.started += Jump;
-            _input.playerMap.PlayerActions.Shoot.started += PlayShoot;
-
-            _input.playerMap.PlayerActions.ContinuousShoot.started += ShootContinuousInput;
-            _input.playerMap.PlayerActions.ContinuousShoot.canceled += ShootContinuousInput;
-
-            _input.playerMap.PlayerActions.Weapon01.started += SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon02.started += SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon03.started += SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon04.started += SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon05.started += SetWeaponInput;
-
-            _input.playerMap.PlayerActions.RotateWeapon.started += TestRotateWeapons;
+            _playerInput.OnJump += Jump;
+            _playerInput.OnShoot += PlayShoot;
+            _playerInput.OnShootStateChange += ShootContinuousInput;
+            _playerInput.OnWeaponIndexChange += SetWeaponInput;
+            _playerInput.OnCycleWeapons += CycleWeapons;
 
             Health.enabled = true;
             _cameraLook.enabled = true;
@@ -129,17 +141,48 @@ namespace Code.Player {
             if (_isDead)
                 return;
 
-            Move();
-            UpdateSound();
-            _cameraLook.GetMousePos(_input.CameraLookAt());
+            IsGrounded = CheckGround();
+
+            if (IsGrounded != _wasGrounded)
+                _coyoteTime = Time.time + m_coyoteTime;
+
+            _cameraLook.ApplyMotion(_playerInput.LookInput);
+
+            _wasGrounded = IsGrounded;
         }
 
-        private void OnControllerColliderHit(ControllerColliderHit hit) {
-            if (!hit.gameObject.TryGetComponent(out JumpPad jumpPad))
+        private void FixedUpdate() {
+            if (_isDead)
                 return;
 
-            if (hit.normal.y > .5f)
-                _vel = Vector3.up * jumpPad.PushSpeed;
+            _body.drag = IsGrounded ? m_dragGrounded : m_dragAirborne;
+
+            Move();
+        }
+
+        private void LateUpdate() {
+            if (_isDead)
+                return;
+
+            UpdateSound();
+        }
+
+        private void OnCollisionEnter(Collision other) {
+            if (!other.gameObject.TryGetComponent(out JumpPad jumpPad))
+                return;
+
+            var normal = other.contacts[0].normal;
+            if (normal.y < .5f)
+                return;
+
+            var inputDirection = new Vector3(_playerInput.MoveInput.x, 0f, _playerInput.MoveInput.y);
+            var jumpDirection = _cameraLook.transform.TransformDirection(inputDirection).normalized;
+            jumpDirection += Vector3.up * m_jumpPadVerticalPredominance;
+            jumpDirection.Normalize();
+
+            _body.velocity = Vector3.zero;
+            _body.AddForce(jumpDirection * jumpPad.PushSpeed * m_padForceMultiplier, ForceMode.Impulse);
+            AudioManager.Singleton.PlayOneShotWorld(m_trampulineSound.GetSound(), jumpPad.transform.position, MixerType.SoundFx);
         }
 
         private void OnTriggerEnter(Collider other) {
@@ -152,20 +195,18 @@ namespace Code.Player {
                 ExitLava();
         }
 
+        private void OnDrawGizmos() {
+            _collider = GetComponent<CapsuleCollider>();
+            var origin = transform.position + _collider.center - Vector3.up * (_collider.height * .5f - _collider.radius);
+            Gizmos.DrawSphere(origin, _collider.radius - .1f);
+        }
+
         private void OnDisable() {
-            _input.playerMap.PlayerActions.Jump.started -= Jump;
-            _input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
-
-            _input.playerMap.PlayerActions.ContinuousShoot.started -= ShootContinuousInput;
-            _input.playerMap.PlayerActions.ContinuousShoot.canceled -= ShootContinuousInput;
-
-            _input.playerMap.PlayerActions.Weapon01.started -= SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon02.started -= SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon03.started -= SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon04.started -= SetWeaponInput;
-            _input.playerMap.PlayerActions.Weapon05.started -= SetWeaponInput;
-
-            _input.playerMap.PlayerActions.RotateWeapon.started -= TestRotateWeapons;
+            _playerInput.OnJump -= Jump;
+            _playerInput.OnShoot -= PlayShoot;
+            _playerInput.OnShootStateChange -= ShootContinuousInput;
+            _playerInput.OnWeaponIndexChange -= SetWeaponInput;
+            _playerInput.OnCycleWeapons -= CycleWeapons;
 
             PlayShootContinuous(false);
             Health.enabled = false;
@@ -204,41 +245,70 @@ namespace Code.Player {
                 SetWeaponType(_currentSelectedWeapon, GetAnimatorIndex(_currentSelectedWeapon));
         }
 
-        private void TestRotateWeapons(InputAction.CallbackContext callbackContext) {
+        private void CycleWeapons(int direction) {
             if (_isDead || !arms.gameObject.activeSelf || Time.timeScale == 0)
                 return;
 
-            var directionalIndex = (int)callbackContext.ReadValue<float>();
-
-            _currentSelectedWeapon = (_currentSelectedWeapon + directionalIndex).Cycle(0, 5);
+            _currentSelectedWeapon = (_currentSelectedWeapon + direction).Cycle(0, 5);
             var animatorIndex = GetAnimatorIndex(_currentSelectedWeapon);
 
             SetWeaponType(_currentSelectedWeapon, animatorIndex);
         }
 
-        private void Move() {
-            var targetVel = _vel;
-            targetVel.x = _input.GetMovement().x * _currentSpeed;
-            targetVel.z = _input.GetMovement().y * _currentSpeed;
-            targetVel = transform.TransformDirection(targetVel);
+        private bool CheckGround() {
+            var origin = transform.position + _collider.center - Vector3.up * (_collider.height * .5f - _collider.radius);
 
-            _vel = _controller.isGrounded ? targetVel : Vector3.Lerp(_vel, targetVel, Time.deltaTime * 4f);
+            if (!Physics.SphereCast(origin, _collider.radius - .1f, Vector3.down, out var hit, .15f))
+                return false;
 
-            if (_controller.isGrounded && _vel.y < 0)
-                _vel.y = -10;
-            else
-                _vel.y += Physics.gravity.y * 4f * Time.deltaTime;
-
-            _currentSpeed = _isInsideLava ? lavaSpeed : (_controller.isGrounded ? speed : airborneSpeed);
-
-            _controller.Move(_vel * Time.deltaTime);
+            _groundInfo = hit;
+            return hit.normal.y > m_groundNormalThresholdY;
         }
 
-        private void Jump(InputAction.CallbackContext ctx) {
-            if (!_controller.isGrounded || _currentCooldownValue > 0)
+        private void Move() {
+            if (IsGrounded)
+                _body.AddForce(-_groundInfo.normal * 5f, ForceMode.VelocityChange);
+            else
+                _body.AddForce(Physics.gravity * m_gravityScale, ForceMode.Acceleration);
+
+            // if (_playerInput.MoveInput.sqrMagnitude < .01f)
+            //     return;
+
+            _currentSpeed = _isInsideLava ? lavaSpeed : (IsGrounded ? speed : airborneSpeed);
+
+            var inputDirection = new Vector3 {
+                x = _playerInput.MoveInput.x * _currentSpeed,
+                z = _playerInput.MoveInput.y * _currentSpeed
+            };
+
+            inputDirection = _cameraLook.transform.TransformDirection(inputDirection);
+            inputDirection.y = 0;
+            inputDirection.Normalize();
+
+            _vel = inputDirection * _currentSpeed;
+
+            _body.AddForce(_vel, ForceMode.Acceleration);
+
+            if (IsGrounded)
                 return;
 
-            _vel.y = Mathf.Sqrt((_isInsideLava ? lavaJumpForce : jumpForce) * -3 * Physics.gravity.y);
+            // DRAG
+            // velocity = velocity * (1 - deltaTime * drag)
+            var velocityY = _body.velocity.y * _body.drag * Time.deltaTime;
+            var force = Physics.gravity.y * Time.deltaTime;
+            var bodyDrag = 1 - Time.deltaTime * _body.drag;
+ 
+            _body.AddForce(new Vector3 (0, (velocityY + force) / bodyDrag, 0), ForceMode.VelocityChange);
+        }
+
+        private void Jump() {
+            if ((!IsGrounded && _coyoteTime < Time.time) || _currentCooldownValue > 0)
+                return;
+
+            var velocity = _body.velocity;
+            velocity.y = 0;
+            _body.velocity = velocity;
+            _body.AddForce((_isInsideLava ? lavaJumpForce : jumpForce) * _body.mass * Vector3.up, ForceMode.Impulse);
 
             AudioManager.Singleton.PlayOneShotWorldAttached(m_jumpSound.GetSound(), gameObject, MixerType.Voice);
         }
@@ -298,7 +368,7 @@ namespace Code.Player {
             _currentSelectedWeapon = type;
         }
 
-        private void PlayShoot(InputAction.CallbackContext ctx) {
+        private void PlayShoot() {
             if (_isDead || !arms.gameObject.activeSelf || Time.timeScale == 0)
                 return;
 
@@ -306,19 +376,19 @@ namespace Code.Player {
                 anim.SetTrigger(AnimProp_ShootTrigger);
         }
 
-        private void ShootContinuousInput(InputAction.CallbackContext ctx) => PlayShootContinuous(ctx.started);
+        private void ShootContinuousInput(bool started) => PlayShootContinuous(started);
 
-        private void SetWeaponInput(InputAction.CallbackContext ctx) {
-            if (ctx.action == _input.playerMap.PlayerActions.Weapon01)
-                SetWeaponType(0, AnimState_Pistol);
-            else if (ctx.action == _input.playerMap.PlayerActions.Weapon02)
-                SetWeaponType(1, AnimState_Shotgun);
-            else if (ctx.action == _input.playerMap.PlayerActions.Weapon03)
-                SetWeaponType(2, AnimState_Rifle);
-            else if (ctx.action == _input.playerMap.PlayerActions.Weapon04)
-                SetWeaponType(3, AnimState_Frustino);
-            else if (ctx.action == _input.playerMap.PlayerActions.Weapon05)
-                SetWeaponType(4, AnimState_Sword);
+        private void SetWeaponInput(int index) {
+            var animationHash = index switch {
+                0 => AnimState_Pistol,
+                1 => AnimState_Shotgun,
+                2 => AnimState_Rifle,
+                3 => AnimState_Frustino,
+                4 => AnimState_Sword,
+                _ => 0
+            };
+
+            SetWeaponType(index, animationHash);
         }
 
         private void PlayerDeath() {
@@ -327,15 +397,12 @@ namespace Code.Player {
 
             if (_isInsideLava)
                 ExitLava();
-
-            _input.playerMap.PlayerActions.Jump.started -= Jump;
-            _input.playerMap.PlayerActions.Shoot.started -= PlayShoot;
         }
 
         private void InitializeAudio() => _footstepsInstance = AudioManager.Singleton.CreateSource(m_footStepsSound, MixerType.SoundFx, gameObject);
 
         private void UpdateSound() {
-            if (_controller.isGrounded && _controller.velocity.sqrMagnitude > 0.0001f) {
+            if (IsGrounded && _body.velocity.sqrMagnitude > 0.0001f) {
                 if (!_footstepsInstance.IsPlaying)
                     _footstepsInstance.Play();
             }

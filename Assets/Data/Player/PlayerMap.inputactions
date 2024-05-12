@@ -6,9 +6,18 @@
             "id": "fabcdebd-49c6-4baf-a87d-b73bc39eb6b8",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "Move",
                     "type": "Value",
                     "id": "a96f03f2-7604-4f97-80de-28812173070f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Look",
+                    "type": "Value",
+                    "id": "035d08ee-6752-4da1-a288-69d3d62810f5",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -33,18 +42,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "LookAt",
-                    "type": "Value",
-                    "id": "035d08ee-6752-4da1-a288-69d3d62810f5",
-                    "expectedControlType": "Vector2",
+                    "name": "Shoot Single",
+                    "type": "Button",
+                    "id": "7311c7d6-7bd2-4322-a8fa-8c2d4c66c9b9",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Shoot",
                     "type": "Button",
-                    "id": "7311c7d6-7bd2-4322-a8fa-8c2d4c66c9b9",
+                    "id": "bcba1b2b-1f5d-4483-9239-6afdaaf1c270",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -96,16 +105,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "ContinuousShoot",
-                    "type": "Button",
-                    "id": "bcba1b2b-1f5d-4483-9239-6afdaaf1c270",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "RotateWeapon",
+                    "name": "Cycle Weapon",
                     "type": "Value",
                     "id": "62f5b700-2c78-4d20-aed8-4cbd4f6e9957",
                     "expectedControlType": "",
@@ -122,7 +122,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -133,7 +133,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -144,7 +144,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -155,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -166,7 +166,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -194,23 +194,12 @@
                 },
                 {
                     "name": "",
-                    "id": "9382c4a6-527a-4a77-bd35-46a0627a6295",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "LookAt",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4e9aba12-315f-4990-8a13-15ced3f486da",
                     "path": "<Mouse>/leftButton",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "Shoot Single",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -271,23 +260,34 @@
                 },
                 {
                     "name": "",
-                    "id": "c9f41657-0fb8-4692-ac9a-696ba85e0186",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ContinuousShoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d50f5ff1-f261-4212-977e-a38a0d68dd56",
                     "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "RotateWeapon",
+                    "action": "Cycle Weapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "9382c4a6-527a-4a77-bd35-46a0627a6295",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Look",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c9f41657-0fb8-4692-ac9a-696ba85e0186",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Shoot",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

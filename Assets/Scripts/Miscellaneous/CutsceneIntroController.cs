@@ -34,14 +34,18 @@ namespace Miscellaneous {
 
         #region Behaviour Callbacks
         private void Awake() {
+            WaveSystemUI.OnEndWave += OnEndWave;
+
+            gameObject.SetActive(false);
+        }
+
+        private void Start() {
             WaveSystemUI.OnEndWave += OnWaveChanged;
 
             _director = GetComponent<PlayableDirector>();
             _director.timeUpdateMode = DirectorUpdateMode.UnscaledGameTime;
             _director.playOnAwake = false;
             _director.stopped += EndCutscene;
-
-            gameObject.SetActive(false);
         }
 
         private void OnEnable() => GameEvents.OnPauseStatusChanged += CheckPause;
@@ -60,7 +64,6 @@ namespace Miscellaneous {
         private void OnDestroy() => WaveSystemUI.OnEndWave -= OnWaveChanged;
 
         private void OnWaveChanged(int waveIndex) {
-            // Time.timeScale = 0;
             GameEvents.SetCutsceneState(true);
             PlayCutscene(waveIndex, () => Time.timeScale = 1);
         }
@@ -83,7 +86,6 @@ namespace Miscellaneous {
                 m_creatures[i].creature.gameObject.SetActive(i == creatureIndex);
 
             m_text.text = m_creatures[creatureIndex].name;
-            // m_creatures[creatureIndex].creature.SetColorType(creatureIndex);
 
             gameObject.SetActive(true);
 
@@ -98,6 +100,12 @@ namespace Miscellaneous {
             _onCutsceneEnded = null;
             OnIntroStartStop?.Invoke(false);
             gameObject.SetActive(false);
+            GameEvents.SetCutsceneState(false);
+        }
+
+        private void OnEndWave(int _) {
+            Debug.Log("Dio Fagiano\n");
+            OnIntroStartStop?.Invoke(false);
             GameEvents.SetCutsceneState(false);
         }
 

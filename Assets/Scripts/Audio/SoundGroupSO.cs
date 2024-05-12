@@ -24,7 +24,7 @@ namespace Audio {
 
         #region Overrides
         public override Sound GetSound() {
-            if (_takes == null) {
+            if (_takes == null || _taken.Count <= 0) {
                 _takes = new();
                 _taken = new();
 

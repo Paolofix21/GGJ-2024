@@ -9733,7 +9733,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 14.352
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8987480030931464104, guid: d2f5be7a1aedc98429f7723a015113cf, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -17963,24 +17964,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 620772736295823813, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_laughterClipEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
-        type: 2}
-    - target: {fileID: 620772736295823813, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_introVoiceLineEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: a14e072f0c70ae34f8d42ec89bbe31b7,
-        type: 2}
-    - target: {fileID: 2650929852519664229, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_Mesh
-      value: 
-      objectReference: {fileID: 8719305354038206568, guid: 543bd7bd275941949b0814ef44766a2b,
-        type: 3}
     - target: {fileID: 2812377032529695313, guid: 65f3452ab16c28242bd518cb5e7c9b10,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -18031,67 +18014,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3762165744950423215, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_laughterClipEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
-        type: 2}
-    - target: {fileID: 3762165744950423215, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_introVoiceLineEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: bad16893a9c410546a2eb2c4c8df9ebf,
-        type: 2}
     - target: {fileID: 6016421720794274380, guid: 65f3452ab16c28242bd518cb5e7c9b10,
         type: 3}
       propertyPath: m_Name
       value: '# Cutscene Intro'
       objectReference: {fileID: 0}
-    - target: {fileID: 6745296982672641148, guid: 65f3452ab16c28242bd518cb5e7c9b10,
+    - target: {fileID: 6016421720794274380, guid: 65f3452ab16c28242bd518cb5e7c9b10,
         type: 3}
-      propertyPath: m_laughterClipEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
-        type: 2}
-    - target: {fileID: 6745296982672641148, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_introVoiceLineEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: d8bfd093bd4eebd4ea4c8472e9caccb3,
-        type: 2}
-    - target: {fileID: 7923272749662981500, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.18178603
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 7923272749662981500, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.00008694668
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923272749662981500, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.983338
-      objectReference: {fileID: 0}
-    - target: {fileID: 7923272749662981500, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.00047032203
-      objectReference: {fileID: 0}
-    - target: {fileID: 8751053762456410958, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_laughterClipEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
-        type: 2}
-    - target: {fileID: 8751053762456410958, guid: 65f3452ab16c28242bd518cb5e7c9b10,
-        type: 3}
-      propertyPath: m_introVoiceLineEvent
-      value: 
-      objectReference: {fileID: 11400000, guid: d8bfd093bd4eebd4ea4c8472e9caccb3,
-        type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

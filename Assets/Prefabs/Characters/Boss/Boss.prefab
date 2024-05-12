@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8304008727172965567}
   - component: {fileID: 497189077742337044}
-  - component: {fileID: 1468462144122325560}
+  - component: {fileID: 2911739314989493119}
+  - component: {fileID: 5501286974172877400}
   m_Layer: 0
   m_Name: COL Boss Mask Mouth
   m_TagString: Untagged
@@ -55,7 +56,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 1126791949885572353, guid: cb003999416032f4ab168e307f54f175, type: 3}
---- !u!114 &1468462144122325560
+--- !u!114 &2911739314989493119
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -64,10 +65,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 313844939981272826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Script: {fileID: 11500000, guid: b2c3fef7ef294cf7a53316e35c58864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PushSpeed>k__BackingField: 24
+  m_interval: 0.15
+  m_damage: 1
+--- !u!54 &5501286974172877400
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313844939981272826}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &812339499773695190
 GameObject:
   m_ObjectHideFlags: 0
@@ -666,7 +695,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1555411132524038421}
   - component: {fileID: 8339779585621482256}
-  - component: {fileID: 3483392562208046500}
+  - component: {fileID: 6004179828351968798}
+  - component: {fileID: 619129730468824613}
   m_Layer: 0
   m_Name: COL Boss Mask Face
   m_TagString: Untagged
@@ -711,7 +741,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -8733183541188894689, guid: cb003999416032f4ab168e307f54f175, type: 3}
---- !u!114 &3483392562208046500
+--- !u!114 &6004179828351968798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -720,10 +750,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 6932801270477554723}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Script: {fileID: 11500000, guid: b2c3fef7ef294cf7a53316e35c58864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PushSpeed>k__BackingField: 24
+  m_interval: 0.15
+  m_damage: 1
+--- !u!54 &619129730468824613
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6932801270477554723}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7004828333956922910
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,7 +792,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5063059635507561133}
   - component: {fileID: 2006408210313829320}
-  - component: {fileID: 8656131766179941474}
+  - component: {fileID: 6397429834976863493}
+  - component: {fileID: 1469795920476170537}
   m_Layer: 0
   m_Name: COL Boss Mask Cheek
   m_TagString: Untagged
@@ -779,7 +838,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3928127687009157734, guid: cb003999416032f4ab168e307f54f175, type: 3}
---- !u!114 &8656131766179941474
+--- !u!114 &6397429834976863493
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -788,10 +847,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 7004828333956922910}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Script: {fileID: 11500000, guid: b2c3fef7ef294cf7a53316e35c58864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PushSpeed>k__BackingField: 24
+  m_interval: 0.15
+  m_damage: 1
+--- !u!54 &1469795920476170537
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7004828333956922910}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7365386308012006283
 GameObject:
   m_ObjectHideFlags: 0
@@ -833,7 +920,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8606042847436846313}
   - component: {fileID: 6351048888349390966}
-  - component: {fileID: 6091922648830326071}
+  - component: {fileID: 4893593376766412215}
+  - component: {fileID: 6073219292669348609}
   m_Layer: 0
   m_Name: COL Boss Mask Cheek
   m_TagString: Untagged
@@ -878,7 +966,7 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3928127687009157734, guid: cb003999416032f4ab168e307f54f175, type: 3}
---- !u!114 &6091922648830326071
+--- !u!114 &4893593376766412215
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -887,10 +975,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 7505650500095046886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a57f61223c1d4d5bb734044d6ac6ea01, type: 3}
+  m_Script: {fileID: 11500000, guid: b2c3fef7ef294cf7a53316e35c58864c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <PushSpeed>k__BackingField: 24
+  m_interval: 0.15
+  m_damage: 1
+--- !u!54 &6073219292669348609
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7505650500095046886}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &8007261808520492180
 GameObject:
   m_ObjectHideFlags: 0

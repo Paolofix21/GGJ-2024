@@ -216,7 +216,7 @@ namespace Code.EnemySystem.Wakakas {
             _maskAnimator.AnimateDeath();
             OnDeath?.Invoke(this);
 
-            SteamIntegration.Statistics.SteamStatisticsController.Singleton.AdvanceStat(m_enemiesKilledStat, 1);
+            SteamIntegration.Statistics.SteamStatisticsController.Singleton?.AdvanceStat(m_enemiesKilledStat, 1);
         }
         #endregion
     }

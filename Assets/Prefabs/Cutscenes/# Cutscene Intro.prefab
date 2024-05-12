@@ -55,11 +55,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af950c14fa444ca8c0db4d997a1003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colorSets:
-  - {fileID: 11400000, guid: 1d4df92b362f0274d838098f30bf7f3f, type: 2}
-  - {fileID: 11400000, guid: a1bdd2c5e04f1f34689c5ecbacd0cb41, type: 2}
-  - {fileID: 11400000, guid: 959470df52941524fa8b88db632f3264, type: 2}
-  - {fileID: 11400000, guid: 436dbea0b2cf13f47bd522b5efbcba3d, type: 2}
+  m_introVoiceLineEvent: {fileID: 11400000, guid: bad16893a9c410546a2eb2c4c8df9ebf,
+    type: 2}
   m_laughterAnimation:
     serializedVersion: 2
     m_Curve:
@@ -129,14 +126,45 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_laughterClipEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+  m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
+    type: 2}
   m_laughterShapeIndex: 0
+  m_damageAnimationDuration: 0.5
+  m_damageAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_hitSound: {fileID: 0}
+  m_deathScaleAnimation:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_deathPushSound: {fileID: 0}
+  m_deathExplosionSound: {fileID: 0}
+  m_deathParticle: {fileID: 0}
+  m_deathRotationSpeed: 720
 --- !u!137 &1641550681359643202
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -619,7 +647,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4061661087044907308}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.0005660023, y: 0.98079634, z: -0.0028466417, w: 0.19501325}
+  m_LocalRotation: {x: -0.00008694668, y: 0.983338, z: 0.00047032203, w: 0.18178603}
   m_LocalPosition: {x: 2.43, y: 0.26, z: 2.06}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -721,11 +749,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af950c14fa444ca8c0db4d997a1003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colorSets:
-  - {fileID: 11400000, guid: 1d4df92b362f0274d838098f30bf7f3f, type: 2}
-  - {fileID: 11400000, guid: a1bdd2c5e04f1f34689c5ecbacd0cb41, type: 2}
-  - {fileID: 11400000, guid: 959470df52941524fa8b88db632f3264, type: 2}
-  - {fileID: 11400000, guid: 436dbea0b2cf13f47bd522b5efbcba3d, type: 2}
+  m_introVoiceLineEvent: {fileID: 11400000, guid: d8bfd093bd4eebd4ea4c8472e9caccb3,
+    type: 2}
   m_laughterAnimation:
     serializedVersion: 2
     m_Curve:
@@ -795,14 +820,45 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_laughterClipEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+  m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
+    type: 2}
   m_laughterShapeIndex: 0
+  m_damageAnimationDuration: 0.5
+  m_damageAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_hitSound: {fileID: 0}
+  m_deathScaleAnimation:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_deathPushSound: {fileID: 0}
+  m_deathExplosionSound: {fileID: 0}
+  m_deathParticle: {fileID: 0}
+  m_deathRotationSpeed: 720
 --- !u!137 &8638033329163281392
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -889,7 +945,7 @@ Transform:
   m_GameObject: {fileID: 6016421720794274380}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.8, y: 41.44, z: -34.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1052,11 +1108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af950c14fa444ca8c0db4d997a1003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colorSets:
-  - {fileID: 11400000, guid: 1d4df92b362f0274d838098f30bf7f3f, type: 2}
-  - {fileID: 11400000, guid: a1bdd2c5e04f1f34689c5ecbacd0cb41, type: 2}
-  - {fileID: 11400000, guid: 959470df52941524fa8b88db632f3264, type: 2}
-  - {fileID: 11400000, guid: 436dbea0b2cf13f47bd522b5efbcba3d, type: 2}
+  m_introVoiceLineEvent: {fileID: 11400000, guid: d8bfd093bd4eebd4ea4c8472e9caccb3,
+    type: 2}
   m_laughterAnimation:
     serializedVersion: 2
     m_Curve:
@@ -1126,14 +1179,45 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_laughterClipEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+  m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
+    type: 2}
   m_laughterShapeIndex: 0
+  m_damageAnimationDuration: 0.5
+  m_damageAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_hitSound: {fileID: 0}
+  m_deathScaleAnimation:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_deathPushSound: {fileID: 0}
+  m_deathExplosionSound: {fileID: 0}
+  m_deathParticle: {fileID: 0}
+  m_deathRotationSpeed: 720
 --- !u!137 &8922479280105608499
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -1247,11 +1331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78af950c14fa444ca8c0db4d997a1003, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_colorSets:
-  - {fileID: 11400000, guid: 1d4df92b362f0274d838098f30bf7f3f, type: 2}
-  - {fileID: 11400000, guid: a1bdd2c5e04f1f34689c5ecbacd0cb41, type: 2}
-  - {fileID: 11400000, guid: 959470df52941524fa8b88db632f3264, type: 2}
-  - {fileID: 11400000, guid: 436dbea0b2cf13f47bd522b5efbcba3d, type: 2}
+  m_introVoiceLineEvent: {fileID: 11400000, guid: a14e072f0c70ae34f8d42ec89bbe31b7,
+    type: 2}
   m_laughterAnimation:
     serializedVersion: 2
     m_Curve:
@@ -1321,14 +1402,45 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  m_laughterClipEvent:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+  m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
+    type: 2}
   m_laughterShapeIndex: 0
+  m_damageAnimationDuration: 0.5
+  m_damageAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_hitSound: {fileID: 0}
+  m_deathScaleAnimation:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_deathPushSound: {fileID: 0}
+  m_deathExplosionSound: {fileID: 0}
+  m_deathParticle: {fileID: 0}
+  m_deathRotationSpeed: 720
 --- !u!137 &485333794092133369
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0

@@ -8,38 +8,41 @@ using UnityEngine.Rendering.Universal;
 
 namespace Code.Player {
     public class PlayerView : MonoBehaviour {
+        #region Public Variables
         [Header("Sensitivity")]
         [SerializeField] private float sensitivityX = 30;
-
         [SerializeField] private float sensitivityY = 30;
 
         [Header("Rotation Angle")]
-        [SerializeField] private float maxRot;
-
-        [SerializeField] private float minRot;
+        [SerializeField] private float maxRot = 70f;
+        [SerializeField] private float minRot = -70f;
 
         [Header("Bobbing")]
         [SerializeField] private float speed;
-
         [SerializeField] private float amount;
-        private float timer;
 
+        [Space]
         [SerializeField] private GameObject cam;
-        private CinemachineVirtualCamera vcam;
-        private CinemachineTransposer transposer;
-        private CharacterController controller;
-        private Volume globalVolume;
+        #endregion
 
-        private float xrot = 0f;
-        private float yrot = 0f;
+        #region Private Variables
+        private Camera _camera;
+        private Rigidbody _body;
+        private Volume _globalVolume;
 
-        private float defaultY = .7f;
+        private Vector3 _transposer;
+        private float _timer;
+        private float _xrot;
+        private float _yrot;
 
+        private float _defaultY = .7f;
+        #endregion
+
+        #region Behaviour Callbacks
         private void Awake() {
-            vcam = cam.GetComponent<CinemachineVirtualCamera>();
-            transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
-            controller = GetComponent<CharacterController>();
-            globalVolume = FindFirstObjectByType<Volume>();
+            _camera = GetComponent<Camera>();
+            _body = GetComponentInParent<Rigidbody>();
+            _globalVolume = FindFirstObjectByType<Volume>();
         }
 
         private void Start() {
@@ -47,94 +50,66 @@ namespace Code.Player {
             VideoSettingsHelper.MouseSensitivity = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity);
             VideoSettingsHelper.MotionBlurActive = DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur);
 
-            OnSensitivity(VideoSettingsHelper.MouseSensitivity);
-            OnFOV(VideoSettingsHelper.FOV);
-            OnMotionBlur(VideoSettingsHelper.MotionBlurActive);
+            OnSensitivitySetting(VideoSettingsHelper.MouseSensitivity);
+            OnFOVSetting(VideoSettingsHelper.FOV);
+            OnMotionBlurSetting(VideoSettingsHelper.MotionBlurActive);
 
-            SettingsUI.OnSensitivityChanged += OnSensitivity;
-            SettingsUI.OnFOVChanged += OnFOV;
-            SettingsUI.OnMotionBlurChanged += OnMotionBlur;
+            SettingsUI.OnSensitivityChanged += OnSensitivitySetting;
+            SettingsUI.OnFOVChanged += OnFOVSetting;
+            SettingsUI.OnMotionBlurChanged += OnMotionBlurSetting;
         }
 
         private void Update() => DoHeadBobbing();
 
+        private void FixedUpdate() => transform.localRotation = Quaternion.Euler(_xrot, _yrot, 0f);
+
         private void OnDestroy() {
-            SettingsUI.OnSensitivityChanged -= OnSensitivity;
-            SettingsUI.OnFOVChanged -= OnFOV;
-            SettingsUI.OnMotionBlurChanged -= OnMotionBlur;
+            SettingsUI.OnSensitivityChanged -= OnSensitivitySetting;
+            SettingsUI.OnFOVChanged -= OnFOVSetting;
+            SettingsUI.OnMotionBlurChanged -= OnMotionBlurSetting;
         }
-
-        public void GetMousePos(Vector2 input) {
-            float mousex = input.x;
-            float mousey = input.y;
-
-            xrot -= (mousey * Time.deltaTime) * sensitivityY;
-            xrot = Mathf.Clamp(xrot, minRot, maxRot);
-            cam.transform.localRotation = Quaternion.Euler(xrot, 0, 0);
-            cam.transform.Rotate(Vector3.up * (mousex * Time.deltaTime) * sensitivityX);
-
-            yrot += (mousex * Time.deltaTime) * sensitivityX;
-            transform.rotation = Quaternion.Euler(0, yrot, 0);
-        }
-
-        #region Crouching [NOT USED]
-        //public async void ChangeViewHeight(bool _value)
-        //{
-        //    var transposer = vcam.GetCinemachineComponent<CinemachineTransposer>();
-
-        //    var standingView = new Vector3(0, 0.7f, 0.9f); 
-        //    var crouchedView = new Vector3(0, -0.3f, 0.9f);
-
-        //    var _time = 0f;
-
-        //    Vector3 valueToReach;
-        //    Vector3 transposerPos = transposer.m_FollowOffset;
-
-        //    if (_value)
-        //        valueToReach = crouchedView;
-        //    else
-        //        valueToReach = standingView;
-
-        //    while(_time < crouchingTime)
-        //    {
-        //        transposer.m_FollowOffset = Vector3.Lerp(transposerPos, valueToReach, _time / crouchingTime);
-        //        _time += Time.deltaTime;
-        //        await Task.Yield();
-        //    }
-        //}
         #endregion
 
+        public void ApplyMotion(Vector2 input) {
+            var mouseX = input.x;
+            var mouseY = input.y;
+
+            _xrot = Mathf.Clamp(_xrot - mouseY * sensitivityY * .01f, minRot, maxRot);
+            _yrot = Mathf.Repeat(_yrot + mouseX * sensitivityX * .01f, 360f);
+        }
+
+        #region Private Methods
         private void DoHeadBobbing() {
-            var flatVel = controller.velocity;
+            var flatVel = _body.velocity;
             flatVel.y = 0f;
 
             if (flatVel.sqrMagnitude > 0.1f) {
-                timer += Time.deltaTime * speed;
-                transposer.m_FollowOffset = new Vector3(transposer.m_FollowOffset.x, defaultY + Mathf.Sin(timer) * amount, transposer.m_FollowOffset.z);
+                _timer += Time.deltaTime * speed;
+                _transposer = new Vector3(_transposer.x, _defaultY + Mathf.Sin(_timer) * amount, _transposer.z);
             }
             else {
-                timer = 0;
-                transposer.m_FollowOffset = new Vector3(transposer.m_FollowOffset.x, Mathf.Lerp(transposer.m_FollowOffset.y, defaultY, Time.deltaTime * speed), transposer.m_FollowOffset.z);
+                _timer = 0;
+                _transposer = new Vector3(_transposer.x, Mathf.Lerp(_transposer.y, _defaultY, Time.deltaTime * speed), _transposer.z);
             }
-        }
 
-        private void OnSensitivity(int value) {
+            transform.localPosition = _transposer;
+        }
+        #endregion
+
+        #region Event Methods
+        private void OnSensitivitySetting(int value) {
             sensitivityX = value;
             sensitivityY = value;
-            Debug.Log($"sensitivity {value}");
         }
 
-        private void OnFOV(int value) {
-            vcam.m_Lens.FieldOfView = value;
-            Debug.Log($"fov {value}");
-        }
+        private void OnFOVSetting(int value) => _camera.fieldOfView = value;
 
-        private void OnMotionBlur(bool value) {
-            MotionBlur blur;
-            if (globalVolume.profile.TryGet(out blur)) {
-                blur.active = value;
-                Debug.Log($"blur {value}");
-            }
+        private void OnMotionBlurSetting(bool value) {
+            if (!_globalVolume.profile.TryGet(out MotionBlur blur))
+                return;
+
+            blur.active = value;
         }
+        #endregion
     }
 }

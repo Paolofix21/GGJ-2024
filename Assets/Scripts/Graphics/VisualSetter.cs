@@ -5,6 +5,7 @@ namespace Code.Graphics {
     [RequireComponent(typeof(SkinnedMeshRenderer))]
     public class VisualSetter : MonoBehaviour {
         #region Public Variables
+        [SerializeField] private AnimationCurve m_powerRemapping = AnimationCurve.EaseInOut(0f, 1f, 1f, 1f);
         [SerializeField] private AnimationCurve m_glowProgress = AnimationCurve.EaseInOut(0f, 0f, 1f, 0f);
         #endregion
 
@@ -62,7 +63,7 @@ namespace Code.Graphics {
                 return;
 
             _renderer.GetPropertyBlock(_block);
-            _block.SetFloat(MatProp_EmissivePower, power);
+            _block.SetFloat(MatProp_EmissivePower, m_powerRemapping.Evaluate(power));
             _renderer.SetPropertyBlock(_block);
         }
 

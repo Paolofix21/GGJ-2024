@@ -148,6 +148,7 @@ namespace Code.Weapons {
         private void SetEmissionChargeFeedback(WeaponChargeStatus weaponChargeStatus) {
             switch (weaponChargeStatus) {
                 case WeaponEnergyChargeStatus energyWeapon:
+                    Debug.Log(energyWeapon.EnergyAmount);
                     playerController.VisualSetter.SetEmissivePower(Mathf.Clamp01(energyWeapon.EnergyAmount));
                     return;
                 case WeaponCooldownChargeStatus cooldownWeapon:

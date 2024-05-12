@@ -61,7 +61,10 @@ namespace Miscellaneous {
 
         private void OnDisable() => GameEvents.OnPauseStatusChanged -= CheckPause;
 
-        private void OnDestroy() => WaveSystemUI.OnEndWave -= OnWaveChanged;
+        private void OnDestroy() {
+            WaveSystemUI.OnEndWave -= OnWaveChanged;
+            WaveSystemUI.OnEndWave -= OnEndWave;
+        }
 
         private void OnWaveChanged(int waveIndex) {
             GameEvents.SetCutsceneState(true);
@@ -104,7 +107,6 @@ namespace Miscellaneous {
         }
 
         private void OnEndWave(int _) {
-            Debug.Log("Dio Fagiano\n");
             OnIntroStartStop?.Invoke(false);
             GameEvents.SetCutsceneState(false);
         }

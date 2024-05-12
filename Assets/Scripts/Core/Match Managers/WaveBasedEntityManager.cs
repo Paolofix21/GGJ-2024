@@ -20,6 +20,7 @@ namespace Code.Core.MatchManagers {
         private readonly List<SpawnPoint> _pointsOfInterestExtracted = new();
 
         private MajorWaveInfo _currentWave;
+        private WavesCollectionSO _wavesCollection;
         #endregion
 
         #region Behaviour Callbacks
@@ -37,10 +38,11 @@ namespace Code.Core.MatchManagers {
 
         #region Overrides
         public override void Begin() {
-            m_wavesDataPack.Init();
+            _wavesCollection = Instantiate(m_wavesDataPack);
+            _wavesCollection.Init();
 
             OnWaveChanged?.Invoke(0);
-            /*if (m_wavesDataPack.TryGetNextWave(out _currentWave))
+            /*if (_wavesCollection.TryGetNextWave(out _currentWave))
                 SpawnNextWave();*/
         }
 
@@ -52,7 +54,10 @@ namespace Code.Core.MatchManagers {
             Entities.ForeEach(e => e.Disable());
         }
 
-        public override void End() => Entities.ForeEach(e => Destroy(e.Transform.gameObject));
+        public override void End() {
+            Entities.ForeEach(e => Destroy(e.Transform.gameObject));
+            Destroy(_wavesCollection);
+        }
 
         protected override void OnEntitiesCleared() => SpawnNextWave();
         #endregion
@@ -75,10 +80,10 @@ namespace Code.Core.MatchManagers {
             }
 
             // No minor wave has been extracted, the current wave is over
-            if (m_wavesDataPack.TryGetNextWave(out _currentWave)) {
+            if (_wavesCollection.TryGetNextWave(out _currentWave)) {
                 // TODO - Should wait for confirmation before starting next wave?
                 // SpawnNextWave();
-                OnWaveChanged?.Invoke(m_wavesDataPack.GetIndex());
+                OnWaveChanged?.Invoke(_wavesCollection.GetIndex());
                 return;
             }
 
@@ -134,7 +139,7 @@ namespace Code.Core.MatchManagers {
 
             if (_currentWave != null)
                 SpawnNextWave();
-            else if (m_wavesDataPack.TryGetNextWave(out _currentWave))
+            else if (_wavesCollection.TryGetNextWave(out _currentWave))
                 SpawnNextWave();
         }
         #endregion

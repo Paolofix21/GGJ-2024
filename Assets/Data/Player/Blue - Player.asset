@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 151ea4436e434c5fa87f5a48e1596f8f, type: 3}
   m_Name: Blue - Player
   m_EditorClassIdentifier: 
-  <ObjectHue>k__BackingField: 180
+  <ObjectHue>k__BackingField: -145
   <ObjectSaturation>k__BackingField: 2
   <TrailColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+  <EmissionColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}

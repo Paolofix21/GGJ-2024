@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 250ad39f3203483bb9e813f033434f12, type: 3}
-  m_Name: Enemies Killed
+  m_Script: {fileID: 11500000, guid: c42b83ae20964402a16a2510030aec5f, type: 3}
+  m_Name: 0 - Kill 10 Enemies
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: COUNT_ENEMIES_DEFEATED
+  <Id>k__BackingField: DEFEAT_TEN_ENEMIES
   <Type>k__BackingField: 0
+  <LinkedStat>k__BackingField: {fileID: 11400000, guid: c30e198c218508f4da7ccc7a9e2ef3f3,
+    type: 2}
+  <LinkedStatThreshold>k__BackingField: 10

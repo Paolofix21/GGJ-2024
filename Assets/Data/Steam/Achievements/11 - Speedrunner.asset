@@ -10,10 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c42b83ae20964402a16a2510030aec5f, type: 3}
-  m_Name: Kill 50 Enemies
+  m_Name: 11 - Speedrunner
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: DEFEAT_FIFTY_ENEMIES
+  <Id>k__BackingField: SPEED_RUN
   <Type>k__BackingField: 0
-  <LinkedStat>k__BackingField: {fileID: 11400000, guid: c30e198c218508f4da7ccc7a9e2ef3f3,
-    type: 2}
-  <LinkedStatThreshold>k__BackingField: 50
+  <LinkedStat>k__BackingField: {fileID: 0}
+  <LinkedStatThreshold>k__BackingField: 0

@@ -47,3 +47,5 @@ MonoBehaviour:
   m_surviveSceneChanged: 1
   m_statistics:
   - {fileID: 11400000, guid: c30e198c218508f4da7ccc7a9e2ef3f3, type: 2}
+  - {fileID: 11400000, guid: f9dd84d85941a45469f1186eff6878d7, type: 2}
+  - {fileID: 11400000, guid: bff4f8ddd4fa56347b473b811f28201c, type: 2}

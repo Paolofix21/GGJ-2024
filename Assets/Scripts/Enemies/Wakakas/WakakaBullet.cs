@@ -1,4 +1,5 @@
-﻿using Code.Player;
+﻿using Audio;
+using Code.Player;
 using UnityEngine;
 
 namespace Code.EnemySystem.Wakakas {
@@ -7,6 +8,9 @@ namespace Code.EnemySystem.Wakakas {
         #region Public Variables
         [SerializeField] private float m_damage = 1;
         [SerializeField] private float m_lifeTime = 5;
+
+        [Space]
+        [SerializeField] private SoundSO m_impactSound;
         #endregion
 
         #region Private Variables
@@ -22,6 +26,8 @@ namespace Code.EnemySystem.Wakakas {
         private void OnCollisionEnter(Collision other) {
             if (other.gameObject.TryGetComponent(out PlayerHealth health))
                 health.GetDamage(m_damage);
+
+            AudioManager.Singleton.PlayOneShotWorld(m_impactSound.GetSound(), transform.position, MixerType.SoundFx);
             Destroy(gameObject);
         }
         #endregion

@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 6581474621671432627}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.115245916, z: -0, w: 0.99333704}
-  m_LocalPosition: {x: 0.359, y: -0.035, z: 0.429}
+  m_LocalPosition: {x: 0.26, y: -0.035, z: 0.848}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -220,12 +220,14 @@ PrefabInstance:
         type: 3}
       propertyPath: m_laughterClipEvent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: ed7969401be61b54b9dd1dc408d1fd03,
+        type: 2}
     - target: {fileID: 2796595364970240325, guid: 72048a56c21300b4eacccec0234768a8,
         type: 3}
       propertyPath: m_introVoiceLineEvent
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 11400000, guid: d333f1b80ffd9714e9439d1c44887a10,
+        type: 2}
     - target: {fileID: 2796595364970240325, guid: 72048a56c21300b4eacccec0234768a8,
         type: 3}
       propertyPath: m_laughterAnimation.m_Curve.Array.size
@@ -301,10 +303,25 @@ PrefabInstance:
       propertyPath: m_laughterAnimation.m_Curve.Array.data[4].outWeight
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3646512014704624998, guid: 72048a56c21300b4eacccec0234768a8,
+        type: 3}
+      propertyPath: m_chaseSinceStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3646512014704624998, guid: 72048a56c21300b4eacccec0234768a8,
+        type: 3}
+      propertyPath: m_alwaysFaceTarget
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3646512014704624998, guid: 72048a56c21300b4eacccec0234768a8,
+        type: 3}
+      propertyPath: m_characterPredictPosition
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3737516770707925920, guid: 72048a56c21300b4eacccec0234768a8,
         type: 3}
       propertyPath: m_Name
-      value: WakakaTu - Camera Variant
+      value: WakakaTu - Camera
       objectReference: {fileID: 0}
     - target: {fileID: 4730069098011760947, guid: 72048a56c21300b4eacccec0234768a8,
         type: 3}
@@ -356,8 +373,8 @@ MonoBehaviour:
     type: 3}
   m_spawnPoint: {fileID: 1144636857628619316}
   m_fireRate: 1.25
-  m_bulletSpeed: 20
-  m_damage: 30
+  m_bulletSpeed: 26
+  m_damage: 7
 --- !u!4 &2956324523171463656 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 953899476650975197, guid: 72048a56c21300b4eacccec0234768a8,

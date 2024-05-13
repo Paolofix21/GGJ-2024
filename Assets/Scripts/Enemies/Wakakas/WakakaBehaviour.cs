@@ -23,6 +23,9 @@ namespace Code.EnemySystem.Wakakas {
 
         [Space]
         [SerializeField] public float m_detectionDistance = 2f;
+        [SerializeField] public bool m_chaseSinceStart;
+        [SerializeField] public bool m_alwaysFaceTarget;
+        [SerializeField] public bool m_characterPredictPosition;
 
         [Space]
         [SerializeField] public float m_wanderLerpQuickness = 8f;
@@ -69,7 +72,8 @@ namespace Code.EnemySystem.Wakakas {
         private void OnEnable() {
             _body.isKinematic = false;
             _health.enabled = true;
-            _attacker.enabled = true;
+            if (_attacker)
+                _attacker.enabled = true;
         }
 
         private void Start() {
@@ -80,6 +84,9 @@ namespace Code.EnemySystem.Wakakas {
             SetState(WakakaState.Wander);
 
             OnEveryoneChasePlayer += ForceChasePlayer;
+
+            if (m_chaseSinceStart)
+                ForceChasePlayer();
         }
 
         private void FixedUpdate() {
@@ -161,7 +168,15 @@ namespace Code.EnemySystem.Wakakas {
             }
 
             _body.velocity = Vector3.Slerp(_body.velocity, _moveDirection * m_chaseSpeed, Time.deltaTime * m_chaseLerpQuickness);
-            transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * m_chaseLerpQuickness * .5f);
+
+            if (m_alwaysFaceTarget) {
+                if (m_characterPredictPosition && _target.TryGetComponent(out Rigidbody body))
+                    targetPos += body.velocity * Time.deltaTime;
+
+                transform.LookAt(targetPos);
+            }
+            else
+                transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * m_chaseLerpQuickness * .5f);
         }
 
         private void Flee() => _body.velocity = _moveDirection * m_fleeSpeed;
@@ -210,7 +225,8 @@ namespace Code.EnemySystem.Wakakas {
 
             //OnEveryoneChasePlayer?.Invoke();
             Destroy(_collider);
-            Destroy(_attacker.gameObject);
+            if (_attacker)
+                Destroy(_attacker.gameObject);
             SetState(WakakaState.Flee);
 
             _maskAnimator.AnimateDeath();

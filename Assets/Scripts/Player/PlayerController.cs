@@ -40,9 +40,6 @@ namespace Code.Player {
         [SerializeField] private float m_coyoteTime = .15f;
 
         [Space]
-        [SerializeField] private float m_airViscosity = 2f;
-
-        [Space]
         [SerializeField] private float m_padForceMultiplier = 500f;
         [SerializeField] private float m_jumpPadVerticalPredominance = 2f;
 

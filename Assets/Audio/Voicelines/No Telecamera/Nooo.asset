@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd757f024772417fb5c69a3da06e3227, type: 3}
+  m_Name: Nooo
+  m_EditorClassIdentifier: 
+  m_method: 1
+  m_sounds:
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 721fdcd41104bfb4b8e2dacbf65d09f0,
+      type: 3}
+    <Volume>k__BackingField: 1
+  - <Clip>k__BackingField: {fileID: 8300000, guid: 5c86d3f486cc142418a22130e6de01d0,
+      type: 3}
+    <Volume>k__BackingField: 1

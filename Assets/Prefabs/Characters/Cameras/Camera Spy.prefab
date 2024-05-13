@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 6513677955518067746}
   - component: {fileID: 8822536666669856788}
   - component: {fileID: 3566026682623210294}
+  - component: {fileID: 2773283772232721166}
+  - component: {fileID: 7454138292961704007}
   m_Layer: 0
   m_Name: Camera Spy
   m_TagString: Untagged
@@ -69,6 +71,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 10
   m_type: -1
+--- !u!114 &2773283772232721166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499763640864970150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bff62c34b494c6cbaf62af9188daa1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7454138292961704007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499763640864970150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6dd8eb808884c76be41e6addb5dda82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_prefab: {fileID: 6321476690658760305, guid: 750f0a5ed1c106b4e9c5ed93a33d4dbb,
+    type: 3}
 --- !u!1 &5236267879386973053
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,7 +160,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6dfd2c4d1a5c23044a3aca40e85f78a4, type: 2}
+  - {fileID: 2100000, guid: 9ae7b67eb93f8794ea3180a254763e74, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

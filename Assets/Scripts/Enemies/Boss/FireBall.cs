@@ -10,6 +10,7 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private float m_damage;
         [SerializeField] private float m_homingStrength = 0.5f;
         [SerializeField] private float m_lifeTime = 3f;
+        [SerializeField] private bool m_lookAtDirection = true;
         #endregion
 
         #region Private Variables
@@ -27,6 +28,13 @@ namespace Code.EnemySystem.Boss {
                 _health.OnDeath += Die;
 
             Destroy(gameObject, m_lifeTime);
+        }
+
+        private void Update() {
+            if (!m_lookAtDirection)
+                return;
+
+            transform.LookAt(transform.position + _body.velocity.normalized, Vector3.up);
         }
 
         private void FixedUpdate() {

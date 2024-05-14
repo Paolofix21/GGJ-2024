@@ -61,7 +61,7 @@ namespace Code.EnemySystem.Boss {
             if (!other.TryGetComponent(out _playerHealth))
                 return;
 
-            _playerHealth.GetDamage(m_damageOverTime);
+            _playerHealth.DealDamage(m_damageOverTime, gameObject);
             InvokeRepeating(nameof(ApplyDot), m_damageRate, m_damageRate);
         }
 
@@ -86,7 +86,7 @@ namespace Code.EnemySystem.Boss {
             if (GameEvents.IsOnHold || !_playerHealth)
                 return;
 
-            _playerHealth.GetDamage(m_damageOverTime);
+            _playerHealth.DealDamage(m_damageOverTime, gameObject);
         }
         #endregion
     }

@@ -1,6 +1,7 @@
 ﻿using Code.Core.MatchManagers;
 using Code.EnemySystem.Boss;
 using Code.Promises;
+using SteamIntegration.Achievements;
 using UnityEngine;
 using Utilities;
 
@@ -8,6 +9,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBossBehaviour))]
     public class WaveBasedBossEntity : MonoBehaviour, IEntity {
         #region Public Variables
+        [Header("Achievement")]
+        [SerializeField] private SteamAchievementSO m_trueEndingAchievement;
+
         public event System.Action OnSurrender;
         #endregion
 
@@ -45,7 +49,12 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #endregion
 
         #region Event Methods
-        private void Surrender() => OnSurrender?.Invoke();
+        private void Surrender() {
+            if (WaveBasedMatchManager.Singleton.EntityManager.Entities.None())
+                SteamAchievementsController.Singleton?.AdvanceAchievement(m_trueEndingAchievement);
+
+            OnSurrender?.Invoke();
+        }
         #endregion
     }
 }

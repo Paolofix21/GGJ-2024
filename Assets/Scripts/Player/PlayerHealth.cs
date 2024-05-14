@@ -1,72 +1,92 @@
-using System;
 using Audio;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Utilities;
 
 namespace Code.Player {
     public class PlayerHealth : MonoBehaviour {
-        private float maxHealth = 100f;
-        private float currentHealth;
-
+        #region Public Variables
+        [Header("Sounds")]
         [SerializeField] private SoundSO m_playerDeathSound;
         [SerializeField] private SoundSO m_playerDamageSound;
         [SerializeField] private SoundSO m_playerHealSound;
 
-        [Space]
-        [SerializeField] private int healthToAdd;
-        [SerializeField] private int TimeBeforeStartHealing;
-        private int currentTime;
+        [Header("Settings")]
+        [FormerlySerializedAs("healthToAdd")]
+        [SerializeField] private int m_healthToAdd = 2;
+        [FormerlySerializedAs("TimeBeforeStartHealing")]
+        [SerializeField] private int m_timeBeforeStartHealing = 3;
 
-        public event Action<float, float> OnDamageTaken;
-        public event Action<float, float> OnHeal;
-        public event Action OnPlayerDeath;
+        public event System.Action<float, float> OnDamageTaken;
+        public event System.Action<float, float> OnHeal;
+        public event System.Action OnPlayerDeath;
+        #endregion
 
+        #region Private Variables
+        private float _maxHealth = 100f;
+        private float _currentHealth;
+        private int _currentTime;
+        #endregion
+
+        #region Properties
+        public DamageObject DamageObject { get; private set; } = DamageObject.Unknown;
+        #endregion
+
+        #region Behaviour Callbacks
         private void OnEnable() => InvokeRepeating(nameof(CheckHealth), 1, 1);
 
+        private void Start() => _currentHealth = _maxHealth;
+
         private void OnDisable() => CancelInvoke(nameof(CheckHealth));
+        #endregion
 
-        private void Start() => currentHealth = maxHealth;
-
-        public void GetDamage(float _amount) {
+        #region Public Methods
+        public void DealDamage(float amount, GameObject dealer) {
             if (!enabled)
                 return;
 
-            if (currentHealth <= 0)
+            if (_currentHealth <= 0)
                 return;
 
-            currentHealth -= _amount;
-            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
+            DamageObject = DamageObjectHelper.Parse(dealer);
 
-            OnDamageTaken?.Invoke(currentHealth, maxHealth);
+            _currentHealth -= amount;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0f, _maxHealth);
 
-            if (currentHealth <= 0) {
+            OnDamageTaken?.Invoke(_currentHealth, _maxHealth);
+
+            if (_currentHealth <= 0) {
                 OnPlayerDeath?.Invoke();
                 AudioManager.Singleton.PlayOneShotWorldAttached(m_playerDeathSound.GetSound(), gameObject, MixerType.Voice);
             }
             else {
                 AudioManager.Singleton.PlayOneShotWorldAttached(m_playerDamageSound.GetSound(), gameObject, MixerType.Voice);
-                currentTime = TimeBeforeStartHealing;
+                _currentTime = m_timeBeforeStartHealing;
             }
         }
 
+        public void Heal(float amount) {
+            _currentHealth += amount;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0f, _maxHealth);
+
+            OnHeal?.Invoke(_currentHealth, _maxHealth);
+        }
+        #endregion
+
+        #region Private Methods
         private void CheckHealth() {
-            if (currentTime > 0) {
-                currentTime--;
-                if (currentTime == 0)
+            if (_currentTime > 0) {
+                _currentTime--;
+                if (_currentTime == 0)
                     AudioManager.Singleton.PlayOneShotWorldAttached(m_playerHealSound.GetSound(), gameObject, MixerType.Voice);
                 else
                     return;
             }
 
-            if (currentHealth < maxHealth) {
-                Heal(healthToAdd);
+            if (_currentHealth < _maxHealth) {
+                Heal(m_healthToAdd);
             }
         }
-
-        public void Heal(float _amount) {
-            currentHealth += _amount;
-            currentHealth = Mathf.Clamp(currentHealth, 0f, maxHealth);
-
-            OnHeal?.Invoke(currentHealth, maxHealth);
-        }
+        #endregion
     }
 }

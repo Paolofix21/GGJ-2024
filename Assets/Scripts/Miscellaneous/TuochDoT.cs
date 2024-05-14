@@ -32,7 +32,7 @@ namespace Miscellaneous {
 
         #region Private Methods
         private void DamageOverTime() {
-            _health.GetDamage(m_damage);
+            _health.DealDamage(m_damage, gameObject);
             Invoke(nameof(DamageOverTime), m_interval);
         }
         #endregion

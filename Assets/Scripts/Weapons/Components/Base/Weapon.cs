@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -8,6 +7,9 @@ namespace Code.Weapons {
         [field: SerializeField] public WeaponType WeaponType { get; private set; }
         [field: SerializeField] public Ammunition Ammunition { get; private set; }
         public abstract FiringLogicBase FiringLogic { get; protected set; }
+
+        public event System.Action OnCantShoot;
+        public event System.Action Shot;
         #endregion
 
         #region Private Variables
@@ -16,11 +18,8 @@ namespace Code.Weapons {
 
         #region Properties
         public abstract WeaponChargeStatus ChargeStatus { get; }
-        public event Action OnCantShoot;
         #endregion
-        #region Events
-        public event Action Shot;
-        #endregion
+
         #region Behaviour Callbacks
         private void Start() {
             FiringLogic.Init(this);

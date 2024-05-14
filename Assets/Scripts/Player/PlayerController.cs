@@ -8,6 +8,9 @@ using Barbaragno.RuntimePackages.Operations;
 using Code.Core;
 using Izinspector.Runtime.PropertyAttributes;
 using Miscellaneous;
+using SteamIntegration.Achievements;
+using SteamIntegration.Statistics;
+using Utilities;
 
 namespace Code.Player {
     [DefaultExecutionOrder(1)]
@@ -50,6 +53,11 @@ namespace Code.Player {
         [Space(2)]
         [SerializeField] private float jumpCooldown = 1.5f;
 
+        [Header("Achievements")]
+        [SerializeField] private SteamStatisticSO m_mushroomJumpStat;
+        [SerializeField] private SteamStatisticSO m_lavaTimeStat;
+        [SerializeField] private SteamAchievementSO m_deathByTrapezioAchievement;
+
         [Space]
         [SerializeField, Tag] private string lavaLayer;
 
@@ -74,6 +82,7 @@ namespace Code.Player {
 
         private bool _isDead;
         private bool _isInsideLava;
+        private float _timeEnterLava;
 
         private bool _wasGrounded;
         private float _coyoteTime;
@@ -168,18 +177,7 @@ namespace Code.Player {
             if (!other.gameObject.TryGetComponent(out JumpPad jumpPad))
                 return;
 
-            var normal = other.contacts[0].normal;
-            if (normal.y < .5f)
-                return;
-
-            var inputDirection = new Vector3(_playerInput.MoveInput.x, 0f, _playerInput.MoveInput.y);
-            var jumpDirection = _cameraLook.transform.TransformDirection(inputDirection).normalized;
-            jumpDirection += Vector3.up * m_jumpPadVerticalPredominance;
-            jumpDirection.Normalize();
-
-            _body.velocity = Vector3.zero;
-            _body.AddForce(jumpDirection * jumpPad.PushSpeed * m_padForceMultiplier, ForceMode.Impulse);
-            AudioManager.Singleton.PlayOneShotWorld(m_trampulineSound.GetSound(), jumpPad.transform.position, MixerType.SoundFx);
+            MushroomJump(jumpPad, other.contacts[0]);
         }
 
         private void OnTriggerEnter(Collider other) {
@@ -310,6 +308,23 @@ namespace Code.Player {
             AudioManager.Singleton.PlayOneShotWorldAttached(m_jumpSound.GetSound(), gameObject, MixerType.Voice);
         }
 
+        private void MushroomJump(JumpPad jumpPad, ContactPoint point) {
+            var normal = point.normal;
+            if (normal.y < .5f)
+                return;
+
+            var inputDirection = new Vector3(_playerInput.MoveInput.x, 0f, _playerInput.MoveInput.y);
+            var jumpDirection = _cameraLook.transform.TransformDirection(inputDirection).normalized;
+            jumpDirection += Vector3.up * m_jumpPadVerticalPredominance;
+            jumpDirection.Normalize();
+
+            _body.velocity = Vector3.zero;
+            _body.AddForce(jumpDirection * jumpPad.PushSpeed * m_padForceMultiplier, ForceMode.Impulse);
+            AudioManager.Singleton.PlayOneShotWorld(m_trampulineSound.GetSound(), jumpPad.transform.position, MixerType.SoundFx);
+
+            SteamStatisticsController.Singleton?.AdvanceStat(m_mushroomJumpStat, 1);
+        }
+
         private IEnumerator WalkInLava() {
             _isInsideLava = true;
 
@@ -321,7 +336,7 @@ namespace Code.Player {
                     yield return null;
 
                 yield return delayHalf;
-                Health.GetDamage(lavaDamage);
+                Health.DealDamage(lavaDamage, gameObject);
                 yield return delayHalf;
             }
         }
@@ -341,12 +356,16 @@ namespace Code.Player {
             }
         }
 
-        private void EnterLava() => _inLavaCoroutine = StartCoroutine(WalkInLava());
+        private void EnterLava() {
+            _inLavaCoroutine = StartCoroutine(WalkInLava());
+            _timeEnterLava = Time.time;
+        }
 
         private void ExitLava() {
             StopCoroutine(_inLavaCoroutine);
             _isInsideLava = false;
             _currentCooldownValue = 0;
+            SteamStatisticsController.Singleton?.AdvanceStat(m_lavaTimeStat, Time.time - _timeEnterLava);
         }
 
         private void SetWeaponType(int type, int clip) {
@@ -394,6 +413,9 @@ namespace Code.Player {
 
             if (_isInsideLava)
                 ExitLava();
+
+            if (Health.DamageObject == DamageObject.Trapezio)
+                SteamAchievementsController.Singleton?.AdvanceAchievement(m_deathByTrapezioAchievement);
         }
 
         private void InitializeAudio() => _footstepsInstance = AudioManager.Singleton.CreateSource(m_footStepsSound, MixerType.SoundFx, gameObject);

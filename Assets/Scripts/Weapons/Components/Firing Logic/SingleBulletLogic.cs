@@ -68,7 +68,7 @@ namespace Code.Weapons {
                 if (!damageable.GetDamage(ammunition.DamageType))
                     return;
 
-                damageable.ApplyDamage(ammunition.DamageAmount);
+                damageable.ApplyDamage(ammunition.DamageAmount, _weapon.gameObject);
             }
         }
 

@@ -11,6 +11,7 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private float m_homingStrength = 0.5f;
         [SerializeField] private float m_lifeTime = 3f;
         [SerializeField] private bool m_lookAtDirection = true;
+        [field: SerializeField] public bool IsTrapezio { get; private set; }
         #endregion
 
         #region Private Variables
@@ -62,7 +63,7 @@ namespace Code.EnemySystem.Boss {
             if (!other.gameObject.TryGetComponent(out PlayerHealth health))
                 return;
 
-            health.GetDamage(m_damage);
+            health.DealDamage(m_damage, gameObject);
         }
         #endregion
 

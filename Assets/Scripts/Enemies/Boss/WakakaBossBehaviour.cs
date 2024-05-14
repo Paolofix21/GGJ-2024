@@ -3,7 +3,9 @@ using Audio;
 using Code.Core;
 using Code.EnemySystem.Boss.Phases;
 using Code.EnemySystem.Wakakas;
+using SteamIntegration.Achievements;
 using UnityEngine;
+using Utilities;
 
 namespace Code.EnemySystem.Boss {
     [RequireComponent(typeof(WakakaHealth))]
@@ -34,6 +36,10 @@ namespace Code.EnemySystem.Boss {
         [Header("References")]
         [SerializeField] private BossAnimator m_bossAnimator;
         [SerializeField] private Animator m_animator;
+
+        [Header("References")]
+        [SerializeField] private SteamAchievementSO m_defeatBossAchievement;
+        [SerializeField] private SteamAchievementSO m_slapDefeatBossAchievement;
 
         public event System.Action OnBeginFight; 
         public event System.Action OnSurrender; 
@@ -125,6 +131,11 @@ namespace Code.EnemySystem.Boss {
         }
 
         public void Surrender() {
+            SteamAchievementsController.Singleton?.AdvanceAchievement(m_defeatBossAchievement);
+
+            if (Health.DamageObject == DamageObject.Whip)
+                SteamAchievementsController.Singleton?.AdvanceAchievement(m_slapDefeatBossAchievement);
+
             m_bossAnimator.AnimateDeath();
             m_animator.enabled = false;
             Health.enabled = false;

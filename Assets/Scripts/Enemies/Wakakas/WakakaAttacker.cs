@@ -1,5 +1,4 @@
-﻿using Code.Graphics;
-using Code.Player;
+﻿using Code.Player;
 using UnityEngine;
 
 namespace Code.EnemySystem.Wakakas {
@@ -40,7 +39,7 @@ namespace Code.EnemySystem.Wakakas {
         #region Private Methods
         private void DamageTarget() {
             m_maskAnimator.AnimateLaughter();
-            _target.GetDamage(m_dot);
+            _target.DealDamage(m_dot, gameObject);
         }
         #endregion
     }

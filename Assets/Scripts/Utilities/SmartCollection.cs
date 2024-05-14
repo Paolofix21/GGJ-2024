@@ -14,6 +14,10 @@ namespace Code.Utilities {
         private readonly List<T> _list = new();
         #endregion
 
+        #region Properties
+        public int Count => _list.Count;
+        #endregion
+
         #region Public Methods
         public void Add(T element) {
             _list.Add(element);
@@ -52,6 +56,9 @@ namespace Code.Utilities {
         }
 
         public void ForeEach(System.Action<T> action) => _list.ForEach(action);
+
+        public bool Any() => Count > 0;
+        public bool None() => Count <= 0;
         #endregion
     }
 }

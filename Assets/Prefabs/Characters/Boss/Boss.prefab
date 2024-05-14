@@ -482,6 +482,10 @@ MonoBehaviour:
     type: 2}
   m_bossAnimator: {fileID: 6852693291893051115}
   m_animator: {fileID: 756657381810575076}
+  m_defeatBossAchievement: {fileID: 11400000, guid: 00debbe30ea9c944691afff5aa07eea3,
+    type: 2}
+  m_slapDefeatBossAchievement: {fileID: 11400000, guid: f68c90aa9bc4b134893aed70909d8a8c,
+    type: 2}
 --- !u!114 &3887620421628908518
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -68,7 +68,6 @@ MonoBehaviour:
           type: 3}
         m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
-        m_rayThickness: 0.5
         m_boostMultiplier: 1
         m_gizmosEnabled: 0
 --- !u!1 &2176538191775194421
@@ -140,7 +139,6 @@ MonoBehaviour:
           type: 3}
         m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
-        m_rayThickness: 0.5
         m_boostMultiplier: 1
         m_gizmosEnabled: 0
 --- !u!1 &3087453832401542410
@@ -356,6 +354,10 @@ MonoBehaviour:
   lavaDamageDelay: 0.7
   lavaDamage: 6
   jumpCooldown: 0.8
+  m_lavaTimeStat: {fileID: 11400000, guid: bff4f8ddd4fa56347b473b811f28201c, type: 2}
+  m_mushroomJumpStat: {fileID: 11400000, guid: f9dd84d85941a45469f1186eff6878d7, type: 2}
+  m_deathByTrapezioAchievement: {fileID: 11400000, guid: 65fb1ce3c59681c4781d46619e30e188,
+    type: 2}
   lavaLayer: Lava
 --- !u!114 &599590968436143203
 MonoBehaviour:
@@ -373,8 +375,8 @@ MonoBehaviour:
   m_playerDamageSound: {fileID: 11400000, guid: 954ddf1c04e03b44da5648c341808f07,
     type: 2}
   m_playerHealSound: {fileID: 11400000, guid: 9233fcb47a2ecff4ea8775e9d2f19702, type: 2}
-  healthToAdd: 2
-  TimeBeforeStartHealing: 3
+  m_healthToAdd: 2
+  m_timeBeforeStartHealing: 3
 --- !u!114 &9033090158500113743
 MonoBehaviour:
   m_ObjectHideFlags: 0

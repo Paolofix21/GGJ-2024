@@ -25,7 +25,7 @@ namespace Code.EnemySystem.Wakakas {
 
         private void OnCollisionEnter(Collision other) {
             if (other.gameObject.TryGetComponent(out PlayerHealth health))
-                health.GetDamage(m_damage);
+                health.DealDamage(m_damage, gameObject);
 
             AudioManager.Singleton.PlayOneShotWorld(m_impactSound.GetSound(), transform.position, MixerType.SoundFx);
             Destroy(gameObject);

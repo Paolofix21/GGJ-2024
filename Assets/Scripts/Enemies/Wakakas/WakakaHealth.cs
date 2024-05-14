@@ -1,5 +1,6 @@
 ﻿using Code.Weapons;
 using UnityEngine;
+using Utilities;
 
 namespace Code.EnemySystem.Wakakas {
     public class WakakaHealth : MonoBehaviour, IDamageable {
@@ -16,6 +17,10 @@ namespace Code.EnemySystem.Wakakas {
         private float _currentHealth;
         #endregion
 
+        #region Properties
+        public DamageObject DamageObject { get; private set; } = DamageObject.Unknown;
+        #endregion
+
         #region Behaviour Callbacks
         private void Awake() => _currentHealth = m_maxHealth;
 
@@ -29,9 +34,11 @@ namespace Code.EnemySystem.Wakakas {
         #region IDamageable
         public bool GetDamage(DamageType damageType) => enabled && (m_type & damageType) != 0;
 
-        public void ApplyDamage(float amount) {
+        public void ApplyDamage(float amount, GameObject dealer) {
             _currentHealth -= amount;
             OnHealthChanged?.Invoke(_currentHealth / m_maxHealth);
+
+            DamageObject = DamageObjectHelper.Parse(dealer);
 
             if (_currentHealth > 0)
                 return;

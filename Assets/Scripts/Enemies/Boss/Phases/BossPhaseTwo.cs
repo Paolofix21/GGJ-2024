@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.EnemySystem.Boss.Phases {
     [System.Serializable]
-    public class BossPhaseTwo : BossPhaseBase {
+    public class BossPhaseTwo : BossPhaseBase<WakakaBossBehaviour> {
         #region Public Variables
         [SerializeField, Min(0f)] private float m_minAttackDelay = 2f;
         [SerializeField, Min(0.1f)] private float m_maxAttackDelay = 5f;

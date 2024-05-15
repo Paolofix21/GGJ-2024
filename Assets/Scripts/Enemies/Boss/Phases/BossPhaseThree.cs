@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Code.EnemySystem.Boss.Phases {
     [System.Serializable]
-    public class BossPhaseThree : BossPhaseBase {
+    public class BossPhaseThree : BossPhaseBase<WakakaBossBehaviour> {
         #region Public Variables
         [SerializeField, Min(0.1f)] private float m_delayBetweenVoiceLines = 1.5f;
         [SerializeField] private SoundSO m_preAttackVoiceLine;

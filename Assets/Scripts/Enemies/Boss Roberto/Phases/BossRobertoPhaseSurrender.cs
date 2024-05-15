@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Code.EnemySystem.Boss.Phases;
+using UnityEngine;
 
-namespace Code.EnemySystem.Boss.Phases {
+namespace Enemies.BossRoberto.Phases {
     [System.Serializable]
-    public class BossPhaseSurrender : BossPhaseBase<WakakaBossBehaviour> {
+    public class BossRobertoPhaseSurrender : BossPhaseBase<WakakaBossRobertoBehaviour> {
         #region Public Variables
         [SerializeField] private float m_pushForce = 5f;
         [SerializeField] private float m_pushRadius = 30f;
@@ -14,7 +15,6 @@ namespace Code.EnemySystem.Boss.Phases {
             boss.Surrender();
 
             foreach (var body in m_bodies) {
-                // body.transform.SetParent(null, true);
                 body.isKinematic = false;
                 body.AddExplosionForce(m_pushForce, boss.transform.position, m_pushRadius);
             }

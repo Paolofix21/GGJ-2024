@@ -5,19 +5,19 @@ using UnityEngine.Serialization;
 
 namespace Code.EnemySystem.Boss.Phases {
     [System.Serializable]
-    public abstract class BossPhaseBase {
+    public abstract class BossPhaseBase<T> where T : MonoBehaviour {
         #region Public Variables
         [FormerlySerializedAs("onBeginEndPhase")] public UnityEvent<bool> onBeginOrEndPhase;
         #endregion
 
         #region Private Variables
-        protected WakakaBossBehaviour boss;
+        protected T boss;
 
         private bool _interrupt;
         #endregion
 
         #region Constructors
-        public void SetUp(WakakaBossBehaviour bossBehaviour) {
+        public void SetUp(T bossBehaviour) {
             boss = bossBehaviour;
             OnSetup();
         }
@@ -27,6 +27,7 @@ namespace Code.EnemySystem.Boss.Phases {
         public void Begin() {
             Debug.Log($"Begin '{GetType().Name}' phase...\n");
             onBeginOrEndPhase?.Invoke(true);
+            _interrupt = false;
             OnBegin();
         }
 

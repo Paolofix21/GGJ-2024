@@ -3,19 +3,18 @@ using Audio;
 using Code.Core;
 using Code.EnemySystem.Boss.Phases;
 using Code.EnemySystem.Wakakas;
+using Enemies.BossRoberto.Phases;
 using SteamIntegration.Achievements;
 using UnityEngine;
-using Utilities;
 
-namespace Code.EnemySystem.Boss {
+namespace Enemies.BossRoberto {
     [RequireComponent(typeof(WakakaHealth))]
-    public class WakakaBossBehaviour : MonoBehaviour {
-        private enum WakakaBossState {
-            Transitioning = -1,
+    public class WakakaBossRobertoBehaviour : MonoBehaviour {
+        public enum WakakaBossState {
             None,
-            PhaseOne,
-            PhaseTwo,
-            PhaseThree,
+            PhaseIdle,
+            PhaseMove,
+            PhaseFight,
             Surrender
         }
 
@@ -25,47 +24,48 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private bool m_rotationIgnoreY = true;
 
         [Space]
-        [SerializeField] private BossPhaseOne m_phaseOne;
-        [SerializeField] private BossPhaseTwo m_phaseTwo;
-        [SerializeField] private BossPhaseThree m_phaseThree;
-        [SerializeField] private BossPhaseSurrender m_phaseSurrender;
+        [SerializeField] private BossRobertoPhaseIdle m_phaseIdle;
+        [SerializeField] private BossRobertoPhaseMove m_phaseMove;
+        [SerializeField] private BossRobertoPhaseFight m_phaseFight;
+        [SerializeField] private BossRobertoPhaseSurrender m_phaseSurrender;
 
         [Space]
         [SerializeField] private SoundSO m_phaseChangeVoiceLine;
 
         [Header("References")]
-        [SerializeField] private BossAnimator m_bossAnimator;
+        [SerializeField] private BossRobertoAnimator m_bossAnimator;
         [SerializeField] private Animator m_animator;
 
         [Header("References")]
-        [SerializeField] private SteamAchievementSO m_defeatBossAchievement;
-        [SerializeField] private SteamAchievementSO m_slapDefeatBossAchievement;
+        [SerializeField] private SteamAchievementSO m_deadMemeAchievement;
 
-        public event System.Action OnBeginFight; 
-        public event System.Action OnSurrender; 
+        public event System.Action OnBeginFight;
+        public event System.Action OnSurrender;
         #endregion
 
         #region Private Variables
         private Transform _target;
 
         private Coroutine _switchPhaseCoroutine;
+        private Coroutine _moveCoroutine;
 
-        private BossPhaseBase<WakakaBossBehaviour> _currentPhase;
-        private bool _freezeExecution;
+        private BossPhaseBase<WakakaBossRobertoBehaviour> _currentPhase;
+        private bool _freezeExecution = true;
 
         private static readonly int AnimProp_LookAtWeight = Animator.StringToHash("Look At Weight");
         #endregion
 
         #region Properties
         public bool IsSwitchingPhase => _switchPhaseCoroutine != null;
-        public BossAnimator BossAnimator => m_bossAnimator;
+
         public Transform Target => _target;
+        public BossRobertoAnimator BossAnimator => m_bossAnimator;
         public Animator Animator => m_animator;
         public WakakaHealth Health { get; private set; }
 
         public bool Enabled { get; set; }
 
-        private WakakaBossState Phase { get; set; } = WakakaBossState.None;
+        public WakakaBossState Phase { get; set; } = WakakaBossState.None;
         #endregion
 
         #region Behaviour Callbacks
@@ -78,40 +78,27 @@ namespace Code.EnemySystem.Boss {
 
             GameEvents.OnCutsceneStateChanged += HandleCutscene;
 
-            m_phaseOne.SetUp(this);
-            m_phaseTwo.SetUp(this);
-            m_phaseThree.SetUp(this);
+            m_phaseIdle.SetUp(this);
+            m_phaseMove.SetUp(this);
+            m_phaseFight.SetUp(this);
             m_phaseSurrender.SetUp(this);
         }
 
-        private void Start() {
-            _target = GameEvents.MatchManager.GetPlayerEntity().Transform;
-            Health.enabled = false;
-        }
+        private void Start() => Health.enabled = false;
 
         private void Update() {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.F1) && Phase == WakakaBossState.None)
-                SetPhase(WakakaBossState.PhaseOne);
-#endif
-
             if (_freezeExecution)
                 return;
 
-            LookAtPlayer();
+            LookAtTarget();
 
             if (!Enabled)
                 return;
 
-            if (Phase is WakakaBossState.None or WakakaBossState.Transitioning)
+            if (Phase == WakakaBossState.None)
                 return;
 
             _currentPhase?.Execute();
-        }
-
-        private void OnGUI() {
-            _currentPhase?.OnGUI();
-            GUILayout.Label(Phase.ToString());
         }
 
         private void OnDestroy() {
@@ -125,16 +112,16 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Public Methods
-        public void BeginFight() {
-            SetPhase(WakakaBossState.PhaseOne);
+        public void BeginFight(Transform target) {
+            _target = target;
+            _freezeExecution = false;
+
+            SetPhase(WakakaBossState.PhaseMove);
             OnBeginFight?.Invoke();
         }
 
         public void Surrender() {
-            SteamAchievementsController.Singleton?.AdvanceAchievement(m_defeatBossAchievement);
-
-            if (Health.DamageObject == DamageObject.Whip)
-                SteamAchievementsController.Singleton?.AdvanceAchievement(m_slapDefeatBossAchievement);
+            SteamAchievementsController.Singleton?.AdvanceAchievement(m_deadMemeAchievement);
 
             m_bossAnimator.AnimateDeath();
             m_animator.enabled = false;
@@ -146,7 +133,7 @@ namespace Code.EnemySystem.Boss {
         #endregion
 
         #region Private Methods
-        private void LookAtPlayer() {
+        private void LookAtTarget() {
             var dir = _target.position - transform.position;
             if (m_rotationIgnoreY)
                 dir.y = 0;
@@ -157,8 +144,26 @@ namespace Code.EnemySystem.Boss {
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * m_rotateLerpQuickness * lookAtWeight);
         }
 
+        private BossPhaseBase<WakakaBossRobertoBehaviour> GetPhase(WakakaBossState phase) => phase switch {
+            WakakaBossState.PhaseIdle => m_phaseIdle,
+            WakakaBossState.PhaseMove => m_phaseMove,
+            WakakaBossState.PhaseFight => m_phaseFight,
+            WakakaBossState.Surrender => m_phaseSurrender,
+            _ => null
+        };
+
+        public void SetPhase(WakakaBossState phase) {
+            if (Phase == phase)
+                return;
+
+            Phase = phase;
+            _currentPhase?.End();
+            _currentPhase = GetPhase(Phase);
+            _currentPhase?.Begin();
+        }
+
         private IEnumerator SwitchPhaseCO(WakakaBossState phase) {
-            Phase = WakakaBossState.Transitioning;
+            Phase = WakakaBossState.None;
             Health.enabled = false;
 
             _currentPhase?.End();
@@ -180,14 +185,6 @@ namespace Code.EnemySystem.Boss {
             Health.enabled = true;
             _switchPhaseCoroutine = null;
         }
-
-        private BossPhaseBase<WakakaBossBehaviour> GetPhase(WakakaBossState phase) => phase switch {
-            WakakaBossState.PhaseOne => m_phaseOne,
-            WakakaBossState.PhaseTwo => m_phaseTwo,
-            WakakaBossState.PhaseThree => m_phaseThree,
-            WakakaBossState.Surrender => m_phaseSurrender,
-            _ => null
-        };
         #endregion
 
         #region Event Methods
@@ -198,16 +195,13 @@ namespace Code.EnemySystem.Boss {
 
         private void CheckPhase(float health) {
             switch (Phase) {
-                case WakakaBossState.PhaseOne:
-                    if (health <= .66f)
-                        SetPhase(WakakaBossState.PhaseTwo);
-                    break;
-                case WakakaBossState.PhaseTwo:
-                    if (health <= .33f)
-                        SetPhase(WakakaBossState.PhaseThree);
-                    break;
-                case WakakaBossState.PhaseThree:
                 case WakakaBossState.Surrender:
+                    break;
+                case WakakaBossState.PhaseIdle:
+                    break;
+                case WakakaBossState.PhaseMove:
+                    break;
+                case WakakaBossState.PhaseFight:
                     break;
                 case WakakaBossState.None:
                 default:
@@ -215,25 +209,6 @@ namespace Code.EnemySystem.Boss {
             }
         }
         private void Die() => SetPhase(WakakaBossState.Surrender);
-
-        private void SetPhase(WakakaBossState phase) {
-            if (Phase == phase)
-                return;
-
-            if (_switchPhaseCoroutine != null)
-                StopCoroutine(_switchPhaseCoroutine);
-
-            if (phase != WakakaBossState.Surrender) {
-                _switchPhaseCoroutine = StartCoroutine(SwitchPhaseCO(phase));
-                return;
-            }
-
-            Phase = phase;
-            _currentPhase?.End();
-            _currentPhase = GetPhase(Phase);
-            _currentPhase.Begin();
-            _currentPhase.End();
-        }
         #endregion
     }
 }

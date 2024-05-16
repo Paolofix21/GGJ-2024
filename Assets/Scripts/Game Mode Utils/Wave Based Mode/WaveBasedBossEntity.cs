@@ -34,8 +34,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         private void Start() => WaveBasedMatchManager.Singleton.SetBoss(this);
 
-        private void Update() {
 #if UNITY_EDITOR
+        private void Update() {
             if (Input.GetKeyDown(KeyCode.F1) && _controller.Phase == WakakaBossBehaviour.WakakaBossState.None) {
                 Enable();
                 StartFight();
@@ -43,8 +43,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
             if (Input.GetKeyDown(KeyCode.F2) && _controller.Phase != WakakaBossBehaviour.WakakaBossState.None) {
                 _controller.Health.ApplyDamage(Mathf.Infinity, _controller.gameObject);
             }
-#endif
         }
+#endif
 
         private void OnDestroy() => OnDestroyed?.Invoke(this);
         #endregion

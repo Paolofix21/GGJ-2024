@@ -1,4 +1,6 @@
-﻿using Code.Core.MatchManagers;
+﻿using System.Collections.Generic;
+using Code.Core.MatchManagers;
+using Code.EnemySystem.Wakakas;
 using Code.Promises;
 using Enemies.BossRoberto;
 using UnityEngine;
@@ -8,6 +10,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBossRobertoBehaviour))]
     public class WaveBasedBossRobertoEntity : MonoBehaviour, IEntity {
         #region Public Variables
+        [Header("References")]
+        [SerializeField] private List<WakakaDestroyOnDeath> m_cameras = new();
+
         public event System.Action OnSurrender;
         #endregion
 
@@ -26,9 +31,13 @@ namespace Code.GameModeUtils.WaveBasedMode {
             Disable();
         }
 
-        // private void Start() => StartFight();
-        private void Update() {
+        private void Start() {
+            m_cameras.ForEach(c => c.OnTerminate += RefreshCameras);
+            gameObject.SetActive(false);
+        }
+
 #if UNITY_EDITOR
+        private void Update() {
             if (Input.GetKeyDown(KeyCode.F3) && _controller.Phase == WakakaBossRobertoBehaviour.WakakaBossState.None) {
                 Enable();
                 StartFight();
@@ -36,8 +45,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
             if (Input.GetKeyDown(KeyCode.F4) && _controller.Phase != WakakaBossRobertoBehaviour.WakakaBossState.None) {
                 _controller.Health.ApplyDamage(Mathf.Infinity, _controller.gameObject);
             }
-#endif
         }
+#endif
 
         private void OnDestroy() => OnDestroyed?.Invoke(this);
         #endregion
@@ -64,6 +73,25 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         #region Event Methods
         private void Surrender() => OnSurrender?.Invoke();
+
+        private void RefreshCameras(WakakaDestroyOnDeath caller) {
+            m_cameras.Remove(caller);
+
+            if (m_cameras.Count > 0)
+                return;
+
+            if (WaveBasedMatchManager.Singleton.Boss.IsFighting)
+                OnWavesOver();
+            else
+                WaveBasedMatchManager.Singleton.OnWavesEnded += OnWavesOver;
+        }
+
+        private void OnWavesOver() {
+            gameObject.SetActive(true);
+            Enable();
+            StartFight();
+            WaveBasedMatchManager.Singleton.OnWavesEnded -= OnWavesOver;
+        }
         #endregion
     }
 }

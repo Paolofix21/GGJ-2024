@@ -10,9 +10,10 @@ namespace Code.Core.MatchManagers {
         [SerializeField] private bool m_beginOnStart = false;
         [SerializeField] private bool m_stopTimeOnPause = true;
 
-        public event ValueSetEventHandler<WaveBasedPlayerEntity> OnPlayingCharacterChanged; 
-        public event ValueSetEventHandler<WaveBasedBossEntity> OnBossChanged; 
-        public event ValueSetEventHandler<WaveBasedEntityManager> OnEntityManagerChanged; 
+        public event ValueSetEventHandler<WaveBasedPlayerEntity> OnPlayingCharacterChanged;
+        public event ValueSetEventHandler<WaveBasedBossEntity> OnBossChanged;
+        public event ValueSetEventHandler<WaveBasedEntityManager> OnEntityManagerChanged;
+        public event System.Action OnWavesEnded;
         #endregion
 
         #region Properties
@@ -130,6 +131,7 @@ namespace Code.Core.MatchManagers {
             Boss.Enable();
             Boss.StartFight();
             Character.SendMessage("BoostAllWeapons");
+            OnWavesEnded?.Invoke();
         }
 
         private void OnWin() {

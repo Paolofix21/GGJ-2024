@@ -2615,6 +2615,86 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e857721a80ed8a42bfd32921e549320, type: 3}
+--- !u!1001 &1759999067
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1499763640864970150, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_Name
+      value: Camera Spy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -11.04
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.053
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 7.124
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.951741
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.11337088
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.27922186
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.05806393
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 14.373
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 32.349
+      objectReference: {fileID: 0}
+    - target: {fileID: 6513677955518067746, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -2.794
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8d6fa403844babe40b56b8c6bd0f694c, type: 3}
+--- !u!114 &1759999068 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2773283772232721166, guid: 8d6fa403844babe40b56b8c6bd0f694c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1759999067}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bff62c34b494c6cbaf62af9188daa1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1870166884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2978,7 +3058,7 @@ PrefabInstance:
     - target: {fileID: 6820016321955457366, guid: 16cd68ecec26a7e4ab073a56f77e30b9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -27.6
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: 6820016321955457366, guid: 16cd68ecec26a7e4ab073a56f77e30b9,
         type: 3}
@@ -2988,7 +3068,7 @@ PrefabInstance:
     - target: {fileID: 6820016321955457366, guid: 16cd68ecec26a7e4ab073a56f77e30b9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -35.8
+      value: -36
       objectReference: {fileID: 0}
     - target: {fileID: 6820016321955457366, guid: 16cd68ecec26a7e4ab073a56f77e30b9,
         type: 3}
@@ -3046,6 +3126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d47df7a5c654607bbef12d7d61d0d43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_cameras:
+  - {fileID: 1759999068}
 --- !u!1 &8104366194308851387
 GameObject:
   m_ObjectHideFlags: 0
@@ -3180,3 +3262,4 @@ SceneRoots:
   - {fileID: 5893669156315757779}
   - {fileID: 663573909}
   - {fileID: 1196324975}
+  - {fileID: 1759999067}

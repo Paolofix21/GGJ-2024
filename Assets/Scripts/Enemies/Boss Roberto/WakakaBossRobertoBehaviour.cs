@@ -46,7 +46,6 @@ namespace Enemies.BossRoberto {
         #region Private Variables
         private Transform _target;
 
-        private Coroutine _switchPhaseCoroutine;
         private Coroutine _moveCoroutine;
 
         private BossPhaseBase<WakakaBossRobertoBehaviour> _currentPhase;
@@ -56,8 +55,6 @@ namespace Enemies.BossRoberto {
         #endregion
 
         #region Properties
-        public bool IsSwitchingPhase => _switchPhaseCoroutine != null;
-
         public Transform Target => _target;
         public BossRobertoAnimator BossAnimator => m_bossAnimator;
         public Animator Animator => m_animator;
@@ -160,30 +157,6 @@ namespace Enemies.BossRoberto {
             _currentPhase?.End();
             _currentPhase = GetPhase(Phase);
             _currentPhase?.Begin();
-        }
-
-        private IEnumerator SwitchPhaseCO(WakakaBossState phase) {
-            Phase = WakakaBossState.None;
-            Health.enabled = false;
-
-            _currentPhase?.End();
-
-            var animTime = m_bossAnimator.AnimateRecompose();
-            yield return new WaitForSeconds(animTime);
-
-            animTime = m_bossAnimator.AnimateVoiceLineAuto(m_phaseChangeVoiceLine.GetSound());
-            yield return new WaitForSeconds(animTime);
-
-            animTime = m_bossAnimator.AnimateDecompose();
-            yield return new WaitForSeconds(animTime);
-
-            Phase = phase;
-
-            _currentPhase = GetPhase(Phase);
-            _currentPhase?.Begin();
-
-            Health.enabled = true;
-            _switchPhaseCoroutine = null;
         }
         #endregion
 

@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Code.Core;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Serialization;
@@ -61,6 +62,9 @@ namespace Code.EnemySystem.Boss.Phases {
                     _interrupt = false;
                     return;
                 }
+
+                while (GameEvents.IsOnHold)
+                    await Task.Yield();
 
                 t += Time.deltaTime;
                 await Task.Yield();

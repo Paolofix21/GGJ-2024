@@ -13,10 +13,15 @@ namespace Code.GameModeUtils.WaveBasedMode {
         [SerializeField] private SteamAchievementSO m_trueEndingAchievement;
 
         public event System.Action OnSurrender;
+        public event System.Action<bool> OnTriggered;
         #endregion
 
         #region Private Variables
         private WakakaBossBehaviour _controller;
+        #endregion
+
+        #region Properties
+        public bool IsFighting => _controller.Enabled;
         #endregion
 
         #region Behaviour Callbacks
@@ -28,6 +33,18 @@ namespace Code.GameModeUtils.WaveBasedMode {
         }
 
         private void Start() => WaveBasedMatchManager.Singleton.SetBoss(this);
+
+        private void Update() {
+#if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.F1) && _controller.Phase == WakakaBossBehaviour.WakakaBossState.None) {
+                Enable();
+                StartFight();
+            }
+            if (Input.GetKeyDown(KeyCode.F2) && _controller.Phase != WakakaBossBehaviour.WakakaBossState.None) {
+                _controller.Health.ApplyDamage(Mathf.Infinity, _controller.gameObject);
+            }
+#endif
+        }
 
         private void OnDestroy() => OnDestroyed?.Invoke(this);
         #endregion
@@ -45,7 +62,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #endregion
 
         #region Public Methods
-        public void StartFight() => _controller.BeginFight();
+        public void StartFight() {
+            _controller.BeginFight();
+            OnTriggered?.Invoke(true);
+        }
         #endregion
 
         #region Event Methods
@@ -54,6 +74,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
                 SteamAchievementsController.Singleton?.AdvanceAchievement(m_trueEndingAchievement);
 
             OnSurrender?.Invoke();
+            OnTriggered?.Invoke(false);
         }
         #endregion
     }

@@ -12,6 +12,7 @@ namespace Enemies.BossRoberto.Phases {
 
         [Space]
         [SerializeField] private SoundSO m_idleVoiceLine;
+        [SerializeField] private string m_idleVoiceLineAnimName;
         #endregion
 
         #region Private Variables
@@ -40,14 +41,14 @@ namespace Enemies.BossRoberto.Phases {
                     _speakTime = Time.time + boss.BossAnimator.AnimateRecompose();
                     break;
                 case 2:
-                    _speakTime = Time.time + boss.BossAnimator.AnimateVoiceLineAuto(m_idleVoiceLine.GetSound());
+                    _speakTime = Time.time + boss.BossAnimator.AnimateVoiceLine(m_idleVoiceLine.GetSound(), m_idleVoiceLineAnimName);
                     break;
                 case 3:
                     boss.Health.enabled = true;
                     _speakTime = Time.time + Random.Range(m_minWaitTime, m_maxWaitTime);
                     break;
                 case 4:
-                    _speakTime = Time.time + boss.BossAnimator.AnimateDecompose();
+                    // _speakTime = Time.time + boss.BossAnimator.AnimateDecompose();
                     break;
                 case 5:
                     boss.SetPhase(WakakaBossRobertoBehaviour.WakakaBossState.PhaseFight);

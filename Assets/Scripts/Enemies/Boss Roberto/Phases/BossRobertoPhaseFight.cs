@@ -12,6 +12,7 @@ namespace Enemies.BossRoberto.Phases {
 
         [Space]
         [SerializeField] private SoundSO m_attackVoiceLine;
+        [SerializeField] private string m_attackVoiceLineAnimName;
         #endregion
 
         #region Properties
@@ -42,21 +43,21 @@ namespace Enemies.BossRoberto.Phases {
                     // _speakTime = Time.time + boss.BossAnimator.AnimateRecompose();
                     break;
                 case 2:
-                    // _speakTime = Time.time + boss.BossAnimator.AnimateVoiceLineAuto(m_attackVoiceLine.GetSound());
+                    _speakTime = Time.time + boss.BossAnimator.AnimateVoiceLine(m_attackVoiceLine.GetSound(), m_attackVoiceLineAnimName);
                     break;
                 case 3:
-                    boss.Health.enabled = true;
+                    // boss.Health.enabled = true;
+                    _speakTime = Time.time + boss.BossAnimator.AnimateDecompose();
+                    break;
+                case 4:
                     _numOfShots = Random.Range(m_minNumberOfShots, m_maxNumberOfShots + 1);
                     Debug.Log(_numOfShots);
                     _speakTime = Time.time + boss.BossAnimator.AnimateCamerasAttack(_numOfShots * m_delayBetweenShots + 0.15f);
                     _attackCameras.ActivateCameras();
                     Invoke(Shoot, 0.1f);
                     break;
-                case 4:
-                    // _speakTime = Time.time + boss.BossAnimator.AnimateDecompose();
-                    _attackCameras.DeactivateCameras();
-                    break;
                 case 5:
+                    _attackCameras.DeactivateCameras();
                     boss.SetPhase(WakakaBossRobertoBehaviour.WakakaBossState.PhaseMove);
                     break;
                 default:

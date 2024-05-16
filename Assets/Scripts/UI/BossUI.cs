@@ -17,6 +17,7 @@ namespace Code.UI {
 
         #region Private Variables
         private WaveBasedMatchManager _matchManager;
+        private WaveBasedBossEntity _boss;
         private WakakaHealth _health;
         #endregion
 
@@ -59,8 +60,15 @@ namespace Code.UI {
                 _health.OnEnableDisable -= ToggleDamageableState;
             }
 
+            if (_boss)
+                _boss.OnTriggered -= CheckVisible;
+
+            _boss = value;
             _health = value.GetComponent<WakakaHealth>();
             gameObject.SetActive(_health != null);
+
+            if (_boss)
+                _boss.OnTriggered += CheckVisible;
 
             if (!_health)
                 return;
@@ -77,7 +85,7 @@ namespace Code.UI {
 
         private void UpdateLife(float percent) => m_fillBarImage.fillAmount = percent;
 
-        private void CheckVisible(bool _) => gameObject.SetActive(_health.enabled && !GameEvents.IsOnHold);
+        private void CheckVisible(bool _) => gameObject.SetActive((_boss.IsFighting || _health.enabled) && !GameEvents.IsOnHold);
         #endregion
     }
 }

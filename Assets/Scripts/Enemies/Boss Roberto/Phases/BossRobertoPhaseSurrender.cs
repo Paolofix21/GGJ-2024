@@ -18,11 +18,15 @@ namespace Enemies.BossRoberto.Phases {
                 body.isKinematic = false;
                 body.AddExplosionForce(m_pushForce, boss.transform.position, m_pushRadius);
             }
+
+            boss.SetPhase(WakakaBossRobertoBehaviour.WakakaBossState.None);
         }
 
         protected override void OnExecute() { }
 
-        protected override void OnEnd() { }
+        protected override void OnEnd() {
+            Object.Destroy(boss.gameObject, 3f);
+        }
         #endregion
     }
 }

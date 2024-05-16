@@ -45,6 +45,14 @@ namespace Enemies.BossRoberto {
         #region Public Methods
         public float AnimateCamerasAttack(float time) => time;
 
+        public float AnimateVoiceLine(Sound voiceLine, string animName) {
+            StartVoiceLine(voiceLine);
+            _animator.Play(animName, 1);
+            var duration = voiceLine.Clip.length;
+            Invoke(nameof(StopVoiceLine), duration);
+            return duration;
+        }
+
         public float AnimateVoiceLineAuto(Sound voiceLine) {
             StartVoiceLine(voiceLine);
             // _animator.SetBool(AnimProp_IsTalking, true);
@@ -67,7 +75,10 @@ namespace Enemies.BossRoberto {
 
         public void AnimateShieldOnOff(bool off) => m_shieldObject.SetActive(!off);
 
-        public void AnimateDeath() => AudioManager.Singleton.PlayOneShotWorldAttached(m_deathSoundEvent.GetSound(), gameObject, MixerType.Voice);
+        public void AnimateDeath() {
+            var root = transform.Find("Roberto/Root");
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_deathSoundEvent.GetSound(), root.gameObject, MixerType.Voice);
+        }
         #endregion
 
         #region Private Methods

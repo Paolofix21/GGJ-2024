@@ -66,7 +66,7 @@ namespace Code.UI
             m_selectedWeapon.sprite = weaponSprites[i];
         }
 
-        private void CheckWeapon(Weapon weapon) => m_munitions.text = $"{weapon.ChargeStatus.Info}";
+        private void CheckWeapon(Weapon weapon) => m_munitions.text = $"{weapon?.ChargeStatus.Info}";
         #endregion
 
         #region Private Methods

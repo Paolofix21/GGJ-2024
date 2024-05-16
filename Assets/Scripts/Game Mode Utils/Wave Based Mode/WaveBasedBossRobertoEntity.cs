@@ -29,9 +29,12 @@ namespace Code.GameModeUtils.WaveBasedMode {
         // private void Start() => StartFight();
         private void Update() {
 #if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.F2) && _controller.Phase == WakakaBossRobertoBehaviour.WakakaBossState.None) {
+            if (Input.GetKeyDown(KeyCode.F3) && _controller.Phase == WakakaBossRobertoBehaviour.WakakaBossState.None) {
                 Enable();
                 StartFight();
+            }
+            if (Input.GetKeyDown(KeyCode.F4) && _controller.Phase != WakakaBossRobertoBehaviour.WakakaBossState.None) {
+                _controller.Health.ApplyDamage(Mathf.Infinity, _controller.gameObject);
             }
 #endif
         }

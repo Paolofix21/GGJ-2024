@@ -143,7 +143,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1120971498990810963}
   - component: {fileID: 8135226060572390269}
-  - component: {fileID: 1114055722082586836}
   - component: {fileID: 1664488136615136161}
   m_Layer: 0
   m_Name: COL_Roberto_Face
@@ -189,33 +188,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 6187870579458446443, guid: 777bf0cc0cf605446903b513267af854, type: 3}
---- !u!54 &1114055722082586836
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1479575565669839564}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1664488136615136161
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,7 +413,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3467548873040626119}
   - component: {fileID: 7953687439154139608}
-  - component: {fileID: 2934355954331069272}
   - component: {fileID: 7572305275250277740}
   m_Layer: 0
   m_Name: COL_Roberto_Cheeck
@@ -487,33 +458,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 599589660251620122, guid: 777bf0cc0cf605446903b513267af854, type: 3}
---- !u!54 &2934355954331069272
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3768127823093203675}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &7572305275250277740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -629,7 +573,8 @@ MonoBehaviour:
         m_Calls: []
     m_minWaitTime: 1
     m_maxWaitTime: 3
-    m_idleVoiceLine: {fileID: 11400000, guid: d333f1b80ffd9714e9439d1c44887a10, type: 2}
+    m_idleVoiceLine: {fileID: 11400000, guid: 7295a4080607c414599f7f66ee7cf07f, type: 2}
+    m_idleVoiceLineAnimName: Fermato
   m_phaseMove:
     onBeginOrEndPhase:
       m_PersistentCalls:
@@ -672,14 +617,15 @@ MonoBehaviour:
     m_minNumberOfShots: 3
     m_maxNumberOfShots: 5
     m_delayBetweenShots: 0.5
-    m_attackVoiceLine: {fileID: 11400000, guid: d333f1b80ffd9714e9439d1c44887a10,
+    m_attackVoiceLine: {fileID: 11400000, guid: 2742b12ee4357f945b3a87464c889d03,
       type: 2}
+    m_attackVoiceLineAnimName: Nooo Telecamera
   m_phaseSurrender:
     onBeginOrEndPhase:
       m_PersistentCalls:
         m_Calls: []
-    m_pushForce: 125
-    m_pushRadius: 30
+    m_pushForce: 1000
+    m_pushRadius: 1000
     m_bodies:
     - {fileID: 8527390894172951209}
     - {fileID: 4121974104840298833}
@@ -719,7 +665,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5774658837561211914}
   - component: {fileID: 3098568862995317673}
-  - component: {fileID: 841840730779515772}
   - component: {fileID: 1920504982594955437}
   m_Layer: 0
   m_Name: COL_Roberto_Cheeck
@@ -765,33 +710,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 599589660251620122, guid: 777bf0cc0cf605446903b513267af854, type: 3}
---- !u!54 &841840730779515772
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5362877741389978875}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &1920504982594955437
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -935,7 +853,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5003905964852397459}
   - component: {fileID: 2825787906029112892}
-  - component: {fileID: 3730650262103356819}
   - component: {fileID: 6625872813920417108}
   m_Layer: 0
   m_Name: COL_Roberto_Nose
@@ -981,33 +898,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 7663425893943342251, guid: 777bf0cc0cf605446903b513267af854, type: 3}
---- !u!54 &3730650262103356819
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6790786829780295071}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &6625872813920417108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1032,7 +922,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4033081828777745165}
   - component: {fileID: 6825741594212490923}
-  - component: {fileID: 4592608680726606986}
   - component: {fileID: 4504534074064339234}
   m_Layer: 0
   m_Name: COL_Roberto_Mouth
@@ -1078,33 +967,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 3072326166405283768, guid: 777bf0cc0cf605446903b513267af854, type: 3}
---- !u!54 &4592608680726606986
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7891770216002886278}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!114 &4504534074064339234
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,7 +10,7 @@ using Utilities;
 namespace Code.EnemySystem.Boss {
     [RequireComponent(typeof(WakakaHealth))]
     public class WakakaBossBehaviour : MonoBehaviour {
-        private enum WakakaBossState {
+        public enum WakakaBossState {
             Transitioning = -1,
             None,
             PhaseOne,
@@ -41,8 +41,8 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private SteamAchievementSO m_defeatBossAchievement;
         [SerializeField] private SteamAchievementSO m_slapDefeatBossAchievement;
 
-        public event System.Action OnBeginFight; 
-        public event System.Action OnSurrender; 
+        public event System.Action OnBeginFight;
+        public event System.Action OnSurrender;
         #endregion
 
         #region Private Variables
@@ -65,7 +65,7 @@ namespace Code.EnemySystem.Boss {
 
         public bool Enabled { get; set; }
 
-        private WakakaBossState Phase { get; set; } = WakakaBossState.None;
+        public WakakaBossState Phase { get; set; } = WakakaBossState.None;
         #endregion
 
         #region Behaviour Callbacks
@@ -90,11 +90,6 @@ namespace Code.EnemySystem.Boss {
         }
 
         private void Update() {
-#if UNITY_EDITOR
-            if (Input.GetKeyDown(KeyCode.F1) && Phase == WakakaBossState.None)
-                SetPhase(WakakaBossState.PhaseOne);
-#endif
-
             if (_freezeExecution)
                 return;
 

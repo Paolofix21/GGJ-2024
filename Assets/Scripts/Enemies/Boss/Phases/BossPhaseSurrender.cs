@@ -14,7 +14,6 @@ namespace Code.EnemySystem.Boss.Phases {
             boss.Surrender();
 
             foreach (var body in m_bodies) {
-                // body.transform.SetParent(null, true);
                 body.isKinematic = false;
                 body.AddExplosionForce(m_pushForce, boss.transform.position, m_pushRadius);
             }

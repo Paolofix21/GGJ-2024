@@ -6,7 +6,6 @@ namespace Enemies.BossRoberto.Phases {
     [System.Serializable]
     public class BossRobertoPhaseMove : BossPhaseBase<WakakaBossRobertoBehaviour> {
         #region Public Variables
-        [SerializeField] private float m_moveSpeed = 2f;
         [SerializeField] private float m_moveTime = 2f;
         [SerializeField] private AnimationCurve m_moveProgress = AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
         [SerializeField] private List<Transform> m_wayPoints = new();

@@ -55,7 +55,9 @@ namespace Code.EnemySystem.Wakakas {
         private Vector3 _moveDirection;
 
         private System.Action _logic;
+#pragma warning disable CS0067 // Event is never used
         private static event System.Action OnEveryoneChasePlayer;
+#pragma warning restore CS0067 // Event is never used
         #endregion
 
         #region Behaviour Callbacks

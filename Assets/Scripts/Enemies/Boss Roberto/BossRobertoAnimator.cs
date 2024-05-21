@@ -15,7 +15,6 @@ namespace Enemies.BossRoberto {
         [SerializeField] private AnimationClip m_recomposeAnimationClip;
         [SerializeField] private AnimationClip m_decomposeAnimationClip;
 
-        public event System.Action OnShoot;
         public event System.Action<bool> OnStartStopVoiceLine;
         #endregion
 

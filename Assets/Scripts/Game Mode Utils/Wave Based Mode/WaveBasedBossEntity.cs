@@ -18,6 +18,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         #region Private Variables
         private WakakaBossBehaviour _controller;
+
+        private WakakaBossBehaviour.WakakaBossState _lastPhase = WakakaBossBehaviour.WakakaBossState.None;
         #endregion
 
         #region Properties
@@ -27,6 +29,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Behaviour Callbacks
         private void Awake() {
             _controller = GetComponent<WakakaBossBehaviour>();
+            _controller.OnPhaseChange += OnPhaseChange;
             _controller.OnSurrender += Surrender;
 
             Disable();
@@ -69,8 +72,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #endregion
 
         #region Event Methods
+        private void OnPhaseChange(WakakaBossBehaviour.WakakaBossState phase) => _lastPhase = phase;
+
         private void Surrender() {
-            if (WaveBasedMatchManager.Singleton.EntityManager.Entities.None())
+            if (_lastPhase == WakakaBossBehaviour.WakakaBossState.PhaseThree && WaveBasedMatchManager.Singleton.EntityManager.Entities.None())
                 SteamAchievementsController.Singleton?.AdvanceAchievement(m_trueEndingAchievement);
 
             OnSurrender?.Invoke();

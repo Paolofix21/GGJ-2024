@@ -41,6 +41,7 @@ namespace Code.EnemySystem.Boss {
         [SerializeField] private SteamAchievementSO m_defeatBossAchievement;
         [SerializeField] private SteamAchievementSO m_slapDefeatBossAchievement;
 
+        public event System.Action<WakakaBossState> OnPhaseChange;
         public event System.Action OnBeginFight;
         public event System.Action OnSurrender;
         #endregion
@@ -104,10 +105,12 @@ namespace Code.EnemySystem.Boss {
             _currentPhase?.Execute();
         }
 
+#if UNITY_EDITOR
         private void OnGUI() {
             _currentPhase?.OnGUI();
             GUILayout.Label(Phase.ToString());
         }
+#endif
 
         private void OnDestroy() {
             _currentPhase?.End();
@@ -168,6 +171,7 @@ namespace Code.EnemySystem.Boss {
             yield return new WaitForSeconds(animTime);
 
             Phase = phase;
+            OnPhaseChange?.Invoke(Phase);
 
             _currentPhase = GetPhase(Phase);
             _currentPhase?.Begin();

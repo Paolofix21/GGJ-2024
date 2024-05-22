@@ -2210,6 +2210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_text: {fileID: 236638414264090202}
+  m_timeForAchievement: 480
+  m_speedRunAchievement: {fileID: 11400000, guid: fce29d12ec8f2cc4386e3609bc547038,
+    type: 2}
 --- !u!1 &5574585320672767988
 GameObject:
   m_ObjectHideFlags: 0

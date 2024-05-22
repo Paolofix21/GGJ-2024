@@ -14,6 +14,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
         private readonly List<int> _remainingIndices = new();
         #endregion
 
+        #region Properties
+        public int Count => m_entities.Count;
+        #endregion
+
         #region Public Methods
         public void Init() {
             _remainingIndices.Clear();

@@ -1,12 +1,15 @@
 using Code.Core;
 using Code.Core.MatchManagers;
 using Code.Data;
+using SteamIntegration.Achievements;
 using TMPro;
 using UnityEngine;
 
 public class TimerUI : MonoBehaviour {
     #region Public Variables
     [SerializeField] private TMP_Text m_text;
+    [SerializeField, Min(1f)] private float m_timeForAchievement = 480f;
+    [SerializeField] private SteamAchievementSO m_speedRunAchievement;
     #endregion
 
     #region Properties
@@ -60,6 +63,9 @@ public class TimerUI : MonoBehaviour {
 
         if (!didWin)
             return;
+
+        if (_timePassed <= m_timeForAchievement)
+            SteamAchievementsController.Singleton?.AdvanceAchievement(m_speedRunAchievement);
 
         DataManager.GetHighScore(out var highScore);
         Debug.Log(highScore);

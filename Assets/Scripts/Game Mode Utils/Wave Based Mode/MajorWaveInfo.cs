@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Code.EnemySystem;
 using UnityEngine;
 
 namespace Code.GameModeUtils.WaveBasedMode {
@@ -31,6 +30,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
             minorWaveInfo = m_waves[_index];
             return true;
         }
+
+        public int GetRemainingWavesCount() => m_waves.Count - _index;
         #endregion
     }
 }

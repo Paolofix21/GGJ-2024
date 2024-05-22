@@ -11,13 +11,13 @@ namespace Code.Weapons {
 
         #region Private Variables
         private int _currentEnergy = 10;
-        
-        [HideInInspector] public int CurrentEnergy { get { return _currentEnergy; } }
         #endregion
 
         #region Properties
         private readonly WeaponEnergyChargeStatus _chargeStatus = new();
         public override WeaponChargeStatus ChargeStatus => _chargeStatus;
+
+        public int CurrentEnergy => _currentEnergy;
         #endregion
 
         #region Behaviour Callbacks
@@ -30,14 +30,14 @@ namespace Code.Weapons {
         #endregion
 
         #region Overrides
-        public override bool CanShoot()
-        {
+        public override bool CanShoot() {
             if (_currentEnergy >= m_maxEnergy)
                 return true;
 
             CantShoot();
             return false;
         }
+
         protected override void OnShoot() {
             _currentEnergy = 0;
             Refresh();

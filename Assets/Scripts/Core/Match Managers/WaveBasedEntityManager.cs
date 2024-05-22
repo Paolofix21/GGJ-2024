@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Code.GameModeUtils.WaveBasedMode;
 using Code.Promises;
+using SteamIntegration.Achievements;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -10,6 +11,10 @@ namespace Code.Core.MatchManagers {
     public sealed class WaveBasedEntityManager : EntityManager {
         #region Public Variables
         [SerializeField] private WavesCollectionSO m_wavesDataPack;
+        [SerializeField] private float m_killTimeThreshold = .1f;
+
+        [Space]
+        [SerializeField] private SteamAchievementSO m_oneShotOneKillAchievement;
 
         public event System.Action OnFinish;
         public event System.Action<int> OnWaveChanged;
@@ -21,6 +26,10 @@ namespace Code.Core.MatchManagers {
 
         private MajorWaveInfo _currentWave;
         private WavesCollectionSO _wavesCollection;
+
+        private float _lastTimeAdded;
+        private int _simultaneousKills;
+        private int _originalWaveCount;
         #endregion
 
         #region Behaviour Callbacks
@@ -31,9 +40,7 @@ namespace Code.Core.MatchManagers {
 
         private void Start() => WaveBasedMatchManager.Singleton.SetEntityManager(this);
 
-        protected override void OnBeforeDestroy() {
-            GameEvents.OnCutsceneStateChanged -= ResumeWavesAfterCutscene;
-        }
+        protected override void OnBeforeDestroy() => GameEvents.OnCutsceneStateChanged -= ResumeWavesAfterCutscene;
         #endregion
 
         #region Overrides
@@ -42,8 +49,6 @@ namespace Code.Core.MatchManagers {
             _wavesCollection.Init();
 
             OnWaveChanged?.Invoke(0);
-            /*if (_wavesCollection.TryGetNextWave(out _currentWave))
-                SpawnNextWave();*/
         }
 
         public override void Enable() {
@@ -57,6 +62,27 @@ namespace Code.Core.MatchManagers {
         public override void End() {
             Entities.ForeEach(e => Destroy(e.Transform.gameObject));
             Destroy(_wavesCollection);
+        }
+
+        protected override void OnEntityRemoved(IEntity element) {
+            if (Time.unscaledTime - _lastTimeAdded > m_killTimeThreshold)
+                _simultaneousKills = 0;
+            else
+                _simultaneousKills++;
+
+            _lastTimeAdded = Time.unscaledTime;
+
+            if (_simultaneousKills != _originalWaveCount)
+                return;
+
+            if (_wavesCollection.GetRemainingWavesCount() > 0)
+                return;
+
+            if (_currentWave.GetRemainingWavesCount() > 0)
+                return;
+
+            SteamAchievementsController.Singleton?.AdvanceAchievement(m_oneShotOneKillAchievement);
+            Debug.Log($"Unlocked achievement: {m_oneShotOneKillAchievement?.name}\n");
         }
 
         protected override void OnEntitiesCleared() => SpawnNextWave();
@@ -118,6 +144,7 @@ namespace Code.Core.MatchManagers {
             yield return new WaitForSeconds(delay);
 
             var spawnDelay = new WaitForSeconds(minorWaveInfo.SpawnDelay);
+            _originalWaveCount = minorWaveInfo.Count;
 
             while (minorWaveInfo.TryExtraction(out var entity)) {
                 if (GameEvents.IsOnHold)

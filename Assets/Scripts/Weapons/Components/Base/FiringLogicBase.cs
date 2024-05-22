@@ -13,6 +13,8 @@ namespace Code.Weapons {
         [Space]
         [SerializeField] protected Transform m_weaponCamera;
         [SerializeField] protected Transform m_effectOrigin;
+
+        public event System.Action<IDamageable> OnTargetHit;
         #endregion
 
         #region Private Variables
@@ -29,6 +31,7 @@ namespace Code.Weapons {
 
         #region Private Methods
         protected abstract void Effect(Vector3 origin, Vector3 lastPosition);
+        protected void HitTarget(IDamageable damageable) => OnTargetHit?.Invoke(damageable);
         #endregion
     }
 }

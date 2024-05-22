@@ -48,7 +48,6 @@ namespace Code.Weapons {
                     Gizmos.color = Color.green;
                     Debug.Log($"{_weapon.name} - Damageable detected");
                 }
-
             }
         }
         #endregion
@@ -77,6 +76,7 @@ namespace Code.Weapons {
                         return;
 
                     damageable.ApplyDamage(ammunition.DamageAmount, _weapon.gameObject);
+                    HitTarget(damageable);
                 }
             }
         }

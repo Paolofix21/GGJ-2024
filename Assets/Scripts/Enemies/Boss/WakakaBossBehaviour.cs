@@ -102,12 +102,12 @@ namespace Code.EnemySystem.Boss {
 
             _currentPhase?.Execute();
         }
-
+#if UNITY_EDITOR
         private void OnGUI() {
             _currentPhase?.OnGUI();
             GUILayout.Label(Phase.ToString());
         }
-
+#endif
         private void OnDestroy() {
             _currentPhase?.End();
 

@@ -80,6 +80,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
             if (m_cameras.Count > 0)
                 return;
 
+            if (!WaveBasedMatchManager.Singleton)
+                return;
+
             if (WaveBasedMatchManager.Singleton.Boss.IsFighting)
                 OnWavesOver();
             else

@@ -85,6 +85,7 @@ namespace Code.Player {
         private float _timeEnterLava;
 
         private bool _wasGrounded;
+        private bool _didJump;
         private float _coyoteTime;
 
         private Vector3 _vel;
@@ -149,8 +150,12 @@ namespace Code.Player {
 
             IsGrounded = CheckGround();
 
-            if (IsGrounded != _wasGrounded)
-                _coyoteTime = Time.time + m_coyoteTime;
+            if (IsGrounded != _wasGrounded && _wasGrounded) {
+                if (_didJump)
+                    _didJump = false;
+                else
+                    _coyoteTime = Time.time + m_coyoteTime;
+            }
 
             _cameraLook.ApplyMotion(_playerInput.LookInput);
 
@@ -297,8 +302,14 @@ namespace Code.Player {
         }
 
         private void Jump() {
+            if (_didJump)
+                return;
+
             if ((!IsGrounded && _coyoteTime < Time.time) || _currentCooldownValue > 0)
                 return;
+
+            if (IsGrounded)
+                _didJump = true;
 
             var velocity = _body.velocity;
             velocity.y = 0;

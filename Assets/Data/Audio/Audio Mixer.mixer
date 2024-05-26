@@ -173,7 +173,7 @@ AudioMixerController:
   - guid: 04f30bce2b26e0741855a52e37df902d
     name: Volume (Master)
   - guid: 2b11b6cc303f81a489cb08d6f3214c39
-    name: Voume (Music Attenuation)
+    name: Volume (Music Attenuation)
   - guid: 8c1b5558a2603ff428aad133456cbe63
     name: Volume (Music)
   - guid: 0032f282cb46c4b46951dbeb3f2d1e89

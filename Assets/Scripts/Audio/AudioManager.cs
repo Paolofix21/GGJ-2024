@@ -297,10 +297,10 @@ namespace Audio {
 
         private IEnumerator MusicAttenuationFadeCO(float attenuation, float duration = 1f) {
             var par = $"Volume ({m_musicAttenuationMixer.name})";
+            Debug.Log(m_musicAttenuationMixer.name, m_musicAttenuationMixer);
             m_musicAttenuationMixer.audioMixer.GetFloat(par, out var from);
 
-            var musicVol = 1f;
-            var to = 20 * Mathf.Log10(musicVol * attenuation);
+            var to = 20 * Mathf.Log10(attenuation);
 
             var t = 0f;
             while (t < duration) {

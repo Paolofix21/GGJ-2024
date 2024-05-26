@@ -116,6 +116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cffe58769630d4aabef30de5802917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_musicAttenuation: 0.15
+  m_musicAttenuationTime: 1
   resume: {fileID: 6810396072730782315}
   returnMainMenu: {fileID: 5701324542748649484}
   m_loadSettings: {fileID: 1939593197801241494}

@@ -85,7 +85,7 @@ namespace Code.UI {
 
         private void UpdateLife(float percent) => m_fillBarImage.fillAmount = percent;
 
-        private void CheckVisible(bool _) => gameObject.SetActive((_boss.IsFighting || _health.enabled) && !GameEvents.IsOnHold);
+        private void CheckVisible(bool _) => gameObject?.SetActive((_boss.IsFighting || _health.enabled) && !GameEvents.IsOnHold);
         #endregion
     }
 }

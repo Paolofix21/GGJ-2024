@@ -56,3 +56,5 @@ MonoBehaviour:
     type: 2}
   m_voiceMixer: {fileID: -3333874706559304765, guid: ac40557bde273404cbc4923305ce5479,
     type: 2}
+  m_musicAttenuationMixer: {fileID: -353324715041824325, guid: ac40557bde273404cbc4923305ce5479,
+    type: 2}

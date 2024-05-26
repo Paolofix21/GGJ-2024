@@ -58,7 +58,7 @@ namespace Code.UI {
             m_fov.Register(ChangeFieldOfView);
             m_blur.Register(ChangeBlur);
 
-            m_backButton.onClick.AddListener(DestroyThisGO);
+            m_backButton.onClick.AddListener(DestroyThisGo);
         }
 
         private void OnDestroy() {
@@ -72,28 +72,46 @@ namespace Code.UI {
 
         #region Private Methods
         private void LoadValuesFromSettings() {
-            m_general.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.General));
-            m_ambience.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.Ambience));
-            m_music.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.Music));
-            m_sfx.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.SoundEffect));
-            m_ui.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface));
-            m_vo.SetValueSilently(DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine));
+            DataManager.GetVolumeSetting(AudioSettings.BusId.General, out var volSettingGeneral);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.Ambience, out var volSettingAmbience);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.Music, out var volSettingMusic);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.SoundEffect, out var volSettingSfx);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface, out var volSettingUi);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine, out var volSettingVoice);
+
+            m_general.SetValueSilently(volSettingGeneral.Volume);
+            m_ambience.SetValueSilently(volSettingAmbience.Volume);
+            m_music.SetValueSilently(volSettingMusic.Volume);
+            m_sfx.SetValueSilently(volSettingSfx.Volume);
+            m_ui.SetValueSilently(volSettingUi.Volume);
+            m_vo.SetValueSilently(volSettingVoice.Volume);
+
+            m_general.SetMuteSilently(volSettingGeneral.IsMute);
+            m_ambience.SetMuteSilently(volSettingAmbience.IsMute);
+            m_music.SetMuteSilently(volSettingMusic.IsMute);
+            m_sfx.SetMuteSilently(volSettingSfx.IsMute);
+            m_ui.SetMuteSilently(volSettingUi.IsMute);
+            m_vo.SetMuteSilently(volSettingVoice.IsMute);
 
             m_sensitivity.SetValueSilently(DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity));
             m_fov.SetValueSilently(DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.FieldOfView));
             m_blur.SetValueSilently(DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur));
         }
 
-        private void DestroyThisGO() => Destroy(gameObject);
+        private void DestroyThisGo() => Destroy(gameObject);
         #endregion
 
         #region Event Methods
         private void OnVolumeChanged(float volume, AudioSettings.BusId busId) {
-            AudioManager.Singleton.SetVolume(busId, volume);
+            if (!DataManager.GetVolumeSetting(busId).IsMute)
+                AudioManager.Singleton.SetVolume(busId, volume);
             DataManager.UpdateVolumeSetting(busId, volume);
         }
 
-        private void OnMuteChanged(bool isMute, AudioSettings.BusId busId) => AudioManager.Singleton.SetVolume(busId, isMute ? 0f : DataManager.GetVolumeSetting(busId));
+        private void OnMuteChanged(bool isMute, AudioSettings.BusId busId) {
+            AudioManager.Singleton.SetMute(busId, isMute);
+            DataManager.UpdateVolumeSetting(busId, isMute);
+        }
 
         private void ChangeSensitivity(float sens) {
             VideoSettingsHelper.MouseSensitivity = (int)sens;

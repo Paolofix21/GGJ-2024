@@ -27,9 +27,10 @@ namespace Code.Data {
         }
         public static void GetHighScore(out double highScore) => highScore = _data.HighScore;
 
-        public static void UpdateVolumeSetting(AudioSettings.BusId busId, float volume) => _data.Settings.Audio[busId] = volume;
-        public static void GetVolumeSetting(AudioSettings.BusId busId, out float volume) => volume = _data.Settings.Audio[busId];
-        public static float GetVolumeSetting(AudioSettings.BusId busId) => _data.Settings.Audio[busId];
+        public static void UpdateVolumeSetting(AudioSettings.BusId busId, float volume) => _data.Settings.Audio[busId].Volume = volume;
+        public static void UpdateVolumeSetting(AudioSettings.BusId busId, bool mute) => _data.Settings.Audio[busId].IsMute = mute;
+        public static void GetVolumeSetting(AudioSettings.BusId busId, out AudioChannelSetting volume) => volume = _data.Settings.Audio[busId];
+        public static AudioChannelSetting GetVolumeSetting(AudioSettings.BusId busId) => _data.Settings.Audio[busId];
 
         public static void UpdateVideoSetting(VideoSettings.Type type, object value) => _data.Settings.Video[type] = value;
         public static void GetVideoSetting<T>(VideoSettings.Type type, out T volume) => volume = (T)_data.Settings.Video[type];

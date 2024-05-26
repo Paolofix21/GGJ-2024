@@ -21,6 +21,9 @@ namespace Audio {
         [SerializeField] private AudioMixerGroup m_sfxMixer;
         [SerializeField] private AudioMixerGroup m_uiMixer;
         [SerializeField] private AudioMixerGroup m_voiceMixer;
+
+        [Space]
+        [SerializeField] private AudioMixerGroup m_musicAttenuationMixer;
         #endregion
 
         #region Private Variables
@@ -46,7 +49,7 @@ namespace Audio {
             _musicSource.hideFlags = HideFlags.NotEditable;
             _musicSource.playOnAwake = false;
             _musicSource.loop = true;
-            _musicSource.outputAudioMixerGroup = m_musicMixer;
+            _musicSource.outputAudioMixerGroup = m_musicAttenuationMixer;
             _musicSource.Stop();
 
             _ambienceSource = gameObject.AddComponent<AudioSource>();
@@ -61,26 +64,29 @@ namespace Audio {
         }
 
         private void Start() {
-            SetMixerVolume(m_generalMixer, DataManager.GetVolumeSetting(AudioSettings.BusId.General));
-            SetMixerVolume(m_ambienceMixer, DataManager.GetVolumeSetting(AudioSettings.BusId.Ambience));
-            SetMixerVolume(m_musicMixer, DataManager.GetVolumeSetting(AudioSettings.BusId.Music));
-            SetMixerVolume(m_sfxMixer, DataManager.GetVolumeSetting(AudioSettings.BusId.SoundEffect));
-            SetMixerVolume(m_uiMixer, DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface));
-            SetMixerVolume(m_voiceMixer, DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine));
+            DataManager.GetVolumeSetting(AudioSettings.BusId.General, out var volSettingGeneral);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.Ambience, out var volSettingAmbience);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.Music, out var volSettingMusic);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.SoundEffect, out var volSettingSfx);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.UserInterface, out var volSettingUi);
+            DataManager.GetVolumeSetting(AudioSettings.BusId.VoiceLine, out var volSettingVoice);
+
+            SetMixerVolume(m_generalMixer, volSettingGeneral.GetVolume());
+            SetMixerVolume(m_ambienceMixer, volSettingAmbience.GetVolume());
+            SetMixerVolume(m_musicMixer, volSettingMusic.GetVolume());
+            SetMixerVolume(m_sfxMixer, volSettingSfx.GetVolume());
+            SetMixerVolume(m_uiMixer, volSettingUi.GetVolume());
+            SetMixerVolume(m_voiceMixer, volSettingVoice.GetVolume());
         }
         #endregion
 
         private void SetMixerVolume(AudioMixerGroup mixer, float value) {
             // dB = 20*log10(a)
             // a = 10^(dB/20)
-            mixer.audioMixer.SetFloat($"Volume ({mixer.name})", 20 * Mathf.Log10(value));
+            mixer.audioMixer.SetFloat($"Volume ({mixer.name})", 20 * Mathf.Log10(Mathf.Max(value, .001f)));
         }
 
-        private void SetMixerMute(AudioMixerGroup mixer, float value) {
-            // dB = 20*log10(a)
-            // a = 10^(dB/20)
-            mixer.audioMixer.SetFloat($"Volume ({mixer.name})", 20 * Mathf.Log10(value));
-        }
+        private void SetMixerVolumeDirect(AudioMixerGroup mixer, float valueDecibel) => mixer.audioMixer.SetFloat($"Volume ({mixer.name})", valueDecibel);
 
         public void SetVolume(AudioSettings.BusId id, float volume) {
             var mixer = id switch {
@@ -95,7 +101,7 @@ namespace Audio {
             SetMixerVolume(mixer, volume);
         }
 
-        public void MuteVolume(AudioSettings.BusId id, float volume) {
+        public void SetMute(AudioSettings.BusId id, bool mute) {
             var mixer = id switch {
                 AudioSettings.BusId.General => m_generalMixer,
                 AudioSettings.BusId.Ambience => m_ambienceMixer,
@@ -105,7 +111,10 @@ namespace Audio {
                 AudioSettings.BusId.VoiceLine => m_voiceMixer,
                 _ => m_generalMixer
             };
-            SetMixerVolume(mixer, volume);
+            if (mute)
+                SetMixerVolumeDirect(mixer, -80);
+            else
+                SetMixerVolume(mixer, DataManager.GetVolumeSetting(id).Volume);
         }
 
         public void SetListenerState(bool active) {
@@ -255,7 +264,7 @@ namespace Audio {
 
             _tempMusicSource.clip = sound.Clip;
             _tempMusicSource.volume = 0f;
-            _tempMusicSource.outputAudioMixerGroup = m_musicMixer;
+            _tempMusicSource.outputAudioMixerGroup = m_musicAttenuationMixer;
             _tempMusicSource.loop = true;
             _tempMusicSource.Play();
 
@@ -287,16 +296,16 @@ namespace Audio {
         }
 
         private IEnumerator MusicAttenuationFadeCO(float attenuation, float duration = 1f) {
-            var par = $"Volume ({m_musicMixer.name})";
-            m_musicMixer.audioMixer.GetFloat(par, out var from);
+            var par = $"Volume ({m_musicAttenuationMixer.name})";
+            m_musicAttenuationMixer.audioMixer.GetFloat(par, out var from);
 
-            var musicVol = DataManager.GetVolumeSetting(AudioSettings.BusId.Music);
+            var musicVol = 1f;
             var to = 20 * Mathf.Log10(musicVol * attenuation);
 
             var t = 0f;
             while (t < duration) {
                 t += Time.unscaledDeltaTime;
-                m_musicMixer.audioMixer.SetFloat(par, Mathf.Lerp(from, to, t / duration));
+                m_musicAttenuationMixer.audioMixer.SetFloat(par, Mathf.Lerp(from, to, t / duration));
                 yield return null;
             }
 

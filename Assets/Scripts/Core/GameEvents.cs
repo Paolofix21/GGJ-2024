@@ -1,4 +1,5 @@
 ﻿using Code.Promises;
+using UnityEngine;
 using Utilities;
 
 namespace Code.Core {
@@ -36,6 +37,7 @@ namespace Code.Core {
         }
 
         public static void Resume() {
+            Debug.Log("Resuming...\n");
             if (MatchManager == null || MatchManager.IsStopped())
                 return;
 
@@ -47,6 +49,7 @@ namespace Code.Core {
         }
 
         public static void TogglePause() {
+            Debug.Log("Toggling pause\n");
             if (MatchManager == null || MatchManager.IsStopped())
                 return;
 
@@ -60,6 +63,21 @@ namespace Code.Core {
         public static void Lose() => OnEndGame?.Invoke(false);
 
         public static void BeatHighScore(double newHighScore) => OnNewRecordBeaten?.Invoke(newHighScore);
+
+        public static void Purge() {
+            OnPauseStatusChanged = null;
+            OnCutsceneStateChanged = null;
+            OnEndGame = null;
+            OnNewRecordBeaten = null;
+
+            IsPaused = false;
+            OnPauseStatusChanged?.Invoke(IsPaused);
+
+            IsCutscenePlaying = false;
+            OnCutsceneStateChanged?.Invoke(IsCutscenePlaying);
+
+            MatchManager = null;
+        }
         #endregion
     }
 }

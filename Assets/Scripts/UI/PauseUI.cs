@@ -45,12 +45,11 @@ namespace Code.UI {
             Cursor.visible = false;
 
             AudioManager.Singleton?.AttenuateMusic(1f, .25f);
-        }
 
-        private void OnDestroy() {
-            GameEvents.OnPauseStatusChanged -= ToggleShow;
             GameEvents.Resume();
         }
+
+        private void OnDestroy() => GameEvents.OnPauseStatusChanged -= ToggleShow;
         #endregion
 
         #region Public Methods

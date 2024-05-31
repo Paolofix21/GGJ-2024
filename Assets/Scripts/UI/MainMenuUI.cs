@@ -1,5 +1,6 @@
 using System.Collections;
 using Audio;
+using Code.Core;
 using Code.LevelSystem;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,6 +26,8 @@ namespace Code.UI {
 
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
+
+            GameEvents.Purge();
         }
 
         private IEnumerator Start() {

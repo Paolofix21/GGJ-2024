@@ -34,15 +34,16 @@ public class WaveSystemUI : MonoBehaviour
     }
 
     private void OnDestroy() {
-        if(coroutine != null)
-            StopCoroutine(coroutine);
-        // WaveBasedMatchManager.Singleton.EntityManager.OnWaveChanged -= StartNewWave;
+        StopAllCoroutines();
         CutsceneIntroController.OnIntroStartStop -= CheckCutscene;
     }
     #endregion
 
     #region Public Methods
-    public void StartNewWave(int i) => coroutine = StartCoroutine(NewWaveCO(i));
+    public void StartNewWave(int i) {
+        if (this != null) // Avoid ReturnMainMenu error
+            coroutine = StartCoroutine(NewWaveCO(i));
+    }
 
     private IEnumerator NewWaveCO(int i) {
         if(i != 0) {

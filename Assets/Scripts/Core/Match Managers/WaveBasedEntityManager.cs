@@ -40,7 +40,10 @@ namespace Code.Core.MatchManagers {
 
         private void Start() => WaveBasedMatchManager.Singleton.SetEntityManager(this);
 
-        protected override void OnBeforeDestroy() => GameEvents.OnCutsceneStateChanged -= ResumeWavesAfterCutscene;
+        protected override void OnBeforeDestroy() {
+            GameEvents.OnCutsceneStateChanged -= ResumeWavesAfterCutscene;
+            StopAllCoroutines();
+        }
         #endregion
 
         #region Overrides

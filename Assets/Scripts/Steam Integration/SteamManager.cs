@@ -2,6 +2,7 @@
 using SteamIntegration.Account;
 using SteamIntegration.Achievements;
 using SteamIntegration.Statistics;
+using SteamIntegration.Leaderboard;
 using Steamworks;
 using UnityEditor;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace SteamIntegration {
         #region Constants
         private const string k_achievementsControllerResourcePath = "Managers/# Steam Achievements Controller";
         private const string k_statisticsControllerResourcePath = "Managers/# Steam Statistics Controller";
+        private const string k_leaderboardControllerResourcePath = "Managers/# Steam Leaderboards Controller";
         #endregion
 
         #region Properties
@@ -80,6 +82,7 @@ namespace SteamIntegration {
 
             Instantiate(Resources.Load<SteamStatisticsController>(k_statisticsControllerResourcePath));
             Instantiate(Resources.Load<SteamAchievementsController>(k_achievementsControllerResourcePath));
+            Instantiate(Resources.Load<SteamLeaderboardController>(k_leaderboardControllerResourcePath));
         }
 
         private void Update() {

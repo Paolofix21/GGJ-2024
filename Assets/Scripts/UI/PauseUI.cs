@@ -45,7 +45,7 @@ namespace Code.UI {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
-            AudioManager.Singleton.AttenuateMusic(1f, .25f);
+            AudioManager.Singleton?.AttenuateMusic(1f, .25f);
         }
 
         private void OnDestroy() {

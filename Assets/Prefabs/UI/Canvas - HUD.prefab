@@ -641,7 +641,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3240798019086029684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1051,8 +1051,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -105, y: 0}
-  m_SizeDelta: {x: 150, y: 50}
+  m_AnchoredPosition: {x: -175, y: 0}
+  m_SizeDelta: {x: 290, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &639396031308222111
 CanvasRenderer:
@@ -1842,6 +1842,7 @@ MonoBehaviour:
   m_hideOnCutsceneOnly:
   - {fileID: 5437468719071659404}
   - {fileID: 3516685667725190607}
+  - {fileID: 8639688235138483187}
   m_hideAlways:
   - {fileID: 3300641347748988865}
   - {fileID: 8782483660090564326}
@@ -2094,7 +2095,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -120, y: -200}
+  m_AnchoredPosition: {x: -120, y: -139}
   m_SizeDelta: {x: 240, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5407435248730784189
@@ -2830,6 +2831,8 @@ GameObject:
   - component: {fileID: 4378717957925898350}
   - component: {fileID: 4673185334792645694}
   - component: {fileID: 8619071506572897851}
+  - component: {fileID: 545785585806711323}
+  - component: {fileID: 7898250757127672485}
   m_Layer: 5
   m_Name: Image - Esc Background
   m_TagString: Untagged
@@ -2854,7 +2857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 1, y: -100}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 656, y: 72}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &4673185334792645694
@@ -2895,6 +2898,40 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!225 &545785585806711323
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8639688235138483187}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!95 &7898250757127672485
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8639688235138483187}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 393b78b35cf45c44ea94a93b64cd1dc0, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8782483660090564326
 GameObject:
   m_ObjectHideFlags: 0
@@ -3377,12 +3414,12 @@ PrefabInstance:
     - target: {fileID: 772042693171486757, guid: 48213da55ab74e442aaddac982e772cc,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 72
+      value: 46.7554
       objectReference: {fileID: 0}
     - target: {fileID: 772042693171486757, guid: 48213da55ab74e442aaddac982e772cc,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 72
+      value: 45.4267
       objectReference: {fileID: 0}
     - target: {fileID: 772042693171486757, guid: 48213da55ab74e442aaddac982e772cc,
         type: 3}
@@ -3453,12 +3490,12 @@ PrefabInstance:
     - target: {fileID: 3379497418825634750, guid: 48213da55ab74e442aaddac982e772cc,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 3.4
+      value: -7.7
       objectReference: {fileID: 0}
     - target: {fileID: 3379497418825634750, guid: 48213da55ab74e442aaddac982e772cc,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -15
+      value: -3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5525639212929953028, guid: 48213da55ab74e442aaddac982e772cc,
         type: 3}

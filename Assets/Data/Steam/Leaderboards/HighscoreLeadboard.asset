@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 151ea4436e434c5fa87f5a48e1596f8f, type: 3}
-  m_Name: Blue - Player
+  m_Script: {fileID: 11500000, guid: a4a246cc5c6245947a5842bcc01cdf3a, type: 3}
+  m_Name: HighscoreLeadboard
   m_EditorClassIdentifier: 
-  <ObjectHue>k__BackingField: -145
-  <ObjectSaturation>k__BackingField: 2
-  <TrailColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
-  <EmissionColor>k__BackingField: {r: 1, g: 1, b: 1, a: 1}
+  <Id>k__BackingField: HIGH_SCORE

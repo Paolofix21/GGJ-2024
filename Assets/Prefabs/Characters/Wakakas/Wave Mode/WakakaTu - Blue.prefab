@@ -104,7 +104,7 @@ PrefabInstance:
     - target: {fileID: 4886525899816974022, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}
       propertyPath: m_dot
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 4886525899816974022, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}

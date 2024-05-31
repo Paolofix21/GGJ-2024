@@ -341,7 +341,7 @@ MonoBehaviour:
   m_trampulineSound: {fileID: 11400000, guid: a52e9ba158e43dd47812a5d03c76acc9, type: 2}
   airborneSpeed: 120
   lavaSpeed: 60
-  speed: 160
+  speed: 130
   jumpForce: 25
   m_groundNormalThresholdY: 0.35
   m_dragGrounded: 10
@@ -350,9 +350,9 @@ MonoBehaviour:
   m_coyoteTime: 0.15
   m_padForceMultiplier: 140
   m_jumpPadVerticalPredominance: 2.5
-  lavaJumpForce: 50
+  lavaJumpForce: 40
   lavaDamageDelay: 0.7
-  lavaDamage: 6
+  lavaDamage: 7
   jumpCooldown: 0.8
   m_lavaTimeStat: {fileID: 11400000, guid: bff4f8ddd4fa56347b473b811f28201c, type: 2}
   m_mushroomJumpStat: {fileID: 11400000, guid: f9dd84d85941a45469f1186eff6878d7, type: 2}

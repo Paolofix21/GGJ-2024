@@ -69,7 +69,6 @@ MonoBehaviour:
         m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
         m_boostMultiplier: 1
-        m_gizmosEnabled: 0
 --- !u!1 &2176538191775194421
 GameObject:
   m_ObjectHideFlags: 0
@@ -140,7 +139,6 @@ MonoBehaviour:
         m_hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
         m_boostMultiplier: 1
-        m_gizmosEnabled: 0
 --- !u!1 &3087453832401542410
 GameObject:
   m_ObjectHideFlags: 0
@@ -239,8 +237,10 @@ MonoBehaviour:
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
         m_radius: 2
-        m_boostMultiplier: 3
-        m_gizmosEnabled: 0
+        m_boostMultiplier: 2
+        m_targetLayers:
+          serializedVersion: 2
+          m_Bits: 2049
 --- !u!1 &6510461128044869446
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,8 +354,8 @@ MonoBehaviour:
   lavaDamageDelay: 0.7
   lavaDamage: 7
   jumpCooldown: 0.8
-  m_lavaTimeStat: {fileID: 11400000, guid: bff4f8ddd4fa56347b473b811f28201c, type: 2}
   m_mushroomJumpStat: {fileID: 11400000, guid: f9dd84d85941a45469f1186eff6878d7, type: 2}
+  m_lavaTimeStat: {fileID: 11400000, guid: bff4f8ddd4fa56347b473b811f28201c, type: 2}
   m_deathByTrapezioAchievement: {fileID: 11400000, guid: 65fb1ce3c59681c4781d46619e30e188,
     type: 2}
   lavaLayer: Lava
@@ -814,8 +814,10 @@ MonoBehaviour:
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
         m_radius: 8
-        m_boostMultiplier: 1
-        m_gizmosEnabled: 0
+        m_boostMultiplier: 1.2
+        m_targetLayers:
+          serializedVersion: 2
+          m_Bits: 2049
 --- !u!1 &8622749203894034788
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,7 +890,6 @@ MonoBehaviour:
         m_boostMultiplier: 1
         radius: 0.2
         interestedPoints: 7
-        gizmosEnabled: 0
 --- !u!1001 &3756361854172432236
 PrefabInstance:
   m_ObjectHideFlags: 0

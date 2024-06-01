@@ -48,6 +48,7 @@ namespace Code.EnemySystem.Boss {
 
         #region Private Variables
         private Transform _target;
+        private float _trackingWeight = 1f;
 
         private Coroutine _switchPhaseCoroutine;
 
@@ -141,6 +142,8 @@ namespace Code.EnemySystem.Boss {
             m_bossAnimator.AnimateShieldOnOff(true);
             OnSurrender?.Invoke();
         }
+
+        public void SetTrackingWeight(float weight) => _trackingWeight = weight;
         #endregion
 
         #region Private Methods
@@ -150,9 +153,10 @@ namespace Code.EnemySystem.Boss {
                 dir.y = 0;
             dir.Normalize();
 
-            var lookAtWeight = Animator.GetFloat(AnimProp_LookAtWeight);
+            var animatedLookAtWeight = Animator.GetFloat(AnimProp_LookAtWeight);
+            var totalLookAtWeight = animatedLookAtWeight * m_rotateLerpQuickness * _trackingWeight;
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * m_rotateLerpQuickness * lookAtWeight);
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(dir), Time.deltaTime * totalLookAtWeight);
         }
 
         private IEnumerator SwitchPhaseCO(WakakaBossState phase) {

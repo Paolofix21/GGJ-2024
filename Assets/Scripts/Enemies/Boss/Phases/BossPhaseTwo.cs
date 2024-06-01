@@ -8,7 +8,10 @@ namespace Code.EnemySystem.Boss.Phases {
         [SerializeField, Min(0f)] private float m_minAttackDelay = 2f;
         [SerializeField, Min(0.1f)] private float m_maxAttackDelay = 5f;
         [SerializeField, Min(1f)] private float m_duration = 4f;
-      
+
+        [Space]
+        [SerializeField, Range(0f, 1f)] private float m_bossTrackingMultiplier = 0.5f;
+
         [Space]
         [SerializeField] private SoundSO m_attackVoiceLine;
         #endregion
@@ -51,9 +54,11 @@ namespace Code.EnemySystem.Boss.Phases {
                     break;
                 case 4:
                     _speakTime = Time.time + boss.BossAnimator.AnimateLaserBeamAttack(m_duration);
+                    boss.SetTrackingWeight(m_bossTrackingMultiplier);
                     break;
                 case 5:
                     _speakTime = Time.time + Random.Range(m_minAttackDelay, m_maxAttackDelay);
+                    boss.SetTrackingWeight(1f);
                     break;
                 case 6:
                     GoAgain();
@@ -65,6 +70,7 @@ namespace Code.EnemySystem.Boss.Phases {
             CancelInvoke();
             boss.BossAnimator.OnShoot -= Shoot;
             boss.BossAnimator.CancelVoiceLine();
+            boss.SetTrackingWeight(1f);
         }
         #endregion
 

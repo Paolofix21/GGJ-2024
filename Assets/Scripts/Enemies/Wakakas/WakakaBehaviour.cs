@@ -235,6 +235,7 @@ namespace Code.EnemySystem.Wakakas {
             OnDeath?.Invoke(this);
 
             SteamIntegration.Statistics.SteamStatisticsController.Singleton?.AdvanceStat(m_enemiesKilledStat, 1);
+            SteamIntegration.Statistics.SteamStatisticsController.Singleton?.PushStats();
         }
         #endregion
     }

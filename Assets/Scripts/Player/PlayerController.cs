@@ -334,6 +334,7 @@ namespace Code.Player {
             AudioManager.Singleton.PlayOneShotWorld(m_trampulineSound.GetSound(), jumpPad.transform.position, MixerType.SoundFx);
 
             SteamStatisticsController.Singleton?.AdvanceStat(m_mushroomJumpStat, 1);
+            SteamStatisticsController.Singleton?.PushStats();
         }
 
         private IEnumerator WalkInLava() {
@@ -377,6 +378,7 @@ namespace Code.Player {
             _isInsideLava = false;
             _currentCooldownValue = 0;
             SteamStatisticsController.Singleton?.AdvanceStat(m_lavaTimeStat, Time.time - _timeEnterLava);
+            SteamStatisticsController.Singleton?.PushStats();
         }
 
         private void SetWeaponType(int type, int clip) {

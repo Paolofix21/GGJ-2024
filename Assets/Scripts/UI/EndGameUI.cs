@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
+using SteamIntegration.Leaderboard;
 
 public class EndGameUI : MonoBehaviour {
     #region Public Variables
@@ -29,11 +30,17 @@ public class EndGameUI : MonoBehaviour {
     [SerializeField] private TMP_Text m_title;
     [SerializeField] private TMP_Text m_titleGlow;
     [SerializeField] private TMP_Text m_hintToDisplay;
+    [SerializeField] private TMP_Text m_pointsToDisplay;
 
     [Space]
     [SerializeField] private Button m_simpleButton;
     [SerializeField] private Button m_highlightButton;
     [SerializeField] private Button m_quitButton;
+    
+    [Header("Leaderboard")]
+    [Space]
+    [SerializeField] private double m_minimumCentsOfSeconds;
+    [SerializeField] private SteamLeaderboardSO m_leaderboard;
     #endregion
 
     #region Behaviour Callbacks
@@ -61,7 +68,7 @@ public class EndGameUI : MonoBehaviour {
         m_title.color = m_titleColorVictory;
         m_titleGlow.color = new Color(m_titleColorVictory.r, m_titleColorVictory.g, m_titleColorVictory.b, 1f);
         m_title.text = m_titleGlow.text = m_victoryText;
-
+        m_pointsToDisplay.gameObject.SetActive(true);
         m_simpleButton.gameObject.SetActive(false);
 
         m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
@@ -77,6 +84,7 @@ public class EndGameUI : MonoBehaviour {
         m_title.color = m_titleColorGameOver;
         m_titleGlow.color = new Color(m_titleColorGameOver.r, m_titleColorGameOver.g, m_titleColorGameOver.b, 1f);
         m_title.text = m_titleGlow.text = m_loseText;
+        m_pointsToDisplay.gameObject.SetActive(false);
 
         m_simpleButton.gameObject.SetActive(true);
         m_simpleButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
@@ -114,11 +122,24 @@ public class EndGameUI : MonoBehaviour {
         m_highlightButton.interactable = false;
         SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
     }
-
     private void OnHighScore(double timeSeconds) {
         var time = System.TimeSpan.FromSeconds(timeSeconds);
+        var points = CalculatePoints(time);
+        m_pointsToDisplay.SetText($"Points:{points}");
+        SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)points);
         var timeString = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
         m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);
+    }
+    private double CalculatePoints(System.TimeSpan seconds)
+    {
+        var milliseconds = seconds.TotalMilliseconds;
+        var centsOfSeconds = milliseconds / 10;
+        if(centsOfSeconds < m_minimumCentsOfSeconds)
+        {
+            var points = m_minimumCentsOfSeconds - centsOfSeconds;
+            return points;
+        }
+        return 0;
     }
     #endregion
 }

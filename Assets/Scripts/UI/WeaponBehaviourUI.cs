@@ -74,8 +74,7 @@ namespace Code.UI
             await Task.Yield();
             if (!this) // Safeguard for errors
                 return;
-
-            m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 10.0f;
+            m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 20.0f;
         }
         #endregion
 

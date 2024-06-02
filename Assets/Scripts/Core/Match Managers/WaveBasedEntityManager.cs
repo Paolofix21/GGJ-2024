@@ -139,7 +139,11 @@ namespace Code.Core.MatchManagers {
             _pointsOfInterestExtracted.Add(poi);
         }
 
-        private void SpawnAllEntities(MinorWaveInfoSO minorWaveInfo, float delay) => StartCoroutine(SpawnAllEntitiesCO(minorWaveInfo, delay));
+        private void SpawnAllEntities(MinorWaveInfoSO minorWaveInfo, float delay) {
+            if (this != null)
+                StartCoroutine(SpawnAllEntitiesCO(minorWaveInfo, delay));
+        }
+
         private IEnumerator SpawnAllEntitiesCO(MinorWaveInfoSO minorWaveInfo, float delay) {
             _pointsOfInterest.ForEach(poi => poi.AnimatePortal(true));
             _pointsOfInterestExtracted.ForEach(poi => poi.AnimatePortal(true));

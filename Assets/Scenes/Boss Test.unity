@@ -1119,6 +1119,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_wavesDataPack: {fileID: 11400000, guid: 71891ed39d4d3944db81dee40d5c846a, type: 2}
+  m_killTimeThreshold: 0.1
+  m_oneShotOneKillAchievement: {fileID: 0}
 --- !u!4 &434307394
 Transform:
   m_ObjectHideFlags: 0
@@ -3216,6 +3218,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3887620421628908518, guid: 09b20aac324e19d46b36e1d31bbf7637,
+        type: 3}
+      propertyPath: m_maxHealth
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 4616929323459528673, guid: 09b20aac324e19d46b36e1d31bbf7637,
         type: 3}

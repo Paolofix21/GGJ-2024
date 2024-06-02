@@ -73,6 +73,7 @@ namespace Code.Weapons {
         #endregion
 
         #region Public Methods
+        // Used by "WaveBasedMatchManager"
         [UsedImplicitly]
         public void BoostAllWeapons() => weapons.ForEach(w => w.Boost());
         #endregion

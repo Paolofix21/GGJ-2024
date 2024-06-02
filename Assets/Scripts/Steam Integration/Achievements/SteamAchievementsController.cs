@@ -14,8 +14,11 @@ namespace SteamIntegration.Achievements {
         #region Overrides
         protected override void OnAfterAwake() {
             SteamStatisticsController.OnStatisticChanged += OnStatChanged;
+
+#if UNITY_EDITOR
             if (SteamUserStats.GetAchievement("DEFEAT_TEN_ENEMIES", out var unlocked))
                 Debug.Log($"DEFEAT_TEN_ENEMIES: {unlocked}");
+#endif
         }
 
         protected override void OnBeforeDestroy() => SteamStatisticsController.OnStatisticChanged -= OnStatChanged;

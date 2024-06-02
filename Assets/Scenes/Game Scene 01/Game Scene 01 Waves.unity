@@ -187,16 +187,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 6649242715459608422, guid: dbed14a1dbcccd34e82ce57ea9210935,
-        type: 3}
-      propertyPath: m_cooldownDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6649242715459608422, guid: dbed14a1dbcccd34e82ce57ea9210935,
-        type: 3}
-      propertyPath: <Ammunition>k__BackingField.<DamageAmount>k__BackingField
-      value: 45
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1707,6 +1697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_wavesDataPack: {fileID: 11400000, guid: 7b819134ac60a6f49be1620ccd8bb402, type: 2}
+  m_killTimeThreshold: 0.1
+  m_oneShotOneKillAchievement: {fileID: 0}
 --- !u!4 &1321224342
 Transform:
   m_ObjectHideFlags: 0

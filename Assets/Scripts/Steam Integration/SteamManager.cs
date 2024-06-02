@@ -13,6 +13,8 @@ namespace SteamIntegration {
         private const string k_achievementsControllerResourcePath = "Managers/# Steam Achievements Controller";
         private const string k_statisticsControllerResourcePath = "Managers/# Steam Statistics Controller";
         private const string k_leaderboardControllerResourcePath = "Managers/# Steam Leaderboards Controller";
+
+        private const string k_steamUiResourcePath = "Canvas - Steam";
         #endregion
 
         #region Properties
@@ -83,6 +85,8 @@ namespace SteamIntegration {
             Instantiate(Resources.Load<SteamStatisticsController>(k_statisticsControllerResourcePath));
             Instantiate(Resources.Load<SteamAchievementsController>(k_achievementsControllerResourcePath));
             Instantiate(Resources.Load<SteamLeaderboardController>(k_leaderboardControllerResourcePath));
+
+            Instantiate(Resources.Load<GameObject>(k_steamUiResourcePath));
         }
 
         private void Update() {

@@ -8,37 +8,7 @@ namespace Code.Weapons {
         [Header("Settings")]
         [SerializeField] private float m_radius;
         [SerializeField] private float m_boostMultiplier = 3f;
-
-        [Header("Gizmos")]
-        [SerializeField] private bool m_gizmosEnabled;
-        #endregion
-
-        #region Behaviour Callbacks
-        private void OnDrawGizmos() {
-            if (!m_gizmosEnabled)
-                return;
-
-            var halfReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
-
-            Gizmos.DrawSphere(halfReachablePoint, m_radius);
-            var hitColliders = Physics.OverlapSphere(halfReachablePoint, m_radius);
-
-            var log = hitColliders.Length > 0 ? "Raycast fired with hit" : "Raycast fired without hit";
-            Debug.Log($"{_weapon.name} - {log}");
-
-            foreach (var col in hitColliders) {
-                var damageable = col.GetComponent<IDamageable>();
-
-                if (damageable != null) {
-                    Gizmos.color = Color.green;
-                    Debug.Log($"{_weapon.name} - Damageable detected");
-                    continue;
-                }
-
-                Gizmos.color = Color.blue;
-                Debug.Log($"{_weapon.name} - Collider detected : {col.name}");
-            }
-        }
+        [SerializeField] private LayerMask m_targetLayers = 11;
         #endregion
 
         #region Overrides
@@ -46,7 +16,7 @@ namespace Code.Weapons {
             var halfReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
             Effect(m_effectOrigin.position, halfReachablePoint);
 
-            var hitColliders = Physics.OverlapSphere(halfReachablePoint, m_radius);
+            var hitColliders = Physics.OverlapSphere(halfReachablePoint, m_radius, m_targetLayers);
 
             if (hitColliders.Length <= 0)
                 return;

@@ -12,44 +12,6 @@ namespace Code.Weapons {
         [Header("Settings")]
         [SerializeField][Range(0f, 1f)] private float radius = default;
         [SerializeField] private int interestedPoints = default;
-
-        [Header("Gizmos")]
-        [SerializeField] private bool gizmosEnabled = default;
-        #endregion
-
-        #region Behaviour Callbacks
-        private void OnDrawGizmos() {
-            if (!gizmosEnabled)
-                return;
-
-            var lastReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
-
-            for (var i = 0; i < interestedPoints; i++) {
-                Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
-
-                Gizmos.DrawLine(m_weaponCamera.position, randomReachablePoint);
-
-                var log = Physics.Linecast(m_weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo) ? "Raycast fired with hit" : "Raycast fired without hit";
-
-                Debug.Log($"{_weapon.name} - {log}");
-
-                if (hitInfo.collider == null) {
-                    Gizmos.color = Color.red;
-                    Debug.Log($"{_weapon.name} - No collider detected");
-                    return;
-                }
-
-                Gizmos.color = Color.blue;
-                Debug.Log($"{_weapon.name} - Collider detected");
-
-                var damageable = hitInfo.collider.GetComponent<IDamageable>();
-
-                if (damageable != null) {
-                    Gizmos.color = Color.green;
-                    Debug.Log($"{_weapon.name} - Damageable detected");
-                }
-            }
-        }
         #endregion
 
         #region Overrides

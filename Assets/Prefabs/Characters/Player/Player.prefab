@@ -802,7 +802,7 @@ MonoBehaviour:
     <DamageAmount>k__BackingField: 101
   <FiringLogic>k__BackingField:
     rid: 5009933660594372688
-  m_maxEnergy: 10
+  m_maxEnergy: 20
   references:
     version: 2
     RefIds:

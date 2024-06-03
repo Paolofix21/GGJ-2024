@@ -11,20 +11,26 @@ namespace SteamIntegration.Achievements {
         [SerializeField] private List<SteamAchievementSO> m_achievements = new();
         #endregion
 
+        #region Private Variables
+        private readonly HashSet<SteamAchievementSO> _achievementsUnlocked = new();
+        #endregion
+
         #region Overrides
         protected override void OnAfterAwake() {
             SteamStatisticsController.OnStatisticChanged += OnStatChanged;
 
-#if UNITY_EDITOR
-            if (SteamUserStats.GetAchievement("DEFEAT_TEN_ENEMIES", out var unlocked))
-                Debug.Log($"DEFEAT_TEN_ENEMIES: {unlocked}");
-#endif
+            foreach (var achievement in m_achievements) {
+                if (SteamUserStats.GetAchievement(achievement.Id, out var unlocked) && unlocked)
+                    _achievementsUnlocked.Add(achievement);
+            }
         }
 
         protected override void OnBeforeDestroy() => SteamStatisticsController.OnStatisticChanged -= OnStatChanged;
         #endregion
 
         #region Public Methods
+        public bool IsAchievementUnlocked(SteamAchievementSO achievement) => _achievementsUnlocked.Contains(achievement);
+
         public void AdvanceAchievement(string id) {
             var achievement = m_achievements.Find(a => a.Id == id);
             if (!achievement) {
@@ -54,6 +60,7 @@ namespace SteamIntegration.Achievements {
                     SteamUserStats.GetAchievementIcon(achievement.Id);
                     SteamUserStats.GetAchievementName((uint)m_achievements.IndexOf(achievement));
                     SteamStatisticsController.Singleton.PushStats();
+                    _achievementsUnlocked.Add(achievement);
                 }
                 else
                     Debug.LogWarning("[Steamworks.NET] SteamAchievementRequestFailedException\nCould not set an achievement through the Steam API\n");

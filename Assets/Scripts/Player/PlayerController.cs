@@ -57,6 +57,7 @@ namespace Code.Player {
         [SerializeField] private SteamStatisticSO m_mushroomJumpStat;
         [SerializeField] private SteamStatisticSO m_lavaTimeStat;
         [SerializeField] private SteamAchievementSO m_deathByTrapezioAchievement;
+        [SerializeField] private SteamAchievementSO m_jumpHighAchievement;
 
         [Space]
         [SerializeField, Tag] private string lavaLayer;
@@ -160,6 +161,12 @@ namespace Code.Player {
             _cameraLook.ApplyMotion(_playerInput.LookInput);
 
             _wasGrounded = IsGrounded;
+
+            if (!SteamAchievementsController.Singleton.IsAchievementUnlocked(m_jumpHighAchievement))
+                return;
+
+            if (transform.position.y >= m_jumpHighAchievement.LinkedStatThreshold)
+                SteamAchievementsController.Singleton?.AdvanceAchievement(m_jumpHighAchievement);
         }
 
         private void FixedUpdate() {

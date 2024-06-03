@@ -358,6 +358,8 @@ MonoBehaviour:
   m_lavaTimeStat: {fileID: 11400000, guid: bff4f8ddd4fa56347b473b811f28201c, type: 2}
   m_deathByTrapezioAchievement: {fileID: 11400000, guid: 65fb1ce3c59681c4781d46619e30e188,
     type: 2}
+  m_jumpHighAchievement: {fileID: 11400000, guid: 7be08cfaebb221143981a0cbfbf2e25b,
+    type: 2}
   lavaLayer: Lava
 --- !u!114 &599590968436143203
 MonoBehaviour:

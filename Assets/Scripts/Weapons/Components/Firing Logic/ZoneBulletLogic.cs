@@ -10,8 +10,9 @@ namespace Code.Weapons {
         [SerializeField] private float m_boostMultiplier = 3f;
 
         [Header("Settings")]
-        [SerializeField][Range(0f, 1f)] private float radius = default;
+        [SerializeField][Range(0f, 5f)] private float radius = default;
         [SerializeField] private int interestedPoints = default;
+        [SerializeField] private bool doesCollateral = default;
         #endregion
 
         #region Overrides
@@ -23,19 +24,34 @@ namespace Code.Weapons {
 
                 Effect(m_effectOrigin.position, randomReachablePoint);
 
-                if (Physics.Linecast(m_weaponCamera.position, randomReachablePoint, out RaycastHit hitInfo)) {
+                bool didHit;
+                var hitsInfos = new RaycastHit[4];
+
+                if (doesCollateral) {
+                    var dir = randomReachablePoint - m_weaponCamera.position;
+                    didHit = Physics.RaycastNonAlloc(m_weaponCamera.position, dir.normalized, hitsInfos, dir.magnitude) > 0;
+                }
+                else {
+                    didHit = Physics.Linecast(m_weaponCamera.position, randomReachablePoint, out var hitInfo);
+                    hitsInfos = new[] { hitInfo };
+                }
+
+                if (!didHit)
+                    continue;
+
+                foreach (var hitInfo in hitsInfos) {
                     if (hitInfo.collider == null)
-                        return;
+                        continue;
 
                     Object.Instantiate(hitParticle, hitInfo.point, Quaternion.LookRotation(hitInfo.normal));
 
                     var damageable = hitInfo.collider.GetComponentInParent<IDamageable>();
 
                     if (damageable == null)
-                        return;
+                        continue;
 
                     if (!damageable.GetDamage(ammunition.DamageType))
-                        return;
+                        continue;
 
                     damageable.ApplyDamage(ammunition.DamageAmount, _weapon.gameObject);
                     HitTarget(damageable);

@@ -86,18 +86,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8435353254436886976, guid: 3cc548c1b56235c438fdcde8b7337a40,
         type: 3}
-      propertyPath: cooldown
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8435353254436886976, guid: 3cc548c1b56235c438fdcde8b7337a40,
-        type: 3}
       propertyPath: <Type>k__BackingField
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8435353254436886976, guid: 3cc548c1b56235c438fdcde8b7337a40,
-        type: 3}
-      propertyPath: <Amount>k__BackingField
-      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Type>k__BackingField: 0
-  <Amount>k__BackingField: 24
+  <Amount>k__BackingField: 1000
   cooldown: 20
   interactableCollider: {fileID: 2659663291119346420}
   meshRenderer: {fileID: 5889530149695150463}

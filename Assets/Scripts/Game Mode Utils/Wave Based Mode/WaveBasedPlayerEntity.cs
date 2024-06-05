@@ -30,7 +30,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region IPlayableCharacter
         public Transform Transform => transform;
 
-        public void Enable() => _controller.enabled = true;
+        public void Enable() {
+            if (_controller)
+                _controller.enabled = true;
+        }
 
         public void Disable() => _controller.enabled = false;
         #endregion

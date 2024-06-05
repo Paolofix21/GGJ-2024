@@ -162,7 +162,7 @@ namespace Code.Player {
 
             _wasGrounded = IsGrounded;
 
-            if (!SteamAchievementsController.Singleton.IsAchievementUnlocked(m_jumpHighAchievement))
+            if (SteamAchievementsController.Singleton.IsAchievementUnlocked(m_jumpHighAchievement))
                 return;
 
             if (transform.position.y >= m_jumpHighAchievement.LinkedStatThreshold)

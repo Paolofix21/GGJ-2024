@@ -15,6 +15,7 @@ namespace Code.UI {
         [SerializeField] private Button resume;
         [SerializeField] private Button returnMainMenu;
         [SerializeField] private Button m_loadSettings;
+        [SerializeField] private Button m_restart;
         [SerializeField] private Button m_quitSettings;
         #endregion
 
@@ -37,6 +38,7 @@ namespace Code.UI {
             resume.onClick.AddListener(GameEvents.Resume);
 
             m_loadSettings.onClick.AddListener(UIManager.Singleton.CallSettings);
+            m_restart.onClick.AddListener(ReloadCurrentLevel);
             m_quitSettings.onClick.AddListener(Quit);
         }
 
@@ -71,6 +73,8 @@ namespace Code.UI {
             gameObject.SetActive(false);
             SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
+
+        private void ReloadCurrentLevel() => SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
 
         private void Quit() => UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);
         #endregion

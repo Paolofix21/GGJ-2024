@@ -47,3 +47,4 @@ MonoBehaviour:
   m_surviveSceneChanged: 1
   m_leaderboards:
   - {fileID: 11400000, guid: b94e3d409e6d4df42b56052d463a9542, type: 2}
+  - {fileID: 11400000, guid: 0891f45082fe95348bd3296410228574, type: 2}

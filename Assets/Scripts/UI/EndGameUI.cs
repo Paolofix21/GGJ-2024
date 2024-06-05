@@ -12,8 +12,12 @@ using SteamIntegration.Leaderboard;
 public class EndGameUI : MonoBehaviour {
     #region Public Variables
     [Header("Settings")]
-    [FormerlySerializedAs("TitleColorVictory")] public Color m_titleColorVictory;
-    [FormerlySerializedAs("TitleColorGameOver")] public Color m_titleColorGameOver;
+    [FormerlySerializedAs("TitleColorVictory")]
+    public Color m_titleColorVictory;
+
+    [FormerlySerializedAs("TitleColorGameOver")]
+    public Color m_titleColorGameOver;
+
     [SerializeField] private string m_victoryText = "Victory!", m_loseText = "Game Over!";
     [SerializeField] private string m_highScoreHint = "New High Score: {0}";
     [SerializeField] private string m_retryText = "Try again?";
@@ -21,6 +25,7 @@ public class EndGameUI : MonoBehaviour {
 
     [Space]
     [SerializeField] private string m_quitToDesktopText = "Do you really want to return to your Desktop?";
+
     [SerializeField] private string m_quitToMenuText = "Do you want to return to Main Menu?";
 
     [Space]
@@ -28,25 +33,28 @@ public class EndGameUI : MonoBehaviour {
 
     [Header("References")]
     [SerializeField] private TMP_Text m_title;
+
     [SerializeField] private TMP_Text m_titleGlow;
     [SerializeField] private TMP_Text m_hintToDisplay;
     [SerializeField] private TMP_Text m_pointsToDisplay;
+    [SerializeField] private TMP_Text m_timeToDisplay;
 
     [Space]
     [SerializeField] private Button m_simpleButton;
     [SerializeField] private Button m_highlightButton;
     [SerializeField] private Button m_quitButton;
-    
+
     [Header("Leaderboard")]
-    [Space]
     [SerializeField] private double m_minimumCentsOfSeconds;
+    [Space]
     [SerializeField] private SteamLeaderboardSO m_leaderboard;
+    [SerializeField] private SteamLeaderboardSO m_leaderboardTime;
     #endregion
 
     #region Behaviour Callbacks
     private void Awake() {
         GameEvents.OnEndGame += OnEndGame;
-        GameEvents.OnNewRecordBeaten += OnHighScore;
+        // GameEvents.OnNewRecordBeaten += OnHighScore;
 
         m_hintToDisplay.text = string.Empty;
         gameObject.SetActive(false);
@@ -56,7 +64,7 @@ public class EndGameUI : MonoBehaviour {
 
     private void OnDestroy() {
         GameEvents.OnEndGame -= OnEndGame;
-        GameEvents.OnNewRecordBeaten -= OnHighScore;
+        // GameEvents.OnNewRecordBeaten -= OnHighScore;
     }
     #endregion
 
@@ -84,6 +92,8 @@ public class EndGameUI : MonoBehaviour {
         m_title.color = m_titleColorGameOver;
         m_titleGlow.color = new Color(m_titleColorGameOver.r, m_titleColorGameOver.g, m_titleColorGameOver.b, 1f);
         m_title.text = m_titleGlow.text = m_loseText;
+
+        UpdateScore(GameEvents.GameTime);
         m_pointsToDisplay.gameObject.SetActive(false);
 
         m_simpleButton.gameObject.SetActive(true);
@@ -117,29 +127,34 @@ public class EndGameUI : MonoBehaviour {
     }
 
     private void LoadMainMenu() => SceneLoader.LoadScene("MainMenu", LoadSceneMode.Single);
-    private void ReloadCurrentLevel()
-    {
+
+    private void ReloadCurrentLevel() {
         m_highlightButton.interactable = false;
-        SceneLoader.LoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+        SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
     }
-    private void OnHighScore(double timeSeconds) {
+
+    private void UpdateScore(double timeSeconds) {
         var time = System.TimeSpan.FromSeconds(timeSeconds);
         var points = CalculatePoints(time);
-        m_pointsToDisplay.SetText($"Points:{points}");
-        SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)points);
+        m_pointsToDisplay.SetText($"Points: {points}");
+
         var timeString = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
         m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);
+        m_timeToDisplay.SetText($"Time: {timeString}");
+
+        SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)points);
+        SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboardTime, (int)(timeSeconds * 1000));
     }
-    private double CalculatePoints(System.TimeSpan seconds)
-    {
+
+    private double CalculatePoints(System.TimeSpan seconds) {
         var milliseconds = seconds.TotalMilliseconds;
         var centsOfSeconds = milliseconds / 10;
-        if(centsOfSeconds < m_minimumCentsOfSeconds)
-        {
-            var points = m_minimumCentsOfSeconds - centsOfSeconds;
-            return points;
-        }
-        return 0;
+
+        if (centsOfSeconds > m_minimumCentsOfSeconds)
+            return GameEvents.Score;
+
+        var points = m_minimumCentsOfSeconds - centsOfSeconds;
+        return points + GameEvents.Score;
     }
     #endregion
 }

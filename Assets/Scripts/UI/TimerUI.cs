@@ -54,6 +54,8 @@ public class TimerUI : MonoBehaviour {
     private void UpdateTimer(double timer) {
         var time = System.TimeSpan.FromSeconds(timer);
         m_text.text = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
+
+        GameEvents.GameTime = timer;
     }
     #endregion
 

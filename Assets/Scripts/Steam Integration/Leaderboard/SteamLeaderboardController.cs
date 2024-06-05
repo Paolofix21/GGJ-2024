@@ -79,7 +79,7 @@ namespace SteamIntegration.Leaderboard {
                 Debug.Log($"Iterating leaderboards:\nName: '{leaderboard.name}'\n");
 
                 var apiCall = SteamUserStats.FindOrCreateLeaderboard(leaderboard.Id,
-                    ELeaderboardSortMethod.k_ELeaderboardSortMethodAscending,
+                    leaderboard.SortMethod,
                     ELeaderboardDisplayType.k_ELeaderboardDisplayTypeTimeMilliSeconds);
 
                 if (apiCall == SteamAPICall_t.Invalid) {

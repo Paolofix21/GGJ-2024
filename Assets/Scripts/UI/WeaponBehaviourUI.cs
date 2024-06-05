@@ -1,4 +1,3 @@
-using Code.EnemySystem;
 using Code.Player;
 using Code.Weapons;
 using System.Collections;
@@ -10,15 +9,17 @@ using UnityEngine;
 using UnityEngine.UI;
 using Code.Core.MatchManagers;
 using Code.Promises;
-using System;
-namespace Code.UI
-{
-    public class WeaponBehaviourUI : MonoBehaviour
-    {
+
+namespace Code.UI {
+    public class WeaponBehaviourUI : MonoBehaviour {
         #region Public Variables
         [SerializeField] private Image m_selectedWeapon;
         [SerializeField] private TMP_Text m_munitions;
+
+        [Header("Special Weapon")]
         [SerializeField] private Image m_specialWeaponFiller;
+        [SerializeField] private Image m_specialWeaponIconImage;
+        [SerializeField] private Sprite m_specialWeaponFilledSprite;
         #endregion
 
         #region Properties
@@ -42,10 +43,7 @@ namespace Code.UI
             CheckWeapon(_target.gameObject.GetComponent<PlayerWeaponHandler>().EquippedWeapon);
         }
 
-        private void DisplayWeaponEnergy(IEntity element)
-        {
-            DisplayWeaponEnergy();
-        }
+        private void DisplayWeaponEnergy(IEntity element) => DisplayWeaponEnergy();
 
         private void OnDestroy() {
             if (!_target)
@@ -53,7 +51,7 @@ namespace Code.UI
 
             _target.OnWeaponChanged -= UpdateWeaponIcon;
             _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo -= CheckWeapon;
-            var mm = GameEvents.GetMatchManager<WaveBasedMatchManager>(); 
+            var mm = GameEvents.GetMatchManager<WaveBasedMatchManager>();
             if (mm)
                 mm.EntityManager.Entities.OnRemoved -= DisplayWeaponEnergy;
             _sword.Shot -= DisplayWeaponEnergy;
@@ -61,10 +59,7 @@ namespace Code.UI
         #endregion
 
         #region Public Methods
-        public void UpdateWeaponIcon(int i)
-        {
-            m_selectedWeapon.sprite = weaponSprites[i];
-        }
+        public void UpdateWeaponIcon(int i) => m_selectedWeapon.sprite = weaponSprites[i];
 
         private void CheckWeapon(Weapon weapon) => m_munitions.text = $"{weapon?.ChargeStatus.Info}";
         #endregion
@@ -74,7 +69,9 @@ namespace Code.UI
             await Task.Yield();
             if (!this) // Safeguard for errors
                 return;
-            m_specialWeaponFiller.fillAmount = _sword.CurrentEnergy / 20.0f;
+
+            m_specialWeaponFiller.fillAmount = ((WeaponEnergyChargeStatus)_sword.ChargeStatus).EnergyAmount;
+            m_specialWeaponIconImage.overrideSprite = m_specialWeaponFiller.fillAmount >= .99f ? m_specialWeaponFilledSprite : null;
         }
         #endregion
 

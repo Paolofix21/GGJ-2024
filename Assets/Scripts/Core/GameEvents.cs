@@ -17,6 +17,9 @@ namespace Code.Core {
 
         public static bool IsOnHold => IsPaused || IsCutscenePlaying;
 
+        public static double GameTime { get; set; }
+        public static int Score { get; set; }
+
         public static IMatchManager MatchManager { get; set; }
         #endregion
 

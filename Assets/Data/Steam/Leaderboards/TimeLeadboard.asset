@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a4a246cc5c6245947a5842bcc01cdf3a, type: 3}
-  m_Name: HighscoreLeadboard
+  m_Name: TimeLeadboard
   m_EditorClassIdentifier: 
-  <Id>k__BackingField: HIGH_SCORE
-  <SortMethod>k__BackingField: 2
+  <Id>k__BackingField: TIME_SCORE
+  <SortMethod>k__BackingField: 1

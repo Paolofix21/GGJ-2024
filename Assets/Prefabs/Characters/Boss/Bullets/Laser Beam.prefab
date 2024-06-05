@@ -4903,7 +4903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_range: 20
-  m_trackWeight: 2
+  m_trackWeight: 0.8
   m_trackingPrecision:
     serializedVersion: 2
     m_Curve:

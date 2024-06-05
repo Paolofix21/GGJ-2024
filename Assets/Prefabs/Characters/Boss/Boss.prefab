@@ -428,7 +428,7 @@ MonoBehaviour:
     m_minAttackDelay: 0.5
     m_maxAttackDelay: 3
     m_duration: 2
-    m_bossTrackingMultiplier: 0.125
+    m_bossTrackingMultiplier: 0.1
     m_attackVoiceLine: {fileID: 11400000, guid: 35f44107f3a56ea4db6e7d0c45786c45,
       type: 2}
   m_phaseThree:
@@ -473,6 +473,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 5000
   m_type: -1
+  m_immuneTo: -1
 --- !u!114 &7890905809979017130
 MonoBehaviour:
   m_ObjectHideFlags: 0

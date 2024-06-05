@@ -7,6 +7,7 @@ namespace Code.EnemySystem.Wakakas {
         #region Public Variables
         [SerializeField, Min(1f)] private float m_maxHealth = 25f;
         [SerializeField] private DamageType m_type;
+        [SerializeField] private DamageObject m_immuneTo = DamageObject.None;
 
         public event System.Action<float> OnHealthChanged;
         public event System.Action<bool> OnEnableDisable;
@@ -35,10 +36,12 @@ namespace Code.EnemySystem.Wakakas {
         public bool GetDamage(DamageType damageType) => enabled && (m_type & damageType) != 0;
 
         public void ApplyDamage(float amount, GameObject dealer) {
+            DamageObject = DamageObjectHelper.Parse(dealer);
+            if (m_immuneTo == DamageObject)
+                return;
+
             _currentHealth -= amount;
             OnHealthChanged?.Invoke(_currentHealth / m_maxHealth);
-
-            DamageObject = DamageObjectHelper.Parse(dealer);
 
             if (_currentHealth > 0)
                 return;

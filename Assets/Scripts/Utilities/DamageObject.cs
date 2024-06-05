@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace Utilities {
     public enum DamageObject {
+        None = -1,
         Wakaka,
         FireBall,
         LaserBeam,

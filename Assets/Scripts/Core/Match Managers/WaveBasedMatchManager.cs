@@ -81,6 +81,7 @@ namespace Code.Core.MatchManagers {
         }
 
         protected override void OnMatchEnded() {
+            Debug.Log("Ending game...\n");
             Character.Disable();
             EntityManager.End();
 
@@ -140,8 +141,8 @@ namespace Code.Core.MatchManagers {
         }
 
         private void OnLose() {
-            GameEvents.Lose();
             EndMatch();
+            GameEvents.Lose();
         }
         #endregion
     }

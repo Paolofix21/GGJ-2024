@@ -39,7 +39,7 @@ namespace Code.EnemySystem.Wakakas {
         #region Private Methods
         private void DamageTarget() {
             m_maskAnimator.AnimateLaughter();
-            _target.DealDamage(m_dot, gameObject);
+            _target?.DealDamage(m_dot, gameObject);
         }
         #endregion
     }

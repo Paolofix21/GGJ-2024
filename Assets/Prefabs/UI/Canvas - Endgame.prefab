@@ -285,7 +285,7 @@ MonoBehaviour:
   m_titleGlow: {fileID: 2689525899968344902}
   m_hintToDisplay: {fileID: 1347576242782059547}
   m_pointsToDisplay: {fileID: 5266982950639555961}
-  m_timeToDisplay: {fileID: 0}
+  m_timeToDisplay: {fileID: 4671201230252538625}
   m_simpleButton: {fileID: 4603281769455042648}
   m_highlightButton: {fileID: 6056098206321775660}
   m_quitButton: {fileID: 383494302229015431}

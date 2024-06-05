@@ -75,7 +75,9 @@ namespace SteamIntegration.Statistics {
                 if (SteamUserStats.SetStat(statistic.Id, stat + amount)) {
                     SteamUserStats.GetStat(statistic.Id, out int newVal);
                     OnStatisticChanged?.Invoke(statistic, newVal);
-                    Debug.Log($"{statistic.name}: {newVal}\n");
+#if UNITY_EDITOR
+                    // Debug.Log($"{statistic.name}: {newVal}\n");
+#endif
                 }
                 else
                     Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not set a stat through the Steam API\n");

@@ -50,13 +50,13 @@ namespace SteamIntegration.Achievements {
             if (SteamUserStats.GetAchievement(achievement.Id, out var unlocked)) {
                 if (unlocked) {
 #if UNITY_EDITOR
-                    Debug.Log("[Steamworks.NET] Achievement already unlocked\n");
+                    // Debug.Log("[Steamworks.NET] Achievement already unlocked\n");
 #endif
                     return;
                 }
 
                 if (SteamUserStats.SetAchievement(achievement.Id)) {
-                    Debug.Log($"[Steamworks.NET] Unlocked achievement: {achievement.name}\n");
+                    // Debug.Log($"[Steamworks.NET] Unlocked achievement: {achievement.name}\n");
                     SteamUserStats.GetAchievementIcon(achievement.Id);
                     SteamUserStats.GetAchievementName((uint)m_achievements.IndexOf(achievement));
                     SteamStatisticsController.Singleton.PushStats();
@@ -75,11 +75,12 @@ namespace SteamIntegration.Achievements {
         private void OnStatChanged(SteamStatisticSO statistic, float newValue) {
             var achievements = m_achievements.Where(a => a.LinkedStat == statistic);
             foreach (var achievement in achievements) {
-                Debug.Log($"[{achievement.name}] {achievement.LinkedStatThreshold} ? {newValue}\n");
+#if UNITY_EDITOR
+                // Debug.Log($"[{achievement.name}] {achievement.LinkedStatThreshold} ? {newValue}\n");
+#endif
                 if (newValue < achievement.LinkedStatThreshold)
                     continue;
 
-                Debug.Log("Lavaluva?\n");
                 AdvanceAchievement(achievement);
             }
         }

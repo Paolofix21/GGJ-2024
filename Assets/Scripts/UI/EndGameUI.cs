@@ -76,7 +76,11 @@ public class EndGameUI : MonoBehaviour {
         m_title.color = m_titleColorVictory;
         m_titleGlow.color = new Color(m_titleColorVictory.r, m_titleColorVictory.g, m_titleColorVictory.b, 1f);
         m_title.text = m_titleGlow.text = m_victoryText;
+
+        UpdateScore(GameEvents.GameTime);
         m_pointsToDisplay.gameObject.SetActive(true);
+        m_timeToDisplay.gameObject.SetActive(true);
+
         m_simpleButton.gameObject.SetActive(false);
 
         m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
@@ -93,8 +97,8 @@ public class EndGameUI : MonoBehaviour {
         m_titleGlow.color = new Color(m_titleColorGameOver.r, m_titleColorGameOver.g, m_titleColorGameOver.b, 1f);
         m_title.text = m_titleGlow.text = m_loseText;
 
-        UpdateScore(GameEvents.GameTime);
         m_pointsToDisplay.gameObject.SetActive(false);
+        m_timeToDisplay.gameObject.SetActive(false);
 
         m_simpleButton.gameObject.SetActive(true);
         m_simpleButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;

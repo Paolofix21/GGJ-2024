@@ -161,7 +161,7 @@ PlayerSettings:
   androidMaxAspectRatio: 2.1
   androidMinAspectRatio: 1
   applicationIdentifier:
-    Android: com.UnityTechnologies.com.unity.template.urpblank
+    Android: com.GliSmarmellati.mecmeloffa
     Standalone: com.GliSmarmellati.mecmeloffa
     iPhone: com.Unity-Technologies.com.unity.template.urp-blank
   buildNumber:

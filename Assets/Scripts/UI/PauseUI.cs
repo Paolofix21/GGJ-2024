@@ -78,13 +78,17 @@ namespace Code.UI {
         #region Event Methods
         private void BackToMenu() {
             // _dontResume = true;
+            returnMainMenu.onClick.RemoveAllListeners();
             gameObject.SetActive(false);
+            GameEvents.MatchManager.GetPlayerEntity().Disable();
             SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
 
         private void ReloadCurrentLevel() {
             // _dontResume = true;
+            m_restart.onClick.RemoveAllListeners();
             gameObject.SetActive(false);
+            GameEvents.MatchManager.GetPlayerEntity().Disable();
             SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
         }
 

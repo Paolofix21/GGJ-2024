@@ -47,7 +47,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 1
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 2
-    <DamageAmount>k__BackingField: 25
+    <DamageAmount>k__BackingField: 20
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
     startingAmount: 104
@@ -119,7 +119,7 @@ MonoBehaviour:
     <DamageAmount>k__BackingField: 51
   <Cartridge>k__BackingField:
     amountShotConsumed: 1
-    startingAmount: 24
+    startingAmount: 30
     <TotalAmount>k__BackingField: 30
   <FiringLogic>k__BackingField:
     rid: 5009933660594372685

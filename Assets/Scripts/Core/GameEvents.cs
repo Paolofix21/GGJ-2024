@@ -13,6 +13,7 @@ namespace Code.Core {
 
         #region Properties
         public static bool IsPaused { get; private set; }
+        public static bool IsPausedForbidden { get; private set; }
         public static bool IsCutscenePlaying { get; private set; }
 
         public static bool IsOnHold => IsPaused || IsCutscenePlaying;
@@ -29,6 +30,11 @@ namespace Code.Core {
         public static void Begin() => MatchManager?.BeginMatch();
 
         public static void Pause() {
+            if (IsPausedForbidden) {
+                Debug.LogWarning("Pause is forbidden\n");
+                return;
+            }
+
             if (MatchManager == null || MatchManager.IsStopped())
                 return;
 
@@ -52,6 +58,11 @@ namespace Code.Core {
         }
 
         public static void TogglePause() {
+            if (!IsPaused && IsPausedForbidden) {
+                Debug.LogWarning("Pause is forbidden\n");
+                return;
+            }
+
             Debug.Log("Toggling pause\n");
             if (MatchManager == null || MatchManager.IsStopped())
                 return;
@@ -59,6 +70,9 @@ namespace Code.Core {
             IsPaused = !IsPaused;
             OnPauseStatusChanged?.Invoke(IsPaused);
         }
+
+        public static void ForbidPause() => IsPausedForbidden = true;
+        public static void AllowPause() => IsPausedForbidden = false;
 
         public static void SetCutsceneState(bool isPlaying) => OnCutsceneStateChanged?.Invoke(IsCutscenePlaying = isPlaying);
 

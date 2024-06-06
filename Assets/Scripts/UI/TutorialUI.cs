@@ -15,6 +15,8 @@ namespace Code.UI {
         #endregion
 
         #region Behaviour Callbacks
+        protected override void Awake() => GameEvents.ForbidPause();
+
         protected override void Start() {
             m_filler.fillAmount = 0f;
             m_spaceButton.action.Enable();
@@ -32,6 +34,7 @@ namespace Code.UI {
                 return;
 
             GameEvents.Begin();
+            GameEvents.AllowPause();
             Destroy(gameObject);
         }
         #endregion

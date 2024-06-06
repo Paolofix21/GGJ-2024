@@ -229,7 +229,7 @@ namespace Code.EnemySystem.Wakakas {
             OnEveryoneChasePlayer -= ForceChasePlayer;
 
             OnEveryoneChasePlayer?.Invoke();
-            Destroy(_collider);
+            _collider.enabled = false;
             if (_attacker)
                 Destroy(_attacker.gameObject);
             SetState(WakakaState.Flee);

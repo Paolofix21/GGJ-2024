@@ -9,6 +9,7 @@ using UnityEngine.Serialization;
 using UnityEngine.UI;
 using SteamIntegration.Leaderboard;
 
+[HelpURL("https://www.desmos.com/calculator/l5cxbow5sm")]
 public class EndGameUI : MonoBehaviour {
     #region Public Variables
     [Header("Settings")]
@@ -44,8 +45,11 @@ public class EndGameUI : MonoBehaviour {
     [SerializeField] private Button m_highlightButton;
     [SerializeField] private Button m_quitButton;
 
+    [FormerlySerializedAs("m_minimumTimeMinutes")]
     [Header("Leaderboard")]
-    [SerializeField] private double m_minimumCentsOfSeconds;
+    [SerializeField] private double m_minimumTimeSeconds = 720.0;
+    [SerializeField] private double m_scoreCap = 1000.0;
+    [SerializeField] private double m_reductionCoefficient = 120.0;
     [Space]
     [SerializeField] private SteamLeaderboardSO m_leaderboard;
     [SerializeField] private SteamLeaderboardSO m_leaderboardTime;
@@ -146,19 +150,17 @@ public class EndGameUI : MonoBehaviour {
         m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);
         m_timeToDisplay.SetText($"Time: {timeString}");
 
-        SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)points);
+        SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)(points * 1000));
         SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboardTime, (int)(timeSeconds * 1000));
     }
 
     private double CalculatePoints(System.TimeSpan seconds) {
-        var milliseconds = seconds.TotalMilliseconds;
-        var centsOfSeconds = milliseconds / 10;
+        var totalSeconds = seconds.TotalSeconds;
+        var score = totalSeconds < m_minimumTimeSeconds
+            ? m_scoreCap
+            : (2 * m_scoreCap / System.Math.PI * -System.Math.Atan((totalSeconds - m_minimumTimeSeconds) / m_reductionCoefficient)) + m_scoreCap;
 
-        if (centsOfSeconds > m_minimumCentsOfSeconds)
-            return GameEvents.Score;
-
-        var points = m_minimumCentsOfSeconds - centsOfSeconds;
-        return points + GameEvents.Score;
+        return score + GameEvents.Score;
     }
     #endregion
 }

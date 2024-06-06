@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 143e1006ec2ce6d4f9c3f9c849568ba1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <WeaponType>k__BackingField: 2
+  <WeaponType>k__BackingField: 1
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 2
     <DamageAmount>k__BackingField: 25
@@ -232,11 +232,11 @@ MonoBehaviour:
     - rid: 5009933660594372687
       type: {class: PhysicHitLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 0.8
+        m_range: 1
         m_shootSound: {fileID: 11400000, guid: 0e06639d7b9b12b4dafc875f6e45172e, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 8822632051471444640}
-        m_radius: 2
+        m_radius: 2.5
         m_boostMultiplier: 2
         m_targetLayers:
           serializedVersion: 2
@@ -308,9 +308,9 @@ MonoBehaviour:
     type: 3}
   m_weapon1Input: {fileID: 7078835504136583586, guid: 84b0c49dbd4710144ac61f2b3c08a0e0,
     type: 3}
-  m_weapon2Input: {fileID: 257518739533130086, guid: 84b0c49dbd4710144ac61f2b3c08a0e0,
+  m_weapon2Input: {fileID: -7759883910438952021, guid: 84b0c49dbd4710144ac61f2b3c08a0e0,
     type: 3}
-  m_weapon3Input: {fileID: -7759883910438952021, guid: 84b0c49dbd4710144ac61f2b3c08a0e0,
+  m_weapon3Input: {fileID: 257518739533130086, guid: 84b0c49dbd4710144ac61f2b3c08a0e0,
     type: 3}
   m_weapon4Input: {fileID: -896270407144952600, guid: 84b0c49dbd4710144ac61f2b3c08a0e0,
     type: 3}
@@ -330,8 +330,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hueValue:
   - {fileID: 11400000, guid: fb03f7ed57e358843a45bc6f897ff3e8, type: 2}
-  - {fileID: 11400000, guid: 27a991bdfd8fb524fa3b2be938d52862, type: 2}
   - {fileID: 11400000, guid: 4827e661242dfc64a8b4255e31a54b18, type: 2}
+  - {fileID: 11400000, guid: 27a991bdfd8fb524fa3b2be938d52862, type: 2}
   - {fileID: 11400000, guid: 94d5d0169ea5625498950ec30b3e5e38, type: 2}
   - {fileID: 11400000, guid: a6da922e61b50ae4186ba2c0eaef7c18, type: 2}
   arms: {fileID: 4098327224838240829}
@@ -864,7 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66bab7bb4f424ab47915c548b4cdede7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <WeaponType>k__BackingField: 1
+  <WeaponType>k__BackingField: 2
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 4
     <DamageAmount>k__BackingField: 12
@@ -890,7 +890,7 @@ MonoBehaviour:
         hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
         m_boostMultiplier: 1.2
-        radius: 1
+        radius: 3
         interestedPoints: 7
         doesCollateral: 1
 --- !u!1001 &3756361854172432236

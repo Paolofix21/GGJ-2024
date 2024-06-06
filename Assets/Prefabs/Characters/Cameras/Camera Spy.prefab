@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 10
   m_type: -1
-  m_immuneTo: 9
+  m_immuneTo: -1
 --- !u!114 &2773283772232721166
 MonoBehaviour:
   m_ObjectHideFlags: 0

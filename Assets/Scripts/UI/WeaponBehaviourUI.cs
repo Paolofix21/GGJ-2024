@@ -15,6 +15,7 @@ namespace Code.UI {
         #region Public Variables
         [SerializeField] private Image m_selectedWeapon;
         [SerializeField] private TMP_Text m_munitions;
+        [SerializeField] private float m_highlightSize = 1.4f;
 
         [Header("Special Weapon")]
         [SerializeField] private Image m_specialWeaponFiller;
@@ -24,6 +25,7 @@ namespace Code.UI {
 
         #region Properties
         [SerializeField] private List<Sprite> weaponSprites;
+        [SerializeField] private List<Image> weaponImages;
         #endregion
 
         #region Private Variables
@@ -37,10 +39,12 @@ namespace Code.UI {
             _target = GameEvents.MatchManager.GetPlayerEntity().Transform.GetComponent<PlayerController>();
             _sword = _target.GetComponentInChildren<Sword>();
             _target.OnWeaponChanged += UpdateWeaponIcon;
-            _target.gameObject.GetComponent<PlayerWeaponHandler>().OnUpdateWeaponInfo += CheckWeapon;
+            var playerWeaponHandler = _target.gameObject.GetComponent<PlayerWeaponHandler>();
+            playerWeaponHandler.OnUpdateWeaponInfo += CheckWeapon;
             GameEvents.GetMatchManager<WaveBasedMatchManager>().EntityManager.Entities.OnRemoved += DisplayWeaponEnergy;
             _sword.Shot += DisplayWeaponEnergy;
-            CheckWeapon(_target.gameObject.GetComponent<PlayerWeaponHandler>().EquippedWeapon);
+            CheckWeapon(playerWeaponHandler.EquippedWeapon);
+            UpdateWeaponIcon((int)playerWeaponHandler.EquippedWeapon.WeaponType);
         }
 
         private void DisplayWeaponEnergy(IEntity element) => DisplayWeaponEnergy();
@@ -59,7 +63,11 @@ namespace Code.UI {
         #endregion
 
         #region Public Methods
-        public void UpdateWeaponIcon(int i) => m_selectedWeapon.sprite = weaponSprites[i];
+        public void UpdateWeaponIcon(int i) {
+            m_selectedWeapon.sprite = weaponSprites[i];
+            for (var j = 0; j < weaponImages.Count; j++)
+                weaponImages[j].transform.localScale = Vector3.one * (i == j ? m_highlightSize : 1f);
+        }
 
         private void CheckWeapon(Weapon weapon) => m_munitions.text = $"{weapon?.ChargeStatus.Info}";
         #endregion

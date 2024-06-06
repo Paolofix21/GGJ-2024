@@ -126,7 +126,6 @@ namespace Code.Weapons {
                 EquippedWeapon.ChargeStatus.OnUpdated -= CheckAmmo;
                 EquippedWeapon.OnCantShoot -= PlayNoAmmo;
             }
-                
 
             EquippedWeapon = weapons.First(weapon => weapon.WeaponType == (WeaponType)weaponType);
             OnUpdateWeaponInfo?.Invoke(EquippedWeapon);
@@ -136,7 +135,6 @@ namespace Code.Weapons {
                 EquippedWeapon.ChargeStatus.OnUpdated += CheckAmmo;
                 EquippedWeapon.OnCantShoot += PlayNoAmmo;
             }
-
 
             SetEmissionChargeFeedback(EquippedWeapon.ChargeStatus);
         }

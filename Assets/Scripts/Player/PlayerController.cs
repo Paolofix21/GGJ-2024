@@ -162,7 +162,7 @@ namespace Code.Player {
 
             _wasGrounded = IsGrounded;
 
-            if (SteamAchievementsController.Singleton.IsAchievementUnlocked(m_jumpHighAchievement))
+            if (SteamAchievementsController.Singleton && SteamAchievementsController.Singleton.IsAchievementUnlocked(m_jumpHighAchievement))
                 return;
 
             if (transform.position.y >= m_jumpHighAchievement.LinkedStatThreshold)
@@ -417,8 +417,8 @@ namespace Code.Player {
         private void SetWeaponInput(int index) {
             var animationHash = index switch {
                 0 => AnimState_Pistol,
-                1 => AnimState_Shotgun,
-                2 => AnimState_Rifle,
+                2 => AnimState_Shotgun,
+                1 => AnimState_Rifle,
                 3 => AnimState_Frustino,
                 4 => AnimState_Sword,
                 _ => 0
@@ -451,8 +451,8 @@ namespace Code.Player {
 
         private int GetAnimatorIndex(int inputIndex) => inputIndex switch {
             0 => AnimState_Pistol,
-            1 => AnimState_Shotgun,
-            2 => AnimState_Rifle,
+            2 => AnimState_Shotgun,
+            1 => AnimState_Rifle,
             3 => AnimState_Frustino,
             4 => AnimState_Sword,
             _ => 0

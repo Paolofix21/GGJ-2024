@@ -551,8 +551,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e053b8a0d394fd0b69432263470e965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_maxHealth: 400
+  m_maxHealth: 600
   m_type: 1
+  m_immuneTo: -1
 --- !u!114 &4536483393058434204
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -579,7 +580,6 @@ MonoBehaviour:
     onBeginOrEndPhase:
       m_PersistentCalls:
         m_Calls: []
-    m_moveSpeed: 2
     m_moveTime: 2
     m_moveProgress:
       serializedVersion: 2

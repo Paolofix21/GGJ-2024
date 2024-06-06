@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Code.GameModeUtils.WaveBasedMode;
 using Code.Promises;
 using SteamIntegration.Achievements;
@@ -34,7 +35,7 @@ namespace Code.Core.MatchManagers {
 
         #region Behaviour Callbacks
         protected override void OnAfterAwake() {
-            _pointsOfInterest.AddRange(FindObjectsByType<SpawnPoint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None));
+            _pointsOfInterest.AddRange(FindObjectsByType<SpawnPoint>(FindObjectsInactive.Exclude, FindObjectsSortMode.None).Where(sp => !sp.Omit));
             GameEvents.OnCutsceneStateChanged += ResumeWavesAfterCutscene;
         }
 

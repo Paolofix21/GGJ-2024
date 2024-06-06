@@ -8,6 +8,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Public Variables
         [Header("References")]
         [SerializeField] private Transform m_portal;
+        [field: SerializeField] public bool Omit { get; private set; }
 
         [Header("Settings")]
         [SerializeField] private float m_animationDuration = 1f;
@@ -24,6 +25,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region IPointOfInterest
         public Vector3 Position => transform.position;
         public Quaternion Rotation => transform.rotation;
+
+        public bool IsVisible { get; private set; }
         #endregion
 
         #region Behaviour Callbacks
@@ -50,8 +53,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
             var sourceScale = appear ? Vector3.zero : Vector3.one;
 
             m_portal.localScale = sourceScale;
-            if (appear)
+            if (appear) {
+                IsVisible = true;
                 m_portal.gameObject.SetActive(true);
+            }
 
             AudioManager.Singleton.PlayOneShotWorldAttached((appear ? m_appearSound : m_vanishSound).GetSound(), gameObject, MixerType.SoundFx);
 
@@ -64,8 +69,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
             }
 
             m_portal.localScale = targetScale;
-            if (!appear)
+            if (!appear) {
                 m_portal.gameObject.SetActive(false);
+                IsVisible = false;
+            }
 
             _animationCoroutine = null;
         }

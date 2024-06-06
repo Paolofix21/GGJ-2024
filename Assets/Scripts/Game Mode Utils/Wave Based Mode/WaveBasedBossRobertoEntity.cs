@@ -11,6 +11,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
     public class WaveBasedBossRobertoEntity : MonoBehaviour, IEntity {
         #region Public Variables
         [Header("References")]
+        [SerializeField] private SpawnPoint m_spawnPoint;
         [SerializeField] private List<WakakaDestroyOnDeath> m_cameras = new();
 
         public event System.Action OnSurrender;
@@ -79,6 +80,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
             if (m_cameras.Count > 0)
                 return;
+
+            if (!m_spawnPoint.IsVisible)
+                m_spawnPoint.AnimatePortal(true);
 
             if (!WaveBasedMatchManager.Singleton)
                 return;

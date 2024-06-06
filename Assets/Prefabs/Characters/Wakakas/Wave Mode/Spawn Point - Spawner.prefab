@@ -8,6 +8,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2635971766230563234, guid: 7e857721a80ed8a42bfd32921e549320,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
     - target: {fileID: 2820463720563719087, guid: 7e857721a80ed8a42bfd32921e549320,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -61,8 +66,18 @@ PrefabInstance:
     - target: {fileID: 5289229858157335372, guid: 7e857721a80ed8a42bfd32921e549320,
         type: 3}
       propertyPath: m_Name
-      value: Spawn Point - Spawner Variant
+      value: Spawn Point - Spawner
       objectReference: {fileID: 0}
+    - target: {fileID: 6284789052222234147, guid: 7e857721a80ed8a42bfd32921e549320,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
+    - target: {fileID: 8889088384116496055, guid: 7e857721a80ed8a42bfd32921e549320,
+        type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

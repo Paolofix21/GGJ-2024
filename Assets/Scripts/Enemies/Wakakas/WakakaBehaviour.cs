@@ -77,6 +77,7 @@ namespace Code.EnemySystem.Wakakas {
             _health.enabled = true;
             if (_attacker)
                 _attacker.enabled = true;
+            RefreshState();
         }
 
         private void Start() {
@@ -116,6 +117,8 @@ namespace Code.EnemySystem.Wakakas {
             _health.enabled = false;
             if (_attacker)
                 _attacker.enabled = false;
+
+            CancelInvoke();
         }
 
         private void OnDestroy() => OnEveryoneChasePlayer -= ForceChasePlayer;
@@ -129,7 +132,10 @@ namespace Code.EnemySystem.Wakakas {
             CancelInvoke();
 
             _state = state;
+            RefreshState();
+        }
 
+        private void RefreshState() {
             switch (_state) {
                 case WakakaState.Wander:
                     _moveDirection = transform.forward;

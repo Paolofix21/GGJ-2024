@@ -318,6 +318,11 @@ PrefabInstance:
       propertyPath: m_characterPredictPosition
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3646512014704624998, guid: 72048a56c21300b4eacccec0234768a8,
+        type: 3}
+      propertyPath: m_chasePlayerOnFellowKilled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3737516770707925920, guid: 72048a56c21300b4eacccec0234768a8,
         type: 3}
       propertyPath: m_Name

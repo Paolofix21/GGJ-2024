@@ -19,6 +19,10 @@ namespace Code.UI {
         [SerializeField] private Button m_quitSettings;
         #endregion
 
+        #region Private Variables
+        private bool _dontResume;
+        #endregion
+
         #region Behaviour Callbacks
         private void Awake() {
             GameEvents.OnPauseStatusChanged += ToggleShow;
@@ -46,6 +50,9 @@ namespace Code.UI {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
 
+            if (_dontResume)
+                return;
+
             AudioManager.Singleton?.AttenuateMusic(1f, .25f);
 
             GameEvents.Resume();
@@ -70,11 +77,16 @@ namespace Code.UI {
 
         #region Event Methods
         private void BackToMenu() {
+            // _dontResume = true;
             gameObject.SetActive(false);
             SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single);
         }
 
-        private void ReloadCurrentLevel() => SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+        private void ReloadCurrentLevel() {
+            // _dontResume = true;
+            gameObject.SetActive(false);
+            SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+        }
 
         private void Quit() => UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);
         #endregion

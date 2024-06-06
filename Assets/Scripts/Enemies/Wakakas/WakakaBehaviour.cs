@@ -1,12 +1,13 @@
 ﻿using Code.Core;
-using Code.Player;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Code.EnemySystem.Wakakas {
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(WakakaMaskAnimator))]
     [RequireComponent(typeof(WakakaHealth))]
+    [RequireComponent(typeof(BoxCollider))]
     public class WakakaBehaviour : MonoBehaviour {
         private enum WakakaState {
             None,
@@ -26,6 +27,7 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField] public bool m_chaseSinceStart;
         [SerializeField] public bool m_alwaysFaceTarget;
         [SerializeField] public bool m_characterPredictPosition;
+        [FormerlySerializedAs("m_chasePlayerOnAnyKilled")] [SerializeField] public bool m_chasePlayerOnFellowKilled;
 
         [Space]
         [SerializeField] public float m_wanderLerpQuickness = 8f;
@@ -44,7 +46,7 @@ namespace Code.EnemySystem.Wakakas {
 
         #region Private Variables
         private Rigidbody _body;
-        private Collider _collider;
+        private BoxCollider _collider;
         private WakakaMaskAnimator _maskAnimator;
         private WakakaHealth _health;
         private WakakaAttacker _attacker;
@@ -55,14 +57,13 @@ namespace Code.EnemySystem.Wakakas {
         private Vector3 _moveDirection;
 
         private System.Action _logic;
-#pragma warning disable CS0067 // Event is never used
         private static event System.Action OnEveryoneChasePlayer;
-#pragma warning restore CS0067 // Event is never used
         #endregion
 
         #region Behaviour Callbacks
         private void Awake() {
             _body = GetComponent<Rigidbody>();
+            _collider = GetComponent<BoxCollider>();
             _health = GetComponent<WakakaHealth>();
             _attacker = GetComponentInChildren<WakakaAttacker>();
             _maskAnimator = GetComponent<WakakaMaskAnimator>();
@@ -85,7 +86,8 @@ namespace Code.EnemySystem.Wakakas {
 
             SetState(WakakaState.Wander);
 
-            OnEveryoneChasePlayer += ForceChasePlayer;
+            if (m_chasePlayerOnFellowKilled)
+                OnEveryoneChasePlayer += ForceChasePlayer;
 
             if (m_chaseSinceStart)
                 ForceChasePlayer();
@@ -164,7 +166,7 @@ namespace Code.EnemySystem.Wakakas {
 
             _moveDirection = (targetPos - pos).normalized;
 
-            if (Physics.Raycast(pos, _moveDirection, out var hit, m_maxWallCastDistance)) {
+            if (Physics.BoxCast(pos, _collider.size * .4f, _moveDirection, out var hit, transform.rotation, m_maxWallCastDistance)) {
                 if (!hit.collider.CompareTag("Player"))
                     _moveDirection = Quaternion.Euler(transform.right * 90f) * hit.normal; // Bend upwards
             }
@@ -204,7 +206,8 @@ namespace Code.EnemySystem.Wakakas {
         }
 
         private void DoRayCastAndAdjustDirection(ref Vector3 direction) {
-            if (!Physics.SphereCast(transform.position, .25f, direction, out var hit, m_maxWallCastDistance))
+            // if (!Physics.SphereCast(transform.position, .25f, direction, out var hit, m_maxWallCastDistance))
+            if (Physics.BoxCast(transform.position, _collider.size * .4f, direction, out var hit, transform.rotation, m_maxWallCastDistance))
                 return;
 
             direction = hit.normal;
@@ -225,7 +228,7 @@ namespace Code.EnemySystem.Wakakas {
         private void OnDie() {
             OnEveryoneChasePlayer -= ForceChasePlayer;
 
-            //OnEveryoneChasePlayer?.Invoke();
+            OnEveryoneChasePlayer?.Invoke();
             Destroy(_collider);
             if (_attacker)
                 Destroy(_attacker.gameObject);

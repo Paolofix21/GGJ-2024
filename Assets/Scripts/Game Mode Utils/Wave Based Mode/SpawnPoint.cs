@@ -38,6 +38,9 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         #region Public Methods
         public void AnimatePortal(bool appear) {
+            if (this == null)
+                return;
+
             if (_animationCoroutine != null)
                 StopCoroutine(_animationCoroutine);
             _animationCoroutine = StartCoroutine(AnimatePortalCO(appear));

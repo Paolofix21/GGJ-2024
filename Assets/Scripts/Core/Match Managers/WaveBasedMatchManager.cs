@@ -54,6 +54,8 @@ namespace Code.Core.MatchManagers {
                 return;
             }
 
+            Time.timeScale = 1f;
+
             Timer.Start();
 
             EntityManager.Begin();

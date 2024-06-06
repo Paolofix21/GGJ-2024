@@ -870,8 +870,8 @@ MonoBehaviour:
     <DamageAmount>k__BackingField: 16
   <Cartridge>k__BackingField:
     amountShotConsumed: 3
-    startingAmount: 36
-    <TotalAmount>k__BackingField: 36
+    startingAmount: 42
+    <TotalAmount>k__BackingField: 42
   <FiringLogic>k__BackingField:
     rid: 5009933660594372686
   m_cooldownDuration: 0.6

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 37ef89425c014714b1cb330b54da8f67, type: 3}
   m_Name: Game Scene 01 - Wave 02 - Sub 01
   m_EditorClassIdentifier: 
-  <SpawnDelay>k__BackingField: 1
+  <SpawnDelay>k__BackingField: 0.4
   m_randomExtraction: 1
   m_entities:
   - {fileID: 6376655157139027058, guid: 72048a56c21300b4eacccec0234768a8, type: 3}

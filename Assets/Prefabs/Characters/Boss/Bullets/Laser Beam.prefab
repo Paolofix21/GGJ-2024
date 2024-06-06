@@ -4902,8 +4902,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7346caa60e1e459294f81d78b75d6192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_range: 20
-  m_trackWeight: 0.8
+  m_range: 35
+  m_trackWeight: 1
   m_trackingPrecision:
     serializedVersion: 2
     m_Curve:
@@ -4928,7 +4928,7 @@ MonoBehaviour:
     m_PreInfinity: 0
     m_PostInfinity: 0
     m_RotationOrder: 4
-  m_damageOverTime: 2
+  m_damageOverTime: 4
   m_damageRate: 0.2
   m_hitParticle: {fileID: 3720152538895251343}
   m_lineRenderer: {fileID: 2155390533304039469}

@@ -963,6 +963,11 @@ AnimatorStateMachine:
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions:
+  - first: {fileID: 3422552941562319472}
+    second:
+    - {fileID: -8981691842944159075}
+    - {fileID: 9036403846788823123}
+    - {fileID: 6811673602259183266}
   - first: {fileID: -4705543368499628072}
     second:
     - {fileID: -7096599339839690053}
@@ -979,11 +984,6 @@ AnimatorStateMachine:
     - {fileID: 3088583290300442465}
     - {fileID: 8622219005955606017}
     - {fileID: 7318617910598574096}
-  - first: {fileID: 3422552941562319472}
-    second:
-    - {fileID: -8981691842944159075}
-    - {fileID: 9036403846788823123}
-    - {fileID: 6811673602259183266}
   - first: {fileID: 9098925538752165966}
     second:
     - {fileID: -5391501108631134838}
@@ -1031,7 +1031,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Rifle Shoot
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -4823116965352143735}

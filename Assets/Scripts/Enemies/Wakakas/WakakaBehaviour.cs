@@ -18,25 +18,30 @@ namespace Code.EnemySystem.Wakakas {
 
         #region Public Variables
         [Header("Settings")]
-        [SerializeField] public float m_wanderSpeed = 2f;
-        [SerializeField] public float m_chaseSpeed = 2f;
-        [SerializeField] public float m_fleeSpeed = 2f;
+        [SerializeField] private float m_wanderSpeed = 2f;
+        [SerializeField] private float m_chaseSpeed = 2f;
+        [SerializeField] private float m_fleeSpeed = 2f;
+        [SerializeField] private Vector2 m_wanderRefreshTimeRange = new(2f, 4f);
+#if UNITY_EDITOR
+        public bool debugState;
+#endif
 
         [Space]
-        [SerializeField] public float m_detectionDistance = 2f;
-        [SerializeField] public bool m_chaseSinceStart;
-        [SerializeField] public bool m_alwaysFaceTarget;
-        [SerializeField] public bool m_characterPredictPosition;
-        [FormerlySerializedAs("m_chasePlayerOnAnyKilled")] [SerializeField] public bool m_chasePlayerOnFellowKilled;
+        [SerializeField] private float m_detectionDistance = 2f;
+        [SerializeField] private bool m_chaseSinceStart;
+        [SerializeField] private bool m_alwaysFaceTarget;
+        [SerializeField] private bool m_characterPredictPosition;
+        [FormerlySerializedAs("m_chasePlayerOnAnyKilled")] [SerializeField] private bool m_chasePlayerOnFellowKilled;
 
         [Space]
-        [SerializeField] public float m_wanderLerpQuickness = 8f;
-        [SerializeField] public float m_chaseLerpQuickness = 4f;
+        [SerializeField] private float m_wanderLerpQuickness = 8f;
+        [SerializeField] private float m_chaseLerpQuickness = 4f;
 
         [Space]
-        [SerializeField, Min(5f)] public float m_maxDistanceFromPlayer = 30f;
-        [SerializeField, Min(5f)] public float m_maxDistanceYFromPlayer = 8f;
-        [SerializeField, Min(1f)] public float m_maxWallCastDistance = 3f;
+        [SerializeField, Min(5f)] private float m_maxDistanceFromPlayer = 30f;
+        [SerializeField, Min(5f)] private float m_maxDistanceYFromPlayer = 8f;
+        [SerializeField, Min(1f)] private float m_maxWallCastDistance = 3f;
+        [SerializeField] private LayerMask m_wallMask = ~0;
 
         [Space]
         [SerializeField] private SteamIntegration.Statistics.SteamStatisticSO m_enemiesKilledStat;
@@ -56,6 +61,10 @@ namespace Code.EnemySystem.Wakakas {
         private WakakaState _state = WakakaState.None;
         private Vector3 _moveDirection;
 
+#if UNITY_EDITOR
+        private TextMesh _textState;
+#endif
+
         private System.Action _logic;
         private static event System.Action OnEveryoneChasePlayer;
         #endregion
@@ -70,6 +79,19 @@ namespace Code.EnemySystem.Wakakas {
 
             _health.OnHealthChanged += OnHealthChanged;
             _health.OnDeath += OnDie;
+
+#if UNITY_EDITOR
+            if (!debugState)
+                return;
+
+            var obj = new GameObject("State Text");
+            obj.transform.SetParent(transform);
+            obj.transform.localPosition = Vector3.up;
+            obj.transform.localRotation = Quaternion.identity;
+            _textState = obj.AddComponent<TextMesh>();
+            _textState.alignment = TextAlignment.Center;
+            _textState.anchor = TextAnchor.MiddleCenter;
+#endif
         }
 
         private void OnEnable() {
@@ -95,6 +117,11 @@ namespace Code.EnemySystem.Wakakas {
         }
 
         private void FixedUpdate() {
+#if UNITY_EDITOR
+            if (_textState && _target)
+                _textState.transform.LookAt(_target);
+#endif
+
             switch (_state) {
                 case WakakaState.Wander:
                     Wander();
@@ -119,6 +146,10 @@ namespace Code.EnemySystem.Wakakas {
                 _attacker.enabled = false;
 
             CancelInvoke();
+#if UNITY_EDITOR
+            if (_textState)
+                _textState.text = null;
+#endif
         }
 
         private void OnDestroy() => OnEveryoneChasePlayer -= ForceChasePlayer;
@@ -136,6 +167,11 @@ namespace Code.EnemySystem.Wakakas {
         }
 
         private void RefreshState() {
+#if UNITY_EDITOR
+            if (_textState)
+                _textState.text = _state.ToString();
+#endif
+
             switch (_state) {
                 case WakakaState.Wander:
                     _moveDirection = transform.forward;
@@ -157,11 +193,13 @@ namespace Code.EnemySystem.Wakakas {
             _moveDirection = Random.onUnitSphere;
             _moveDirection.y *= .5f;
             _moveDirection.Normalize();
-            DoRayCastAndAdjustDirection(ref _moveDirection);
-            Invoke(nameof(RefreshWander), Random.Range(2, 4f));
+            // DoRayCastAndAdjustDirection(ref _moveDirection);
+            Invoke(nameof(RefreshWander), Random.Range(m_wanderRefreshTimeRange.x, m_wanderRefreshTimeRange.y));
         }
 
         private void Wander() {
+            if (Physics.BoxCast(transform.position, _collider.size * .4f, _moveDirection, out var hit, transform.rotation, m_maxWallCastDistance))_moveDirection = Quaternion.Euler(transform.right * 90f) * hit.normal; // Bend upwards
+
             _body.velocity = Vector3.Slerp(_body.velocity, _moveDirection * m_wanderSpeed, Time.deltaTime * m_wanderLerpQuickness);
             transform.forward = Vector3.Slerp(transform.forward, _moveDirection, Time.deltaTime * m_wanderLerpQuickness * .5f);
         }
@@ -211,13 +249,13 @@ namespace Code.EnemySystem.Wakakas {
             _moveDirection.Normalize();
         }
 
-        private void DoRayCastAndAdjustDirection(ref Vector3 direction) {
+        /*private void DoRayCastAndAdjustDirection(ref Vector3 direction) {
             // if (!Physics.SphereCast(transform.position, .25f, direction, out var hit, m_maxWallCastDistance))
-            if (Physics.BoxCast(transform.position, _collider.size * .4f, direction, out var hit, transform.rotation, m_maxWallCastDistance))
+            if (!Physics.BoxCast(transform.position, _collider.size * .4f, direction, out var hit, transform.rotation, m_maxWallCastDistance))
                 return;
 
             direction = hit.normal;
-        }
+        }*/
         #endregion
 
         #region Event Methods

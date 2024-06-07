@@ -45,6 +45,7 @@ namespace Code.UI {
             _sword.Shot += DisplayWeaponEnergy;
             CheckWeapon(playerWeaponHandler.EquippedWeapon);
             UpdateWeaponIcon((int)playerWeaponHandler.EquippedWeapon.WeaponType);
+            DisplayWeaponEnergy();
         }
 
         private void DisplayWeaponEnergy(IEntity element) => DisplayWeaponEnergy();

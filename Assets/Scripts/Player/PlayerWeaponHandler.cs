@@ -112,7 +112,7 @@ namespace Code.Weapons {
         private void PlayNoAmmo()
         {
             if (_currentCooldown > 0) return;
-            AudioManager.Singleton.PlayOneShotWorldAttached(m_noAmmoSound.GetSound(), playerController.gameObject, MixerType.Voice);
+            AudioManager.Singleton?.PlayOneShotWorldAttached(m_noAmmoSound.GetSound(), playerController.gameObject, MixerType.Voice);
             CooldownVO();
         }
         #endregion

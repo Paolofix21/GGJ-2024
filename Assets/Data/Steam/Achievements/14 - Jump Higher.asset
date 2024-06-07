@@ -15,4 +15,4 @@ MonoBehaviour:
   <Id>k__BackingField: JUMP_HIGH
   <Type>k__BackingField: 0
   <LinkedStat>k__BackingField: {fileID: 0}
-  <LinkedStatThreshold>k__BackingField: 140
+  <LinkedStatThreshold>k__BackingField: 45

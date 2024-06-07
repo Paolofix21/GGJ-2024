@@ -50,6 +50,7 @@ public class EndGameUI : MonoBehaviour {
     [SerializeField] private double m_minimumTimeSeconds = 720.0;
     [SerializeField] private double m_scoreCap = 1000.0;
     [SerializeField] private double m_reductionCoefficient = 120.0;
+    [SerializeField] private bool m_useScoreCap;
     [Space]
     [SerializeField] private SteamLeaderboardSO m_leaderboard;
     [SerializeField] private SteamLeaderboardSO m_leaderboardTime;
@@ -156,7 +157,7 @@ public class EndGameUI : MonoBehaviour {
 
     private double CalculatePoints(System.TimeSpan seconds) {
         var totalSeconds = seconds.TotalSeconds;
-        var score = totalSeconds < m_minimumTimeSeconds
+        var score = m_useScoreCap && totalSeconds < m_minimumTimeSeconds
             ? m_scoreCap
             : (2 * m_scoreCap / System.Math.PI * -System.Math.Atan((totalSeconds - m_minimumTimeSeconds) / m_reductionCoefficient)) + m_scoreCap;
 

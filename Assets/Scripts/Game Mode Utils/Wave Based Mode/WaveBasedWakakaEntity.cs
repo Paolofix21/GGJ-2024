@@ -1,4 +1,5 @@
-﻿using Code.EnemySystem.Wakakas;
+﻿using Code.Core;
+using Code.EnemySystem.Wakakas;
 using Code.Promises;
 using UnityEngine;
 using Utilities;
@@ -6,6 +7,10 @@ using Utilities;
 namespace Code.GameModeUtils.WaveBasedMode {
     [RequireComponent(typeof(WakakaBehaviour))]
     public class WaveBasedWakakaEntity : MonoBehaviour, IEntity {
+        #region Public Variables
+        [SerializeField] private int m_score = 1;
+        #endregion
+
         #region Private Variables
         private WakakaBehaviour _wakakaBehaviour;
         #endregion
@@ -13,7 +18,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Behaviour Callbacks
         private void Awake() => _wakakaBehaviour = GetComponent<WakakaBehaviour>();
 
-        private void OnDestroy() => OnDestroyed?.Invoke(this);
+        private void OnDestroy() {
+            GameEvents.Score += m_score;
+            OnDestroyed?.Invoke(this);
+        }
         #endregion
 
         #region IEntity

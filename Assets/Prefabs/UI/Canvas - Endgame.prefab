@@ -258,7 +258,7 @@ CanvasGroup:
   m_Alpha: 1
   m_Interactable: 1
   m_BlocksRaycasts: 1
-  m_IgnoreParentGroups: 0
+  m_IgnoreParentGroups: 1
 --- !u!114 &4687527868275134080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,7 +289,9 @@ MonoBehaviour:
   m_simpleButton: {fileID: 4603281769455042648}
   m_highlightButton: {fileID: 6056098206321775660}
   m_quitButton: {fileID: 383494302229015431}
-  m_minimumCentsOfSeconds: 100
+  m_minimumTimeSeconds: 720
+  m_scoreCap: 1000
+  m_reductionCoefficient: 120
   m_leaderboard: {fileID: 11400000, guid: b94e3d409e6d4df42b56052d463a9542, type: 2}
   m_leaderboardTime: {fileID: 11400000, guid: 0891f45082fe95348bd3296410228574, type: 2}
 --- !u!95 &5565350268669363033

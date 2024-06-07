@@ -27,7 +27,11 @@ namespace Code.Core {
         #region Public Methods
         public static T GetMatchManager<T>() where T : IMatchManager => (T)MatchManager;
 
-        public static void Begin() => MatchManager?.BeginMatch();
+        public static void Begin() {
+            GameTime = 0;
+            Score = 0;
+            MatchManager?.BeginMatch();
+        }
 
         public static void Pause() {
             if (IsPausedForbidden) {

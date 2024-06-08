@@ -95,3 +95,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bb4f8ffc43b4f6d992c520ab2e16f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_score: 1
+  m_invokeChaseWhenFewerThen: 4
+  <BossEnergy>k__BackingField: 5

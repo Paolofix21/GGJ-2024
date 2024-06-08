@@ -2466,21 +2466,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 244678188734046182, guid: 9dc247bfcdeab644d8f7880482a5b202,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
-    - target: {fileID: 876154103285085572, guid: 9dc247bfcdeab644d8f7880482a5b202,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
-    - target: {fileID: 1407085285186429217, guid: 9dc247bfcdeab644d8f7880482a5b202,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
     - target: {fileID: 3019938568592047239, guid: 9dc247bfcdeab644d8f7880482a5b202,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2536,11 +2521,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Roberto Spawn Point
       objectReference: {fileID: 0}
-    - target: {fileID: 7821036603213620290, guid: 9dc247bfcdeab644d8f7880482a5b202,
-        type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
-      value: 
-      objectReference: {fileID: 2100000, guid: 88065065d06d6324cb49a4d895567a8c, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

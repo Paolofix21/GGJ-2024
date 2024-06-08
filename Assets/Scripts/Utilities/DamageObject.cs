@@ -21,6 +21,9 @@ namespace Utilities {
 
     public static class DamageObjectHelper {
         public static DamageObject Parse(GameObject target) {
+            if (target == null)
+                return DamageObject.Unknown;
+
             if (target.TryGetComponent(out Weapon weapon)) {
                 return weapon switch {
                     Pistol => DamageObject.Pistol,

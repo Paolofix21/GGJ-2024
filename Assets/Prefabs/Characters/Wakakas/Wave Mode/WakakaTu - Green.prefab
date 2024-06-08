@@ -13,6 +13,11 @@ PrefabInstance:
       propertyPath: m_score
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -1956072587393516237, guid: 63ab761d1fa0ce8438eb3951471c994b,
+        type: 3}
+      propertyPath: <BossEnergy>k__BackingField
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 1026766940175158311, guid: 63ab761d1fa0ce8438eb3951471c994b,
         type: 3}
       propertyPath: m_fleeSpeed

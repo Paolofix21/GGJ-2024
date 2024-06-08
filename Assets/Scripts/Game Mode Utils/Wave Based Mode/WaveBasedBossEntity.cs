@@ -1,4 +1,5 @@
-﻿using Code.Core.MatchManagers;
+﻿using Code.Core;
+using Code.Core.MatchManagers;
 using Code.EnemySystem.Boss;
 using Code.Promises;
 using SteamIntegration.Achievements;
@@ -68,10 +69,17 @@ namespace Code.GameModeUtils.WaveBasedMode {
         public void StartFight() {
             _controller.BeginFight();
             OnTriggered?.Invoke(true);
+
+            GameEvents.GetMatchManager<WaveBasedMatchManager>().EntityManager.OnEntityDied += OnEntityDied;
         }
         #endregion
 
         #region Event Methods
+        private void OnEntityDied(IEntity entity) {
+            if (entity is WaveBasedWakakaEntity wakaka)
+                _controller.Health.ApplyDamage(wakaka.BossEnergy, null);
+        }
+
         private void OnPhaseChange(WakakaBossBehaviour.WakakaBossState phase) => _lastPhase = phase;
 
         private void Surrender() {
@@ -80,6 +88,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
             OnSurrender?.Invoke();
             OnTriggered?.Invoke(false);
+
+            GameEvents.GetMatchManager<WaveBasedMatchManager>().EntityManager.OnEntityDied -= OnEntityDied;
         }
         #endregion
     }

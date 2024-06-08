@@ -19,6 +19,7 @@ namespace Code.Core.MatchManagers {
         [SerializeField] private SteamAchievementSO m_oneShotOneKillAchievement;
 
         public event System.Action OnFinish;
+        public event System.Action<IEntity> OnEntityDied;
         public event System.Action<int> OnWaveChanged;
         #endregion
 
@@ -76,6 +77,8 @@ namespace Code.Core.MatchManagers {
                 _simultaneousKills++;
 
             _lastTimeAdded = Time.unscaledTime;
+
+            OnEntityDied?.Invoke(element);
 
             if (Entities.Count <= m_invokeChaseWhenFewerThen)
                 Entities.ForeEach(e => e.Aggro());

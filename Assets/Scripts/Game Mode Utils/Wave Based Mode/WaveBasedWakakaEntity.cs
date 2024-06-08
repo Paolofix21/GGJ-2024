@@ -10,6 +10,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Public Variables
         [SerializeField] private int m_score = 1;
         [SerializeField] private int m_invokeChaseWhenFewerThen = 4;
+        [field: SerializeField] public int BossEnergy { get; private set; } = 1;
         #endregion
 
         #region Private Variables

@@ -42,6 +42,8 @@ namespace Code.Weapons {
         public abstract void Recharge(int amount);
 
         public void Boost() => FiringLogic.Boost();
+
+        public virtual void SetSide(bool right) { }
         #endregion
 
         #region Protected Methods

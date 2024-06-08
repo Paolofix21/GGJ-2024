@@ -15,7 +15,7 @@ namespace Code.Weapons {
             var reachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
             var ray = new Ray(m_weaponCamera.position, m_weaponCamera.forward);
 
-            Effect(m_effectOrigin.position, reachablePoint);
+            Effect(m_effectOrigin.position - m_effectOrigin.forward * 1.2f, reachablePoint);
 
             if (!Physics.Raycast(ray, out var hitInfo, m_range))
                 return;

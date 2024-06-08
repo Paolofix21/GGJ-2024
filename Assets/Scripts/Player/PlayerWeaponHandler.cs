@@ -45,8 +45,10 @@ namespace Code.Weapons {
                 playerController.OnShootRequest += CanShoot;
             }
 
-            if(playerWeaponAnimatorListener != null)
+            if(playerWeaponAnimatorListener != null) {
                 playerWeaponAnimatorListener.OnAnimatorShootCallback += Shoot;
+                playerWeaponAnimatorListener.OnAnimatorShootSidedCallback += Shoot;
+            }
 
             weapons.ForEach(w => w.Init(this));
         }
@@ -81,6 +83,11 @@ namespace Code.Weapons {
         #region Private Methods
         [UsedImplicitly]
         private void Shoot() => EquippedWeapon.Shoot();
+        [UsedImplicitly]
+        private void Shoot(int leftRight) {
+            EquippedWeapon.SetSide(leftRight > 0);
+            EquippedWeapon.Shoot();
+        }
 
         private void InteractWithRecharger(IRecharger recharger) {
             if (recharger == null) return;

@@ -216,6 +216,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1060866986}
     m_Modifications:
+    - target: {fileID: 75331032272732862, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 75331032272732862, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 75331032272732862, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 75331032272732862, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1479792394114087920, guid: 8aa0155581af3f841b47e7e9288d9588,
         type: 3}
       propertyPath: m_Pivot.x
@@ -316,6 +336,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1953206505706629009, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953206505706629009, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953206505706629009, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1953206505706629009, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2069351076550226706, guid: 8aa0155581af3f841b47e7e9288d9588,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -357,6 +397,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2740327945733167309, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676337980418810588, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676337980418810588, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676337980418810588, guid: 8aa0155581af3f841b47e7e9288d9588,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4676337980418810588, guid: 8aa0155581af3f841b47e7e9288d9588,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
@@ -1906,6 +1966,26 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1808304882841912769, guid: 0e2204e7c2f5a8b4588d3f6732e3ce65,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902767805918022878, guid: 0e2204e7c2f5a8b4588d3f6732e3ce65,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902767805918022878, guid: 0e2204e7c2f5a8b4588d3f6732e3ce65,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902767805918022878, guid: 0e2204e7c2f5a8b4588d3f6732e3ce65,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1902767805918022878, guid: 0e2204e7c2f5a8b4588d3f6732e3ce65,
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0

@@ -56,32 +56,32 @@ ModelImporter:
       curves: []
       events:
       - time: 0.045454547
-        functionName: Shoot
+        functionName: ShootSided
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
       - time: 0.29545456
-        functionName: Shoot
+        functionName: ShootSided
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: -1
         messageOptions: 0
       - time: 0.5984849
-        functionName: Shoot
+        functionName: ShootSided
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: 1
         messageOptions: 0
       - time: 0.8181818
-        functionName: Shoot
+        functionName: ShootSided
         data: 
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
-        intParameter: 0
+        intParameter: -1
         messageOptions: 0
       transformMask: []
       maskType: 3

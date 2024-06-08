@@ -24,6 +24,8 @@ namespace Code.Weapons {
         #region Public Methods
         public void Init(Weapon weapon) => _weapon = weapon;
 
+        public void OverrideOrigin(Transform newOrigin) => m_effectOrigin = newOrigin;
+
         public abstract void Shoot(Ammunition ammunition);
 
         public virtual void Boost() { }

@@ -5,6 +5,10 @@ namespace Code.Weapons {
         #region Public Variables
         [field: SerializeField] public Cartridge Cartridge { get; private set; }
         [field: SerializeReference] public override FiringLogicBase FiringLogic { get; protected set; } = new SingleBulletLogic();
+
+        [Space]
+        [SerializeField] private Transform m_leftFinger;
+        [SerializeField] private Transform m_rightFinger;
         #endregion
 
         #region Properties
@@ -40,6 +44,8 @@ namespace Code.Weapons {
         }
 
         public override void Recharge(int amount) => Cartridge.AddAmmo(amount);
+
+        public override void SetSide(bool right) => FiringLogic.OverrideOrigin(right ? m_rightFinger : m_leftFinger);
         #endregion
 
         #region Event Methods

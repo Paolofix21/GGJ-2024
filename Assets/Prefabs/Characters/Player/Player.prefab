@@ -867,7 +867,7 @@ MonoBehaviour:
   <WeaponType>k__BackingField: 2
   <Ammunition>k__BackingField:
     <DamageType>k__BackingField: 4
-    <DamageAmount>k__BackingField: 16
+    <DamageAmount>k__BackingField: 20
   <Cartridge>k__BackingField:
     amountShotConsumed: 3
     startingAmount: 42
@@ -890,7 +890,7 @@ MonoBehaviour:
         hitParticle: {fileID: 8319404462066548439, guid: c541010349480444c99b8dd1e6d59803,
           type: 3}
         m_boostMultiplier: 1.2
-        radius: 3.5
+        radius: 2.5
         interestedPoints: 9
         doesCollateral: 1
 --- !u!1001 &3756361854172432236

@@ -12,6 +12,7 @@ namespace Code.Promises {
         #region Public Methods
         public void Enable();
         public void Disable();
+        public void Aggro() {}
         public void Terminate();
         #endregion
     }

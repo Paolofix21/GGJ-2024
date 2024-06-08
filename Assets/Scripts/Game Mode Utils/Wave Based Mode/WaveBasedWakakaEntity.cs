@@ -9,6 +9,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
     public class WaveBasedWakakaEntity : MonoBehaviour, IEntity {
         #region Public Variables
         [SerializeField] private int m_score = 1;
+        [SerializeField] private int m_invokeChaseWhenFewerThen = 4;
         #endregion
 
         #region Private Variables
@@ -32,6 +33,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
         public void Enable() => _wakakaBehaviour.enabled = true;
 
         public void Disable() => _wakakaBehaviour.enabled = false;
+
+        public void Aggro() => _wakakaBehaviour.ForceChasePlayer();
 
         public void Terminate() => _wakakaBehaviour.GetComponent<WakakaMaskAnimator>().AnimateDeath();
         #endregion

@@ -13,6 +13,7 @@ namespace Code.Core.MatchManagers {
         #region Public Variables
         [SerializeField] private WavesCollectionSO m_wavesDataPack;
         [SerializeField] private float m_killTimeThreshold = .1f;
+        [SerializeField, Min(-1)] private int m_invokeChaseWhenFewerThen = 4;
 
         [Space]
         [SerializeField] private SteamAchievementSO m_oneShotOneKillAchievement;
@@ -75,6 +76,9 @@ namespace Code.Core.MatchManagers {
                 _simultaneousKills++;
 
             _lastTimeAdded = Time.unscaledTime;
+
+            if (Entities.Count <= m_invokeChaseWhenFewerThen)
+                Entities.ForeEach(e => e.Aggro());
 
             if (_simultaneousKills != _originalWaveCount)
                 return;

@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1939257008642975755}
   - component: {fileID: 5693919635207303363}
   - component: {fileID: 4820931778597995022}
-  - component: {fileID: 7798297428812470877}
   m_Layer: 0
   m_Name: Pillar Squared Broken Lower Half
   m_TagString: Untagged
@@ -86,24 +85,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &7798297428812470877
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1345069971538709634}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1.0248868, y: 3.9562392, z: 1.0347763}
-  m_Center: {x: -0.016525626, y: 1.9781196, z: 0.0027939677}

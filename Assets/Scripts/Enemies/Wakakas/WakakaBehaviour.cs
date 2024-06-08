@@ -1,6 +1,5 @@
 ﻿using Code.Core;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Code.EnemySystem.Wakakas {
@@ -31,7 +30,6 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField] private bool m_chaseSinceStart;
         [SerializeField] private bool m_alwaysFaceTarget;
         [SerializeField] private bool m_characterPredictPosition;
-        [FormerlySerializedAs("m_chasePlayerOnAnyKilled")] [SerializeField] private bool m_chasePlayerOnFellowKilled;
 
         [Space]
         [SerializeField] private float m_wanderLerpQuickness = 8f;
@@ -66,7 +64,6 @@ namespace Code.EnemySystem.Wakakas {
 #endif
 
         private System.Action _logic;
-        private static event System.Action OnEveryoneChasePlayer;
         #endregion
 
         #region Behaviour Callbacks
@@ -109,9 +106,6 @@ namespace Code.EnemySystem.Wakakas {
 
             SetState(WakakaState.Wander);
 
-            if (m_chasePlayerOnFellowKilled)
-                OnEveryoneChasePlayer += ForceChasePlayer;
-
             if (m_chaseSinceStart)
                 ForceChasePlayer();
         }
@@ -151,8 +145,10 @@ namespace Code.EnemySystem.Wakakas {
                 _textState.text = null;
 #endif
         }
+        #endregion
 
-        private void OnDestroy() => OnEveryoneChasePlayer -= ForceChasePlayer;
+        #region Public Methods
+        public void ForceChasePlayer() => SetState(WakakaState.Chase);
         #endregion
 
         #region Private Methods
@@ -259,20 +255,12 @@ namespace Code.EnemySystem.Wakakas {
         #endregion
 
         #region Event Methods
-        private void ForceChasePlayer() {
-            OnEveryoneChasePlayer -= ForceChasePlayer;
-            SetState(WakakaState.Chase);
-        }
-
         private void OnHealthChanged(float health) {
             if (health < 1f)
                 _maskAnimator.AnimateDamage();
         }
 
         private void OnDie() {
-            OnEveryoneChasePlayer -= ForceChasePlayer;
-
-            OnEveryoneChasePlayer?.Invoke();
             _collider.enabled = false;
             if (_attacker)
                 Destroy(_attacker.gameObject);

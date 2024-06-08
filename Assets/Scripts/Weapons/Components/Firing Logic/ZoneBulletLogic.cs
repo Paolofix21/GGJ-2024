@@ -8,6 +8,7 @@ namespace Code.Weapons {
         [SerializeField] private BulletTrail bullet = default;
         [SerializeField] private GameObject hitParticle = default;
         [SerializeField] private float m_boostMultiplier = 3f;
+        [SerializeField] private int m_spreadSeed = 0;
 
         [Header("Settings")]
         [SerializeField][Range(0f, 5f)] private float radius = default;
@@ -19,8 +20,11 @@ namespace Code.Weapons {
         public override void Shoot(Ammunition ammunition) {
             var lastReachablePoint = m_weaponCamera.position + m_weaponCamera.forward * m_range;
 
+            Random.InitState(m_spreadSeed);
+
             for (var i = 0; i < interestedPoints; i++) {
-                Vector3 randomReachablePoint = lastReachablePoint + (Vector3)Random.insideUnitCircle * radius;
+                var remappedRandomPoint = m_weaponCamera.TransformPoint((Vector3)Random.insideUnitCircle * radius) - m_weaponCamera.position;
+                var randomReachablePoint = lastReachablePoint + remappedRandomPoint;
 
                 Effect(m_effectOrigin.position, randomReachablePoint);
 

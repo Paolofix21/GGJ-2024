@@ -8,11 +8,15 @@ namespace Code.EnemySystem.Wakakas {
         #endregion
 
         #region Behaviour Callbacks
-        private void Awake() => GetComponent<WakakaHealth>().OnDeath += () => Destroy(gameObject);
+        private void Awake() => GetComponent<WakakaHealth>().OnDeath += Terminate;
 
-        private void OnDestroy() {
+        private void OnDestroy() => OnTerminate = null;
+        #endregion
+
+        #region Private Methods
+        private void Terminate() {
             OnTerminate?.Invoke(this);
-            OnTerminate = null;
+            Destroy(gameObject);
         }
         #endregion
     }

@@ -2,6 +2,7 @@ using Audio;
 using Code.LevelSystem;
 using Code.UI;
 using Code.Core;
+using SteamIntegration.Achievements;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -54,6 +55,7 @@ public class EndGameUI : MonoBehaviour {
     [Space]
     [SerializeField] private SteamLeaderboardSO m_leaderboard;
     [SerializeField] private SteamLeaderboardSO m_leaderboardTime;
+    [SerializeField] private SteamAchievementSO m_speedRunningAchievement;
     #endregion
 
     #region Behaviour Callbacks
@@ -145,7 +147,7 @@ public class EndGameUI : MonoBehaviour {
     private void UpdateScore(double timeSeconds) {
         var time = System.TimeSpan.FromSeconds(timeSeconds);
         var points = CalculatePoints(time);
-        m_pointsToDisplay.SetText($"Points: {points}");
+        m_pointsToDisplay.SetText($"Points: {(int)(points * 1000)}");
 
         var timeString = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
         m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);
@@ -153,6 +155,9 @@ public class EndGameUI : MonoBehaviour {
 
         SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)(points * 1000));
         SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboardTime, (int)(timeSeconds * 1000));
+
+        if (timeSeconds < m_minimumTimeSeconds)
+            SteamAchievementsController.Singleton?.AdvanceAchievement(m_speedRunningAchievement);
     }
 
     private double CalculatePoints(System.TimeSpan seconds) {

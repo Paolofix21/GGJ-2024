@@ -3,6 +3,7 @@ using Code.Core.MatchManagers;
 using Code.EnemySystem.Wakakas;
 using Code.Promises;
 using Enemies.BossRoberto;
+using SteamIntegration.Achievements;
 using UnityEngine;
 using Utilities;
 
@@ -12,6 +13,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
         #region Public Variables
         [Header("References")]
         [SerializeField] private SpawnPoint m_spawnPoint;
+        [SerializeField] private SteamAchievementSO m_allCamerasFoundAchievement;
         [SerializeField] private List<WakakaDestroyOnDeath> m_cameras = new();
 
         public event System.Action OnSurrender;
@@ -81,8 +83,10 @@ namespace Code.GameModeUtils.WaveBasedMode {
             if (m_cameras.Count > 0)
                 return;
 
-            if (!m_spawnPoint.IsVisible)
+            if (!m_spawnPoint.IsVisible) {
                 m_spawnPoint.AnimatePortal(true);
+                SteamAchievementsController.Singleton?.AdvanceAchievement(m_allCamerasFoundAchievement);
+            }
 
             if (!WaveBasedMatchManager.Singleton)
                 return;

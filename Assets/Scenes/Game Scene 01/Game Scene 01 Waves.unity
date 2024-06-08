@@ -1698,6 +1698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_wavesDataPack: {fileID: 11400000, guid: 7b819134ac60a6f49be1620ccd8bb402, type: 2}
   m_killTimeThreshold: 0.1
+  m_invokeChaseWhenFewerThen: 4
   m_oneShotOneKillAchievement: {fileID: 11400000, guid: 0777392b495572a419065b1b0f184d11,
     type: 2}
 --- !u!4 &1321224342
@@ -1898,6 +1899,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_spawnPoint: {fileID: 5460692119633614527}
+  m_allCamerasFoundAchievement: {fileID: 11400000, guid: f7eac0d05b8d5364abbbee9184260843,
+    type: 2}
   m_cameras:
   - {fileID: 2119210182}
   - {fileID: 1823426660}

@@ -210,12 +210,20 @@ MonoBehaviour:
   m_wanderSpeed: 3
   m_chaseSpeed: 5
   m_fleeSpeed: 10
+  m_wanderRefreshTimeRange: {x: 2, y: 4}
+  debugState: 0
   m_detectionDistance: 2
+  m_chaseSinceStart: 0
+  m_alwaysFaceTarget: 0
+  m_characterPredictPosition: 0
   m_wanderLerpQuickness: 8
   m_chaseLerpQuickness: 4
   m_maxDistanceFromPlayer: 30
   m_maxDistanceYFromPlayer: 8
   m_maxWallCastDistance: 3
+  m_wallMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_enemiesKilledStat: {fileID: 11400000, guid: c30e198c218508f4da7ccc7a9e2ef3f3,
     type: 2}
 --- !u!114 &251883932460174636
@@ -232,6 +240,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 25
   m_type: 0
+  m_immuneTo: -1
 --- !u!114 &7211894096127839578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +326,8 @@ MonoBehaviour:
   m_laughterClipEvent: {fileID: 11400000, guid: 082ad75b022ca574d98328837c411d3a,
     type: 2}
   m_laughterShapeIndex: 0
+  m_smorfia: {fileID: 11400000, guid: 1928c3f7a92844943b711de6e26dc710, type: 2}
+  m_smorfiaTimeRange: {x: 4, y: 7}
   m_damageAnimationDuration: 0.5
   m_damageAnimation:
     serializedVersion: 2

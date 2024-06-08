@@ -14,6 +14,10 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField] private SoundSO m_laughterClipEvent;
         [SerializeField] private int m_laughterShapeIndex;
 
+        [Space]
+        [SerializeField] private SoundSO m_smorfia;
+        [SerializeField] private Vector2 m_smorfiaTimeRange = new(3, 5);
+
         [Header("Damage")]
         [SerializeField] private float m_damageAnimationDuration = 0.5f;
         [SerializeField] private AnimationCurve m_damageAnimation = AnimationCurve.Linear(0, 0, 1, 1);
@@ -40,6 +44,9 @@ namespace Code.EnemySystem.Wakakas {
 
         private bool _animatingLaughter;
 
+        private static WakakaMaskAnimator _lastSmorfiaTakenBy;
+        private static bool _canSmorfia = true;
+
         private static readonly int MatProp_Saturation = Shader.PropertyToID("_Saturation");
         #endregion
 
@@ -48,6 +55,15 @@ namespace Code.EnemySystem.Wakakas {
             _meshRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
             _block = new MaterialPropertyBlock();
             _meshRenderer.GetPropertyBlock(_block);
+        }
+
+        private void OnEnable() => Invoke(nameof(AnimateSmorfia), Random.Range(m_smorfiaTimeRange.x, m_smorfiaTimeRange.y));
+
+        private void OnDisable() {
+            CancelInvoke();
+
+            if (_lastSmorfiaTakenBy == this)
+                AllowSmorfia();
         }
         #endregion
 
@@ -94,6 +110,25 @@ namespace Code.EnemySystem.Wakakas {
         #endregion
 
         #region Private Methods
+        private void AnimateSmorfia() {
+            Invoke(nameof(AnimateSmorfia), Random.Range(m_smorfiaTimeRange.x, m_smorfiaTimeRange.y));
+
+            if (!_canSmorfia)
+                return;
+
+            AudioManager.Singleton.PlayOneShotWorldAttached(m_smorfia.GetSound(), gameObject, MixerType.SoundFx);
+
+            _canSmorfia = false;
+            _lastSmorfiaTakenBy = this;
+
+            Invoke(nameof(AllowSmorfia), m_smorfiaTimeRange.x);
+        }
+
+        private void AllowSmorfia() {
+            _canSmorfia = true;
+            _lastSmorfiaTakenBy = null;
+        }
+
         private IEnumerator DamageCO() {
             var t = 0f;
 

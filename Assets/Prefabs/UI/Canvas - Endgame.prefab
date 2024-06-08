@@ -292,8 +292,11 @@ MonoBehaviour:
   m_minimumTimeSeconds: 720
   m_scoreCap: 1000
   m_reductionCoefficient: 120
+  m_useScoreCap: 0
   m_leaderboard: {fileID: 11400000, guid: b94e3d409e6d4df42b56052d463a9542, type: 2}
   m_leaderboardTime: {fileID: 11400000, guid: 0891f45082fe95348bd3296410228574, type: 2}
+  m_speedRunningAchievement: {fileID: 11400000, guid: fce29d12ec8f2cc4386e3609bc547038,
+    type: 2}
 --- !u!95 &5565350268669363033
 Animator:
   serializedVersion: 7

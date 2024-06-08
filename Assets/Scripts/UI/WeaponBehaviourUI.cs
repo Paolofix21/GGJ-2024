@@ -21,6 +21,7 @@ namespace Code.UI {
         [SerializeField] private Image m_specialWeaponFiller;
         [SerializeField] private Image m_specialWeaponIconImage;
         [SerializeField] private Sprite m_specialWeaponFilledSprite;
+        [SerializeField] private Sprite m_specialWeaponSelectedChargedSprite;
         #endregion
 
         #region Properties
@@ -65,7 +66,11 @@ namespace Code.UI {
 
         #region Public Methods
         public void UpdateWeaponIcon(int i) {
-            m_selectedWeapon.sprite = weaponSprites[i];
+            if (i == weaponSprites.Count - 1 && m_specialWeaponFiller.fillAmount > .99f)
+                m_selectedWeapon.sprite = m_specialWeaponSelectedChargedSprite;
+            else
+                m_selectedWeapon.sprite = weaponSprites[i];
+
             for (var j = 0; j < weaponImages.Count; j++)
                 weaponImages[j].transform.localScale = Vector3.one * (i == j ? m_highlightSize : 1f);
         }
@@ -80,7 +85,14 @@ namespace Code.UI {
                 return;
 
             m_specialWeaponFiller.fillAmount = ((WeaponEnergyChargeStatus)_sword.ChargeStatus).EnergyAmount;
-            m_specialWeaponIconImage.overrideSprite = m_specialWeaponFiller.fillAmount >= .99f ? m_specialWeaponFilledSprite : null;
+
+            var isCharged = m_specialWeaponFiller.fillAmount >= .99f;
+            m_specialWeaponIconImage.overrideSprite = isCharged ? m_specialWeaponFilledSprite : null;
+
+            if (_target.ActiveWeaponIndex != weaponSprites.Count - 1)
+                return;
+
+            m_selectedWeapon.sprite = isCharged ? m_specialWeaponSelectedChargedSprite : weaponSprites[_target.ActiveWeaponIndex];
         }
         #endregion
 

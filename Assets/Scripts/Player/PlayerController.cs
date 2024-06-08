@@ -70,6 +70,8 @@ namespace Code.Player {
         public PlayerHealth Health { get; private set; }
         public VisualSetter VisualSetter { get; private set; }
         public bool IsGrounded { get; private set; }
+
+        public int ActiveWeaponIndex => _currentSelectedWeapon;
         #endregion
 
         #region Private Variables

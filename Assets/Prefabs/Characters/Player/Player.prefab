@@ -906,11 +906,11 @@ MonoBehaviour:
     - rid: 5009933660594372688
       type: {class: PhysicHitLogic, ns: Code.Weapons, asm: Assembly-CSharp}
       data:
-        m_range: 8
+        m_range: 12
         m_shootSound: {fileID: 11400000, guid: 4ed0bd1e2230c6e4e8898afcdc607c45, type: 2}
         m_weaponCamera: {fileID: 6662661017876477146}
         m_effectOrigin: {fileID: 5411938847996744643}
-        m_radius: 8
+        m_radius: 13
         m_boostMultiplier: 1.2
         m_targetLayers:
           serializedVersion: 2

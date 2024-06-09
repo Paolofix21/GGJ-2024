@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3566026682623210294}
   - component: {fileID: 2773283772232721166}
   - component: {fileID: 7454138292961704007}
+  - component: {fileID: 8548386753607778922}
   m_Layer: 0
   m_Name: Camera Spy
   m_TagString: Untagged
@@ -98,6 +99,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_prefab: {fileID: 6321476690658760305, guid: 750f0a5ed1c106b4e9c5ed93a33d4dbb,
     type: 3}
+--- !u!114 &8548386753607778922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499763640864970150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a1d143874834b14b391839f36f62bcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_tracker: {fileID: -1757745106951444230, guid: b8f3079364d74b74dad5e8dccf1bde90,
+    type: 3}
+  m_target: {fileID: 0}
 --- !u!1 &5236267879386973053
 GameObject:
   m_ObjectHideFlags: 0

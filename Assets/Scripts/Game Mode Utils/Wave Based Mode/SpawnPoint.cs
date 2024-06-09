@@ -2,6 +2,7 @@
 using Audio;
 using Code.Promises;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.GameModeUtils.WaveBasedMode {
     public class SpawnPoint : MonoBehaviour, IPointOfInterest {
@@ -12,6 +13,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         [Header("Settings")]
         [SerializeField] private float m_animationDuration = 1f;
+        [SerializeField] private float m_defaultScale = 0f;
+        [FormerlySerializedAs("m_targetScale")] [SerializeField] private float m_desiredScale = 1f;
 
         [Space]
         [SerializeField] private SoundSO m_appearSound;
@@ -31,8 +34,8 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         #region Behaviour Callbacks
         private void Awake() {
-            m_portal.localScale = Vector3.zero;
-            m_portal.gameObject.SetActive(false);
+            m_portal.localScale = Vector3.one * m_defaultScale;
+            m_portal.gameObject.SetActive(m_defaultScale > 0);
         }
         #endregion
 
@@ -52,8 +55,11 @@ namespace Code.GameModeUtils.WaveBasedMode {
             if (appear)
                 yield return new WaitForSeconds(Random.value);
 
-            var targetScale = appear ? Vector3.one : Vector3.zero;
-            var sourceScale = appear ? Vector3.zero : Vector3.one;
+            var defaultScale = Vector3.one * m_defaultScale;
+            var desiredScale = Vector3.one * m_desiredScale;
+
+            var targetScale = appear ? desiredScale : defaultScale;
+            var sourceScale = appear ? defaultScale : targetScale;
 
             m_portal.localScale = sourceScale;
             if (appear) {
@@ -73,7 +79,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
             m_portal.localScale = targetScale;
             if (!appear) {
-                m_portal.gameObject.SetActive(false);
+                m_portal.gameObject.SetActive(m_defaultScale > 0);
                 IsVisible = false;
             }
 

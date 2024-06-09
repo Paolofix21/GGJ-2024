@@ -48,6 +48,8 @@ MonoBehaviour:
   m_portal: {fileID: 7220420381961097000}
   <Omit>k__BackingField: 1
   m_animationDuration: 3
+  m_defaultScale: 0.25
+  m_desiredScale: 1
   m_appearSound: {fileID: 11400000, guid: ed7969401be61b54b9dd1dc408d1fd03, type: 2}
   m_vanishSound: {fileID: 11400000, guid: f5f4429c692662640929cb32aa4edb3d, type: 2}
 --- !u!1001 &7187374923075381443

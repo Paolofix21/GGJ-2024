@@ -13,7 +13,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
             if (!value)
                 return;
 
-            Debug.Log("Spawn custom wave...\n");
+            //Debug.Log("Spawn custom wave...\n");
             Spawn();
         }
 

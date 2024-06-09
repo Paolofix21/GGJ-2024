@@ -16,10 +16,10 @@ MonoBehaviour:
   m_sounds:
   - <Clip>k__BackingField: {fileID: 8300000, guid: 6221115dad5b2a44fb911df6f120c0e4,
       type: 3}
-    <Volume>k__BackingField: 0.4
+    <Volume>k__BackingField: 1
   - <Clip>k__BackingField: {fileID: 8300000, guid: f72e6e08e50dc8d4d9c1451a599d7f33,
       type: 3}
-    <Volume>k__BackingField: 0.4
+    <Volume>k__BackingField: 1
   - <Clip>k__BackingField: {fileID: 8300000, guid: bcd68b284e847d741a2185ed977f2226,
       type: 3}
-    <Volume>k__BackingField: 0.4
+    <Volume>k__BackingField: 1

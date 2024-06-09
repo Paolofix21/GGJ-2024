@@ -83,7 +83,7 @@ namespace Code.Core.MatchManagers {
         }
 
         protected override void OnMatchEnded() {
-            Debug.Log("Ending game...\n");
+            //Debug.Log("Ending game...\n");
             Character.Disable();
             EntityManager.End();
 

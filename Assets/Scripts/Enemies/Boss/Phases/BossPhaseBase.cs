@@ -26,7 +26,7 @@ namespace Code.EnemySystem.Boss.Phases {
 
         #region Public Methods
         public void Begin() {
-            Debug.Log($"Begin '{GetType().Name}' phase...\n");
+            //Debug.Log($"Begin '{GetType().Name}' phase...\n");
             onBeginOrEndPhase?.Invoke(true);
             _interrupt = false;
             OnBegin();

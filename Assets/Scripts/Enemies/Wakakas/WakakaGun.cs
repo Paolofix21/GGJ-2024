@@ -15,8 +15,17 @@ namespace Code.EnemySystem.Wakakas {
         [SerializeField] private float m_damage = 5f;
         #endregion
 
+        #region Private Variables
+        private WakakaHealth _health;
+        #endregion
+
         #region Behaviour Callbacks
-        private void Awake() => Invoke(nameof(Shoot), m_fireRate);
+        private void Awake() {
+            if (TryGetComponent(out _health))
+                _health.OnDeath += CancelInvoke;
+
+            Invoke(nameof(Shoot), m_fireRate);
+        }
 
         private void OnDestroy() => CancelInvoke();
         #endregion

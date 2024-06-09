@@ -12,7 +12,12 @@ namespace Miscellaneous {
         #endregion
 
         #region Behaviour Callbacks
-        private void OnDestroy() => Instantiate(m_tracker, transform.position, transform.rotation).SetDestination(m_target.position);
+        private void OnDestroy() {
+            if (!gameObject.scene.isLoaded)
+                return;
+
+            Instantiate(m_tracker, transform.position, transform.rotation).SetDestination(m_target.position);
+        }
         #endregion
     }
 }

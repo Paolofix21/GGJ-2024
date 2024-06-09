@@ -92,10 +92,10 @@ namespace Code.Core {
             OnNewRecordBeaten = null;
 
             IsPaused = false;
-            OnPauseStatusChanged?.Invoke(IsPaused);
+            // OnPauseStatusChanged?.Invoke(IsPaused);
 
             IsCutscenePlaying = false;
-            OnCutsceneStateChanged?.Invoke(IsCutscenePlaying);
+            // OnCutsceneStateChanged?.Invoke(IsCutscenePlaying);
 
             MatchManager = null;
         }

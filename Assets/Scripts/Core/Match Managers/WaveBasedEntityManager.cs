@@ -66,8 +66,11 @@ namespace Code.Core.MatchManagers {
         }
 
         public override void End() {
-            Entities.ForeEach(e => Destroy(e.Transform.gameObject));
+            Entities.ForeEach(e => e.OnDestroyed -= RemoveEntity);
+
             Destroy(_wavesCollection);
+            _wavesCollection = null;
+            _currentWave = null;
         }
 
         protected override void OnEntityRemoved(IEntity element) {

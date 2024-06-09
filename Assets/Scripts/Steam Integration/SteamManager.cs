@@ -80,7 +80,7 @@ namespace SteamIntegration {
 
             var appOwner = SteamApps.GetAppOwner();
 
-            Debug.Log($"User  {User.Id}\nOwner {appOwner.m_SteamID}\n");
+            //Debug.Log($"User  {User.Id}\nOwner {appOwner.m_SteamID}\n");
 
             Instantiate(Resources.Load<SteamStatisticsController>(k_statisticsControllerResourcePath));
             Instantiate(Resources.Load<SteamAchievementsController>(k_achievementsControllerResourcePath));

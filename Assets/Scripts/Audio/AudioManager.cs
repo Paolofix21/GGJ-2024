@@ -209,7 +209,7 @@ namespace Audio {
         }
 
         public void AttenuateMusic(float attenuation, float fadeDuration = 1f) {
-            Debug.Log("Attenuating music...\n");
+            //Debug.Log("Attenuating music...\n");
             if (_musicAttenuationFadeCoroutine != null)
                 StopCoroutine(_musicAttenuationFadeCoroutine);
             _musicAttenuationFadeCoroutine = StartCoroutine(MusicAttenuationFadeCO(attenuation, fadeDuration));
@@ -297,7 +297,7 @@ namespace Audio {
 
         private IEnumerator MusicAttenuationFadeCO(float attenuation, float duration = 1f) {
             var par = $"Volume ({m_musicAttenuationMixer.name})";
-            Debug.Log(m_musicAttenuationMixer.name, m_musicAttenuationMixer);
+            //Debug.Log(m_musicAttenuationMixer.name, m_musicAttenuationMixer);
             m_musicAttenuationMixer.audioMixer.GetFloat(par, out var from);
 
             var to = 20 * Mathf.Log10(attenuation);

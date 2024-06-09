@@ -50,7 +50,7 @@ namespace Code.Core {
         }
 
         public static void Resume() {
-            Debug.Log("Resuming...\n");
+            //Debug.Log("Resuming...\n");
             if (MatchManager == null || MatchManager.IsStopped())
                 return;
 
@@ -67,7 +67,7 @@ namespace Code.Core {
                 return;
             }
 
-            Debug.Log("Toggling pause\n");
+            //Debug.Log("Toggling pause\n");
             if (MatchManager == null || MatchManager.IsStopped())
                 return;
 

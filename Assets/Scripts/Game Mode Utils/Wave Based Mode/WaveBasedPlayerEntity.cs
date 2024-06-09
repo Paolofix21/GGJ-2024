@@ -37,7 +37,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         public void Disable() {
             _controller.enabled = false;
-            Debug.Log("Disabling...\n");
+            //Debug.Log("Disabling...\n");
         }
         #endregion
 

@@ -76,7 +76,7 @@ namespace SteamIntegration.Leaderboard {
         #region Private Methods1
         private void Initialize() {
             foreach (var leaderboard in m_leaderboards) {
-                Debug.Log($"Iterating leaderboards:\nName: '{leaderboard.name}'\n");
+                //Debug.Log($"Iterating leaderboards:\nName: '{leaderboard.name}'\n");
 
                 var apiCall = SteamUserStats.FindOrCreateLeaderboard(leaderboard.Id,
                     leaderboard.SortMethod,
@@ -104,7 +104,7 @@ namespace SteamIntegration.Leaderboard {
             }
 
             var lbName = SteamUserStats.GetLeaderboardName(result.m_hSteamLeaderboard);
-            Debug.Log($"[Steamworks.NET] Found leaderboard: '{lbName}'\n", this);
+            //Debug.Log($"[Steamworks.NET] Found leaderboard: '{lbName}'\n", this);
 
             _leaderboards.Add(lbName, new() {
                 Board = result.m_hSteamLeaderboard,

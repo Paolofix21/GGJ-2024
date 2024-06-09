@@ -90,16 +90,19 @@ namespace Code.Weapons {
         }
 
         private void InteractWithRecharger(IRecharger recharger) {
-            if (recharger == null) return;
+            if (recharger == null)
+                return;
 
-            RechargeWeapon(recharger.Type, recharger.Amount);
+            if (!TryRechargeWeapon(recharger.Type, recharger.Amount))
+                return;
+
             recharger.SetInteractable(false);
             AudioManager.Singleton.PlayOneShotWorldAttached(m_rechargeSound.GetSound(), gameObject, MixerType.Voice);
         }
 
-        private void RechargeWeapon(WeaponType type, int amount) {
+        private bool TryRechargeWeapon(WeaponType type, int amount) {
             var weaponToRecharge = weapons.Find(weapon => weapon.WeaponType == type);
-            weaponToRecharge.Recharge(amount);
+            return weaponToRecharge.Recharge(amount);
         }
 
         private async void CooldownVO()

@@ -39,7 +39,7 @@ namespace Code.Weapons {
             FiringLogic.Shoot(Ammunition);
         }
 
-        public abstract void Recharge(int amount);
+        public abstract bool Recharge(int amount);
 
         public void Boost() => FiringLogic.Boost();
 

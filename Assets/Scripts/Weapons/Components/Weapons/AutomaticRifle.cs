@@ -43,7 +43,13 @@ namespace Code.Weapons {
             Refresh(Cartridge.CurrentAmount);
         }
 
-        public override void Recharge(int amount) => Cartridge.AddAmmo(amount);
+        public override bool Recharge(int amount) {
+            if (Cartridge.IsFull())
+                return false;
+
+            Cartridge.AddAmmo(amount);
+            return true;
+        }
 
         public override void SetSide(bool right) => FiringLogic.OverrideOrigin(right ? m_rightFinger : m_leftFinger);
         #endregion

@@ -46,7 +46,13 @@ namespace Code.Weapons {
             Invoke(nameof(ClearCooldown), m_cooldownDuration);
         }
 
-        public override void Recharge(int amount) => Cartridge.AddAmmo(amount);
+        public override bool Recharge(int amount) {
+            if (Cartridge.IsFull())
+                return false;
+
+            Cartridge.AddAmmo(amount);
+            return true;
+        }
 
         #region Event Methods
         private void ClearCooldown() {

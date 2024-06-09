@@ -43,7 +43,7 @@ namespace Code.Weapons {
             Refresh();
         }
 
-        public override void Recharge(int amount) { }
+        public override bool Recharge(int amount) => true;
         #endregion
 
         #region Event Methods

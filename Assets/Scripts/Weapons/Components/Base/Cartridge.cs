@@ -40,6 +40,8 @@ namespace Code.Weapons {
         }
 
         public float GetAmmoRate() => (float)CurrentAmount / TotalAmount;
+
+        public bool IsFull() => CurrentAmount >= TotalAmount;
         #endregion
     }
 }

@@ -31,7 +31,7 @@ namespace Code.Weapons {
 
         public override bool CanShoot() => !_isInCooldown;
 
-        public override void Recharge(int amount) { }
+        public override bool Recharge(int amount) => true;
         #endregion
 
         private void ClearCooldown() {

@@ -61,12 +61,13 @@ namespace Code.Weapons {
                     HitTarget(damageable);
                 }
             }
+
+            AudioManager.Singleton.PlayOneShotWorld(m_shootSound.GetSound(), m_effectOrigin.position, MixerType.SoundFx);
         }
 
         public override void Boost() => m_range *= m_boostMultiplier;
 
         protected override void Effect(Vector3 origin, Vector3 lastPosition) {
-            AudioManager.Singleton.PlayOneShotWorld(m_shootSound.GetSound(), origin, MixerType.SoundFx);
             var bulletTrail = Object.Instantiate(bullet, origin, Quaternion.identity);
             bulletTrail.SetDestination(lastPosition);
         }

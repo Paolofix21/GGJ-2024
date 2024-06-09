@@ -76,9 +76,8 @@ namespace Code.Core.MatchManagers {
         protected override void OnEntityRemoved(IEntity element) {
             if (Time.unscaledTime - _lastTimeAdded > m_killTimeThreshold)
                 _simultaneousKills = 0;
-            else
-                _simultaneousKills++;
 
+            _simultaneousKills++;
             _lastTimeAdded = Time.unscaledTime;
 
             OnEntityDied?.Invoke(element);
@@ -96,7 +95,6 @@ namespace Code.Core.MatchManagers {
                 return;
 
             SteamAchievementsController.Singleton?.AdvanceAchievement(m_oneShotOneKillAchievement);
-            Debug.Log($"Unlocked achievement: {m_oneShotOneKillAchievement?.name}\n");
         }
 
         protected override void OnEntitiesCleared() => SpawnNextWave();

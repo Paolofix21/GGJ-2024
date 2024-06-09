@@ -53,11 +53,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f202b9664e94dc6a9594480fb10e6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_damage: 35
+  m_damage: 40
   m_homingStrength: 0.15
   m_lifeTime: 5
   m_lookAtDirection: 1
-  <IsTrapezio>k__BackingField: 0
+  <IsTrapezio>k__BackingField: 1
 --- !u!114 &-4195982192367336759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_maxHealth: 300
   m_type: -1
+  m_immuneTo: -1
 --- !u!33 &906886236200106726
 MeshFilter:
   m_ObjectHideFlags: 0

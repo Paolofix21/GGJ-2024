@@ -212,7 +212,7 @@ MonoBehaviour:
   m_fleeSpeed: 10
   m_wanderRefreshTimeRange: {x: 2, y: 4}
   debugState: 0
-  m_detectionDistance: 2
+  m_detectionDistance: 3
   m_chaseSinceStart: 0
   m_alwaysFaceTarget: 0
   m_characterPredictPosition: 0

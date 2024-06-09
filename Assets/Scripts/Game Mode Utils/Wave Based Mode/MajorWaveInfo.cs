@@ -31,7 +31,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
             return true;
         }
 
-        public int GetRemainingWavesCount() => m_waves.Count - _index;
+        public int GetRemainingWavesCount() => m_waves.Count - _index - 1;
         #endregion
     }
 }

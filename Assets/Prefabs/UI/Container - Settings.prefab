@@ -738,6 +738,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4929169377902927173}
   - component: {fileID: 738765546846696136}
+  - component: {fileID: 1856465373192272006}
   m_Layer: 5
   m_Name: Slider - Music
   m_TagString: Untagged
@@ -819,6 +820,20 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1856465373192272006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5508679165245452883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4ca0fc713d2d4c9996fd75d28795c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_uiHoverEvent: {fileID: 11400000, guid: 01f7056d566c6494285d376edb3490cc, type: 2}
+  m_uiClickEvent: {fileID: 11400000, guid: 0bffd71a88eb11845a5fd91da9a0f5ff, type: 2}
 --- !u!1 &6823796552983262592
 GameObject:
   m_ObjectHideFlags: 0

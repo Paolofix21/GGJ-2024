@@ -14,7 +14,7 @@ namespace Code.Data {
         [JsonProperty("blur")]
         public bool MotionBlur { get; set; } = true;
         [JsonProperty("v-sync")]
-        public bool VSync { get; set; } = true;
+        public bool VSync { get; set; } = false;
         [JsonProperty("quality")]
         public int Quality { get; set; } = 2;
         #endregion

@@ -455,6 +455,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1384637202941840064}
   - component: {fileID: 2654240683733701436}
+  - component: {fileID: 5478936906257340710}
   m_Layer: 5
   m_Name: Toggle - High
   m_TagString: Untagged
@@ -532,6 +533,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!114 &5478936906257340710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1937264040523012103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4ca0fc713d2d4c9996fd75d28795c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_uiHoverEvent: {fileID: 11400000, guid: 01f7056d566c6494285d376edb3490cc, type: 2}
+  m_uiClickEvent: {fileID: 11400000, guid: 0bffd71a88eb11845a5fd91da9a0f5ff, type: 2}
 --- !u!1 &3040967729239565842
 GameObject:
   m_ObjectHideFlags: 0
@@ -986,6 +1001,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4028899797414088489}
   - component: {fileID: 1572690669298710492}
+  - component: {fileID: 5813693283618219695}
   m_Layer: 5
   m_Name: Toggle - Low
   m_TagString: Untagged
@@ -1063,6 +1079,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &5813693283618219695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6289992825044678283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4ca0fc713d2d4c9996fd75d28795c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_uiHoverEvent: {fileID: 11400000, guid: 01f7056d566c6494285d376edb3490cc, type: 2}
+  m_uiClickEvent: {fileID: 11400000, guid: 0bffd71a88eb11845a5fd91da9a0f5ff, type: 2}
 --- !u!1 &6877910656995198355
 GameObject:
   m_ObjectHideFlags: 0
@@ -1073,6 +1103,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6785908808354387446}
   - component: {fileID: 8946092904467411268}
+  - component: {fileID: 6168331820054952259}
   m_Layer: 5
   m_Name: Toggle - Medium
   m_TagString: Untagged
@@ -1150,6 +1181,20 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 0
+--- !u!114 &6168331820054952259
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6877910656995198355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8d4ca0fc713d2d4c9996fd75d28795c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_uiHoverEvent: {fileID: 11400000, guid: 01f7056d566c6494285d376edb3490cc, type: 2}
+  m_uiClickEvent: {fileID: 11400000, guid: 0bffd71a88eb11845a5fd91da9a0f5ff, type: 2}
 --- !u!1 &7148891707558098088
 GameObject:
   m_ObjectHideFlags: 0

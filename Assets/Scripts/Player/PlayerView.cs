@@ -2,6 +2,7 @@ using Cinemachine;
 using Code.Data;
 using Code.Graphics;
 using Code.UI;
+using Miscellaneous;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -49,14 +50,20 @@ namespace Code.Player {
             VideoSettingsHelper.FOV = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.FieldOfView);
             VideoSettingsHelper.MouseSensitivity = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity);
             VideoSettingsHelper.MotionBlurActive = DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur);
+            VideoSettingsHelper.VSync = DataManager.GetVideoSetting<bool>(VideoSettings.Type.VSync);
+            VideoSettingsHelper.VideoQuality = DataManager.GetVideoSetting<int>(VideoSettings.Type.VideoQuality);
 
             OnSensitivitySetting(VideoSettingsHelper.MouseSensitivity);
             OnFOVSetting(VideoSettingsHelper.FOV);
             OnMotionBlurSetting(VideoSettingsHelper.MotionBlurActive);
+            OnVSncSetting(VideoSettingsHelper.VSync);
+            OnGraphicQualitySetting(VideoSettingsHelper.VideoQuality);
 
             SettingsUI.OnSensitivityChanged += OnSensitivitySetting;
             SettingsUI.OnFOVChanged += OnFOVSetting;
             SettingsUI.OnMotionBlurChanged += OnMotionBlurSetting;
+            SettingsUI.OnVSyncChanged += OnVSncSetting;
+            SettingsUI.OnGraphicsQualityChanged += OnGraphicQualitySetting;
         }
 
         private void Update() => DoHeadBobbing();
@@ -67,6 +74,8 @@ namespace Code.Player {
             SettingsUI.OnSensitivityChanged -= OnSensitivitySetting;
             SettingsUI.OnFOVChanged -= OnFOVSetting;
             SettingsUI.OnMotionBlurChanged -= OnMotionBlurSetting;
+            SettingsUI.OnVSyncChanged -= OnVSncSetting;
+            SettingsUI.OnGraphicsQualityChanged -= OnGraphicQualitySetting;
         }
         #endregion
 
@@ -109,6 +118,14 @@ namespace Code.Player {
                 return;
 
             blur.active = value;
+        }
+
+        private void OnVSncSetting(bool value) => QualitySettings.vSyncCount = value ? 1 : 0;
+
+        private void OnGraphicQualitySetting(int qualityIndex) {
+            OnMotionBlurSetting(VideoSettingsHelper.MotionBlurActive);
+            OnVSncSetting(VideoSettingsHelper.VSync);
+            _globalVolume.profile = GraphicsManager.Singleton.GetVolumeProfile(qualityIndex);
         }
         #endregion
     }

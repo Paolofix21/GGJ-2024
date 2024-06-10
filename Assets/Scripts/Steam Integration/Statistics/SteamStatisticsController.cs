@@ -17,11 +17,6 @@ namespace SteamIntegration.Statistics {
         protected override void OnAfterAwake() {
             if (!SteamUserStats.RequestCurrentStats())
                 Debug.LogWarning("[Steamworks.NET] SteamStatsRequestFailedException\nCould not retrieve the stats through the Steam API\n");
-
-#if UNITY_EDITOR
-            if (SteamUserStats.GetStat("COUNT_ENEMIES_DEFEATED", out int amt))
-                Debug.Log($"COUNT_ENEMIES_DEFEATED: {amt}\n");
-#endif
         }
         #endregion
 

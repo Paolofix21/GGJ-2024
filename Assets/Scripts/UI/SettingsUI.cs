@@ -1,5 +1,6 @@
 using Code.Graphics;
 using System;
+using System.Collections.Generic;
 using Audio;
 using Code.Core;
 using Code.Data;
@@ -23,15 +24,19 @@ namespace Code.UI {
         [SerializeField] private ToggleSettingUI m_blur;
 
         [Space]
+        [SerializeField] private ToolbarSettingUI m_graphicsQuality;
+
+        [Space]
         [SerializeField] private Button m_backButton;
 
         public static event Action<int> OnSensitivityChanged;
         public static event Action<int> OnFOVChanged;
         public static event Action<bool> OnMotionBlurChanged;
+        public static event Action<int> OnGraphicsQualityChanged;
         #endregion
 
         #region Behaviour Callbacks
-        private void Awake() {
+        private void Start() {
             GameEvents.OnPauseStatusChanged += OnPauseStateChange;
 
             LoadValuesFromSettings();
@@ -57,6 +62,8 @@ namespace Code.UI {
             m_sensitivity.Register(ChangeSensitivity);
             m_fov.Register(ChangeFieldOfView);
             m_blur.Register(ChangeBlur);
+
+            m_graphicsQuality.Register(ChangeGraphicsQuality);
 
             m_backButton.onClick.AddListener(DestroyThisGo);
         }
@@ -96,6 +103,8 @@ namespace Code.UI {
             m_sensitivity.SetValueSilently(DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity));
             m_fov.SetValueSilently(DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.FieldOfView));
             m_blur.SetValueSilently(DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur));
+
+            m_graphicsQuality.SetValueSilently(DataManager.GetVideoSetting<int>(VideoSettings.Type.VideoQuality));
         }
 
         private void DestroyThisGo() => Destroy(gameObject);
@@ -129,6 +138,12 @@ namespace Code.UI {
             VideoSettingsHelper.MotionBlurActive = blurOn;
             OnMotionBlurChanged?.Invoke(blurOn);
             DataManager.UpdateVideoSetting(VideoSettings.Type.MotionBlur, blurOn);
+        }
+
+        private void ChangeGraphicsQuality(int graphicsQualityIndex) {
+            VideoSettingsHelper.VideoQuality = graphicsQualityIndex;
+            OnGraphicsQualityChanged?.Invoke(graphicsQualityIndex);
+            DataManager.UpdateVideoSetting(VideoSettings.Type.VideoQuality, graphicsQualityIndex);
         }
 
         private void OnPauseStateChange(bool pause) {

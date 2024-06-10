@@ -2,6 +2,7 @@ using Cinemachine;
 using Code.Data;
 using Code.Graphics;
 using Code.UI;
+using Miscellaneous;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -49,14 +50,17 @@ namespace Code.Player {
             VideoSettingsHelper.FOV = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.FieldOfView);
             VideoSettingsHelper.MouseSensitivity = DataManager.GetGamePlaySetting<int>(GamePlaySettings.Type.Sensitivity);
             VideoSettingsHelper.MotionBlurActive = DataManager.GetVideoSetting<bool>(VideoSettings.Type.MotionBlur);
+            VideoSettingsHelper.VideoQuality = DataManager.GetVideoSetting<int>(VideoSettings.Type.VideoQuality);
 
             OnSensitivitySetting(VideoSettingsHelper.MouseSensitivity);
             OnFOVSetting(VideoSettingsHelper.FOV);
             OnMotionBlurSetting(VideoSettingsHelper.MotionBlurActive);
+            OnGraphicQualitySetting(VideoSettingsHelper.VideoQuality);
 
             SettingsUI.OnSensitivityChanged += OnSensitivitySetting;
             SettingsUI.OnFOVChanged += OnFOVSetting;
             SettingsUI.OnMotionBlurChanged += OnMotionBlurSetting;
+            SettingsUI.OnGraphicsQualityChanged += OnGraphicQualitySetting;
         }
 
         private void Update() => DoHeadBobbing();
@@ -67,6 +71,7 @@ namespace Code.Player {
             SettingsUI.OnSensitivityChanged -= OnSensitivitySetting;
             SettingsUI.OnFOVChanged -= OnFOVSetting;
             SettingsUI.OnMotionBlurChanged -= OnMotionBlurSetting;
+            SettingsUI.OnGraphicsQualityChanged -= OnGraphicQualitySetting;
         }
         #endregion
 
@@ -109,6 +114,11 @@ namespace Code.Player {
                 return;
 
             blur.active = value;
+        }
+
+        private void OnGraphicQualitySetting(int qualityIndex) {
+            OnMotionBlurSetting(VideoSettingsHelper.MotionBlurActive);
+            _globalVolume.profile = GraphicsManager.Singleton.GetVolumeProfile(qualityIndex);
         }
         #endregion
     }

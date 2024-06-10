@@ -21,7 +21,6 @@ namespace Code.UI {
             }
 
             m_group.EnsureValidState();
-            Debug.Log("ALLAH\n");
         }
         #endregion
 
@@ -30,7 +29,6 @@ namespace Code.UI {
             if (!didAwake)
                 Awake();
 
-            Debug.Log("PORCO\n");
             m_toggles[index].SetIsOnWithoutNotify(true);
             m_group.NotifyToggleOn(m_toggles[index], false);
         }

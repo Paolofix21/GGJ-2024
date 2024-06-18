@@ -179,7 +179,7 @@ MonoBehaviour:
   - m_localizedStrings:
     - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
         type: 2}
-      <Value>k__BackingField: Mouse sesitivity
+      <Value>k__BackingField: Mouse sensitivity
     - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
         type: 2}
       <Value>k__BackingField: "Sensibilit\xE0 del mouse"

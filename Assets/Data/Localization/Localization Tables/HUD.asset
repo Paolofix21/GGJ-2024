@@ -75,10 +75,10 @@ MonoBehaviour:
   - m_localizedStrings:
     - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
         type: 2}
-      <Value>k__BackingField: Last wave
+      <Value>k__BackingField: Final wave!
     - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
         type: 2}
-      <Value>k__BackingField: Ultima ondata
+      <Value>k__BackingField: Ondata finale!
     - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
         type: 2}
       <Value>k__BackingField: "\u041F\u043E\u0441\u043B\u0435\u0434\u043D\u044F\u044F

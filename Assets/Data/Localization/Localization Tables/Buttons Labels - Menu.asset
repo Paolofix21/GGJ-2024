@@ -93,7 +93,7 @@ MonoBehaviour:
       <Value>k__BackingField: Gameplay Programmer
     - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
         type: 2}
-      <Value>k__BackingField: Programmatore di Gioco
+      <Value>k__BackingField: Programmatore del Gameplay
     - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
         type: 2}
       <Value>k__BackingField: "\u041F\u0440\u043E\u0433\u0440\u0430\u043C\u043C\u0438\u0441\u0442
@@ -104,14 +104,14 @@ MonoBehaviour:
       <Value>k__BackingField: Game Designer
     - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
         type: 2}
-      <Value>k__BackingField: Design di Gioco
+      <Value>k__BackingField: Designer del Gioco
     - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
         type: 2}
       <Value>k__BackingField: "\u0413\u0435\u0439\u043C\u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440"
   - m_localizedStrings:
     - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
         type: 2}
-      <Value>k__BackingField: Concept Artist
+      <Value>k__BackingField: Concept artist
     - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
         type: 2}
       <Value>k__BackingField: Artista e Illustratrice
@@ -124,7 +124,7 @@ MonoBehaviour:
       <Value>k__BackingField: Sound Designer
     - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
         type: 2}
-      <Value>k__BackingField: Design del Suono
+      <Value>k__BackingField: Designer del Suono
     - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
         type: 2}
       <Value>k__BackingField: "\u0417\u0432\u0443\u043A\u043E\u0432\u043E\u0439 \u0434\u0438\u0437\u0430\u0439\u043D\u0435\u0440"

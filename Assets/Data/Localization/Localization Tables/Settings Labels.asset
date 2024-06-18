@@ -1,0 +1,260 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9c9b40d10ecd434794d51da8289bbc0, type: 3}
+  m_Name: Settings Labels
+  m_EditorClassIdentifier: 
+  m_keys:
+  - Tab - Audio
+  - Tab - Keybinds
+  - Tab - Gameplay
+  - Btn - Back
+  - Volume - General
+  - Volume - Music
+  - Volume - Ambience
+  - Volume - Effects
+  - Volume - UI
+  - Volume - VoiceLine
+  - Input - Move
+  - Input - Jump
+  - Input - Change Weapon
+  - Input - Change Weapon (or)
+  - Gp - Mouse Sens
+  - Gp - Fov
+  - Gp - Graphics
+  - Gp - Graphics (Low)
+  - Gp - Graphics (Med)
+  - Gp - Graphics (High)
+  - Gp - Blur
+  - Gp - VSync
+  m_strings:
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Audio
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Audio
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0410\u0443\u0434\u0438\u043E"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Keybinds
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Controlli
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0423\u043F\u0440\u0430\u0432\u043B\u0435\u043D\u0438\u0435"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Gameplay
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Gioco
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0418\u0433\u0440\u043E\u0432\u043E\u0439 \u043F\u0440\u043E\u0446\u0435\u0441\u0441"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Back
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Chiudi
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u041D\u0430\u0437\u0430\u0434"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: General
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Generale
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u041E\u0431\u0449\u0438\u0435"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Music
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Musica
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u041C\u0443\u0437\u044B\u043A\u0430"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Ambience
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Ambiente
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0424\u043E\u043D\u043E\u0432\u044B\u0439 \u0437\u0432\u0443\u043A"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Sound Effects
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Effetti
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0417\u0432\u0443\u043A\u043E\u0432\u044B\u0435 \u044D\u0444\u0444\u0435\u043A\u0442\u044B"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: UI
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Interfaccia
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0417\u0432\u0443\u043A\u0438 \u0438\u043D\u0442\u0435\u0440\u0444\u0435\u0439\u0441\u0430"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Voice
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Voci
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0420\u0435\u043F\u043B\u0438\u043A\u0438"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Move
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Movimento
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0414\u0432\u0438\u0436\u0435\u043D\u0438\u0435"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Jump
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Salto
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u041F\u0440\u044B\u0436\u043E\u043A"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Change Weapon
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Cambia Arma
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0421\u043C\u0435\u043D\u0438\u0442\u044C \u043E\u0440\u0443\u0436\u0438\u0435"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: or
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: o
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0438\u043B\u0438"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Mouse sesitivity
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: "Sensibilit\xE0 del mouse"
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0427\u0443\u0432\u0441\u0442\u0432\u0438\u0442\u0435\u043B\u044C\u043D\u043E\u0441\u0442\u044C
+        \u043C\u044B\u0448\u0438"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Field of view
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Campo visivo
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u041F\u043E\u043B\u0435 \u0437\u0440\u0435\u043D\u0438\u044F"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Graphics
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Grafica
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0413\u0440\u0430\u0444\u0438\u043A\u0430"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Low
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Bassa
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u041D\u0438\u0437\u043A\u0430\u044F"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Medium
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Media
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0421\u0440\u0435\u0434\u043D\u044F\u044F"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: High
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Alta
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0412\u044B\u0441\u043E\u043A\u0430\u044F "
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Motion blur
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Sfocatura di movimento
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0420\u0430\u0437\u043C\u044B\u0442\u0438\u0435 \u0432
+        \u0434\u0432\u0438\u0436\u0435\u043D\u0438\u0438"
+  - m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: V-Sync
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: V-Sync
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: V-Sync

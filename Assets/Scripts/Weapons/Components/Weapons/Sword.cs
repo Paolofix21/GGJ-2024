@@ -1,5 +1,6 @@
 using Code.Core;
 using Code.Promises;
+using LanguageSystem.Runtime.Utility;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -7,6 +8,7 @@ namespace Code.Weapons {
         #region Public Variables
         [field: SerializeReference] public override FiringLogicBase FiringLogic { get; protected set; } = new PhysicHitLogic();
         [SerializeField] private int m_maxEnergy = 10;
+        [SerializeField] private LocalizedString m_chargedText, m_dischargedText;
         #endregion
 
         #region Private Variables
@@ -53,7 +55,7 @@ namespace Code.Weapons {
         }
 
         private void Refresh() {
-            _chargeStatus.Info = CanShoot() ? "Ready" : "Discharged";
+            _chargeStatus.Info = CanShoot() ? m_chargedText.GetLocalizedString() : m_dischargedText.GetLocalizedString();
             _chargeStatus.EnergyAmount = (float)_currentEnergy / m_maxEnergy;
             _chargeStatus.Dispatch();
         }

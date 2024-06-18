@@ -86,6 +86,7 @@ GameObject:
   - component: {fileID: 8974000576243282534}
   - component: {fileID: 8510558984176270549}
   - component: {fileID: 1088956901673333135}
+  - component: {fileID: 1409341656288645055}
   m_Layer: 5
   m_Name: Text - Esc to  Pause
   m_TagString: Untagged
@@ -212,6 +213,47 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1409341656288645055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 131969148928841125}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788924de33d84f44a879479d56870bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_useDatabase: 1
+  m_database: {fileID: 11400000, guid: 8578073d3352b394dbdc1b11c8274622, type: 2}
+  m_databaseKey: Pause
+  m_localizedString:
+    m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: '[Esc] Pause'
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: '[Esc] Pausa'
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: '[Esc] Pausa'
+  m_onLocalize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1088956901673333135}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &319678360613661667
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,6 +403,7 @@ GameObject:
   - component: {fileID: 98680706393760804}
   - component: {fileID: 2628433114399813157}
   - component: {fileID: 2750419478577105620}
+  - component: {fileID: 6085125532260277914}
   m_Layer: 5
   m_Name: Text - Info 2
   m_TagString: Untagged
@@ -382,11 +425,11 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 3240798019086029684}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0}
-  m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 18, y: -50}
-  m_SizeDelta: {x: 332, y: 42}
-  m_Pivot: {x: 0.5, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: 20, y: -5}
+  m_SizeDelta: {x: -40, y: 42}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2628433114399813157
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -487,6 +530,47 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &6085125532260277914
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 421198222643950285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788924de33d84f44a879479d56870bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_useDatabase: 1
+  m_database: {fileID: 11400000, guid: 8578073d3352b394dbdc1b11c8274622, type: 2}
+  m_databaseKey: Objective Sub
+  m_localizedString:
+    m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Defeat all Wakakas
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Sconfiggi tutti i Wakaka
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Sconfiggi tutti i Wakaka
+  m_onLocalize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2750419478577105620}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &719586332601838252
 GameObject:
   m_ObjectHideFlags: 0
@@ -660,9 +744,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 262, y: -314}
-  m_SizeDelta: {x: 355.3062, y: 50}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 80, y: -314}
+  m_SizeDelta: {x: 600, y: 50}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3797897090997533072
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -684,14 +768,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 68dfb7234b120464fa9be0e9f65e454e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0dc617f137973d34da1151e2276621fb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1783,6 +1867,7 @@ GameObject:
   - component: {fileID: 3614801449993464301}
   - component: {fileID: 4910366293398181342}
   - component: {fileID: 5408900124326849679}
+  - component: {fileID: 1044370752329001951}
   m_Layer: 5
   m_Name: Text - Info 1
   m_TagString: Untagged
@@ -1909,6 +1994,47 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1044370752329001951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4172202719695086545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788924de33d84f44a879479d56870bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_useDatabase: 1
+  m_database: {fileID: 11400000, guid: 8578073d3352b394dbdc1b11c8274622, type: 2}
+  m_databaseKey: Objective
+  m_localizedString:
+    m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Survive and defeat the Mec
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Sopravvivi e sconfiggi il Mec
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Sopravvivi e sconfiggi il Mec
+  m_onLocalize:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5408900124326849679}
+        m_TargetAssemblyTypeName: TMPro.TMP_Text, Unity.TextMeshPro
+        m_MethodName: SetText
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &4617587418816728137
 GameObject:
   m_ObjectHideFlags: 0

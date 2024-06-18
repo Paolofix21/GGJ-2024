@@ -1,3 +1,4 @@
+using LanguageSystem.Runtime.Utility;
 using UnityEngine;
 
 namespace Code.UI {
@@ -34,7 +35,7 @@ namespace Code.UI {
         #endregion
 
         #region Public Methods
-        public void CallConfirmTask(string textToDisplay, System.Action action) {
+        public void CallConfirmTask(LocalizedString textToDisplay, System.Action action) {
             if (ConfirmTaskUIPrefab != null)
                 Instantiate(ConfirmTaskUIPrefab).Setup(textToDisplay, action);
         }

@@ -14,6 +14,12 @@
       "dependencies": {},
       "hash": "bd7501106d90c9e19a653a3a46284bdb27d9b01b"
     },
+    "com.itstheconnection.languagesystem": {
+      "version": "file:Language System",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.rlabrecque.steamworks.net": {
       "version": "https://github.com/rlabrecque/Steamworks.NET.git?path=/com.rlabrecque.steamworks.net",
       "depth": 0,

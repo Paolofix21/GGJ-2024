@@ -273,14 +273,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_titleColorVictory: {r: 0.91764706, g: 0.94509804, b: 0.7529412, a: 1}
   m_titleColorGameOver: {r: 0.39215687, g: 0.21176471, b: 0.37254903, a: 1}
-  m_victoryText: Victory!
-  m_loseText: Game Over!
-  m_highScoreHint: 'New High Score: {0}'
-  m_retryText: Try again?
-  m_mainMenuText: Main Menu
-  m_quitToDesktopText: Do you really want to return to your Desktop?
-  m_quitToMenuText: Do you want to return to Main Menu?
+  m_victoryText:
+    m_database: {fileID: 11400000, guid: 1d7757c3350355b43a4d2d257ef7ccb0, type: 2}
+    m_key: Victory
+  m_loseText:
+    m_database: {fileID: 11400000, guid: 1d7757c3350355b43a4d2d257ef7ccb0, type: 2}
+    m_key: Lose
+  m_highScoreHint:
+    m_database: {fileID: 11400000, guid: 1d7757c3350355b43a4d2d257ef7ccb0, type: 2}
+    m_key: High Score
+  m_retryButtonText:
+    m_database: {fileID: 11400000, guid: fe60d2519be5ce0478762339c6991c49, type: 2}
+    m_key: Retry
+  m_mainMenuButtonText:
+    m_database: {fileID: 11400000, guid: fe60d2519be5ce0478762339c6991c49, type: 2}
+    m_key: Main Menu
+  m_quitToDesktopButtonText:
+    m_database: {fileID: 11400000, guid: fe60d2519be5ce0478762339c6991c49, type: 2}
+    m_key: Quit
+  m_surrenderButtonText:
+    m_database: {fileID: 11400000, guid: fe60d2519be5ce0478762339c6991c49, type: 2}
+    m_key: Surrender
+  m_quitToDesktopText:
+    m_database: {fileID: 11400000, guid: 23c0182b4af37884590b2d30e9dc52a1, type: 2}
+    m_key: Quit To Desktop
+  m_quitToMenuText:
+    m_database: {fileID: 11400000, guid: 23c0182b4af37884590b2d30e9dc52a1, type: 2}
+    m_key: Quit To Menu
   m_victorySound: {fileID: 11400000, guid: c525444302ba03d4a991c5981bed2992, type: 2}
+  m_surrenderColor: {r: 0.93333334, g: 0.3882353, b: 0.24313726, a: 1}
   m_title: {fileID: 497388395224946511}
   m_titleGlow: {fileID: 2689525899968344902}
   m_hintToDisplay: {fileID: 1347576242782059547}

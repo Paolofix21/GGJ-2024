@@ -2,6 +2,7 @@ using Audio;
 using Code.LevelSystem;
 using Code.UI;
 using Code.Core;
+using LanguageSystem.Runtime.Utility;
 using SteamIntegration.Achievements;
 using TMPro;
 using UnityEngine;
@@ -20,18 +21,22 @@ public class EndGameUI : MonoBehaviour {
     [FormerlySerializedAs("TitleColorGameOver")]
     public Color m_titleColorGameOver;
 
-    [SerializeField] private string m_victoryText = "Victory!", m_loseText = "Game Over!";
-    [SerializeField] private string m_highScoreHint = "New High Score: {0}";
-    [SerializeField] private string m_retryText = "Try again?";
-    [SerializeField] private string m_mainMenuText = "Main Menu";
+    [SerializeField] private LocalizedStringRecord m_victoryText, m_loseText;
+    [SerializeField] private LocalizedStringRecord m_highScoreHint;
 
     [Space]
-    [SerializeField] private string m_quitToDesktopText = "Do you really want to return to your Desktop?";
+    [SerializeField] private LocalizedStringRecord m_retryButtonText;
+    [SerializeField] private LocalizedStringRecord m_mainMenuButtonText;
+    [SerializeField] private LocalizedStringRecord m_quitToDesktopButtonText;
+    [SerializeField] private LocalizedStringRecord m_surrenderButtonText;
 
-    [SerializeField] private string m_quitToMenuText = "Do you want to return to Main Menu?";
+    [Space]
+    [SerializeField] private LocalizedStringRecord m_quitToDesktopText;
+    [SerializeField] private LocalizedStringRecord m_quitToMenuText;
 
     [Space]
     [SerializeField] private SoundSO m_victorySound;
+    [SerializeField] private Color m_surrenderColor;
 
     [Header("References")]
     [SerializeField] private TMP_Text m_title;
@@ -82,7 +87,7 @@ public class EndGameUI : MonoBehaviour {
 
         m_title.color = m_titleColorVictory;
         m_titleGlow.color = new Color(m_titleColorVictory.r, m_titleColorVictory.g, m_titleColorVictory.b, 1f);
-        m_title.text = m_titleGlow.text = m_victoryText;
+        m_title.text = m_titleGlow.text = m_victoryText.GetLocalizedString();
 
         UpdateScore(GameEvents.GameTime);
         m_pointsToDisplay.gameObject.SetActive(true);
@@ -90,8 +95,10 @@ public class EndGameUI : MonoBehaviour {
 
         m_simpleButton.gameObject.SetActive(false);
 
-        m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
+        m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuButtonText.GetLocalizedString();
         m_highlightButton.onClick.AddListener(QuitToMenu);
+
+        m_quitButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_quitToDesktopButtonText.GetLocalizedString();
 
         AudioManager.Singleton.PlayUiSound(m_victorySound.GetSound());
     }
@@ -102,17 +109,21 @@ public class EndGameUI : MonoBehaviour {
 
         m_title.color = m_titleColorGameOver;
         m_titleGlow.color = new Color(m_titleColorGameOver.r, m_titleColorGameOver.g, m_titleColorGameOver.b, 1f);
-        m_title.text = m_titleGlow.text = m_loseText;
+        m_title.text = m_titleGlow.text = m_loseText.GetLocalizedString();
 
         m_pointsToDisplay.gameObject.SetActive(false);
         m_timeToDisplay.gameObject.SetActive(false);
 
         m_simpleButton.gameObject.SetActive(true);
-        m_simpleButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuText;
+        m_simpleButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_mainMenuButtonText.GetLocalizedString();
         m_simpleButton.onClick.AddListener(QuitToMenu);
 
-        m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_retryText;
+        m_highlightButton.transform.GetComponentInChildren<TextMeshProUGUI>().text = m_retryButtonText.GetLocalizedString();
         m_highlightButton.onClick.AddListener(ReloadCurrentLevel);
+
+        var quitButtonText = m_quitButton.transform.GetComponentInChildren<TextMeshProUGUI>();
+        quitButtonText.text = m_surrenderButtonText.GetLocalizedString();
+        quitButtonText.color = m_surrenderColor;
     }
 
     private void Quit() {
@@ -125,8 +136,8 @@ public class EndGameUI : MonoBehaviour {
     #endregion
 
     #region Event Methods
-    private void QuitToDesktop() => UIManager.Singleton.CallConfirmTask(m_quitToDesktopText, Quit);
-    private void QuitToMenu() => UIManager.Singleton.CallConfirmTask(m_quitToMenuText, LoadMainMenu);
+    private void QuitToDesktop() => UIManager.Singleton.CallConfirmTask(m_quitToDesktopText.GetString(), Quit);
+    private void QuitToMenu() => UIManager.Singleton.CallConfirmTask(m_quitToMenuText.GetString(), LoadMainMenu);
 
     private void OnEndGame(bool didWin) {
         gameObject.SetActive(true);
@@ -150,7 +161,7 @@ public class EndGameUI : MonoBehaviour {
         m_pointsToDisplay.SetText($"Points: {(int)(points * 1000)}");
 
         var timeString = time.ToString(time.Hours < 1 ? @"mm\:ss\.ff" : @"hh\:mm\:ss\.ff (Noob)");
-        m_hintToDisplay.text = string.Format(m_highScoreHint, timeString);
+        m_hintToDisplay.text = string.Format(m_highScoreHint.GetLocalizedString(), timeString);
         m_timeToDisplay.SetText($"Time: {timeString}");
 
         SteamLeaderboardController.Singleton?.SetLeaderboardEntry(m_leaderboard, (int)(points * 1000));

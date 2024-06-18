@@ -321,6 +321,17 @@ MonoBehaviour:
   <FiringLogic>k__BackingField:
     rid: 5009933660594372687
   m_cooldownDuration: 1
+  m_chargedText:
+    m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Ready
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Pronta
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0413\u043E\u0442\u043E\u0432"
   references:
     version: 2
     RefIds:
@@ -900,6 +911,28 @@ MonoBehaviour:
   <FiringLogic>k__BackingField:
     rid: 5009933660594372688
   m_maxEnergy: 15
+  m_chargedText:
+    m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Charged
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Carica
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0417\u0430\u0440\u044F\u0436\u0435\u043D"
+  m_dischargedText:
+    m_localizedStrings:
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 63f33bef862af7645a3c91b0c3f46de4,
+        type: 2}
+      <Value>k__BackingField: Discharged
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 5ae5d02a471dc2e40b8c0fa71869d1f1,
+        type: 2}
+      <Value>k__BackingField: Scarica
+    - <Locale>k__BackingField: {fileID: 11400000, guid: 030a2c7af2ecf694095a1006e7e09b8d,
+        type: 2}
+      <Value>k__BackingField: "\u0420\u0430\u0437\u0440\u044F\u0436\u0435\u043D"
   references:
     version: 2
     RefIds:

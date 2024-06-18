@@ -1,6 +1,7 @@
 using Code.LevelSystem;
 using Audio;
 using Code.Core;
+using LanguageSystem.Runtime.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +11,11 @@ namespace Code.UI {
         [Header("Settings")]
         [SerializeField] private float m_musicAttenuation = .5f;
         [SerializeField] private float m_musicAttenuationTime = 1f;
+
+        [Space]
+        [SerializeField] private LocalizedStringRecord m_quitToMenuText;
+        [SerializeField] private LocalizedStringRecord m_restartGameText;
+        [SerializeField] private LocalizedStringRecord m_quitToDesktopText;
 
         [Header("References")]
         [SerializeField] private Button resume;
@@ -62,6 +68,22 @@ namespace Code.UI {
         #endregion
 
         #region Public Methods
+        public void QuitToMenu() {
+            returnMainMenu.onClick.RemoveAllListeners();
+            GameEvents.ForbidPause();
+            gameObject.SetActive(false);
+            GameEvents.MatchManager.GetPlayerEntity().Disable();
+            SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single);
+        }
+
+        public void RestartGame() {
+            m_restart.onClick.RemoveAllListeners();
+            GameEvents.ForbidPause();
+            gameObject.SetActive(false);
+            GameEvents.MatchManager.GetPlayerEntity().Disable();
+            SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
+        }
+
         public void QuitGame() {
 #if UNITY_EDITOR
             UnityEditor.EditorApplication.ExitPlaymode();
@@ -76,25 +98,11 @@ namespace Code.UI {
         #endregion
 
         #region Event Methods
-        private void BackToMenu() {
-            // _dontResume = true;
-            returnMainMenu.onClick.RemoveAllListeners();
-            GameEvents.ForbidPause();
-            gameObject.SetActive(false);
-            GameEvents.MatchManager.GetPlayerEntity().Disable();
-            SceneLoader.LoadScene("MainMenu", UnityEngine.SceneManagement.LoadSceneMode.Single);
-        }
+        private void BackToMenu() => UIManager.Singleton.CallConfirmTask(m_quitToMenuText.GetString(), QuitToMenu);
 
-        private void ReloadCurrentLevel() {
-            // _dontResume = true;
-            m_restart.onClick.RemoveAllListeners();
-            GameEvents.ForbidPause();
-            gameObject.SetActive(false);
-            GameEvents.MatchManager.GetPlayerEntity().Disable();
-            SceneLoader.ReLoadScenes("Game Scene 01", "Game Scene 01 Waves", "Game Scene 01 UI");
-        }
+        private void ReloadCurrentLevel() => UIManager.Singleton.CallConfirmTask(m_restartGameText.GetString(), RestartGame);
 
-        private void Quit() => UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);
+        private void Quit() => UIManager.Singleton.CallConfirmTask(m_quitToDesktopText.GetString(), QuitGame);
         #endregion
     }
 }

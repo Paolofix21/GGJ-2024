@@ -1,0 +1,3 @@
+[submodule "Packages/Language System"]
+	path = Packages/Language System
+	url = https://gitlab.com/untold/language-system.git

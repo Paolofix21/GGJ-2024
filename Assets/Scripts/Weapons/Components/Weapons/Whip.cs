@@ -1,3 +1,4 @@
+using LanguageSystem.Runtime.Utility;
 using UnityEngine;
 
 namespace Code.Weapons {
@@ -5,6 +6,7 @@ namespace Code.Weapons {
         #region Public Variables
         [field: SerializeReference] public override FiringLogicBase FiringLogic { get; protected set; } = new PhysicHitLogic();
         [SerializeField] private float m_cooldownDuration = .75f;
+        [SerializeField] private LocalizedString m_chargedText;
         #endregion
 
         #region Private Variables
@@ -36,7 +38,7 @@ namespace Code.Weapons {
 
         private void ClearCooldown() {
             _isInCooldown = false;
-            _chargeStatus.Info = "Ready";
+            _chargeStatus.Info = m_chargedText.GetLocalizedString();
             _chargeStatus.CooldownProgress = 1f;
             _chargeStatus.Dispatch();
         }

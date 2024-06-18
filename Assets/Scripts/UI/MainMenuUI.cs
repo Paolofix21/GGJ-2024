@@ -2,6 +2,7 @@ using System.Collections;
 using Audio;
 using Code.Core;
 using Code.LevelSystem;
+using LanguageSystem.Runtime.Utility;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,6 +17,9 @@ namespace Code.UI {
         [SerializeField] private SoundSO m_mainMenuSoundtrack;
         [SerializeField] private SoundSO m_explorationSoundTrack;
         [SerializeField, Min(1f)] private float m_crossFadeDuration = 3f;
+
+        [Space]
+        [SerializeField] private LocalizedStringRecord m_quitToDesktopText;
         #endregion
 
         #region Behaviour Callbacks
@@ -59,7 +63,7 @@ namespace Code.UI {
             AudioManager.Singleton.CrossFadeMusic(m_explorationSoundTrack.GetSound(), m_crossFadeDuration);
         }
 
-        private void Quit() => UIManager.Singleton.CallConfirmTask("Do you really want to return to the desktop?", QuitGame);
+        private void Quit() => UIManager.Singleton.CallConfirmTask(m_quitToDesktopText.GetString(), QuitGame);
         #endregion
     }
 }

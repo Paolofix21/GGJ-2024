@@ -36,9 +36,7 @@ namespace Code.GameModeUtils.WaveBasedMode {
 
         private void Start() {
             m_cameras.ForEach(c => c.OnTerminate += RefreshCameras);
-#if UNITY_EDITOR
-            return;
-#endif
+
             gameObject.SetActive(false);
         }
 

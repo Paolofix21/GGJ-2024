@@ -2793,6 +2793,15 @@ MonoBehaviour:
   WaveText: {fileID: 3536170032182443939}
   WaveTextGlow: {fileID: 1084730997141976084}
   myAnimator: {fileID: 5516955008003678696}
+  m_waveEndedText:
+    m_database: {fileID: 11400000, guid: 8578073d3352b394dbdc1b11c8274622, type: 2}
+    m_key: Wave Ended
+  m_waveNumberText:
+    m_database: {fileID: 11400000, guid: 8578073d3352b394dbdc1b11c8274622, type: 2}
+    m_key: Wave Number
+  m_waveLastText:
+    m_database: {fileID: 11400000, guid: 8578073d3352b394dbdc1b11c8274622, type: 2}
+    m_key: Wave Last
 --- !u!1 &8596511343067851880
 GameObject:
   m_ObjectHideFlags: 0

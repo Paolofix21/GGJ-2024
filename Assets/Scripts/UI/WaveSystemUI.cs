@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Threading.Tasks;
 using Code.Core.MatchManagers;
+using LanguageSystem.Runtime.Utility;
 using TMPro;
 using UnityEngine;
 
@@ -15,6 +16,11 @@ public class WaveSystemUI : MonoBehaviour
     [SerializeField] private TMP_Text WaveText;
     [SerializeField] private TMP_Text WaveTextGlow;
     [SerializeField] private Animator myAnimator;
+
+    [Header("Texts")]
+    [SerializeField] private LocalizedStringRecord m_waveEndedText;
+    [SerializeField] private LocalizedStringRecord m_waveNumberText;
+    [SerializeField] private LocalizedStringRecord m_waveLastText;
     #endregion
 
     #region Events
@@ -47,8 +53,7 @@ public class WaveSystemUI : MonoBehaviour
 
     private IEnumerator NewWaveCO(int i) {
         if(i != 0) {
-            WaveText.text = "Wave ended";
-            WaveTextGlow.text = "Wave ended";
+            WaveText.text = WaveTextGlow.text = m_waveEndedText.GetLocalizedString();
             WaveObject?.SetActive(true);
             myAnimator.SetTrigger("default");
             yield return new WaitForSeconds(2.0f);
@@ -57,7 +62,7 @@ public class WaveSystemUI : MonoBehaviour
             WaveObject?.SetActive(false);
         }
         OnEndWave?.Invoke(i);
-        string waveText = i != 3 ? $"Wave {i + 1}" : "Final Wave";
+        string waveText = i != 3 ? string.Format(m_waveNumberText.GetLocalizedString(), i + 1) : m_waveLastText.GetLocalizedString();
         WaveText.text = waveText;
         WaveTextGlow.text = waveText;
 
@@ -73,9 +78,6 @@ public class WaveSystemUI : MonoBehaviour
         WaveObject?.SetActive(false);
         coroutine = null;
     }
-    public void CheckCutscene(bool isEnded)
-    {
-        cutsceneState = isEnded;
-    }
+    public void CheckCutscene(bool isEnded) => cutsceneState = isEnded;
     #endregion
 }
